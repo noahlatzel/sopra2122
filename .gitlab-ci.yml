@@ -1,4 +1,4 @@
-image: zivgitlab.wwu.io/informatik-sev/sopra2122/sopra2122default
+image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/openjdk:17
 
 cache:
     paths:
