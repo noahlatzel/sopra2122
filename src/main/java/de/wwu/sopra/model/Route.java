@@ -4,8 +4,7 @@
 package de.wwu.sopra.model;
 
 /**
- * @author Valeria Vassallo
- *
+ * Erstellung der Route-Klasse
  */
 public class Route {
 	private int routenNummer;
@@ -18,6 +17,7 @@ public class Route {
 	}
 
 	/**
+	 * Routennummer der Route
 	 * @return routenNummer
 	 */
 	public int getRoutenNummer() {
@@ -25,6 +25,7 @@ public class Route {
 	}
 
 	/**
+	 * Routennummer der Route aendern/setzen
 	 * @param routenNummer zu setzen
 	 */
 	public void setRoutenNummer(int routenNummer) {
@@ -32,6 +33,7 @@ public class Route {
 	}
 
 	/**
+	 * Fahrzeug zugeordnet zu dieser Route
 	 * @return zugeordnete fahrzeug
 	 */
 	public Fahrzeug getFahrzeug() {

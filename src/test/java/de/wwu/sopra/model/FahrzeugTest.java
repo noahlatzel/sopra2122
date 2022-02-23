@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author Valeria Vassallo
+ * 
  *
  */
 class FahrzeugTest {
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#Fahrzeug(int, float)}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#Fahrzeug(int, float)}.
 	 */
 	@Test
 	void testFahrzeug() {
@@ -24,7 +24,7 @@ class FahrzeugTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#getFahrzeugNummer()}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#getFahrzeugNummer()}.
 	 */
 	@Test
 	void testGetFahrzeugNummer() {
@@ -34,7 +34,7 @@ class FahrzeugTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#setFahrzeugNummer(int)}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#setFahrzeugNummer(int)}.
 	 */
 	@Test
 	void testSetFahrzeugNummer() {
@@ -45,7 +45,7 @@ class FahrzeugTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#getKapazitaet()}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#getKapazitaet()}.
 	 */
 	@Test
 	void testGetKapazitaet() {
@@ -55,7 +55,7 @@ class FahrzeugTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#setKapazitaet(float)}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#setKapazitaet(float)}.
 	 */
 	@Test
 	void testSetKapazitaet() {
@@ -66,7 +66,7 @@ class FahrzeugTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.model.Fahrzeug#getRoute()}.
+	 * Pruefmethode fuer {@link de.wwu.sopra.model.Fahrzeug#getRoute()}.
 	 */
 	@Test
 	void testGetRoute() {

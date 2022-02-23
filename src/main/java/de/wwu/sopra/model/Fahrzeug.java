@@ -6,8 +6,7 @@ package de.wwu.sopra.model;
 import java.io.Serializable;
 
 /**
- * @author Valeria Vassallo
- *
+ * Erstellung der Fahrzeug-Klasse
  */
 public class Fahrzeug implements Serializable {
 	/**
@@ -24,6 +23,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Fahrzeugnummer der Fahrzeug
 	 * @return fahrzeugNummer
 	 */
 	public int getFahrzeugNummer() {
@@ -31,6 +31,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Fahrzeugnummer der Fahrzeug aendern/setzen
 	 * @param fahrzeugNummer zu setzen
 	 */
 	public void setFahrzeugNummer(int fahrzeugNummer) {
@@ -38,6 +39,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Kapazitaet der Fahrzeug
 	 * @return kapazitaet
 	 */
 	public float getKapazitaet() {
@@ -45,6 +47,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Kapazitaet der Fahrzeug aendern/setzen
 	 * @param kapazitaet zu setzen
 	 */
 	public void setKapazitaet(float kapazitaet) {
@@ -52,6 +55,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Route der Fahrzeug
 	 * @return zugeordnete route
 	 */
 	public Route getRoute() {
@@ -59,6 +63,7 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
+	 * Route der Fahrzeug setzen
 	 * "setRoute" wird beim Erstellen eines Route-Objekts aufgerufen
 	 * @param route zu setzen
 	 */

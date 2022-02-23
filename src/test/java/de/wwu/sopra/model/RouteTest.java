@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author Valeria Vassallo
+ * 
  *
  */
 class RouteTest {
@@ -62,6 +62,20 @@ class RouteTest {
 		assertTrue(route.getFahrzeug() instanceof Fahrzeug);
 		assertEquals(route.getFahrzeug().getFahrzeugNummer(), 1);
 		assertEquals(route.getFahrzeug().getKapazitaet(), 100);
+	}
+	
+	/**
+	 * Test zur Routenerstellung mit Fahrzeug bereits mit Route
+	 */
+	@Test
+	void testRoutenerstellungMitFahrzeugMitRoute() {
+		Fahrzeug fzeug = new Fahrzeug(1, 100);
+		
+		Route routeFirst = new Route(1, fzeug);
+		Route routeSecond = new Route(2, fzeug);
+		
+		assertEquals(fzeug.getRoute(), routeFirst);
+		assertNotEquals(fzeug.getRoute(), routeSecond);
 	}
 
 }
