@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+/**
+ * Testklasse zur Klasse Inhaber
+ * @author Paul Dirksen
+ *
+ */
 public class InhaberTest {
 
 	Inhaber inhaber;
@@ -17,7 +22,7 @@ public class InhaberTest {
 	public void setup() {
 		inhaber = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname", "eineBankverbindung");
 		fahrer = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname", "nochEineBankverbindung", inhaber);
-		lagerist = new Lagerist("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname", "nochEineBankverbindung", inhaber);
+		lagerist = new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname", "nochEineBankverbindung", inhaber);
 	}
 	
 	/**
