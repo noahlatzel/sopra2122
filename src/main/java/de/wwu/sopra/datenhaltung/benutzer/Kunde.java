@@ -34,7 +34,6 @@ public class Kunde extends Benutzer {
 	public Kunde(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		
 	}
 
 	/**
@@ -48,7 +47,6 @@ public class Kunde extends Benutzer {
 		}
 	}
 	
-	
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
 	}
@@ -61,8 +59,8 @@ public class Kunde extends Benutzer {
 		this.warenkorb = warenkorb;
 	}
 	
-	
-
-	
+	public Rolle getRolle() {
+		return rolle;
+	}
 	
 }

@@ -21,6 +21,7 @@ public class Fahrzeug implements Serializable {
 	
 	private int fahrzeugNummer;
 	private float kapazitaet;
+	private FahrzeugStatus status;
 	private Route route;
 	private Fahrer fahrer;
 	
@@ -36,6 +37,7 @@ public class Fahrzeug implements Serializable {
 		}
 		this.fahrzeugNummer = fahrzeugNummer;
 		this.kapazitaet = kapazitaet;
+		this.status = FahrzeugStatus.FREI;
 	}
 
 	/**
@@ -73,6 +75,22 @@ public class Fahrzeug implements Serializable {
 	 */
 	public void setKapazitaet(float kapazitaet) {
 		this.kapazitaet = kapazitaet;
+	}
+	
+	/**
+	 * Status der Fahrzeug
+	 * @return status
+	 */
+	public FahrzeugStatus getStatus() {
+		return status;
+	}
+	
+	/**
+	 * Status der Fahrzeug aendern
+	 * @param status zu setzen
+	 */
+	public void setStatus(FahrzeugStatus status) {
+		this.status = status;
 	}
 
 	/**

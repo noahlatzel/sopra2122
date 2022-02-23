@@ -1,7 +1,6 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Rolle;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 
 public class FahrerTest {
 
@@ -72,5 +72,18 @@ public class FahrerTest {
 		fahrer.setFahrzeug(fahrzeug);
 		assertTrue(fahrer.getFahrzeug().equals(fahrzeug));
 
+	}
+	
+	/**
+	 * testet, dass sich der FahrzeugStatus aendert, sobald der Fahrer das Fahrzeug auswaehlt
+	 */
+	@Test
+	void testFahrzeugStatusAenderungBeimZuordnen() {
+		Fahrzeug fahrzeug = new Fahrzeug(65492, 300);
+		FahrzeugStatus anfangStatus = fahrzeug.getStatus();
+		fahrer.setFahrzeug(fahrzeug);
+		FahrzeugStatus endeStatus = fahrzeug.getStatus();
+		
+		assertNotEquals(anfangStatus, endeStatus);
 	}
 }

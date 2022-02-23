@@ -1,9 +1,7 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 
 /**
  * Die Entitaetsklasse Fahrer, dieser hat einen Chef und kann einem Fahrzeug
@@ -14,6 +12,11 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
  */
 
 public class Fahrer extends Benutzer {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// Rolle des Fahrers
 	private final Rolle rolle = Rolle.FAHRER;
@@ -50,6 +53,7 @@ public class Fahrer extends Benutzer {
 	// setzt das Fahrzeug
 	public void setFahrzeug(Fahrzeug fahrzeug) {
 		this.fahrzeug = fahrzeug;
+		this.fahrzeug.setStatus(FahrzeugStatus.BELEGT);
 	}
 
 	// gibt den Chef aus

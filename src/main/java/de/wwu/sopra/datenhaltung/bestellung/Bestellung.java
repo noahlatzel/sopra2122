@@ -15,7 +15,7 @@ public class Bestellung implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	
 	private final int bestellnummer;
-	private final int betrag;
+	private final double betrag;
 	private BestellStatus status;
 	private final List<Produkt> produkte;
 	private final Kunde kunde;
@@ -29,7 +29,7 @@ public class Bestellung implements Serializable  {
 	 * @param betrag Betrag 
 	 * @param produkte 
 	 */
-	public Bestellung(int bestellnummer, int betrag, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
+	public Bestellung(int bestellnummer, double betrag, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 		
 		this.bestellnummer = bestellnummer;
 		this.betrag = betrag;
@@ -74,7 +74,7 @@ public class Bestellung implements Serializable  {
 	 * Getter Methode fuer den Betrag
 	 * @return Betrag
 	 */
-	public int getBetrag() {
+	public double getBetrag() {
 		return betrag;
 	}
 
