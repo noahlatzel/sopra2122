@@ -1,8 +1,12 @@
 package de.wwu.sopra.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
@@ -14,11 +18,12 @@ public class KundeTest {
 
 	Kunde kunde;
 	Bestellung bestellung;
+	LocalDateTime datum = null;
 	
 	@BeforeEach
 	public void setup() {
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname", "KapitalistenBankverbindung");
-		bestellung = new Bestellung( 1234, 3F, localDateTime, new ArrayList<Produkt>(), kunde);
+		bestellung = new Bestellung(1234, 3, datum, new ArrayList<Produkt>(), kunde);
 	}
 	
 	/**
@@ -36,7 +41,7 @@ public class KundeTest {
 		assertTrue(kunde.getBestellungen().size() == i);
 		
 		//Uebergeben von null erzeugt Exception
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			kunde.bestellungHinzufuegen(null);
 		});
 	}

@@ -19,7 +19,7 @@ class FahrzeugTest {
 	 */
 	@Test
 	void testFahrzeug() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(1, 100);
+		Fahrzeug fzeug = new Fahrzeug(6548945, 100);
 		
 		assertTrue(fzeug instanceof Fahrzeug);
 	}

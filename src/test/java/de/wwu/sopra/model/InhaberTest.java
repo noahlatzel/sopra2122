@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
@@ -42,7 +42,7 @@ public class InhaberTest {
 		assertTrue(inhaber.getFahrer().contains(fahrer));
 		
 		//Wenn null uebergeben wird, wird eine Exception geworfen
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			inhaber.fahrerHinzufuegen(null);
 		});
 	}
@@ -66,7 +66,7 @@ public class InhaberTest {
 		assertTrue(inhaber.getFahrer().size() == i-1);
 		
 		//null-Uebergabe
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			inhaber.fahrerEntfernen(null);
 		});
 	}
@@ -88,7 +88,7 @@ public class InhaberTest {
 		assertTrue(inhaber.getLageristen().contains(lagerist));
 		
 		//Wenn null uebergeben wird, wird eine Exception geworfen
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			inhaber.lageristHinzufuegen(null);
 		});
 	}
@@ -112,7 +112,7 @@ public class InhaberTest {
 		assertTrue(inhaber.getLageristen().size() == i-1);
 		
 		//Bei null-Uebergabe soll Exception geworfen werden
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			inhaber.lageristEntfernen(null);
 		});
 	}

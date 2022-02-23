@@ -10,6 +10,10 @@ import java.util.List;
  */
 public class Kunde extends Benutzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Rolle rolle = Rolle.KUNDE;
 	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	private Warenkorb warenkorb;
@@ -34,10 +38,10 @@ public class Kunde extends Benutzer {
 	 * Fuegt eine neue Bestellung zur Liste der Bestellungen hinzu
 	 * @param bestellung
 	 */
-	public void bestellungHinzufuegen(Bestellung bestellung) {
+	public void bestellungHinzufuegen(Bestellung bestellung) throws NullPointerException {
+		if (bestellung == null) throw new NullPointerException();
 		if(!this.bestellungen.contains(bestellung)) {
 			this.bestellungen.add(bestellung);
-			bestellung.setKunde(this);
 		}
 	}
 	

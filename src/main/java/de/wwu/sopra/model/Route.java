@@ -5,6 +5,7 @@ package de.wwu.sopra.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -70,7 +71,7 @@ public class Route implements Serializable {
 	 * @return
 	 */
 	public List<Bestellung> getBestellungen() {
-		return fahrzeug;
+		return bestellungen;
 	}
 	
 	/**

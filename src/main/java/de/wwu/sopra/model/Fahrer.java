@@ -37,6 +37,7 @@ public class Fahrer extends Benutzer {
 	public Fahrer(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung, Inhaber chef) {
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
+		this.setChef(chef);
 	}
 
 	// gibt das Fahrzeug aus

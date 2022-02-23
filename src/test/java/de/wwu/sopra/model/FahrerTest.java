@@ -22,14 +22,14 @@ public class FahrerTest {
 	// Beispielfahrer wird vor den Tests erstellt
 	@BeforeEach
 	void init() {
-		String benutzername = "testmaschine";
-		String passwort = "gutes Passwort";
-		String email = "hanswurst@online.de";
-		String adresse = "am arsch der Welt 1 ";
-		String vorname = "peter";
-		String name = "Pan";
-		String bankverbindung = "1234";
-		Inhaber chef = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
+		benutzername = "testmaschine";
+		passwort = "gutes Passwort";
+		email = "hanswurst@online.de";
+		adresse = "am arsch der Welt 1 ";
+		vorname = "peter";
+		name = "Pan";
+		bankverbindung = "1234";
+		chef = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
 		fahrer = new Fahrer(benutzername, passwort, email, adresse, vorname, name, bankverbindung, chef);
 	}
 
@@ -61,7 +61,7 @@ public class FahrerTest {
 	public void testSetGetFahrzeug() {
 		// beispiel Fahrzeug
 		int nummer = 1;
-		float kapazitaet;
+		float kapazitaet = 100;
 		Fahrzeug fahrzeug = new Fahrzeug(nummer, kapazitaet);
 
 		fahrer.setFahrzeug(fahrzeug);

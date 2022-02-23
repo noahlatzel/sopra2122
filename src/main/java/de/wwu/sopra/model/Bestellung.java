@@ -2,6 +2,7 @@ package de.wwu.sopra.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Bestellung implements Serializable  {
 
@@ -15,8 +16,8 @@ public class Bestellung implements Serializable  {
 	private BestellStatus status;
 	private final List<Produkt> produkte;
 	private final Kunde kunde;
-	private final LocalDateTime datum;
-	private  Rechnung rechnung;
+	private LocalDateTime datum;
+	private Rechnung rechnung;
 
 
 	/**
@@ -26,7 +27,7 @@ public class Bestellung implements Serializable  {
 	 * @param status Status der Bestellung
 	 * @param produkte 
 	 */
-	public Bestellung(int bestellnummer , int betrag ,LocalDateTime datum, List<Produkt> produkte ,Kunde kunde) {
+	public Bestellung(int bestellnummer, int betrag, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 		
 		this.bestellnummer = bestellnummer;
 		this.betrag = betrag;

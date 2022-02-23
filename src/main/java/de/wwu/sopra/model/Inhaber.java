@@ -33,7 +33,8 @@ public class Inhaber extends Benutzer {
 	 * Fuegt neuen Fahrer der Liste der Fahrer hinzu
 	 * @param fahrer
 	 */
-	public void fahrerHinzufuegen(Fahrer fahrer) {
+	public void fahrerHinzufuegen(Fahrer fahrer) throws NullPointerException {
+		if (fahrer == null) throw new NullPointerException();
 		if(!this.fahrer.contains(fahrer)) {
 			this.fahrer.add(fahrer);
 			fahrer.setChef(this);
@@ -44,7 +45,8 @@ public class Inhaber extends Benutzer {
 	 * Entfernt Fahrer aus der Liste der Fahrer
 	 * @param fahrer
 	 */
-	public void fahrerEntfernen(Fahrer fahrer) {
+	public void fahrerEntfernen(Fahrer fahrer) throws NullPointerException {
+		if (fahrer == null) throw new NullPointerException();
 		if(this.fahrer.contains(fahrer)) {
 			this.fahrer.remove(fahrer);
 			fahrer.setChef(null);
@@ -55,7 +57,8 @@ public class Inhaber extends Benutzer {
 	 * Fuegt neuen Lagerist der Liste der Lageristen hinzu
 	 * @param lagerist
 	 */
-	public void lageristHinzufuegen(Lagerist lagerist) {
+	public void lageristHinzufuegen(Lagerist lagerist) throws NullPointerException {
+		if (lagerist == null) throw new NullPointerException();
 		if(!this.lageristen.contains(lagerist)) {
 			this.lageristen.add(lagerist);
 			lagerist.setChef(this);
@@ -66,7 +69,8 @@ public class Inhaber extends Benutzer {
 	 * Entfernt Lagerist aus der Liste der Lageristen
 	 * @param lagerist
 	 */
-	public void lageristEntfernen(Lagerist lagerist) {
+	public void lageristEntfernen(Lagerist lagerist) throws NullPointerException {
+		if (lagerist == null) throw new NullPointerException();
 		if(this.lageristen.contains(lagerist)) {
 			this.lageristen.remove(lagerist);
 			lagerist.setChef(null);

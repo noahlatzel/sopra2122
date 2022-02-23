@@ -8,7 +8,7 @@ class WarenkorbTest {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		
 	}
 
 }
