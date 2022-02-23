@@ -1,12 +1,19 @@
 package de.wwu.sopra.model;
 
+import java.io.Serializable;
+
 /**
  * Abstrakte Klasse Benutzer gibt Struktur fuer alle Unterklassen.
+ * 
  * @author Paul Dirksen
  *
  */
-public abstract class Benutzer {
+public abstract class Benutzer implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String benutzername;
 	private String passwort;
 	private String email;
@@ -18,6 +25,7 @@ public abstract class Benutzer {
 
 	/**
 	 * Erstellt einen neuen Benutzer mit den uebergebenen Eigenschaften.
+	 * 
 	 * @param benutzername
 	 * @param passwort
 	 * @param email
