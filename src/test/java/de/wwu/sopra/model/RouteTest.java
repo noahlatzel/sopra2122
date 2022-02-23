@@ -74,10 +74,10 @@ class RouteTest {
 	 */
 	@Test
 	void testRoutenerstellungMitFahrzeugMitRoute() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(5, 100);
+		Fahrzeug fzeug = new Fahrzeug(12354, 100);
 		
-		Route routeFirst = new Route(5, fzeug);
-		Route routeSecond = new Route(6, fzeug);
+		Route routeFirst = new Route(8462, fzeug);
+		Route routeSecond = new Route(8463, fzeug);
 		
 		assertEquals(fzeug.getRoute(), routeFirst);
 		assertNotEquals(fzeug.getRoute(), routeSecond);
