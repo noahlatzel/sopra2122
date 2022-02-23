@@ -1,17 +1,19 @@
 package de.wwu.sopra.model;
 
 /**
- * Diese Klasse Beschreibt den Lageristen. Dieser hat eine Chef und eine Rolle 
+ * Diese Klasse Beschreibt den Lageristen. Dieser hat eine Chef und eine Rolle
+ * 
  * @author Johannes Thiel
  *
  */
-public class Lagerist extends Benutzer{
+public class Lagerist extends Benutzer {
 
 	private final Rolle rolle = Rolle.LAGERIST;
 	private Inhaber chef;
-	
+
 	/**
 	 * Erstellt einen neuen Lageristen mit den uebergebenen Eigenschaften.
+	 * 
 	 * @param benutzername
 	 * @param passwort
 	 * @param email
@@ -26,20 +28,20 @@ public class Lagerist extends Benutzer{
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
 		this.setChef(chef);
 	}
-	
-	//gibt Chef aus
+
+	// gibt Chef aus
 	public Inhaber getChef() {
 		return chef;
 	}
 
-	//setzt Chef aus
+	// setzt Chef aus
 	public void setChef(Inhaber chef) {
 		this.chef = chef;
 	}
 
-	//gibt rolle aus
+	// gibt rolle aus
 	public Rolle getRolle() {
 		return rolle;
 	}
-	
+
 }

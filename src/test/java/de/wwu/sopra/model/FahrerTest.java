@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class FahrerTest {
 
-	//Atrribute fuer einen Beispiel Fahrer
+	// Atrribute fuer einen Beispiel Fahrer
 	Fahrer fahrer;
 	String benutzername;
 	String passwort;
@@ -19,7 +19,7 @@ public class FahrerTest {
 	String bankverbindung;
 	Inhaber chef;
 
-	//Beispielfahrer wird vor den Tests erstellt
+	// Beispielfahrer wird vor den Tests erstellt
 	@BeforeEach
 	void init() {
 		String benutzername = "testmaschine";
@@ -33,9 +33,9 @@ public class FahrerTest {
 		fahrer = new Fahrer(benutzername, passwort, email, adresse, vorname, name, bankverbindung, chef);
 	}
 
-	//Der Constructor des Fahrers wird getestet
+	// Der Constructor des Fahrers wird getestet
 	@Test
-	public void testLagerist() {
+	public void testFahrer() {
 
 		assertTrue(fahrer.getBenutzername().equals(benutzername));
 		assertTrue(fahrer.getPasswort().equals(passwort));
@@ -48,14 +48,24 @@ public class FahrerTest {
 		assertTrue(fahrer.getChef().equals(chef));
 
 	}
-	
 
-	//Test von getRolle()
+	// Test von getRolle()
 	@Test
 	public void testGetRolle() {
 		assertEquals(fahrer.getRolle(), Rolle.FAHRER);
 
 	}
-	
-	//TODO test fuer Fahrzeug einnfuegen
+
+	// Test von get und set Fahrzeug
+	@Test
+	public void testSetGetFahrzeug() {
+		// beispiel Fahrzeug
+		int nummer = 1;
+		float kapazitaet;
+		Fahrzeug fahrzeug = new Fahrzeug(nummer, kapazitaet);
+
+		fahrer.setFahrzeug(fahrzeug);
+		assertTrue(fahrer.getFahrzeug().equals(fahrzeug));
+
+	}
 }

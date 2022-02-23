@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class LageristTest {
-	
-	//Atrribute fuer einen Beispiel Lageristen
+
+	// Atrribute fuer einen Beispiel Lageristen
 	Lagerist lagerist;
 	String benutzername;
 	String passwort;
@@ -18,7 +18,7 @@ public class LageristTest {
 	String bankverbindung;
 	Inhaber chef;
 
-	//Beispiellagerist wird vor den Tests erstellt
+	// Beispiellagerist wird vor den Tests erstellt
 	@BeforeEach
 	void init() {
 		String benutzername = "testmaschine";
@@ -32,7 +32,7 @@ public class LageristTest {
 		lagerist = new Lagerist(benutzername, passwort, email, adresse, vorname, name, bankverbindung, chef);
 	}
 
-	//Der Constructor des Lageristen wird getestet
+	// Der Constructor des Lageristen wird getestet
 	@Test
 	public void testLagerist() {
 
@@ -48,7 +48,7 @@ public class LageristTest {
 
 	}
 
-	//Test von getRolle()
+	// Test von getRolle()
 	@Test
 	public void testGetRolle() {
 		assertEquals(lagerist.getRolle(), Rolle.LAGERIST);
