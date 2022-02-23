@@ -1,4 +1,4 @@
-package de.wwu.sopra.application;
+package de.wwu.sopra.model;
 
 public class Lagerist extends Benutzer{
 
