@@ -3,6 +3,11 @@ package de.wwu.sopra.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementiert die Klasse Inhaber.
+ * @author Paul Dirksen
+ *
+ */
 public class Inhaber extends Benutzer {
 
 	private final Rolle rolle = Rolle.INHABER;
@@ -36,6 +41,17 @@ public class Inhaber extends Benutzer {
 	}
 	
 	/**
+	 * Entfernt Fahrer aus der Liste der Fahrer
+	 * @param fahrer
+	 */
+	public void fahrerEntfernen(Fahrer fahrer) {
+		if(this.fahrer.contains(fahrer)) {
+			this.fahrer.remove(fahrer);
+			fahrer.setChef(null);
+		}
+	}
+	
+	/**
 	 * Fuegt neuen Lagerist der Liste der Lageristen hinzu
 	 * @param lagerist
 	 */
@@ -43,6 +59,17 @@ public class Inhaber extends Benutzer {
 		if(!this.lageristen.contains(lagerist)) {
 			this.lageristen.add(lagerist);
 			lagerist.setChef(this);
+		}
+	}
+	
+	/**
+	 * Entfernt Lagerist aus der Liste der Lageristen
+	 * @param lagerist
+	 */
+	public void lageristEntfernen(Lagerist lagerist) {
+		if(this.lageristen.contains(lagerist)) {
+			this.lageristen.remove(lagerist);
+			lagerist.setChef(null);
 		}
 	}
 	
