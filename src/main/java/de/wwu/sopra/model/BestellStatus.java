@@ -1,7 +1,7 @@
 package de.wwu.sopra.model;
 
 /**
- * Mögliche Bestellstatus
+ * Moegliche Bestellstatus
  *
  */
 public enum BestellStatus {
