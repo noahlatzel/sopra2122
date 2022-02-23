@@ -1,5 +1,10 @@
 package de.wwu.sopra.model;
 
+/**
+ * Diese Klasse Beschreibt den Lageristen. Dieser hat eine Chef und eine Rolle 
+ * @author Johannes Thiel
+ *
+ */
 public class Lagerist extends Benutzer{
 
 	private final Rolle rolle = Rolle.LAGERIST;

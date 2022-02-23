@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Die Entitaetsklasse Fahrer, dieser hat einen Chef und kann einem Fahrzeug zugeordent werden.
- * @author Johanes Thiel
+ * @author Johannes Thiel
  *
  */
 
