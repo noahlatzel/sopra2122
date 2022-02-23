@@ -9,10 +9,10 @@ public class Statistiken implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	float umsatz;
-	float ausgaben;
-	float einnahmen;
-	float arbeitszeit;
+	private float umsatz;
+	private float ausgaben;
+	private float einnahmen;
+	private float arbeitszeit;
 
 	/**
 	 * Konstruktor der Klasse Statistiken

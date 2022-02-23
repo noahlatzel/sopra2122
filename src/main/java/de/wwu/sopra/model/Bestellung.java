@@ -1,6 +1,7 @@
 package de.wwu.sopra.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Bestellung implements Serializable  {
 
@@ -9,10 +10,13 @@ public class Bestellung implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	final int bestellnummer;
-	final int betrag;
-	BestellStatus status;
-	final List<Produkt> produkte;
+	private final int bestellnummer;
+	private final int betrag;
+	private BestellStatus status;
+	private final List<Produkt> produkte;
+	private final Kunde kunde;
+	private final LocalDateTime datum;
+	private  Rechnung rechnung;
 
 
 	/**
@@ -22,14 +26,23 @@ public class Bestellung implements Serializable  {
 	 * @param status Status der Bestellung
 	 * @param produkte 
 	 */
-	public Bestellung(int bestellnummer , int betrag , BestellStatus status, List<Produkt> produkte) {
+	public Bestellung(int bestellnummer , int betrag ,LocalDateTime datum, List<Produkt> produkte ,Kunde kunde) {
 		
 		this.bestellnummer = bestellnummer;
 		this.betrag = betrag;
-		this.status = status;
+		this.status = BestellStatus.OFFEN;
 		this.produkte = produkte;
+		this.kunde = kunde;
 	}
 	
+	/**
+	 * Getter Methode fuer das Datum
+	 * @return Datum
+	 */
+	public LocalDateTime getDatum() {
+		return datum;
+	}
+
 	/**
 	 * Getter Methode fuer den Status
 	 * @return Status
@@ -68,6 +81,30 @@ public class Bestellung implements Serializable  {
 	 */
 	public List<Produkt> getProdukte() {
 		return produkte;
+	}
+
+	/**
+	 * Getter Methode fuer den Kunden
+	 * @return Kunden
+	 */
+	public Kunde getKunde() {
+		return kunde;
+	}
+	
+	/**
+	 * Getter Methode fuer die Rechnungen
+	 * @return Rechnungen
+	 */
+	public Rechnung getRechnung() {
+		return rechnung;
+	}
+
+	/**
+	 * Setteer Methode fuer die Rechnungen
+	 * @param rechnung Rechnung
+	 */
+	public void setRechnung(Rechnung rechnung) {
+		this.rechnung = rechnung;
 	}
 	
 	

@@ -9,19 +9,21 @@ public class Warenkorb implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	float betrag;
-	List<Produkt> produkte;
+	private float betrag;
+	private final Kunde kunde;
+	private List<Produkt> produkte;
+	
 
 	/**
 	 * Konstruktor der Klasse Warenkorb
 	 * @param betrag Betrag
 	 * @param produkte Liste an Produkten
 	 */
-	public Warenkorb(int betrag , List<Produkt> produkte) {
+	public Warenkorb(int betrag , List<Produkt> produkte , Kunde kunde) {
 		
 		this.betrag = betrag;
 		this.produkte = produkte;
-		
+		this.kunde = kunde;
 	}
 	
 	/**
@@ -64,6 +66,14 @@ public class Warenkorb implements Serializable {
     public void produktEntfernen(Produkt produkt) {
 	 	this.produkte.remove(produkt);
 	 }
+
+    /**
+     * Getter Methode fuer den Kunden
+     * @return Kunden
+     */
+	public Kunde getKunde() {
+		return kunde;
+	}
     
     
 

@@ -1,7 +1,7 @@
 package de.wwu.sopra.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Rechnung implements Serializable  {
 	
@@ -10,21 +10,23 @@ public class Rechnung implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	final int rechnungsnummer;
-	final int endbetrag;
-	final LocalDate datum;
-	
-    /**
+	private final int rechnungsnummer;
+	private final int endbetrag;
+	private final LocalDateTime datum;
+	private final Bestellung bestellung;
+
+	/**
      * Konstruktor der Klasse Rechnung
      * @param rechnungsnummer Rechnungsnummer
      * @param endbetrag  Endbetrag der Bestellung
      * @param datum Datum der Bestellung
      */
-	public Rechnung(int rechnungsnummer,int endbetrag , LocalDate datum) {
+	public Rechnung(int rechnungsnummer,int endbetrag , LocalDateTime datum, Bestellung bestellung) {
 		
 		this.rechnungsnummer = rechnungsnummer;
 		this.endbetrag = endbetrag;
 		this.datum = datum;
+		this.bestellung = bestellung;
 	}
 
 	/**
@@ -47,10 +49,17 @@ public class Rechnung implements Serializable  {
 	 * Getter Methode fuer das Datum
 	 * @return Datums
 	 */
-	public LocalDate getDatum() {
+	public LocalDateTime getDatum() {
 		return datum;
 	}
 	
+	/**
+	 * Getter Methode fuer die Bestellung
+	 * @return Bestellung
+	 */
+    public Bestellung getBestellung() {
+		return bestellung;
+	}
 	
 
 }
