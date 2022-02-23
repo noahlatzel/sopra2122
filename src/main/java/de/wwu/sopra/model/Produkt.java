@@ -70,7 +70,7 @@ public class Produkt implements Serializable {
 	/**
 	 * Setzt die Beschreibung fuer ein Produkt.
 	 * 
-	 * @param name neue Beschreibung fuer Produkt
+	 * @param beschreibung neue Beschreibung fuer Produkt
 	 */
 	public void setBeschreibung(String beschreibung) {
 		if (beschreibung == "") {
