@@ -19,7 +19,7 @@ class RouteTest {
 	 */
 	@Test
 	void testRoute() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(1, 100);
+		Fahrzeug fzeug = new Fahrzeug(2352, 100);
 		
 		Route route = new Route(100, fzeug);
 		
@@ -32,11 +32,11 @@ class RouteTest {
 	 */
 	@Test
 	void testGetRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(2, 100);
+		Fahrzeug fzeug = new Fahrzeug(36436, 100);
 		
-		Route route = new Route(2, fzeug);
+		Route route = new Route(98, fzeug);
 		
-		assertEquals(route.getRoutenNummer(), 2);
+		assertEquals(route.getRoutenNummer(), 98);
 	}
 
 	/**
@@ -45,12 +45,12 @@ class RouteTest {
 	 */
 	@Test
 	void testSetRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(3, 100);
+		Fahrzeug fzeug = new Fahrzeug(548, 100);
 		
 		Route route = new Route(3, fzeug);
-		route.setRoutenNummer(1);
+		route.setRoutenNummer(1520);
 		
-		assertEquals(route.getRoutenNummer(), 1);
+		assertEquals(route.getRoutenNummer(), 1520);
 	}
 
 	/**
@@ -59,12 +59,12 @@ class RouteTest {
 	 */
 	@Test
 	void testGetFahrzeug() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(4, 100);
+		Fahrzeug fzeug = new Fahrzeug(3548, 100);
 		
-		Route route = new Route(4, fzeug);
+		Route route = new Route(546548, fzeug);
 		
 		assertTrue(route.getFahrzeug() instanceof Fahrzeug);
-		assertEquals(route.getFahrzeug().getFahrzeugNummer(), 4);
+		assertEquals(route.getFahrzeug().getFahrzeugNummer(), 3548);
 		assertEquals(route.getFahrzeug().getKapazitaet(), 100);
 	}
 	
@@ -89,16 +89,16 @@ class RouteTest {
 	 */
 	@Test
 	void testRoutenerstellungMitExistierenderRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(6, 100);
-		Fahrzeug fzeug2 = new Fahrzeug(7, 200);
+		Fahrzeug fzeug = new Fahrzeug(987987, 100);
+		Fahrzeug fzeug2 = new Fahrzeug(987988, 200);
 		
 		@SuppressWarnings("unused")
-		Route routeFirst = new Route(7, fzeug);
+		Route routeFirst = new Route(654879, fzeug);
 		
 		@SuppressWarnings("unused")
 		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			@SuppressWarnings("unused")
-			Route routeSecond = new Route(7, fzeug2);
+			Route routeSecond = new Route(654879, fzeug2);
         });
 	}
 
