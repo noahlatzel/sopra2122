@@ -3,6 +3,11 @@ package de.wwu.sopra.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementiert die Klasse Kunde.
+ * @author Paul Dirksen
+ *
+ */
 public class Kunde extends Benutzer {
 
 	private final Rolle rolle = Rolle.KUNDE;
@@ -32,6 +37,7 @@ public class Kunde extends Benutzer {
 	public void bestellungHinzufuegen(Bestellung bestellung) {
 		if(!this.bestellungen.contains(bestellung)) {
 			this.bestellungen.add(bestellung);
+			bestellung.setKunde(this);
 		}
 	}
 	

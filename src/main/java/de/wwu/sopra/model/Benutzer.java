@@ -1,5 +1,10 @@
 package de.wwu.sopra.model;
 
+/**
+ * Abstrakte Klasse Benutzer gibt Struktur fuer alle Unterklassen.
+ * @author Paul Dirksen
+ *
+ */
 public abstract class Benutzer {
 
 	private String benutzername;
