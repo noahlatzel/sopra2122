@@ -19,6 +19,7 @@ public class Route implements Serializable {
 	
 	private int routenNummer;
 	private Fahrzeug fahrzeug;
+	private List<Bestellung> bestellungen;
 	
 	/**
 	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der Liste existiert
@@ -62,5 +63,21 @@ public class Route implements Serializable {
 	 */
 	public Fahrzeug getFahrzeug() {
 		return fahrzeug;
+	}
+	
+	/**
+	 * Bestellungen der Route
+	 * @return
+	 */
+	public List<Bestellung> getBestellungen() {
+		return fahrzeug;
+	}
+	
+	/**
+	 * Bestellungen der Route setzen
+	 * @param bestellungen
+	 */
+	public void setBestellungen(List<Bestellung> bestellungen) {
+		this.bestellungen = bestellungen;
 	}
 }

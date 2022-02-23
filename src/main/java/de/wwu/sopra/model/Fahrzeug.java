@@ -20,6 +20,7 @@ public class Fahrzeug implements Serializable {
 	private int fahrzeugNummer;
 	private float kapazitaet;
 	private Route route;
+	private Fahrer fahrer;
 	
 	/**
 	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der Liste existiert
@@ -87,5 +88,21 @@ public class Fahrzeug implements Serializable {
 	 */
 	public void setRoute(Route route) {
 		if (this.route == null) this.route = route;
+	}
+	
+	/**
+	 * zugeordneter Fahrer
+	 * @return fahrer
+	 */
+	public Fahrer getFahrer() {
+		return fahrer;
+	}
+	
+	/**
+	 * zugeordneter Fahrer setzen
+	 * @param fahrer
+	 */
+	public void setFahrer(Fahrer fahrer) {
+		this.fahrer = fahrer;
 	}
 }
