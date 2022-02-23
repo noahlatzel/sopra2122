@@ -3,14 +3,33 @@
  */
 package de.wwu.sopra.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Erstellung der Route-Klasse
  */
-public class Route {
+public class Route implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final Set<Integer> RoutenNummern = new HashSet<Integer>();
+	
 	private int routenNummer;
 	private Fahrzeug fahrzeug;
 	
-	public Route(int routenNummer, Fahrzeug fahrzeug) {
+	/**
+	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der Liste existiert
+	 * @param routenNummer
+	 * @param fahrzeug
+	 * @throws Exception
+	 */
+	public Route(int routenNummer, Fahrzeug fahrzeug) throws IllegalArgumentException {
+		if (!RoutenNummern.add(routenNummer)) {			
+			throw new IllegalArgumentException();
+		}
 		this.routenNummer = routenNummer;
 		this.fahrzeug = fahrzeug;
 		this.fahrzeug.setRoute(this);
@@ -25,10 +44,15 @@ public class Route {
 	}
 
 	/**
-	 * Routennummer der Route aendern/setzen
+	 * Routennummer der Route aendern/setzen, nur wenn die neue routenNummer nicht in der Liste ist
 	 * @param routenNummer zu setzen
 	 */
-	public void setRoutenNummer(int routenNummer) {
+	public void setRoutenNummer(int routenNummer) throws IllegalArgumentException {
+		if (RoutenNummern.contains(routenNummer)) {			
+			throw new IllegalArgumentException();
+		}
+        RoutenNummern.remove(this.routenNummer);
+        RoutenNummern.add(routenNummer);
 		this.routenNummer = routenNummer;
 	}
 

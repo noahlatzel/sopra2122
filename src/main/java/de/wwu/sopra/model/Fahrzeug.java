@@ -4,6 +4,8 @@
 package de.wwu.sopra.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Erstellung der Fahrzeug-Klasse
@@ -13,11 +15,22 @@ public class Fahrzeug implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Set<Integer> fahrzeugNummern = new HashSet<Integer>();
+	
 	private int fahrzeugNummer;
 	private float kapazitaet;
 	private Route route;
 	
-	public Fahrzeug(int fahrzeugNummer, float kapazitaet) {
+	/**
+	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der Liste existiert
+	 * @param fahrzeugNummer
+	 * @param kapazitaet
+	 * @throws Exception
+	 */
+	public Fahrzeug(int fahrzeugNummer, float kapazitaet) throws IllegalArgumentException {
+		if (!fahrzeugNummern.add(fahrzeugNummer)) {			
+			throw new IllegalArgumentException();
+		}
 		this.fahrzeugNummer = fahrzeugNummer;
 		this.kapazitaet = kapazitaet;
 	}
@@ -31,10 +44,15 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
-	 * Fahrzeugnummer der Fahrzeug aendern/setzen
+	 * Fahrzeugnummer der Fahrzeug aendern/setzen, nur wenn die neue fahrzeugNummer nicht in der Liste ist
 	 * @param fahrzeugNummer zu setzen
 	 */
-	public void setFahrzeugNummer(int fahrzeugNummer) {
+	public void setFahrzeugNummer(int fahrzeugNummer) throws IllegalArgumentException {
+		if (fahrzeugNummern.contains(fahrzeugNummer)) {			
+			throw new IllegalArgumentException();
+		}
+		fahrzeugNummern.remove(this.fahrzeugNummer);
+		fahrzeugNummern.add(fahrzeugNummer);
 		this.fahrzeugNummer = fahrzeugNummer;
 	}
 
