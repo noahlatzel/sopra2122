@@ -25,7 +25,7 @@ public class Fahrzeug implements Serializable {
 	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der Liste existiert
 	 * @param fahrzeugNummer
 	 * @param kapazitaet
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
 	public Fahrzeug(int fahrzeugNummer, float kapazitaet) throws IllegalArgumentException {
 		if (!fahrzeugNummern.add(fahrzeugNummer)) {			

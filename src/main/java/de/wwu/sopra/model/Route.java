@@ -24,7 +24,7 @@ public class Route implements Serializable {
 	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der Liste existiert
 	 * @param routenNummer
 	 * @param fahrzeug
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 */
 	public Route(int routenNummer, Fahrzeug fahrzeug) throws IllegalArgumentException {
 		if (!RoutenNummern.add(routenNummer)) {			
