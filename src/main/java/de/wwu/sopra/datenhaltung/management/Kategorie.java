@@ -122,8 +122,9 @@ public class Kategorie implements Serializable {
 			throw new IllegalArgumentException("Eine Kategorie kann nicht ihre eigene Oberkategorie sein.");
 		}
 		if (k == null) {
-			this.oberkategorie.removeUnterkategorie(this);
-			this.setOberkategorie(null);
+			if (this.getOberkategorie() != null) {
+				this.oberkategorie.removeUnterkategorie(this);
+			}
 		} else {
 			this.oberkategorie = k;
 			if (!(k.getUnterkategorien().contains(k))) {
@@ -182,7 +183,9 @@ public class Kategorie implements Serializable {
 	 */
 	public void removeUnterkategorie(Kategorie k) {
 		this.unterkategorien.remove(k);
-		k.setOberkategorie(null);
+		if (k.getOberkategorie() != null) {
+			k.oberkategorie = null;
+		}
 	}
 
 	/**

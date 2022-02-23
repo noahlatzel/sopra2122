@@ -2,13 +2,13 @@ package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
 
-public class Statistiken implements Serializable  {
-	
+public class Statistiken implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private float umsatz;
 	private float ausgaben;
 	private float einnahmen;
@@ -18,15 +18,16 @@ public class Statistiken implements Serializable  {
 	 * Konstruktor der Klasse Statistiken
 	 */
 	public Statistiken() {
-		this.umsatz = 0;
-		this.ausgaben = 0;
-		this.einnahmen = 0;
-		this.arbeitszeit = 0;
-		
+		this.setUmsatz(0);
+		this.setAusgaben(0);
+		this.setEinnahmen(0);
+		this.setArbeitszeit(0);
+
 	}
 
 	/**
 	 * Getter Methode fuer den Umsatz
+	 * 
 	 * @return Umsatz
 	 */
 	public float getUmsatz() {
@@ -35,6 +36,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Setter Methode fuer den Umsatz
+	 * 
 	 * @param umsatz Umsatz
 	 */
 	public void setUmsatz(float umsatz) {
@@ -43,6 +45,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Getter Methode fuer die Ausgaben
+	 * 
 	 * @return Ausgaben
 	 */
 	public float getAusgaben() {
@@ -51,6 +54,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Setter Methode fuer die Ausgaben
+	 * 
 	 * @param ausgaben Ausgaben
 	 */
 	public void setAusgaben(float ausgaben) {
@@ -59,6 +63,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Getter Methode fuer die Einnahmen
+	 * 
 	 * @return Einnahmen
 	 */
 	public float getEinnahmen() {
@@ -67,6 +72,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Setter Methode fuer die Einnahmen
+	 * 
 	 * @param einnahmen Einnahmen
 	 */
 	public void setEinnahmen(float einnahmen) {
@@ -75,6 +81,7 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Getter Methode fuer die Arbeitszeit
+	 * 
 	 * @return Arbeitszeit
 	 */
 	public float getArbeitszeit() {
@@ -83,11 +90,11 @@ public class Statistiken implements Serializable  {
 
 	/**
 	 * Setter Methode fuer die Arbeitszeit
+	 * 
 	 * @param arbeitszeit Arbeitszeit
 	 */
 	public void setArbeitszeit(float arbeitszeit) {
 		this.arbeitszeit = arbeitszeit;
 	}
 
-	
 }
