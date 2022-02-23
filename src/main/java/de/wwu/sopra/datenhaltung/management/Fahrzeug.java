@@ -18,30 +18,30 @@ public class Fahrzeug implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Set<Integer> fahrzeugNummern = new HashSet<Integer>();
-	
+
 	private int fahrzeugNummer;
 	private float kapazitaet;
 	private FahrzeugStatus status;
 	private Route route;
 	private Fahrer fahrer;
-	
+
 	/**
-	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der Liste existiert
+	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der
+	 * Liste existiert
+	 * 
 	 * @param fahrzeugNummer
 	 * @param kapazitaet
 	 * @throws IllegalArgumentException
 	 */
 	public Fahrzeug(int fahrzeugNummer, float kapazitaet) throws IllegalArgumentException {
-		if (!fahrzeugNummern.add(fahrzeugNummer)) {			
-			throw new IllegalArgumentException();
-		}
-		this.fahrzeugNummer = fahrzeugNummer;
+		this.setFahrzeugNummer(fahrzeugNummer);
 		this.kapazitaet = kapazitaet;
 		this.status = FahrzeugStatus.FREI;
 	}
 
 	/**
 	 * Fahrzeugnummer der Fahrzeug
+	 * 
 	 * @return fahrzeugNummer
 	 */
 	public int getFahrzeugNummer() {
@@ -49,11 +49,13 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
-	 * Fahrzeugnummer der Fahrzeug aendern/setzen, nur wenn die neue fahrzeugNummer nicht in der Liste ist
+	 * Fahrzeugnummer der Fahrzeug aendern/setzen, nur wenn die neue fahrzeugNummer
+	 * nicht in der Liste ist
+	 * 
 	 * @param fahrzeugNummer zu setzen
 	 */
 	public void setFahrzeugNummer(int fahrzeugNummer) throws IllegalArgumentException {
-		if (fahrzeugNummern.contains(fahrzeugNummer)) {			
+		if (fahrzeugNummern.contains(fahrzeugNummer)) {
 			throw new IllegalArgumentException();
 		}
 		fahrzeugNummern.remove(this.fahrzeugNummer);
@@ -63,6 +65,7 @@ public class Fahrzeug implements Serializable {
 
 	/**
 	 * Kapazitaet der Fahrzeug
+	 * 
 	 * @return kapazitaet
 	 */
 	public float getKapazitaet() {
@@ -71,6 +74,7 @@ public class Fahrzeug implements Serializable {
 
 	/**
 	 * Kapazitaet der Fahrzeug aendern/setzen
+	 * 
 	 * @param kapazitaet zu setzen
 	 */
 	public void setKapazitaet(float kapazitaet) {
@@ -95,6 +99,7 @@ public class Fahrzeug implements Serializable {
 
 	/**
 	 * Route der Fahrzeug
+	 * 
 	 * @return zugeordnete route
 	 */
 	public Route getRoute() {
@@ -102,24 +107,28 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
-	 * Route der Fahrzeug setzen
-	 * "setRoute" wird beim Erstellen eines Route-Objekts aufgerufen
+	 * Route der Fahrzeug setzen "setRoute" wird beim Erstellen eines Route-Objekts
+	 * aufgerufen
+	 * 
 	 * @param route zu setzen
 	 */
 	public void setRoute(Route route) {
-		if (this.route == null) this.route = route;
+		if (this.route == null)
+			this.route = route;
 	}
-	
+
 	/**
 	 * zugeordneter Fahrer
+	 * 
 	 * @return fahrer
 	 */
 	public Fahrer getFahrer() {
 		return fahrer;
 	}
-	
+
 	/**
 	 * zugeordneter Fahrer setzen
+	 * 
 	 * @param fahrer
 	 */
 	public void setFahrer(Fahrer fahrer) {
