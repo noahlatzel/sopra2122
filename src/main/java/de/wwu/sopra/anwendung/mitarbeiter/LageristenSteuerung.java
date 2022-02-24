@@ -9,7 +9,11 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Route;
 
 public class LageristenSteuerung {
-	Lager lager;
+	private Lager lager;
+
+	public LageristenSteuerung(Lager lager) {
+		this.lager = lager;
+	}
 
 	// TODO Preisliste importieren fuer Grosshaendler?
 	// TODO Ausgaben mit Statistiken verrechnen
@@ -89,4 +93,12 @@ public class LageristenSteuerung {
 
 	}
 
+	/**
+	 * Gibt das Lager der LageristenSteuerung zurueck.
+	 * 
+	 * @return Das Lager, mit dem die LageristenSteuerung verbunden ist.
+	 */
+	public Lager getLager() {
+		return this.lager;
+	}
 }
