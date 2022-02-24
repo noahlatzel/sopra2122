@@ -21,7 +21,7 @@ class WarenkorbTest {
 		produkte = new ArrayList<Produkt>();
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		warenkorb = new Warenkorb(1.98, produkte, kunde);
+		warenkorb = new Warenkorb(produkte, kunde);
 	}
 
 	/**
@@ -31,7 +31,8 @@ class WarenkorbTest {
 	void testKonstruktor() {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29));
-		assertTrue(warenkorb.getBetrag() == 1.98);
+		warenkorb = new Warenkorb(produkte, kunde);
+		assertTrue(warenkorb.getBetrag() == 2.58);
 		assertTrue(warenkorb.getKunde().equals(kunde));
 		assertTrue(warenkorb.getProdukte().equals(produkte));
 	}
@@ -42,7 +43,7 @@ class WarenkorbTest {
 	@Test
 	void testProduktHinzufuegen() {
 		Produkt produkt_1 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		warenkorb.produkttHinzufuegen(produkt_1);
+		warenkorb.produktHinzufuegen(produkt_1);
 		assertTrue(warenkorb.getProdukte().contains(produkt_1));
 		assertTrue(warenkorb.getProdukte().size() == 1);
 	}
@@ -53,10 +54,15 @@ class WarenkorbTest {
 	@Test
 	void testProduktEntfernen() {
 		Produkt produkt_1 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		warenkorb.produkttHinzufuegen(produkt_1);
+		warenkorb.produktHinzufuegen(produkt_1);
 		warenkorb.produktEntfernen(produkt_1);
 		assertFalse(warenkorb.getProdukte().contains(produkt_1));
 		assertTrue(warenkorb.getProdukte().size() == 0);
+		assertTrue(warenkorb.getBetrag() == 0);
+		warenkorb.produktEntfernen(produkt_1);
+		assertFalse(warenkorb.getProdukte().contains(produkt_1));
+		assertTrue(warenkorb.getProdukte().size() == 0);
+		assertTrue(warenkorb.getBetrag() == 0);
 	}
 
 }

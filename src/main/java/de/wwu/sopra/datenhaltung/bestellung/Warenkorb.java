@@ -23,10 +23,10 @@ public class Warenkorb implements Serializable {
 	 * @param betrag   Betrag
 	 * @param produkte Liste an Produkten
 	 */
-	public Warenkorb(double betrag, List<Produkt> produkte, Kunde kunde) {
-		this.setBetrag(betrag);
+	public Warenkorb(List<Produkt> produkte, Kunde kunde) {
 		this.produkte = produkte;
 		this.kunde = kunde;
+		this.setBetrag();
 		kunde.setWarenkorb(this);
 	}
 
@@ -44,8 +44,11 @@ public class Warenkorb implements Serializable {
 	 * 
 	 * @param betrag Betrag
 	 */
-	public void setBetrag(double betrag) {
-		this.betrag = betrag;
+	public void setBetrag() {
+		this.betrag = 0;
+		for (Produkt produkt : this.produkte) {
+			betrag += produkt.getVerkaufspreis();
+		}
 	}
 
 	/**
@@ -62,8 +65,9 @@ public class Warenkorb implements Serializable {
 	 * 
 	 * @param produkt Produkt
 	 */
-	public void produkttHinzufuegen(Produkt produkt) {
+	public void produktHinzufuegen(Produkt produkt) {
 		this.produkte.add(produkt);
+		this.betrag += produkt.getVerkaufspreis();
 	}
 
 	/**
@@ -72,7 +76,11 @@ public class Warenkorb implements Serializable {
 	 * @param produkt Produkt
 	 */
 	public void produktEntfernen(Produkt produkt) {
-		this.produkte.remove(produkt);
+		if (this.produkte.contains(produkt)) {
+			this.produkte.remove(produkt);
+			this.betrag -= produkt.getVerkaufspreis();
+		}
+
 	}
 
 	/**
