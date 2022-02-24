@@ -13,7 +13,6 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * Klasse erstellt ein Tripel aus einem Benutzer und dessen Liste an
  * Bestellungen und Warenkorb.
  * 
- * @param benutzer
  * @author Paul Dirksen
  */
 @SuppressWarnings("serial")
