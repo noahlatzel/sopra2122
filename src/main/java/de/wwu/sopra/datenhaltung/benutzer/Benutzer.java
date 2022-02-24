@@ -36,13 +36,13 @@ public abstract class Benutzer implements Serializable {
 	 */
 	public Benutzer(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
-		this.benutzername = benutzername;
-		this.passwort = passwort;
-		this.email = email;
-		this.adresse = adresse;
-		this.vorname = vorname;
-		this.name = name;
-		this.bankverbindung = bankverbindung;
+		this.setBenutzername(benutzername);
+		this.setPasswort(passwort);
+		this.setEmail(email);
+		this.setAdresse(adresse);
+		this.setVorname(vorname);
+		this.setName(name);
+		this.setBankverbindung(bankverbindung);
 	}
 
 	public String getBenutzername() {
@@ -101,8 +101,6 @@ public abstract class Benutzer implements Serializable {
 		this.bankverbindung = bankverbindung;
 	}
 
-	public Rolle getRolle() {
-		return rolle;
-	}
+	public abstract Rolle getRolle();
 
 }
