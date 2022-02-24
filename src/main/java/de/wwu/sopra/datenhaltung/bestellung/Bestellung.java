@@ -23,10 +23,11 @@ public class Bestellung implements Serializable {
 	private Rechnung rechnung;
 
 	/**
-	 * Konstruktor der Klasse Bestellung
-	 * 
+	 * Konstruktor fuer die Klasse Bestellung
 	 * @param bestellnummer Bestellnummer
-	 * @param produkte
+	 * @param datum Datum
+	 * @param produkte Liste von Produkten
+	 * @param kunde Kunde
 	 */
 	public Bestellung(int bestellnummer, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
@@ -37,6 +38,21 @@ public class Bestellung implements Serializable {
 		this.kunde = kunde;
 	}
 
+	/**
+	 * Zählt die Anzahl eines Produkts 
+	 * @param produkt
+	 * @return Anzahl des Produkts im Warenkorb/Bestellung
+	 */
+	public int getProduktAnzahl(Produkt produkt , List<Produkt> produktliste) {
+		
+		int i = 0;
+		for(int j=0;j<= produkte.size();j++) {
+			if(produkt.equals(produktliste.get(i))) {
+				i++;
+			}
+		}
+		return i;
+	}
 	/**
 	 * Getter Methode fuer das Datum
 	 * 
@@ -55,6 +71,10 @@ public class Bestellung implements Serializable {
 		return status;
 	}
 
+	/**
+	 * Berechnet den Betrag der Bestellung
+	 * @return Betrag 
+	 */
 	public double calcBetrag() {
 		double temp = 0;
 		for (Produkt p : this.getProdukte()) {

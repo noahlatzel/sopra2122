@@ -1,9 +1,11 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class Lager implements Serializable {
 	/**
@@ -99,6 +101,21 @@ public class Lager implements Serializable {
 		}
 	}
 
+	/**
+	 * Erzeugen einer Liste mit allen Objekten mit dem selben Namen
+	 * @param produkte HashSet mit allen Produkten
+	 * @param suche Name des Produkts 
+	 * @return Liste mit allen Produkten aus dem Lager welche der uebergebenen Namen tragen
+	 */
+	public List<Produkt> getProdukteAusLager(HashSet<Produkt> produkte , String suche){
+		List<Produkt> liste = new ArrayList<Produkt>();
+		for (Produkt p : produkte) {
+			if(p.getName().equals(suche)) {
+				liste.add(p);
+			}
+		}
+		return liste;
+	}
 	/**
 	 * Gibt den Lagerbestand zurueck.
 	 * 
