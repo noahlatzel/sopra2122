@@ -125,7 +125,7 @@ public class Fahrersteuerung {
 	 * @pre Die aktuelle bestellung ist noch auf der Liste
 	 */
 	public void bestellungAusliefern() throws NullPointerException {
-		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size() - 1)) {
+		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
 			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
 			inbearbeitung.setRechnung(new Rechnung(IdZaehler.getRechnungsId(), inbearbeitung.getBetrag(),
 					LocalDateTime.now(), inbearbeitung));
@@ -134,6 +134,15 @@ public class Fahrersteuerung {
 		} else
 			throw new NullPointerException();
 
+	}
+
+	/**
+	 * gibt den Index der Aktuellen Bestellung aus
+	 * 
+	 * @return
+	 */
+	public int getAktuelleBestellung() {
+		return aktuelleBestellung;
 	}
 
 }

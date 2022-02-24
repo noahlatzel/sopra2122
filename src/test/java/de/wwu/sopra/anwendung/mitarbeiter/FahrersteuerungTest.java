@@ -16,10 +16,11 @@ import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Route;
 
 /**
- * test zum Fahrer
+ * test zum Fahrersteuerung
  * 
  * @author Johannes Thiel
  *
@@ -30,6 +31,8 @@ public class FahrersteuerungTest {
 	List<Bestellung> bestellungen;
 	Kunde kunde;
 	Bestellung testbestellung;
+	Bestellung testbestellung1;
+	List<Produkt> produkte;
 
 	@BeforeEach
 	public void init() {
@@ -37,8 +40,13 @@ public class FahrersteuerungTest {
 
 		bestellungen = new ArrayList<Bestellung>();
 		kunde = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
-		testbestellung = new Bestellung(1, 300, LocalDateTime.now(), null, kunde);
+		produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		testbestellung = new Bestellung(1, LocalDateTime.now(), produkte, kunde);
+		testbestellung1 = new Bestellung(2, LocalDateTime.now(), produkte, kunde);
 		bestellungen.add(testbestellung);
+		bestellungen.add(testbestellung1);
+
 	}
 
 	@Test
@@ -91,7 +99,7 @@ public class FahrersteuerungTest {
 	public void testPositionDesfahrzeuges() {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(104, 100);
-		Route route = new Route(6, fahrzeug);
+		Route route = new Route(10, fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.positionDesFahrzeugs().equals("Abstiege 1"));
@@ -105,5 +113,24 @@ public class FahrersteuerungTest {
 		String wunsch = "1;1;1;1;1;1;1;";
 		String ergebnis = steuerung.persoenlicheDatenAnzeigen();
 		assertTrue(ergebnis.equals(wunsch));
+	}
+
+	// Test von BestellungAusliefern()
+	@Test
+	public void testBestellungAusliefern() {
+		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+		Fahrzeug fahrzeug = new Fahrzeug(109, 100);
+		Route route = new Route(6, fahrzeug);
+		route.setBestellungen(bestellungen);
+		steuerung.fahrzeugZuordnen(fahrzeug);
+		steuerung.bestellungAusliefern();
+		assertTrue(steuerung.getAktuelleBestellung() == 1);
+		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung() - 1).getStatus() == BestellStatus.ABGESCHLOSSEN);
+		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung() - 1).getBestellnummer() == 1);
+		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung()).getBestellnummer() == 2);
+		steuerung.bestellungAusliefern();
+		assertThrows(NullPointerException.class, () -> {
+			steuerung.bestellungAusliefern();
+		});
 	}
 }
