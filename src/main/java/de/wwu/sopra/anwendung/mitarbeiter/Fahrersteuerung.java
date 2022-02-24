@@ -137,6 +137,21 @@ public class Fahrersteuerung {
 	}
 
 	/**
+	 * erlaibt es die abgeschlossene Route zu benden
+	 * 
+	 * @pre die Route muss abgeschollen sein
+	 */
+
+	public void routeAbschliesen() throws IllegalArgumentException {
+		if (this.aktuelleBestellung >= this.routeAusgeben().getBestellungen().size()) {
+			this.fahrer.getFahrzeug().entferneRoute();
+			this.fahrer.getFahrzeug().setFahrer(null);
+			this.fahrer.setFahrzeug(null);
+		} else
+			throw new IllegalArgumentException();
+	}
+
+	/**
 	 * gibt den Index der Aktuellen Bestellung aus
 	 * 
 	 * @return

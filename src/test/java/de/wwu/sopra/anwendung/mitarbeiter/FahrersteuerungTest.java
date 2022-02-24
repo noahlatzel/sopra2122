@@ -52,8 +52,8 @@ public class FahrersteuerungTest {
 	@Test
 	public void testFahrzeugZuordnen() {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(10, 100);
-		Route route = new Route(2, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(10124123, 100);
+		Route route = new Route(24136, fahrzeug);
 
 		fahrer.setFahrzeug(fahrzeug);
 		fahrzeug.setStatus(FahrzeugStatus.BELEGT);
@@ -66,8 +66,7 @@ public class FahrersteuerungTest {
 		assertThrows(NullPointerException.class, () -> {
 			steuerung.fahrzeugZuordnen(fahrzeug);
 		});
-
-		fahrzeug.setRoute(route);
+		fahrzeug.setStatus(FahrzeugStatus.BELEGT);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(fahrer.getFahrzeug().equals(fahrzeug));
 		assertTrue(fahrzeug.getFahrer().equals(fahrer));
@@ -78,8 +77,8 @@ public class FahrersteuerungTest {
 	public void testRouteAusgeben() {
 
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(100, 100);
-		Route route = new Route(1, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100124124, 100);
+		Route route = new Route(1241, fahrzeug);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.routeAusgeben().equals(route));
 	}
@@ -87,8 +86,8 @@ public class FahrersteuerungTest {
 	@Test
 	public void testKundeNichtDa() {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(103, 100);
-		Route route = new Route(5, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(103124, 100);
+		Route route = new Route(5124, fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		steuerung.kundeNichtDa();
@@ -98,8 +97,8 @@ public class FahrersteuerungTest {
 	@Test
 	public void testPositionDesfahrzeuges() {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(104, 100);
-		Route route = new Route(10, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(1041231, 100);
+		Route route = new Route(101231, fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.positionDesFahrzeugs().equals("Abstiege 1"));
@@ -119,8 +118,8 @@ public class FahrersteuerungTest {
 	@Test
 	public void testBestellungAusliefern() {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(109, 100);
-		Route route = new Route(6, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(1231109, 100);
+		Route route = new Route(61323, fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		steuerung.bestellungAusliefern();
@@ -132,5 +131,26 @@ public class FahrersteuerungTest {
 		assertThrows(NullPointerException.class, () -> {
 			steuerung.bestellungAusliefern();
 		});
+	}
+
+	// Test von RouteAbschliesen
+
+	@Test
+	public void testrouteAbschliesen() {
+		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+		Fahrzeug fahrzeug = new Fahrzeug(123109, 100);
+		Route route = new Route(6123, fahrzeug);
+		route.setBestellungen(bestellungen);
+		steuerung.fahrzeugZuordnen(fahrzeug);
+		assertThrows(IllegalArgumentException.class, () -> {
+			steuerung.routeAbschliesen();
+		});
+		steuerung.bestellungAusliefern();
+		steuerung.bestellungAusliefern();
+		steuerung.routeAbschliesen();
+		assertTrue(fahrzeug.getFahrer() == null);
+		assertTrue(fahrzeug.getStatus().equals(FahrzeugStatus.FREI));
+		assertTrue(fahrzeug.getRoute() == null);
+		assertTrue(fahrer.getFahrzeug() == null);
 	}
 }
