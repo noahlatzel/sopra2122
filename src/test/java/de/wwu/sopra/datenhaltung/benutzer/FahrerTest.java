@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.wwu.sopra.datenhaltung.system.Fahrzeug;
-import de.wwu.sopra.datenhaltung.system.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 
 public class FahrerTest {
 

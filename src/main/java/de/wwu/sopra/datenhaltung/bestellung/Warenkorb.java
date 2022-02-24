@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
-import de.wwu.sopra.datenhaltung.system.Produkt;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 public class Warenkorb implements Serializable {
 	

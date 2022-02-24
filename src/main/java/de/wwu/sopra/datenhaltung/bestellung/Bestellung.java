@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
-import de.wwu.sopra.datenhaltung.system.Produkt;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 public class Bestellung implements Serializable  {
 

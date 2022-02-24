@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.wwu.sopra.datenhaltung.system;
+package de.wwu.sopra.datenhaltung.management;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.Route;
 
 /**
  * 
@@ -19,7 +21,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#Fahrzeug(int, float)}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#Fahrzeug(int, float)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -32,7 +34,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getFahrzeugNummer()}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getFahrzeugNummer()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -45,7 +47,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#setFahrzeugNummer(int)}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#setFahrzeugNummer(int)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -59,7 +61,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getKapazitaet()}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getKapazitaet()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -72,7 +74,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#setKapazitaet(float)}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#setKapazitaet(float)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -86,7 +88,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getRoute()}.
+	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getRoute()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
-import de.wwu.sopra.datenhaltung.system.Produkt;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 import org.junit.jupiter.api.BeforeEach;
 
