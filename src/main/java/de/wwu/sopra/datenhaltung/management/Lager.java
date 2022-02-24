@@ -77,7 +77,11 @@ public class Lager implements Serializable {
 	 * @return Den Lagerbestand eines Produkts
 	 */
 	public int getProduktBestand(String name) {
-		return this.getLagerbestand().get(name);
+		if (this.getLagerbestand().get(name) == null) {
+			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
+		} else {
+			return this.getLagerbestand().get(name);
+		}
 	}
 
 	/**
@@ -88,7 +92,11 @@ public class Lager implements Serializable {
 	 * @return Den Lagerbestand des Produktes
 	 */
 	public int getProduktBestand(Produkt produkt) {
-		return this.getLagerbestand().get(produkt.getName());
+		if (this.getLagerbestand().get(produkt.getName()) == null) {
+			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
+		} else {
+			return this.getLagerbestand().get(produkt.getName());
+		}
 	}
 
 	/**
