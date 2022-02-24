@@ -66,8 +66,12 @@ public class Fahrersteuerung {
 	/**
 	 * der Fahrer storniert die Bestellung an seiner aktuellen position
 	 */
-	public void kundeNichtDa() {
-		this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
+	public void kundeNichtDa() throws NullPointerException {
+		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
+			this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
+			this.aktuelleBestellung++;
+		} else
+			throw new NullPointerException();
 	}
 
 	/**
@@ -122,6 +126,8 @@ public class Fahrersteuerung {
 	 * Der Fahrer meldet die Aktuelle Bestellung als abegeben, erstellt die
 	 * dazugehoerige rechnung
 	 * 
+	 * @throws NullPointerException wenn eine Asuleiferung erfolgen soll wenn die
+	 *                              Route schon abgearbeitet ist
 	 * @pre Die aktuelle bestellung ist noch auf der Liste
 	 */
 	public void bestellungAusliefern() throws NullPointerException {
@@ -139,6 +145,7 @@ public class Fahrersteuerung {
 	/**
 	 * erlaibt es die abgeschlossene Route zu benden
 	 * 
+	 * @throws IllegalArgumentException wennn die Route noch nicht abgearbeitet ist
 	 * @pre die Route muss abgeschollen sein
 	 */
 
