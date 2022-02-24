@@ -9,12 +9,19 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class LageristenSteuerung {
 	private Lager lager;
+	private BenutzerRegister benutzerRegister;
+	private FahrzeugRegister fahrzeugRegister;
 
-	public LageristenSteuerung(Lager lager) {
+	public LageristenSteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister) {
 		this.lager = lager;
+		this.benutzerRegister = benutzerRegister;
+		this.fahrzeugRegister = fahrzeugRegister;
 	}
 
 	// TODO Preisliste importieren fuer Grosshaendler?
@@ -77,8 +84,12 @@ public class LageristenSteuerung {
 		return route;
 	}
 
+	// TODO Implementation fertigstellen
 	public HashSet<Bestellung> zeigeOffeneBestellungen() {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
+		List<BenutzerDatenTripel> alleBestellungen_raw = benutzerRegister.getBenutzerListe();
+		HashSet<Bestellung> alleBestellungen = new HashSet<Bestellung>();
+
 		for (Bestellung b : alleBestellungen) {
 			if (b.getStatus().equals(BestellStatus.OFFEN)) {
 				bestellungen.add(b);
@@ -87,20 +98,16 @@ public class LageristenSteuerung {
 		return bestellungen;
 	}
 
+	// TODO Implementation fertigstellen
 	public HashSet<Fahrzeug> zeigeFreieFahrzeuge() {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+		HashSet<Fahrzeug> alleFahrzeuge = new HashSet<Fahrzeug>();
 		for (Fahrzeug f : alleFahrzeuge) {
 			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
 				fahrzeuge.add(f);
 			}
 		}
 		return fahrzeuge;
-	}
-
-	// TODO Wie wird die Position uebermittelt und wird sie auf einer Karte
-	// angezeigt?
-	public void zeigeFahrzeugPosition(Fahrzeug fahrzeug) {
-
 	}
 
 	/**

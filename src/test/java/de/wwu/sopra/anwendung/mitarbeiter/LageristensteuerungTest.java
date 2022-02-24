@@ -14,6 +14,8 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class LageristensteuerungTest {
 	LageristenSteuerung lageristenSteuerung;
@@ -22,10 +24,12 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
+	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
+	BenutzerRegister benutzerRegister = new BenutzerRegister();
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new LageristenSteuerung(new Lager());
+		lageristenSteuerung = new LageristenSteuerung(new Lager(), benutzerRegister, fahrzeugRegister);
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
