@@ -80,17 +80,19 @@ public class Fahrzeug implements Serializable {
 	public void setKapazitaet(float kapazitaet) {
 		this.kapazitaet = kapazitaet;
 	}
-	
+
 	/**
 	 * Status der Fahrzeug
+	 * 
 	 * @return status
 	 */
 	public FahrzeugStatus getStatus() {
 		return status;
 	}
-	
+
 	/**
 	 * Status der Fahrzeug aendern
+	 * 
 	 * @param status zu setzen
 	 */
 	public void setStatus(FahrzeugStatus status) {
@@ -113,8 +115,19 @@ public class Fahrzeug implements Serializable {
 	 * @param route zu setzen
 	 */
 	public void setRoute(Route route) {
-		if (this.route == null)
+		if (this.route == null) {
 			this.route = route;
+			this.setStatus(FahrzeugStatus.BELEGT);
+		}
+	}
+
+	/**
+	 * Setzt die Route wieder auf null und setzt das fahrzeug auf frei
+	 */
+
+	public void entferneRoute() {
+		this.route = null;
+		this.setStatus(FahrzeugStatus.FREI);
 	}
 
 	/**

@@ -52,8 +52,15 @@ public class Fahrer extends Benutzer {
 
 	// setzt das Fahrzeug
 	public void setFahrzeug(Fahrzeug fahrzeug) {
-		this.fahrzeug = fahrzeug;
-		this.fahrzeug.setStatus(FahrzeugStatus.BELEGT);
+		if (fahrzeug != null) {
+			this.fahrzeug = fahrzeug;
+			this.fahrzeug.setStatus(FahrzeugStatus.BELEGT);
+		} else if (this.fahrzeug != null) {
+			this.fahrzeug.setStatus(FahrzeugStatus.FREI);
+			this.fahrzeug = null;
+
+		}
+
 	}
 
 	// gibt den Chef aus
