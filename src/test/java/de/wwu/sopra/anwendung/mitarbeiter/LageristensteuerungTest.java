@@ -110,4 +110,15 @@ public class LageristensteuerungTest {
 			lageristenSteuerung.planeRoute(bestellungen, fahrzeug);
 		});
 	}
+
+	/**
+	 * Testet die Fehlerbehandlung von ZeigeRouteVonFahrzeug.
+	 */
+	@Test
+	void testThrowsZeigeRouteVonFahrzeug() {
+		Fahrzeug fahrzeug = new Fahrzeug(919, 2);
+		assertThrows(IllegalArgumentException.class, () -> {
+			lageristenSteuerung.zeigeRouteVonFahrzeug(fahrzeug);
+		});
+	}
 }

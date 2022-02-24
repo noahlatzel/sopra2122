@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
-import de.wwu.sopra.datenhaltung.management.Fahrzeug;
-import de.wwu.sopra.datenhaltung.management.Route;
 
 /**
  * 
@@ -94,7 +92,7 @@ class FahrzeugTest {
 	 */
 	@Test
 	void testGetRoute() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(5, 100);
+		Fahrzeug fzeug = new Fahrzeug(545, 100);
 		@SuppressWarnings("unused")
 		Route route = new Route(5, fzeug);
 
