@@ -1,4 +1,4 @@
-package de.wwu.sopra.anwendung.mitarbeiter;
+package de.wwu.sopra.anwendungslogik;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
