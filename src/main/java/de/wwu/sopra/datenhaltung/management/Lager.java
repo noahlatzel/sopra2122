@@ -70,6 +70,28 @@ public class Lager implements Serializable {
 	}
 
 	/**
+	 * Diese Methode gibt den Lagerbestand eines Produktes zurueck. Es kann sowohl
+	 * nach dem Namen als auch nach dem Produkt selbst gesucht werden.
+	 * 
+	 * @param name Der gewuenschte Produktname
+	 * @return Den Lagerbestand eines Produkts
+	 */
+	public int getProduktBestand(String name) {
+		return this.getLagerbestand().get(name);
+	}
+
+	/**
+	 * Diese Methode gibt den Lagerbestand eines Produktes zurueck. Es kann sowohl
+	 * nach dem Namen als auch nach dem Produkt selbst gesucht werden.
+	 * 
+	 * @param produkt Das gewuenschte Produkt
+	 * @return Den Lagerbestand des Produktes
+	 */
+	public int getProduktBestand(Produkt produkt) {
+		return this.getLagerbestand().get(produkt.getName());
+	}
+
+	/**
 	 * Gibt den Lagerbestand zurueck.
 	 * 
 	 * @return Den Lagerbestand
