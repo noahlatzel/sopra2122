@@ -123,7 +123,7 @@ public class Kundensteuerung {
 			
 		}else { 
 			
-			System.out.println("Eine Stornierung ist leider nicht mehr moeglich.");
+			throw new IllegalArgumentException("Eine Stornierung ist leider nicht mehr moeglich.");
 		
 		}
 	}
@@ -139,7 +139,7 @@ public class Kundensteuerung {
 		for(int i=0; i <= bestellung.getProdukte().size() ;i++) {
 			if(lager.getProduktBestand(bestellung.getProdukte().get(i)) <
 					bestellung.getProduktAnzahl(bestellung.getProdukte().get(i),bestellung.getProdukte())) {
-				System.out.println("Eine Nachlieferung  ist leider nicht moeglich.");
+				throw new IllegalArgumentException("Eine Nachlieferung  ist leider nicht moeglich.");
 			}
 		}
 		Bestellung nachbestellung = new Bestellung(0,LocalDateTime.now(),
