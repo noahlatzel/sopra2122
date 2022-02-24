@@ -1,4 +1,4 @@
-package de.wwu.sopra.anwendungslogik;
+package de.wwu.sopra.anwendung.mitarbeiter;
 
 import java.util.HashSet;
 import java.util.List;
