@@ -1,14 +1,15 @@
-package de.wwu.sopra.anwendungslogik;
+package de.wwu.sopra.anwendung.mitarbeiter;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * 
- * @author NoahLatzel
  *
- *         Die Klasse dient zur Realisierung der Nachbestellung. Das Tupel
- *         enthaelt ein Produkt und eine Menge. Diese Tupel wird dann der
- *         Funktion bestelleNach() in der LageristenSteuerung uebergbene.
+ * Die Klasse dient zur Realisierung der Nachbestellung. Das Tupel enthaelt ein
+ * Produkt und eine Menge. Diese Tupel wird dann der Funktion bestelleNach() in
+ * der LageristenSteuerung uebergbene.
+ * 
+ * @author NoahLatzel
  */
 public class NachbestellungTupel {
 	private final Produkt produkt;
