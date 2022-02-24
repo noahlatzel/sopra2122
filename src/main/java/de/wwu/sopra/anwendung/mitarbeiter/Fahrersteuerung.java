@@ -8,6 +8,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Route;
 
 /**
@@ -23,7 +24,7 @@ public class Fahrersteuerung {
 
 	// index der bestellung in der Liste der Bestellungen in der Route, die der
 	// Fahrer gerade bearbeitet
-	int aktuelleBestellung;
+	private int aktuelleBestellung;
 
 	/**
 	 * Die Fahrzeugsteuerung wird erstellt
@@ -43,13 +44,14 @@ public class Fahrersteuerung {
 	 * @pre fahrer und Fahrzeug haben keinen fahrer und Fahrzeug und das Fahrzeug
 	 *      hat eine Route
 	 */
-	public void fahrzeugZuordnen(Fahrzeug fahrzeug) throws IllegalArgumentException {
-		if (fahrzeug.getFahrer().equals(null) | this.fahrer.getFahrzeug().equals(null)
-				| fahrzeug.getRoute().equals(null)) {
-			throw new IllegalArgumentException();
+	public void fahrzeugZuordnen(Fahrzeug fahrzeug) throws NullPointerException {
+		if (fahrzeug.getStatus() != FahrzeugStatus.BELEGT | this.fahrer.getFahrzeug() != null) {
+			throw new NullPointerException();
 		}
 		this.fahrer.setFahrzeug(fahrzeug);
 		fahrzeug.setFahrer(this.fahrer);
+		fahrzeug.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
+		this.aktuelleBestellung = 0;
 	}
 
 	/**
@@ -127,6 +129,7 @@ public class Fahrersteuerung {
 			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
 			inbearbeitung.setRechnung(new Rechnung(IdZaehler.getRechnungsId(), inbearbeitung.getBetrag(),
 					LocalDateTime.now(), inbearbeitung));
+			inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 			aktuelleBestellung++;
 		} else
 			throw new NullPointerException();
