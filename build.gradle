@@ -54,6 +54,14 @@ jacocoTestReport {
         csv.enabled = true
     }
     dependsOn test
+    afterEvaluate {
+       classDirectories.setFrom(files(classDirectories.files.collect {
+            // Kommaseparierte Liste mit Pfaden die ausgeschlossen werden sollen
+            // Muss an die jeweilige Projektstruktur der Gruppen angepasst werden
+
+            fileTree(dir: it, exclude: ['de/wwu/sopra/darstellung/**']) 
+        }))
+    }
 }
 
 
