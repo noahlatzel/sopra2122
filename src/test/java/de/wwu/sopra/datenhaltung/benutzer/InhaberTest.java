@@ -1,14 +1,11 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
-import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
-import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -120,5 +117,31 @@ public class InhaberTest {
 		assertThrows(NullPointerException.class, () -> {
 			inhaber.lageristEntfernen(null);
 		});
+	}
+	
+	/**
+	 * Test von getLageristen() und getFahrer()
+	 */
+	@Test
+	void testGetLageristenUndFahrer() {
+		Lagerist lagerist2 = new Lagerist("almacenista", "4322", "email3", "Bochum", "Jane", "Doe", "LaBankverbindung", inhaber);
+		Fahrer fahrer2 = new Fahrer("conductor", "4324", "email4", "Essen", "John", "Doe", "LaBankverbindung", inhaber);
+		
+		inhaber.fahrerHinzufuegen(fahrer);
+		inhaber.fahrerHinzufuegen(fahrer2);
+		
+		inhaber.lageristHinzufuegen(lagerist);
+		inhaber.lageristHinzufuegen(lagerist2);
+		
+		List<Lagerist> lageristenList = new ArrayList<Lagerist>();
+		lageristenList.add(lagerist);
+		lageristenList.add(lagerist2);
+		List<Fahrer> fahrerList = new ArrayList<Fahrer>();
+		fahrerList.add(fahrer);
+		fahrerList.add(fahrer2);
+		
+		assertEquals(lageristenList, inhaber.getLageristen());
+		assertEquals(fahrerList, inhaber.getFahrer());
+		
 	}
 }

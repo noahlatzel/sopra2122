@@ -110,6 +110,7 @@ public class KategorieTest {
 	/**
 	 * Testet, ob die Methoden fuer Mengen von Unterkategorien funktionieren.
 	 */
+	@Test
 	public void testUnterkategorien() {
 		// Kategorien neu initialisieren
 		kategorie_1 = new Kategorie(name_1);
@@ -178,4 +179,35 @@ public class KategorieTest {
 			new Kategorie("");
 		});
 	}
+
+	/**
+	 * Testet null-Eingabe fuer setOberkategorie.
+	 */
+	@Test
+	public void testNullSetOberkategorie() {
+		kategorie_1.setOberkategorie(kategorie_2);
+		kategorie_1.setOberkategorie(null);
+		assertTrue(kategorie_1.getOberkategorie() == null);
+	}
+
+	/**
+	 * Testet, ob removeUnterkategorien funktioniert
+	 */
+	@Test
+	public void testRemoveUnterkategorien() {
+		// Kategorien neu initialisieren
+		kategorie_1 = new Kategorie(name_1);
+		kategorie_2 = new Kategorie(name_2);
+		Kategorie kategorie_3 = new Kategorie("Saft");
+
+		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
+		kategorien.add(kategorie_2);
+		kategorien.add(kategorie_3);
+
+		kategorie_1.addUnterkategorien(kategorien);
+		kategorie_1.removeUnterkategorien(kategorien);
+
+		assertTrue(kategorie_1.getUnterkategorien().isEmpty());
+	}
+
 }

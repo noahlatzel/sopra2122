@@ -10,6 +10,10 @@ import java.util.List;
  */
 public class Inhaber extends Benutzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Rolle rolle = Rolle.INHABER;
 	private List<Fahrer> fahrer = new ArrayList<Fahrer>();
 	private List<Lagerist> lageristen = new ArrayList<Lagerist>();

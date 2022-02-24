@@ -14,7 +14,8 @@ public class Lager implements Serializable {
 	private HashMap<String, Integer> lagerbestand;
 
 	public Lager() {
-
+		lager = new HashSet<Produkt>();
+		lagerbestand = new HashMap<String, Integer>();
 	}
 
 	/**
@@ -66,6 +67,24 @@ public class Lager implements Serializable {
 		for (Produkt produkt : p) {
 			removeBestand(produkt);
 		}
+	}
+
+	/**
+	 * Gibt den Lagerbestand zurueck.
+	 * 
+	 * @return Den Lagerbestand
+	 */
+	public HashMap<String, Integer> getLagerbestand() {
+		return this.lagerbestand;
+	}
+
+	/**
+	 * Gibt das Lager zurueck.
+	 * 
+	 * @return Das Lager
+	 */
+	public HashSet<Produkt> getLager() {
+		return this.lager;
 	}
 
 	/**

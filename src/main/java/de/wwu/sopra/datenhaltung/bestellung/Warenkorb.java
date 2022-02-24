@@ -13,7 +13,7 @@ public class Warenkorb implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private float betrag;
+	private double betrag;
 	private final Kunde kunde;
 	private List<Produkt> produkte;
 	
@@ -23,18 +23,19 @@ public class Warenkorb implements Serializable {
 	 * @param betrag Betrag
 	 * @param produkte Liste an Produkten
 	 */
-	public Warenkorb(int betrag , List<Produkt> produkte , Kunde kunde) {
+	public Warenkorb(double betrag, List<Produkt> produkte, Kunde kunde) {
 		
 		this.betrag = betrag;
 		this.produkte = produkte;
 		this.kunde = kunde;
+		kunde.setWarenkorb(this);
 	}
 	
 	/**
 	 * Getter Methode fuer die Variable Betrag
 	 * @return Betrag
 	 */
-	public float getBetrag() {
+	public double getBetrag() {
 		return betrag;
 	}
 
@@ -42,7 +43,7 @@ public class Warenkorb implements Serializable {
 	 * Setter Methoder fuer die Variable Betrag
 	 * @param betrag Betrag
 	 */
-	public void setBetrag(float betrag) {
+	public void setBetrag(double betrag) {
 		this.betrag = betrag;
 	}
 
@@ -54,14 +55,13 @@ public class Warenkorb implements Serializable {
 		return produkte;
 	}
 
-
 	/**
 	 * Methode zum Hinzufuegen von Produkten
 	 * @param produkt Produkt
 	 */
     public void produkttHinzufuegen(Produkt produkt) {
-		 	this.produkte.add(produkt);
-		 }
+    	this.produkte.add(produkt);
+	}
 
     /**
 	 * Methode zum Entfernen von Produkten
@@ -78,7 +78,11 @@ public class Warenkorb implements Serializable {
 	public Kunde getKunde() {
 		return kunde;
 	}
-    
-    
-
+	
+	/**
+     * Getter Methode fuer den Kunden
+     */
+	public void warenkorbLeeren() {
+		this.produkte.clear();
+	}
 }
