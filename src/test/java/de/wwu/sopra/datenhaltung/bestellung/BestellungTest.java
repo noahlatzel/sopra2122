@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.bestellung;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -49,6 +50,16 @@ class BestellungTest {
 		Rechnung rechnung = new Rechnung(1, 0.99, null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));
+	}
+
+	/**
+	 * Testet den Konstruktor auf Ausnahmebehandlung.
+	 */
+	@Test
+	void testThrowsKonstruktor() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Bestellung(0, null, new ArrayList<Produkt>(), kunde);
+		});
 	}
 
 }
