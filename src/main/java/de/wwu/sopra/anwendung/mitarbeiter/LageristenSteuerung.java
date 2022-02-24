@@ -3,8 +3,10 @@ package de.wwu.sopra.anwendung.mitarbeiter;
 import java.util.HashSet;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Route;
 
@@ -77,13 +79,21 @@ public class LageristenSteuerung {
 
 	public HashSet<Bestellung> zeigeOffeneBestellungen() {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
-
+		for (Bestellung b : alleBestellungen) {
+			if (b.getStatus().equals(BestellStatus.OFFEN)) {
+				bestellungen.add(b);
+			}
+		}
 		return bestellungen;
 	}
 
 	public HashSet<Fahrzeug> zeigeFreieFahrzeuge() {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
-
+		for (Fahrzeug f : alleFahrzeuge) {
+			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
+				fahrzeuge.add(f);
+			}
+		}
 		return fahrzeuge;
 	}
 
