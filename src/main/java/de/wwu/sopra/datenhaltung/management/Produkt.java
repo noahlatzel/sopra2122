@@ -119,4 +119,8 @@ public class Produkt implements Serializable {
 		return einkaufspreis;
 	}
 
+	@Override
+	public Produkt clone() {
+		return new Produkt(this.getName(), this.getBeschreibung(), this.getEinkaufspreis(), this.getVerkaufspreis());
+	}
 }
