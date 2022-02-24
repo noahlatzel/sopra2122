@@ -20,7 +20,6 @@ public class Warenkorb implements Serializable {
 	/**
 	 * Konstruktor der Klasse Warenkorb
 	 * 
-	 * @param betrag   Betrag
 	 * @param produkte Liste an Produkten
 	 */
 	public Warenkorb(List<Produkt> produkte, Kunde kunde) {
@@ -42,7 +41,6 @@ public class Warenkorb implements Serializable {
 	/**
 	 * Setter Methoder fuer die Variable Betrag
 	 * 
-	 * @param betrag Betrag
 	 */
 	public void setBetrag() {
 		this.betrag = 0;
