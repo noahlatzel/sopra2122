@@ -29,12 +29,12 @@ public class Bestellung implements Serializable {
 	 * @param betrag        Betrag
 	 * @param produkte
 	 */
-	public Bestellung(int bestellnummer, double betrag, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
+	public Bestellung(int bestellnummer, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
 		this.bestellnummer = bestellnummer;
-		this.betrag = betrag;
 		this.setStatus(BestellStatus.OFFEN);
 		this.produkte = produkte;
+		this.betrag = calcBetrag();
 		this.kunde = kunde;
 	}
 
@@ -54,6 +54,14 @@ public class Bestellung implements Serializable {
 	 */
 	public BestellStatus getStatus() {
 		return status;
+	}
+
+	public double calcBetrag() {
+		double temp = 0;
+		for (Produkt p : this.getProdukte()) {
+			temp += p.getVerkaufspreis();
+		}
+		return temp;
 	}
 
 	/**

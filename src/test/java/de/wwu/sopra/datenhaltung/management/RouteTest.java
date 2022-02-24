@@ -122,7 +122,8 @@ class RouteTest {
 	 */
 	@Test
 	void testBestellungen() {
-		Bestellung bestellung = new Bestellung(0, 0, null, null, null);
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		Bestellung bestellung = new Bestellung(0, null, produkte, null);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		Fahrzeug fzeug = new Fahrzeug(9879871, 100);

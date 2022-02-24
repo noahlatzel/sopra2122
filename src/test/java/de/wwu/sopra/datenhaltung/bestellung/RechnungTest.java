@@ -19,7 +19,7 @@ class RechnungTest {
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		Bestellung bestellung = new Bestellung(1, 0.99, null, produkte, kunde);
+		Bestellung bestellung = new Bestellung(1, null, produkte, kunde);
 		Rechnung rechnung = new Rechnung(1, 0.99, null, bestellung);
 		assertTrue(rechnung.getBestellung().equals(bestellung));
 		assertTrue(rechnung.getDatum() == null);

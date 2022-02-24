@@ -31,7 +31,7 @@ public class KundeTest {
 	public void setup() {
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		bestellung = new Bestellung(1234, 3, datum, new ArrayList<Produkt>(), kunde);
+		bestellung = new Bestellung(1234, datum, new ArrayList<Produkt>(), kunde);
 	}
 
 	/**
@@ -75,9 +75,9 @@ public class KundeTest {
 	@Test
 	void testGetBestellungen() {
 		// Erstellung von Bestellungen-Liste
-		Bestellung bestellung2 = new Bestellung(1235, 3, datum, new ArrayList<Produkt>(), kunde);
-		Bestellung bestellung3 = new Bestellung(1236, 3, datum, new ArrayList<Produkt>(), kunde);
-		Bestellung bestellung4 = new Bestellung(1237, 3, datum, new ArrayList<Produkt>(), kunde);
+		Bestellung bestellung2 = new Bestellung(1235, datum, new ArrayList<Produkt>(), kunde);
+		Bestellung bestellung3 = new Bestellung(1236, datum, new ArrayList<Produkt>(), kunde);
+		Bestellung bestellung4 = new Bestellung(1237, datum, new ArrayList<Produkt>(), kunde);
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		bestellungen.add(bestellung2);

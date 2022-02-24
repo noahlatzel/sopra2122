@@ -21,9 +21,10 @@ class BestellungTest {
 	@BeforeAll
 	void init() {
 		produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		bestellung = new Bestellung(1, 0.99, null, produkte, kunde);
+		bestellung = new Bestellung(1, null, produkte, kunde);
 	}
 
 	/**
@@ -34,7 +35,8 @@ class BestellungTest {
 		assertTrue(bestellung.getStatus().equals(BestellStatus.OFFEN));
 		assertTrue(bestellung.getDatum() == null);
 		assertTrue(bestellung.getBestellnummer() == 1);
-		assertTrue(bestellung.getBetrag() == 0.99);
+		System.out.println(bestellung.getBetrag());
+		assertTrue(bestellung.getBetrag() == 1.29);
 		assertTrue(bestellung.getProdukte() == produkte);
 		assertTrue(bestellung.getKunde() == kunde);
 	}
