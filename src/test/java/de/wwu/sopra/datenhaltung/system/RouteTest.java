@@ -1,7 +1,4 @@
-/**
- * 
- */
-package de.wwu.sopra.datenhaltung.management;
+package de.wwu.sopra.datenhaltung.system;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -22,7 +19,7 @@ class RouteTest {
 
 	/**
 	 * Test method for
-	 * {@link de.wwu.sopra.datenhaltung.management.Route#Route(int, de.wwu.sopra.datenhaltung.management.Fahrzeug)}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Route#Route(int, de.wwu.sopra.datenhaltung.system.Fahrzeug)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -37,7 +34,7 @@ class RouteTest {
 
 	/**
 	 * Test method for
-	 * {@link de.wwu.sopra.datenhaltung.management.Route#getRoutenNummer()}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Route#getRoutenNummer()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -52,7 +49,7 @@ class RouteTest {
 
 	/**
 	 * Test method for
-	 * {@link de.wwu.sopra.datenhaltung.management.Route#setRoutenNummer(int)}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Route#setRoutenNummer(int)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -67,8 +64,7 @@ class RouteTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link de.wwu.sopra.datenhaltung.management.Route#getFahrzeug()}.
+	 * Test method for {@link de.wwu.sopra.datenhaltung.system.Route#getFahrzeug()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */

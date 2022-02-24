@@ -1,4 +1,4 @@
-package de.wwu.sopra.datenhaltung.management;
+package de.wwu.sopra.datenhaltung.system;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

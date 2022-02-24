@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.wwu.sopra.datenhaltung.management;
+package de.wwu.sopra.datenhaltung.system;
 
 /**
  * 

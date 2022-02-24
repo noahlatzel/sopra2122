@@ -1,7 +1,7 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
-import de.wwu.sopra.datenhaltung.management.Fahrzeug;
-import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.system.Fahrzeug;
+import de.wwu.sopra.datenhaltung.system.FahrzeugStatus;
 
 /**
  * Die Entitaetsklasse Fahrer, dieser hat einen Chef und kann einem Fahrzeug

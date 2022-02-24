@@ -1,13 +1,10 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
-import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
-import de.wwu.sopra.datenhaltung.benutzer.Rolle;
 
 public class LageristTest {
 

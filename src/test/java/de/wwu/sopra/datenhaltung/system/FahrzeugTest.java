@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.wwu.sopra.datenhaltung.management;
+package de.wwu.sopra.datenhaltung.system;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +19,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#Fahrzeug(int, float)}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#Fahrzeug(int, float)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -32,7 +32,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getFahrzeugNummer()}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getFahrzeugNummer()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -45,7 +45,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#setFahrzeugNummer(int)}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#setFahrzeugNummer(int)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -59,7 +59,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getKapazitaet()}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getKapazitaet()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -72,7 +72,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#setKapazitaet(float)}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#setKapazitaet(float)}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -86,7 +86,7 @@ class FahrzeugTest {
 
 	/**
 	 * Pruefmethode fuer
-	 * {@link de.wwu.sopra.datenhaltung.management.Fahrzeug#getRoute()}.
+	 * {@link de.wwu.sopra.datenhaltung.system.Fahrzeug#getRoute()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -106,7 +106,7 @@ class FahrzeugTest {
 	@Test
 	void testFahrer() {
 		Fahrzeug fzeug = new Fahrzeug(6, 100);
-		Fahrer fahrer = new Fahrer("fahrer1", "sicheresPasswort", "thomas@uni-muenster.de", "Einsteinstraße 64",
+		Fahrer fahrer = new Fahrer("fahrer1", "sicheresPasswort", "thomas@uni-muenster.de", "Einsteinstraï¿½e 64",
 				"Thomas", "Thomas", "DE291234", null);
 		fzeug.setFahrer(fahrer);
 		assertTrue(fzeug.getFahrer().equals(fahrer));
