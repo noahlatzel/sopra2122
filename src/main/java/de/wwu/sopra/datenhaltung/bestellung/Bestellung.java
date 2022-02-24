@@ -126,4 +126,8 @@ public class Bestellung implements Serializable {
 		this.rechnung = rechnung;
 	}
 
+	public int getKapazitaetBelegt() {
+		return this.getProdukte().size();
+	}
+
 }
