@@ -32,6 +32,9 @@ public class Bestellung implements Serializable {
 
 		this.bestellnummer = bestellnummer;
 		this.setStatus(BestellStatus.OFFEN);
+		if (produkte.isEmpty()) {
+			throw new IllegalArgumentException("Eine Bestellung kann nicht leer sein.");
+		}
 		this.produkte = produkte;
 		this.betrag = calcBetrag();
 		this.kunde = kunde;
