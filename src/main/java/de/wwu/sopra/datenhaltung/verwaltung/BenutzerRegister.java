@@ -224,7 +224,7 @@ public class BenutzerRegister {
 	 * 
 	 * @return Die Benutzerliste
 	 */
-	public List<BenutzerDatenTripel> getBenutzerListe() {
+	public static List<BenutzerDatenTripel> getBenutzerListe() {
 		return benutzerListe;
 	}
 }

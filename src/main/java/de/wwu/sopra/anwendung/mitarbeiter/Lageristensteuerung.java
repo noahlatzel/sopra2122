@@ -24,7 +24,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  */
 public class Lageristensteuerung {
 	private Lager lager;
-	private BenutzerRegister benutzerRegister;
 	private FahrzeugRegister fahrzeugRegister;
 	private Statistiken statistiken;
 	private GrosshaendlerRegister preisRegister;
@@ -41,10 +40,9 @@ public class Lageristensteuerung {
 	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
 	 *                         Fahrzeuge gespeichert werden.
 	 */
-	public Lageristensteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister,
-			Statistiken statistiken, GrosshaendlerRegister preisRegister) {
+	public Lageristensteuerung(Lager lager, FahrzeugRegister fahrzeugRegister, Statistiken statistiken,
+			GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
-		this.benutzerRegister = benutzerRegister;
 		this.fahrzeugRegister = fahrzeugRegister;
 		this.statistiken = statistiken;
 		this.preisRegister = preisRegister;
@@ -155,7 +153,7 @@ public class Lageristensteuerung {
 	 */
 	private HashSet<Bestellung> extractOffeneBestellungenRegister() {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
-		for (BenutzerDatenTripel benutzerDaten : benutzerRegister.getBenutzerListe()) {
+		for (BenutzerDatenTripel benutzerDaten : BenutzerRegister.getBenutzerListe()) {
 			List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
 			for (Bestellung b : tempBestellungen) {
 				if (b.getStatus().equals(BestellStatus.OFFEN)) {
