@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
@@ -88,5 +89,8 @@ public class Route implements Serializable {
 	 */
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		this.bestellungen = bestellungen;
+		for (Bestellung b : bestellungen) {
+			b.setStatus(BestellStatus.IN_BEARBEITUNG);
+		}
 	}
 }

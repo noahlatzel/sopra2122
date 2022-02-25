@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
+import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
  * Erstellung der Fahrzeug-Klasse
@@ -110,19 +112,20 @@ public class Fahrzeug implements Serializable {
 
 	/**
 	 * Route der Fahrzeug setzen "setRoute" wird beim Erstellen eines Route-Objekts
-	 * aufgerufen
+	 * aufgerufen. Eine neue Route wird nur gesetzt, wenn das Fahrzeug FREI ist und
+	 * anschlieﬂend wird der Status auf BELEGT geaendert.
 	 * 
 	 * @param route zu setzen
 	 */
 	public void setRoute(Route route) {
-		if (this.route == null) {
+		if (this.getStatus().equals(FahrzeugStatus.FREI)) {
 			this.route = route;
 			this.setStatus(FahrzeugStatus.BELEGT);
 		}
 	}
 
 	/**
-	 * Setzt die Route wieder auf null und setzt das fahrzeug auf frei
+	 * Setzt die Route wieder auf null und setzt das fahrzeug auf FREI
 	 */
 
 	public void entferneRoute() {
@@ -140,11 +143,19 @@ public class Fahrzeug implements Serializable {
 	}
 
 	/**
-	 * zugeordneter Fahrer setzen
+	 * Fahrer der Fahrzeugs wird gesetzt. Der Status des Fahrzeugs wird dann auf
+	 * IN_ZUSTELLUNG geaendert und der Status der Bestellungen auf der Route des
+	 * Fahrzeugs wird auf IN_ZUSTELLUNG geaendert.
 	 * 
-	 * @param fahrer
+	 * @param fahrer Der Fahrer, der das Fahrzeug faehrt.
 	 */
 	public void setFahrer(Fahrer fahrer) {
 		this.fahrer = fahrer;
+		fahrer.setFahrzeug(this);
+		this.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
+
+		for (Bestellung b : this.getRoute().getBestellungen()) {
+			b.setStatus(BestellStatus.IN_ZUSTELLUNG);
+		}
 	}
 }
