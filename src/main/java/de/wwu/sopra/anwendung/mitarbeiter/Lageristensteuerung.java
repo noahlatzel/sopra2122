@@ -81,7 +81,7 @@ public class Lageristensteuerung {
 	public void planeRoute(List<Bestellung> bestellungen, Fahrzeug fahrzeug) {
 		int gesamtBelegung = 0;
 		for (Bestellung b : bestellungen) {
-			gesamtBelegung += b.getKapazitaetBelegt();
+			gesamtBelegung += b.getKapazitaet();
 		}
 		if (gesamtBelegung > fahrzeug.getKapazitaet()) {
 			throw new IllegalArgumentException("Das Fahrzeug ist zu klein fuer die Bestellung. " + "\n" + gesamtBelegung
