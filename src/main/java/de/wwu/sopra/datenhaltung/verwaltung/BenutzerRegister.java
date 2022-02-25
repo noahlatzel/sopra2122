@@ -188,7 +188,7 @@ public class BenutzerRegister {
 			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer kein registrierter Kunde.
 			int i = getBenutzerId(benutzer);
 			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				bestellungen = benutzerListe.get(i).getBestellungen();
+				bestellungen = this.getBenutzerListe().get(i).getBestellungen();
 			}
 		} else {
 			throw new NullPointerException("Leerer Benutzer uebergeben!");
@@ -217,5 +217,14 @@ public class BenutzerRegister {
 			}
 		}
 		return n;
+	}
+
+	/**
+	 * Gibt die Benutzerliste zurueck.
+	 * 
+	 * @return Die Benutzerliste
+	 */
+	public List<BenutzerDatenTripel> getBenutzerListe() {
+		return this.benutzerListe;
 	}
 }
