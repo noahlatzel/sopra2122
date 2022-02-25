@@ -198,11 +198,12 @@ public class LageristensteuerungTest {
 		Bestellung testbestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte1,
 				kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
-		Fahrzeug fahrzeug = new Fahrzeug(922, 2);
-		Fahrzeug fahrzeug1 = new Fahrzeug(923, 3);
+		bestellungen.add(testbestellung1);
+		Fahrzeug fahrzeug = new Fahrzeug(90022, 2);
+		Fahrzeug fahrzeug1 = new Fahrzeug(92003, 3);
 		fahrzeugRegister.addFahrzeug(fahrzeug1);
 		fahrzeugRegister.addFahrzeug(fahrzeug);
-		Route route = new Route(10, fahrzeug1);
+		Route route = new Route(110, fahrzeug1);
 		route.setBestellungen(bestellungen);
 		assertTrue(lageristenSteuerung.getFahrzeugeMitRoute().contains(fahrzeug1));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
