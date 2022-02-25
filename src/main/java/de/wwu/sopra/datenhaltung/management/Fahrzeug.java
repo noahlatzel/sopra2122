@@ -147,4 +147,5 @@ public class Fahrzeug implements Serializable {
 	public void setFahrer(Fahrer fahrer) {
 		this.fahrer = fahrer;
 	}
+
 }
