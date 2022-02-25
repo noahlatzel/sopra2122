@@ -8,9 +8,9 @@ public class MainJavaFx extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		Scene scene = new Scene(null, 400, 400);
+
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(new Scene(null, 400, 400));
 		primaryStage.show();
 
 	}
