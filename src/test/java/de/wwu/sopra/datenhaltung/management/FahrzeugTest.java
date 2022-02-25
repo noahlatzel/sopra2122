@@ -7,9 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
  * 
@@ -106,6 +111,15 @@ class FahrzeugTest {
 	@Test
 	void testFahrer() {
 		Fahrzeug fzeug = new Fahrzeug(6, 100);
+		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		List<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(cola);
+		Bestellung bestellung = new Bestellung(91293, null, produkte,
+				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
+		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(bestellung);
+		Route route = new Route(1001, fzeug);
+		route.setBestellungen(bestellungen);
 		Fahrer fahrer = new Fahrer("fahrer1", "sicheresPasswort", "thomas@uni-muenster.de", "Einsteinstra�e 64",
 				"Thomas", "Thomas", "DE291234", null);
 		fzeug.setFahrer(fahrer);

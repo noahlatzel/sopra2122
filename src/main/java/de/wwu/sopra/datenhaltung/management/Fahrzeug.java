@@ -150,12 +150,16 @@ public class Fahrzeug implements Serializable {
 	 * @param fahrer Der Fahrer, der das Fahrzeug faehrt.
 	 */
 	public void setFahrer(Fahrer fahrer) {
-		this.fahrer = fahrer;
-		fahrer.setFahrzeug(this);
-		this.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
+		if (fahrer == null) {
+			this.fahrer = null;
+		} else {
+			this.fahrer = fahrer;
+			fahrer.setFahrzeug(this);
+			this.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
 
-		for (Bestellung b : this.getRoute().getBestellungen()) {
-			b.setStatus(BestellStatus.IN_ZUSTELLUNG);
+			for (Bestellung b : this.getRoute().getBestellungen()) {
+				b.setStatus(BestellStatus.IN_ZUSTELLUNG);
+			}
 		}
 	}
 }

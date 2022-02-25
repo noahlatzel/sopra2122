@@ -153,6 +153,7 @@ public class Fahrersteuerung {
 		if (this.aktuelleBestellung >= this.routeAusgeben().getBestellungen().size()) {
 			this.fahrer.getFahrzeug().entferneRoute();
 			this.fahrer.getFahrzeug().setFahrer(null);
+			System.out.println(this.fahrer.getName());
 			this.fahrer.setFahrzeug(null);
 		} else
 			throw new IllegalArgumentException();
