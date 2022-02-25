@@ -40,6 +40,7 @@ class BestellungTest {
 		assertTrue(bestellung.getBetrag() == 1.29);
 		assertTrue(bestellung.getProdukte() == produkte);
 		assertTrue(bestellung.getKunde() == kunde);
+		assertTrue(bestellung.toString().equals("Bestellung 1"));
 	}
 
 	/**

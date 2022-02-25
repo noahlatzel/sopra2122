@@ -129,8 +129,18 @@ public class Bestellung implements Serializable {
 		this.rechnung = rechnung;
 	}
 
+	/**
+	 * Gibt die Kapazitaetsbelegung der Bestellung zurueck.
+	 * 
+	 * @return Die Kapazitaet, die durch die Bestellung belegt wird.
+	 */
 	public int getKapazitaetBelegt() {
 		return this.getProdukte().size();
+	}
+
+	@Override
+	public String toString() {
+		return "Bestellung " + this.getBestellnummer();
 	}
 
 }
