@@ -22,6 +22,7 @@ public class Inhabersteuerung {
 	private Inhaber inhaber;
 	private Statistiken statistiken;
 	private BenutzerRegister benutzerReg;
+	private Lager lager;
 	
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
@@ -29,22 +30,17 @@ public class Inhabersteuerung {
 	 * @param statistiken
 	 * @param benutzerReg
 	 */
-	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, BenutzerRegister benutzerReg) {
+	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, BenutzerRegister benutzerReg, Lager lager) {
 		this.inhaber = inhaber;
 		this.statistiken = statistiken;
 		this.benutzerReg = benutzerReg;
+		this.lager = lager;
 	}
 	
 	/**
 	 * Ueberprueft, ob alle Eingaben gueltig sind - non null oder leer oder groesser als null wenn nummer
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param nachname
-	 * @param bankverbindung
-	 * @return boolean true wenn gueltig, false wenn nicht
+	 * @param inputList		Liste von Eingaben zu ueberpruefen
+	 * @return result		Boolean, true wenn gueltige Eingaben, false wenn nicht
 	 */
 	private boolean gueltigeEingaben(List<Object> inputList) {
 		boolean result = true;
@@ -62,12 +58,12 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Moeglichkeit ein Produkt zu bearbeiten
-	 * @param produkt
-	 * @param name
-	 * @param beschreibung
-	 * @param verkaufspreis
+	 * @param produkt		Produkt, der bearbeitet wird
+	 * @param name			Name des Produkts, kann nicht null oder leer sein
+	 * @param beschreibung	Beschreibung des Produkts, kann nicht null oder leer sein
+	 * @param verkaufspreis	Verkaufspreis des Produkts, kann nicht negativ sein
 	 */
-	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis) {
+	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis) throws IllegalArgumentException {
 		if (!gueltigeEingaben(Arrays.asList(name, beschreibung, verkaufspreis))) throw new IllegalArgumentException();
 		
 		produkt.setName(name);
@@ -77,15 +73,14 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Eine Moeglichkeit Produkte hinzuzufuegen oder loeschen
-	 * @param lager
-	 * @param produkte
-	 * @param action
+	 * @param produkte		Produkte, die entweder hinzugefuegt oder geloescht werde
+	 * @param action		String, entweder hinzufuegen oder loeschen, wenn nicht eine davon, new IllegalArgumentException
 	 */
-	public void lagerVerwalten(Lager lager, Collection<Produkt> produkte, String action) {
+	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
-			lager.addProdukte(produkte);			
+			this.lager.addProdukte(produkte);			
 		} else if (action == "loeschen") {
-			lager.removeProdukte(produkte);
+			this.lager.removeProdukte(produkte);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -93,20 +88,19 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Eine Moeglichkeit sich Produkte in Lager anzeigen zu lassen
-	 * @param lager
-	 * @return lagerProdukte
+	 * @return lagerProdukte	HashSet mit allen Produkten im Lager
 	 */
-	public HashSet<Produkt> sortimentAnzeigen(Lager lager) {
-		return lager.getLager();
+	public HashSet<Produkt> sortimentAnzeigen() {
+		return this.lager.getLager();
 	}
 	
 	/**
 	 * Funktion zum Bearbeiten der in einer Kategorie enthaltenen Produkte
-	 * @param kategorie
-	 * @param produkte
-	 * @param action
+	 * @param kategorie		Kategorie, die bearbeitet wird
+	 * @param produkte		Produkte, die zu der Kategorie hinzugefuegt oder geloescht werden
+	 * @param action		String, entweder hinzufuegen oder loeschen, wenn nicht eine davon, new IllegalArgumentException
 	 */
-	public void kategorieProdukteVerwalten(Kategorie kategorie, Collection<Produkt> produkte, String action) {
+	public void kategorieProdukteVerwalten(Kategorie kategorie, Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
 			kategorie.addProdukte(produkte);			
 		} else if (action == "loeschen") {
@@ -118,12 +112,12 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Funktion zum Bearbeiten der Kategorie durch Aendern des Namens oder Aendern der Ober- oder Unterkategorie
-	 * @param kategorie1
-	 * @param kategorie2
-	 * @param aenderung
-	 * @param name
+	 * @param kategorie1	Kategorie, die bearbeitet wird
+	 * @param kategorie2	Neue Ober- oder Unterkategorie, kann null sein
+	 * @param aenderung		String, entweder ober oder unter. Wenn "ober", kategorie2 ist neue Oberkategorie, wenn "unter", Unterkategorie, kann null sein
+	 * @param name			Neuer Name der Kategorie, kann null sein
 	 */
-	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name) {
+	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name) throws IllegalArgumentException {
 		if (name != null) {
 			kategorie1.setName(name);
 			return;
@@ -142,14 +136,15 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Funktion zum Registrieren neuer Mitarbeitern
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param nachname
-	 * @param bankverbindung
-	 * @param rolle
+	 * @param benutzername		Benutzername des neuen Mitarbeiters
+	 * @param passwort			Passwort des neuen Mitarbeiters
+	 * @param email				Email des neuen Mitarbeiters
+	 * @param adresse			Adresse des neuen Mitarbeiters
+	 * @param vorname			Vorname des neuen Mitarbeiters
+	 * @param nachname			Nachname des neuen Mitarbeiters
+	 * @param bankverbindung	Bankverbindung des neuen Mitarbeiters
+	 * @param rolle				Rolle des neuen Mitarbeiters
+	 * @throws IllegalArgumentException
 	 */
 	public void mitarbeiterRegistrieren (
 			String benutzername,
@@ -159,7 +154,7 @@ public class Inhabersteuerung {
 			String vorname,
 			String nachname,
 			String bankverbindung,
-			Rolle rolle) {
+			Rolle rolle) throws IllegalArgumentException {
 		if (!gueltigeEingaben(Arrays.asList(benutzername, passwort, email, adresse, vorname, nachname, bankverbindung))) throw new IllegalArgumentException();
 		
 		if (rolle == Rolle.FAHRER) {
@@ -177,9 +172,9 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Funktion zum Loeschen eines Mitarbeiters
-	 * @param mitarbeiter
+	 * @param mitarbeiter 		Mitarbeiter, der geloescht wird
 	 */
-	public void mitarbeiterLoeschen(Benutzer mitarbeiter) {
+	public void mitarbeiterLoeschen(Benutzer mitarbeiter) throws NullPointerException {
 		if (mitarbeiter == null) throw new NullPointerException();
 		if (mitarbeiter.getRolle() == Rolle.FAHRER) {
 			this.inhaber.fahrerEntfernen((Fahrer) mitarbeiter);
@@ -191,14 +186,14 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Funktion zum Bearbeiten von Mitarbeiterdaten
-	 * @param mitarbeiter
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param nachname
-	 * @param bankverbindung
+	 * @param mitarbeiter		Mitarbeiter, der bearbeitet wird
+	 * @param benutzername		Benutzername des Mitarbeiters
+	 * @param passwort			Passwort des Mitarbeiters
+	 * @param email				Email des Mitarbeiters
+	 * @param adresse			Adresse des Mitarbeiters
+	 * @param vorname			Vorname des Mitarbeiters
+	 * @param nachname			Nachname des Mitarbeiters
+	 * @param bankverbindung	Bankverbindung des Mitarbeiters
 	 */
 	public void mitarbeiterDatenAendern(
 			Benutzer mitarbeiter,
@@ -208,7 +203,7 @@ public class Inhabersteuerung {
 			String adresse,
 			String vorname,
 			String nachname,
-			String bankverbindung) {
+			String bankverbindung) throws IllegalArgumentException, NullPointerException {
 		if (!gueltigeEingaben(Arrays.asList(benutzername, passwort, email, adresse, vorname, nachname, bankverbindung))) throw new IllegalArgumentException();
 		if (mitarbeiter ==  null) throw new NullPointerException();
 		
@@ -244,13 +239,13 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Funktion zum Bearbeiten der persoenlichen Daten
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param nachname
-	 * @param bankverbindung
+	 * @param benutzername		Benutzername des Inhabers
+	 * @param passwort			Passwort des Inhabers
+	 * @param email				Email des Inhabers
+	 * @param adresse			Adresse des Inhabers
+	 * @param vorname			Vorname des Inhabers
+	 * @param nachname			Nachname des Inhabers
+	 * @param bankverbindung	Bankverbindung des Inhabers
 	 */
 	public void persoenlicheDatenAendern(
 			String benutzername,
@@ -259,7 +254,7 @@ public class Inhabersteuerung {
 			String adresse,
 			String vorname,
 			String nachname,
-			String bankverbindung) {
+			String bankverbindung) throws IllegalArgumentException {
 		if (!this.gueltigeEingaben(Arrays.asList(benutzername, passwort, email, adresse, vorname, nachname, bankverbindung))) throw new IllegalArgumentException();
 		
 		if (!this.inhaber.getBenutzername().equals(benutzername)) this.inhaber.setBenutzername(benutzername);
@@ -273,6 +268,7 @@ public class Inhabersteuerung {
 	
 	/**
 	 * Alle Statistiken holen, um sie in der GUI darzustellen, damit der Inhaber einen besseren Ueberblick ueber das Unternehmen hat
+	 * @return statistikHashMap		HashMap, keys sind Statistik Titel, value ist der Wert
 	 */
 	public HashMap<String, Float> statistikenAusgeben() {
 		HashMap<String, Float> statistikHashMap = new HashMap<String, Float>();

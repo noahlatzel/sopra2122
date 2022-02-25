@@ -2,6 +2,7 @@ package de.wwu.sopra.anwendung.mitarbeiter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class InhabersteuerungTest {
 	Inhabersteuerung ihs;
 	Statistiken statistiken = new Statistiken();
 	BenutzerRegister benutzerReg = new BenutzerRegister();
+	Lager lager = new Lager();	
 	
 	@BeforeEach
 	void init() {
@@ -46,14 +48,14 @@ public class InhabersteuerungTest {
 		name = "Sparrow";
 		bankverbindung = "DE00 0000 0000 0000 00";
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		ihs = new Inhabersteuerung(inhaber, statistiken, benutzerReg);
+		ihs = new Inhabersteuerung(inhaber, statistiken, benutzerReg, lager);
 	}
 	
 	/**
 	 * Testet das Erstellen, Bearbeiten und Loeschen eines Mitarbeiters
 	 */
 	@Test
-	void testMitarbeiterVerwaltung() {
+	void testMitarbeiterVerwaltung() throws IllegalArgumentException, NullPointerException {
 		// Erstellung Lagerist-Objekt
 		
 		ihs.mitarbeiterRegistrieren("lagerista", "notatpirate", "everglow@online.de", "No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11", Rolle.LAGERIST);
@@ -63,16 +65,28 @@ public class InhabersteuerungTest {
 		assertEquals(neuerLagerist.getVorname(), "Mia");
 		assertEquals(neuerLagerist.getName(), "Miga");
 		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.mitarbeiterRegistrieren("", "notatpirate", "everglow@online.de", "No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11", Rolle.LAGERIST);
+		});
+		
 		// Bearbeitung Lagerist-Objekt
 		
 		ihs.mitarbeiterDatenAendern(neuerLagerist, "lagerista", "notapirate", "everglow@online.de", "No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
 		assertEquals(neuerLagerist.getBenutzername(), "lagerista");
 		assertEquals(neuerLagerist.getPasswort(), "notapirate");
 		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.mitarbeiterDatenAendern(neuerLagerist, "lagerista", "", "everglow@online.de", "No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
+		});
+		
 		// Loeschen Lagerist-Objekt
 		
 		ihs.mitarbeiterLoeschen(neuerLagerist);
 		assertTrue(inhaber.getLageristen().size() == 0);
+		
+		assertThrows(NullPointerException.class, () -> {
+			ihs.mitarbeiterLoeschen(null);
+		});
 		
 		// Erstellung Fahrer-Objekt
 		
@@ -122,10 +136,14 @@ public class InhabersteuerungTest {
 	 * Testet, ob die Daten des Benutzers erfolgreich geaendert werden koennen
 	 */
 	@Test
-	void testPersoenlicheDatenAendern() {
+	void testPersoenlicheDatenAendern() throws IllegalArgumentException {
 		ihs.persoenlicheDatenAendern(benutzername, passwort, "imapirateyeahyeah@online.de", adresse, vorname, name, bankverbindung);
 		// Email aendern
 		assertEquals(inhaber.getEmail(), "imapirateyeahyeah@online.de");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.persoenlicheDatenAendern(benutzername, passwort, "", adresse, vorname, name, bankverbindung);
+		});
 	}
 	
 	/**
@@ -142,9 +160,8 @@ public class InhabersteuerungTest {
 	 * Tests, dass der Inhaber Produkte zu Lager hinzufuegen und entfernen kann
 	 */
 	@Test
-	void testLagerVerwalten() {
+	void testLagerVerwalten() throws IllegalArgumentException {
 		// Erstellung von Lager und Produkte
-		Lager lager = new Lager();
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		Produkt product = new Produkt("Cola", "American", 5.99, 7.99);
 		
@@ -153,7 +170,11 @@ public class InhabersteuerungTest {
 		productsToAdd.add(producto);
 		productsToAdd.add(product);
 		
-		ihs.lagerVerwalten(lager, productsToAdd, "hinzufuegen");
+		ihs.lagerVerwalten(productsToAdd, "hinzufuegen");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.lagerVerwalten(productsToAdd, "no");
+		});
 		
 		// Produkte von Lager erhalten
 		HashSet<Produkt> lagerProdukte = lager.getLager();
@@ -164,7 +185,7 @@ public class InhabersteuerungTest {
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
 		productsToRemove.add(product);
 		
-		ihs.lagerVerwalten(lager, productsToRemove, "loeschen");
+		ihs.lagerVerwalten(productsToRemove, "loeschen");
 		
 		assertTrue(lagerProdukte.size() == 1);
 	}
@@ -173,7 +194,7 @@ public class InhabersteuerungTest {
 	 * Testet, ob der Inhaber eine Kategorie bearbeiten kann, indem er ihren Namen aendert oder Ober- und Unterkategorien hinzufuegt und entfernt
 	 */
 	@Test
-	void testKategorieVerwalten() {
+	void testKategorieVerwalten() throws IllegalArgumentException {
 		// Erstellung von Kategorien
 		Kategorie softDrinks = new Kategorie("Fizzy Drinks");
 		Kategorie sauer = new Kategorie("Sauer");
@@ -185,6 +206,10 @@ public class InhabersteuerungTest {
 		
 		// Unterkategorie zu ersten Kategorie hinzufuegen
 		ihs.kategorieBearbeiten(softDrinks, sauer, "unter", null);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieBearbeiten(softDrinks, sauer, "aaaaaa", null);
+		});
 		
 		assertTrue(softDrinks.getUnterkategorien().contains(sauer));
 		
@@ -201,6 +226,10 @@ public class InhabersteuerungTest {
 		
 		assertTrue(sauer.getProdukte().contains(product));
 		assertTrue(sauer.getProdukte().contains(product2));
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieProdukteVerwalten(sauer, productsToAdd, "bbbbbbbb");
+		});
 		
 		// Erstellung von Produkte-um-loeschen Liste
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
