@@ -9,33 +9,59 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 
+/**
+ * Die LageristenSteuerung des Systems ist das Bindeglied zwischen
+ * Grenzklassen/GUI und der Datenhaltungsschicht.
+ * 
+ * @author NoahLatzel
+ *
+ */
 public class LageristenSteuerung {
 	private Lager lager;
 	private BenutzerRegister benutzerRegister;
 	private FahrzeugRegister fahrzeugRegister;
+	private Statistiken statistiken;
+	private GrosshaendlerRegister preisRegister;
 
-	public LageristenSteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister) {
+	/**
+	 * Initialisiert die LageristenSteuerung. Dafuer braucht sie Zugriff auf das
+	 * Lager, das BenutzerRegister und das FahrzeugRegister.
+	 * 
+	 * @param lager            Das Lager des Systems, in welchem alle Produkte
+	 *                         enthalten sind.
+	 * @param benutzerRegister Das BenutzerRegister des Systems, in dem alle
+	 *                         Benutzer mit Warenkorb und Bestellung gespeichert
+	 *                         werden.
+	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
+	 *                         Fahrzeuge gespeichert werden.
+	 */
+	public LageristenSteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister,
+			Statistiken statistiken, GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
 		this.benutzerRegister = benutzerRegister;
 		this.fahrzeugRegister = fahrzeugRegister;
+		this.statistiken = statistiken;
+		this.preisRegister = preisRegister;
 	}
 
-	// TODO Preisliste importieren fuer Grosshaendler?
-	// TODO Ausgaben mit Statistiken verrechnen
 	/**
 	 * Die Methode fuegt alle Produkte der Nachbestellungen in der gewuenschten
-	 * Menge dem Lager hinzu
+	 * Menge dem Lager hinzu. Dafuer ruft die Methode automatisch den Preis des
+	 * Grosshaendlers ueber das GrosshaendlerRegister ab.
 	 * 
 	 * @param nachbestellungen Die Nachbestellungen, die verarbeitet werden sollen.
 	 */
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				lager.addProdukt(n.getProdukt().clone());
+				lager.addProdukt(n.getProdukt().clone(this.preisRegister.getPreis(n.getProdukt())));
+				statistiken.addAusgaben((float) n.getProdukt().getEinkaufspreis());
 			}
 		}
 	}
@@ -47,8 +73,6 @@ public class LageristenSteuerung {
 	 * Die Bestellung darf nicht leer sein und die Bestellung darf nicht mehr
 	 * Kapazitaet benoetigen als das uebergebene Fahrzeug hat. Das Fahrzeug muss
 	 * frei sein.
-	 * 
-	 * TODO Invariante fuer Bestellung: niemals leer sein TODO Erfolgsnachricht?
 	 * 
 	 * @param bestellungen Die Bestellungen, die in eine Route eingeplant werden und
 	 *                     vorher im GUI ausgewaehlt wurden.
@@ -84,24 +108,26 @@ public class LageristenSteuerung {
 		return route;
 	}
 
-	// TODO Implementation fertigstellen
+	/**
+	 * Oeffentliche Methode, ueber die die offenen Bestellungen abgerufen werden.
+	 * 
+	 * @return Alle offenen Bestellungen im System
+	 */
 	public HashSet<Bestellung> zeigeOffeneBestellungen() {
-		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
-		List<BenutzerDatenTripel> alleBestellungen_raw = benutzerRegister.getBenutzerListe();
-		HashSet<Bestellung> alleBestellungen = new HashSet<Bestellung>();
-
-		for (Bestellung b : alleBestellungen) {
-			if (b.getStatus().equals(BestellStatus.OFFEN)) {
-				bestellungen.add(b);
-			}
-		}
+		HashSet<Bestellung> bestellungen = this.extractOffeneBestellungenRegister();
 		return bestellungen;
 	}
 
-	// TODO Implementation fertigstellen
+	/**
+	 * Diese Methode gibt die Menge aller freien Fahrzeuge im System zurueck und
+	 * wird fuer das GUI verwendet, wenn die Route geplant wird und der Lagerist
+	 * sehen muss, welche Fahrzeuge frei sind.
+	 * 
+	 * @return Die Menge aller freien Fahrzeuge im System.
+	 */
 	public HashSet<Fahrzeug> zeigeFreieFahrzeuge() {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
-		HashSet<Fahrzeug> alleFahrzeuge = new HashSet<Fahrzeug>();
+		HashSet<Fahrzeug> alleFahrzeuge = fahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
 			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
 				fahrzeuge.add(f);
@@ -117,5 +143,26 @@ public class LageristenSteuerung {
 	 */
 	public Lager getLager() {
 		return this.lager;
+	}
+
+	/**
+	 * Eine interne Methode, die alle offenen Bestellungen aus dem BenutzerRegister
+	 * liest.
+	 * 
+	 * @param benutzerRegister Das BenutzerRegister aus dem die Daten gelesen
+	 *                         werden.
+	 * @return Alle offenen Bestellungen, die im BenutzerRegister gefuehrt sind.
+	 */
+	private HashSet<Bestellung> extractOffeneBestellungenRegister() {
+		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
+		for (BenutzerDatenTripel benutzerDaten : benutzerRegister.getBenutzerListe()) {
+			List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
+			for (Bestellung b : tempBestellungen) {
+				if (b.getStatus().equals(BestellStatus.OFFEN)) {
+					bestellungen.add(b);
+				}
+			}
+		}
+		return bestellungen;
 	}
 }
