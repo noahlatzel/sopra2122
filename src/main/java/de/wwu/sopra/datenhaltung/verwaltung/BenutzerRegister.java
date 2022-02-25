@@ -67,12 +67,13 @@ public class BenutzerRegister {
 			// uebergebenen Benutzernamen.
 			for (int i = 0; i < benutzerListe.size(); i++) {
 				if (benutzerListe.get(i).getBenutzer().getBenutzername().equals(benutzername)) {
-					return benutzerListe.get(i).getBenutzer();
+					gesuchterBenutzer = benutzerListe.get(i).getBenutzer();
 				}
 			}
 		} else {
 			throw new NullPointerException("Leerer Benutzername uebergeben!");
 		}
+
 		return gesuchterBenutzer;
 	}
 
@@ -211,7 +212,7 @@ public class BenutzerRegister {
 		assert benutzer != null : "Benutzer ist null!";
 		// Sucht in der TripelListe nach dem Benutzer
 		for (int i = 0; i < benutzerListe.size(); i++) {
-			if (benutzerListe.get(i).getBenutzer().equals(benutzer)) {
+			if (benutzerListe.get(i).getBenutzer().getBenutzername().equals(benutzer.getBenutzername())) {
 				return i;
 			}
 		}

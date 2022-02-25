@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
@@ -54,23 +55,29 @@ public class BenutzerRegisterTest {
 	 * Testet die Funktionalitaet des Hinzufuegen eines neuen Benutzers ins System.
 	 */
 	@Test
+	@Order(2)
 	public void benutzerHinzufuegenTest() {
+
 		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
 
 		// Testet ob hinzugefuegter Benutzer in der Liste enthalten ist
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
-		assertTrue(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1").equals(benutzer1));
+		assertTrue(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1").getBenutzername()
+				.equals(benutzer1.getBenutzername()));
 
 		// Testet, ob Exception geworfen wird wenn null uebergeben wird.
 		assertThrows(NullPointerException.class, () -> {
 			BenutzerRegister.benutzerHinzufuegen(null);
 		});
+
+		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
 	/**
 	 * Testet die Funktionalitaet des Entfernens eines Benutzers aus dem System.
 	 */
 	@Test
+	@Order(1)
 	public void benutzerEntfernenTest() {
 		// Registriert Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
@@ -80,7 +87,7 @@ public class BenutzerRegisterTest {
 
 		// Wird von der aufgerufenen Methode null zurueckgegeben, wurde der Benutzer
 		// nicht gefunden
-		assertFalse(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1") != null);
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
 
 		assertThrows(NullPointerException.class, () -> {
 			BenutzerRegister.benutzerEntfernen(null);
@@ -91,6 +98,7 @@ public class BenutzerRegisterTest {
 	 * Testet die verschiedenen Funktionalitaeten des Warenkorbs
 	 */
 	@Test
+	@Order(3)
 	public void warenkorbFunktionalitaetTest() {
 
 		// Registriert neuen Benutzer
@@ -144,9 +152,12 @@ public class BenutzerRegisterTest {
 		assertThrows(NullPointerException.class, () -> {
 			BenutzerRegister.produktAusWarenkorbEntfernen(null, null);
 		});
+
+		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
 	@Test
+	@Order(4)
 	public void bestellungenFunktionalitaetTest() {
 		// Registrieren eines Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
@@ -168,6 +179,7 @@ public class BenutzerRegisterTest {
 		assertThrows(NullPointerException.class, () -> {
 			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, null);
 		});
+		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
 }
