@@ -28,7 +28,6 @@ public class Inhabersteuerung {
 	 * 
 	 * @param inhaber
 	 * @param statistiken
-	 * @param benutzerReg
 	 */
 	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, Lager lager) {
 		this.inhaber = inhaber;

@@ -34,9 +34,6 @@ public class Lageristensteuerung {
 	 * 
 	 * @param lager            Das Lager des Systems, in welchem alle Produkte
 	 *                         enthalten sind.
-	 * @param benutzerRegister Das BenutzerRegister des Systems, in dem alle
-	 *                         Benutzer mit Warenkorb und Bestellung gespeichert
-	 *                         werden.
 	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
 	 *                         Fahrzeuge gespeichert werden.
 	 */
