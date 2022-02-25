@@ -265,10 +265,10 @@ public class Inhabersteuerung {
 	 */
 	public HashMap<String, Float> statistikenAusgeben() {
 		HashMap<String, Float> statistikHashMap = new HashMap<String, Float>();
-		statistikHashMap.put("umsatz", statistiken.getUmsatz());
-		statistikHashMap.put("ausgaben", statistiken.getAusgaben());
-		statistikHashMap.put("einnahmen", statistiken.getEinnahmen());
-		statistikHashMap.put("arbeitszeit", statistiken.getArbeitszeit());
+		statistikHashMap.put("umsatz", (float) statistiken.getUmsatz());
+		statistikHashMap.put("ausgaben", (float) statistiken.getAusgaben());
+		statistikHashMap.put("einnahmen", (float) statistiken.getEinnahmen());
+		statistikHashMap.put("arbeitszeit", (float) statistiken.getArbeitszeit());
 		
 		return statistikHashMap;
 	}
