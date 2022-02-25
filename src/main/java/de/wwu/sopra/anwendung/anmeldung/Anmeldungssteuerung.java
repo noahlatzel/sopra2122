@@ -21,8 +21,8 @@ public class Anmeldungssteuerung {
 
 	BenutzerRegister benutzerReg;
 
-	public Anmeldungssteuerung(BenutzerRegister benutzerReg) {
-		this.benutzerReg = benutzerReg;
+	public Anmeldungssteuerung() {
+
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Anmeldungssteuerung {
 
 			// Falls der Benutzername im System bekannt ist wird der zugehoerige Benutzer
 			// zurueckgegeben.
-			Benutzer benutzer = benutzerReg.getBenutzerZuBenutzername(benutzername);
+			Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
 
 			if (!(benutzer == null)) {
 				// HIGH SECURITY PASSWORT CHECK
@@ -75,10 +75,10 @@ public class Anmeldungssteuerung {
 				|| name == null || bankverbindung == null)) {
 
 			// Pruefe ob Benutzername im System vorhanden
-			Benutzer benutzer = benutzerReg.getBenutzerZuBenutzername(benutzername);
+			Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
 
 			if (benutzer == null) {
-				benutzerReg.benutzerHinzufuegen(
+				BenutzerRegister.benutzerHinzufuegen(
 						new Kunde(benutzername, passwort, email, adresse, vorname, name, bankverbindung));
 			} else {
 				// Falls Benutzername schon vergeben: Fehlermeldung
@@ -97,13 +97,15 @@ public class Anmeldungssteuerung {
 	 * @param benutzer
 	 * @pre Der uebergebene Nutzer ist ein im System eingetragener Benutzer
 	 */
-	public void leiteWeiter(Benutzer benutzer) {
-		assert benutzerReg.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
+	@SuppressWarnings("unused")
+	private void leiteWeiter(Benutzer benutzer) {
+		assert BenutzerRegister.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
 				: "Benutzer ist nicht im System registriert";
 
 		switch (benutzer.getRolle()) {
 		case KUNDE:
 			Kundensteuerung ks = new Kundensteuerung(); // TODO Fehlende Parameter
+			// wechsleSzene(ks);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:
@@ -119,6 +121,10 @@ public class Anmeldungssteuerung {
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}
+	}
+
+	private void wechsleSzene(Object klasse) {
+
 	}
 
 }

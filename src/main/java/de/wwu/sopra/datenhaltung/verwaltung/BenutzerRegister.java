@@ -18,16 +18,16 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 public class BenutzerRegister {
 
-	private List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
+	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
 
 	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
 	 * 
 	 * @param benutzer
 	 */
-	public void benutzerHinzufuegen(Benutzer benutzer) throws NullPointerException {
+	public static void benutzerHinzufuegen(Benutzer benutzer) throws NullPointerException {
 		if (!(benutzer == null)) {
-			this.benutzerListe.add(new BenutzerDatenTripel(benutzer));
+			benutzerListe.add(new BenutzerDatenTripel(benutzer));
 		} else {
 			throw new NullPointerException("Leerer Benutzer uebergeben!");
 		}
@@ -38,7 +38,7 @@ public class BenutzerRegister {
 	 * 
 	 * @param benutzer wird entfernt
 	 */
-	public void benutzerEntfernen(Benutzer benutzer) throws NullPointerException {
+	public static void benutzerEntfernen(Benutzer benutzer) throws NullPointerException {
 		if (!(benutzer == null)) {
 
 			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht registriert.
@@ -58,7 +58,7 @@ public class BenutzerRegister {
 	 * @param benutzername
 	 * @return Benutzer
 	 */
-	public Benutzer getBenutzerZuBenutzername(String benutzername) throws NullPointerException {
+	public static Benutzer getBenutzerZuBenutzername(String benutzername) throws NullPointerException {
 		Benutzer gesuchterBenutzer = null;
 
 		if (!(benutzername == null)) {
@@ -87,7 +87,7 @@ public class BenutzerRegister {
 	 * @throws NullPointerException Falls leerer Benutzer oder leere Bestellung
 	 *                              uebergeben wird.
 	 */
-	public void bestellungZuBestellungslisteHinzufuegen(Benutzer benutzer, Bestellung bestellung)
+	public static void bestellungZuBestellungslisteHinzufuegen(Benutzer benutzer, Bestellung bestellung)
 			throws NullPointerException {
 		if (!(benutzer == null) && !(bestellung == null)) {
 
@@ -111,7 +111,7 @@ public class BenutzerRegister {
 	 * @param produkt  Wird zum Warenkorb des uebergebenden Benutzers hinzugefuegt.
 	 * @throws NullPointerException Wenn
 	 */
-	public void produktZuWarenkorbHinzufuegen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
+	public static void produktZuWarenkorbHinzufuegen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
 		if (!(benutzer == null) && !(produkt == null)) {
 
 			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als
@@ -135,7 +135,7 @@ public class BenutzerRegister {
 	 * @throws NullPointerException Wenn leerer Benutzers und/oder leeres Produkt
 	 *                              uebergeben wird.
 	 */
-	public void produktAusWarenkorbEntfernen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
+	public static void produktAusWarenkorbEntfernen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
 		if (!(benutzer == null) && !(produkt == null)) {
 
 			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als Kunde
@@ -156,7 +156,7 @@ public class BenutzerRegister {
 	 * @return Warenkorb des uebergebenen Benutzers, null falls der Benutzer nicht
 	 *         als Kunde registriert ist.
 	 */
-	public List<Produkt> getWarenkorb(Benutzer benutzer) throws NullPointerException {
+	public static List<Produkt> getWarenkorb(Benutzer benutzer) throws NullPointerException {
 		List<Produkt> warenkorb = null;
 
 		if (!(benutzer == null)) {
@@ -179,7 +179,7 @@ public class BenutzerRegister {
 	 * @return Liste der Bestellungen des uebergebenen Benutzers, null falls der
 	 *         Benutzer nicht als Kunde registriert ist.
 	 */
-	public List<Bestellung> getBestellungen(Benutzer benutzer) throws NullPointerException {
+	public static List<Bestellung> getBestellungen(Benutzer benutzer) throws NullPointerException {
 		List<Bestellung> bestellungen = null;
 
 		if (!(benutzer == null)) {
@@ -205,7 +205,7 @@ public class BenutzerRegister {
 	 *         Liste
 	 * @pre benutzer ist nicht null
 	 */
-	private int getBenutzerId(Benutzer benutzer) {
+	private static int getBenutzerId(Benutzer benutzer) {
 		int n = -1;
 
 		assert benutzer != null : "Benutzer ist null!";
