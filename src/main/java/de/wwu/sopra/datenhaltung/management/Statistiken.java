@@ -9,10 +9,10 @@ public class Statistiken implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private float umsatz;
-	private float ausgaben;
-	private float einnahmen;
-	private float arbeitszeit;
+	private double umsatz;
+	private double ausgaben;
+	private double einnahmen;
+	private double arbeitszeit;
 
 	/**
 	 * Konstruktor der Klasse Statistiken
@@ -30,7 +30,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Umsatz
 	 */
-	public float getUmsatz() {
+	public double getUmsatz() {
 		return umsatz;
 	}
 
@@ -39,7 +39,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param umsatz Umsatz
 	 */
-	public void setUmsatz(float umsatz) {
+	public void setUmsatz(double umsatz) {
 		this.umsatz = umsatz;
 	}
 
@@ -48,7 +48,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Ausgaben
 	 */
-	public float getAusgaben() {
+	public double getAusgaben() {
 		return ausgaben;
 	}
 
@@ -57,7 +57,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param ausgaben Ausgaben
 	 */
-	public void setAusgaben(float ausgaben) {
+	public void setAusgaben(double ausgaben) {
 		this.ausgaben = ausgaben;
 	}
 
@@ -66,7 +66,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Einnahmen
 	 */
-	public float getEinnahmen() {
+	public double getEinnahmen() {
 		return einnahmen;
 	}
 
@@ -75,7 +75,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param einnahmen Einnahmen
 	 */
-	public void setEinnahmen(float einnahmen) {
+	public void setEinnahmen(double einnahmen) {
 		this.einnahmen = einnahmen;
 	}
 
@@ -84,7 +84,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Arbeitszeit
 	 */
-	public float getArbeitszeit() {
+	public double getArbeitszeit() {
 		return arbeitszeit;
 	}
 
@@ -93,7 +93,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param arbeitszeit Arbeitszeit
 	 */
-	public void setArbeitszeit(float arbeitszeit) {
+	public void setArbeitszeit(double arbeitszeit) {
 		this.arbeitszeit = arbeitszeit;
 	}
 
@@ -102,7 +102,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param ausgaben Die Ausgaben, die hinzugekommen sind.
 	 */
-	public void addAusgaben(float ausgaben) {
+	public void addAusgaben(double ausgaben) {
 		this.ausgaben += ausgaben;
 	}
 
