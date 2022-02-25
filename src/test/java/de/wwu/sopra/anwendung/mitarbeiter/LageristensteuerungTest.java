@@ -25,7 +25,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 
 public class LageristensteuerungTest {
-	LageristenSteuerung lageristenSteuerung;
+	Lageristensteuerung lageristenSteuerung;
 	NachbestellungTupel nachbestellung1;
 	Produkt produkt1;
 	NachbestellungTupel nachbestellung2;
@@ -38,7 +38,7 @@ public class LageristensteuerungTest {
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new LageristenSteuerung(new Lager(), benutzerRegister, fahrzeugRegister, statistiken,
+		lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerRegister, fahrzeugRegister, statistiken,
 				preisRegister);
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);

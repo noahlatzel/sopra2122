@@ -22,7 +22,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  * @author NoahLatzel
  *
  */
-public class LageristenSteuerung {
+public class Lageristensteuerung {
 	private Lager lager;
 	private BenutzerRegister benutzerRegister;
 	private FahrzeugRegister fahrzeugRegister;
@@ -41,7 +41,7 @@ public class LageristenSteuerung {
 	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
 	 *                         Fahrzeuge gespeichert werden.
 	 */
-	public LageristenSteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister,
+	public Lageristensteuerung(Lager lager, BenutzerRegister benutzerRegister, FahrzeugRegister fahrzeugRegister,
 			Statistiken statistiken, GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
 		this.benutzerRegister = benutzerRegister;
