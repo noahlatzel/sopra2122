@@ -1,117 +1,55 @@
 package de.wwu.sopra.darstellung.fahrer;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
+import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FahrzeugAuswaehlen extends Scene {
+public class FahrzeugAuswaehlen extends OverviewFahrer {
 
-	BorderPane root = new BorderPane();
-	Stage primaryStage;
-	VBox vbox;
-	ScrollPane scrollPane = new ScrollPane();
-	Button btFahrzeugwahlen;
-	Button btRouteAnzeigen;
-	Button btFahrzeugpositionAnzeigen;
-	Button btKundeNichtDa;
-	Button btPersoenlicheDatenAnzeigen;
-	Button btPersoenlicheDatenBearbeiten;
-
-	public FahrzeugAuswaehlen(Stage primaryStage, double width, double height) {
-		super(new BorderPane(), width, height);
-		this.primaryStage = primaryStage;
-		this.setRoot(root);
-		root.setLeft(this.setGridPane());
-		root.setCenter(scrollPane);
-
-	}
-	// ObservableList<Fahrzeug> rezepte = FXCollections.observableArrayList(null);
-	// ListView<Fahrzeug> listView = new ListView<Fahrzeug>(rezepte);
-
-	private VBox setGridPane() {
-		if (vbox == null) {
-			vbox = new VBox();
-			vbox.setSpacing(5);
-			vbox.getChildren().add(setBtFahrzeugwahlen());
-			vbox.getChildren().add(setBtRouteAnzeigen());
-			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
-			vbox.getChildren().add(setBtKundeNichtDa());
-			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
-		}
-		return vbox;
+	public FahrzeugAuswaehlen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
+		super(steuerung, primaryStage, width, height);
+		root.setCenter(setScrollPane());
 	}
 
-	private Button setBtFahrzeugwahlen() {
-		if (btFahrzeugwahlen == null) {
-			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
-			btFahrzeugwahlen.setMinWidth(180);
-			btFahrzeugwahlen.setOnAction(e -> {
-				// primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, getWidth(),
-				// getHeight()));
-			});
+	public ScrollPane setScrollPane() {
+		ScrollPane scrollPane = new ScrollPane();
+		List<Fahrzeug> fahrzeug = new ArrayList<Fahrzeug>(FahrzeugRegister.getFahrzeuge());
+		List<Fahrzeug> fahrzeugebeleget = new ArrayList<Fahrzeug>();
+		for (Fahrzeug i : fahrzeug) {
+			if (i.getStatus() == FahrzeugStatus.BELEGT)
+				fahrzeugebeleget.add(i);
 		}
-		return btFahrzeugwahlen;
-	}
+		List<Integer> fahrzeugeid = new ArrayList<Integer>();
+		for (int i = 0; i < fahrzeugebeleget.size(); i++)
+			fahrzeugeid.add(fahrzeugebeleget.get(i).getFahrzeugNummer());
 
-	private Button setBtRouteAnzeigen() {
-		if (btRouteAnzeigen == null) {
-			btRouteAnzeigen = new Button("Route Anzeigen");
-			btRouteAnzeigen.setMinWidth(180);
-			btRouteAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new RouteAnzeigen(primaryStage, getWidth(), getHeight()));
+		ObservableList<Integer> fahrzeuge = (ObservableList<Integer>) FXCollections.observableArrayList(fahrzeugeid);
+		ListView<Integer> listView = new ListView<Integer>(fahrzeuge);
+		scrollPane.setContent(listView);
+		listView.setMinWidth(600);
+		scrollPane.setMinWidth(000);
+		listView.setOnMouseClicked(e -> {
+			try {
+				int index = listView.getSelectionModel().getSelectedIndex();
+				steuerung.fahrzeugZuordnen(fahrzeugebeleget.get(index));
+				root.setRight(new Label("wagen :" + fahrzeugeid.get(index) + "ist jetzt belegt"));
+			} catch (IndexOutOfBoundsException k) {
+				System.out.println("kein objekt an dieser Stelle, bitte waehle ein Rezept");
+			}
 
-			});
-		}
-		return btRouteAnzeigen;
-	}
+		});
+		return scrollPane;
 
-	private Button setBtFahrzeugpositionAnzeigen() {
-		if (btFahrzeugpositionAnzeigen == null) {
-			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
-			btFahrzeugpositionAnzeigen.setMinWidth(180);
-			btFahrzeugpositionAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new FahrzeugpositionAnzeigen(primaryStage, getWidth(), getHeight()));
-			});
-
-		}
-		return btFahrzeugpositionAnzeigen;
-	}
-
-	private Button setBtKundeNichtDa() {
-		if (btKundeNichtDa == null) {
-			btKundeNichtDa = new Button("Kunde nicht da");
-			btKundeNichtDa.setMinWidth(180);
-			btKundeNichtDa.setOnAction(e -> {
-				primaryStage.setScene(new KundeNichtDa(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btKundeNichtDa;
-	}
-
-	private Button setBtPersoenlicheDatenAnzeigen() {
-		if (btPersoenlicheDatenAnzeigen == null) {
-			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
-			btPersoenlicheDatenAnzeigen.setMinWidth(180);
-			btPersoenlicheDatenAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenAnzeigen;
-	}
-
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.setMinWidth(180);
-			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
-				primaryStage.setScene(new PersoenlicheDatenBearbeiten(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenBearbeiten;
 	}
 
 }

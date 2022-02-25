@@ -1,113 +1,40 @@
 package de.wwu.sopra.darstellung.fahrer;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
+import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
-public class RouteAnzeigen extends Scene {
+public class RouteAnzeigen extends OverviewFahrer {
 
-	BorderPane root = new BorderPane();
-	Stage primaryStage;
-	VBox vbox;
-	Button btFahrzeugwahlen;
-	Button btRouteAnzeigen;
-	Button btFahrzeugpositionAnzeigen;
-	Button btKundeNichtDa;
-	Button btPersoenlicheDatenAnzeigen;
-	Button btPersoenlicheDatenBearbeiten;
-
-	public RouteAnzeigen(Stage primaryStage, double width, double height) {
-		super(new BorderPane(), width, height);
-		this.primaryStage = primaryStage;
-		this.setRoot(root);
-		root.setLeft(this.setGridPane());
-		root.setCenter(new Label("this is Route"));
+	public RouteAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
+		super(steuerung, primaryStage, width, height);
+		this.zeigeRoute();
 	}
 
-	private VBox setGridPane() {
-		if (vbox == null) {
-			vbox = new VBox();
-			vbox.setSpacing(5);
-			vbox.getChildren().add(setBtFahrzeugwahlen());
-			vbox.getChildren().add(setBtRouteAnzeigen());
-			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
-			vbox.getChildren().add(setBtKundeNichtDa());
-			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
+	public void zeigeRoute() {
+		ScrollPane tabelle = new ScrollPane();
+		root.setCenter(tabelle);
+		List<String> ausgabeListe = new ArrayList<String>();
+		try {
+			List<Bestellung> bestellungen = steuerung.routeAusgeben().getBestellungen();
+
+			for (Bestellung i : bestellungen) {
+				ausgabeListe.add("Adresse: " + i.getKunde().getAdresse() + " Bestellnummer: " + i.getBestellnummer());
+			}
+		} catch (NullPointerException k) {
+			System.out.println("Keine Route im Fahrzeug oder kein Fahrzeug");
 		}
-		return vbox;
+
+		ObservableList<String> stopps = (ObservableList<String>) FXCollections.observableArrayList(ausgabeListe);
+		ListView<String> listView = new ListView<String>(stopps);
+		tabelle.setContent(listView);
+		listView.setMinWidth(600);
 	}
-
-	private Button setBtFahrzeugwahlen() {
-		if (btFahrzeugwahlen == null) {
-			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
-			btFahrzeugwahlen.setMinWidth(180);
-			btFahrzeugwahlen.setOnAction(e -> {
-				primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btFahrzeugwahlen;
-	}
-
-	private Button setBtRouteAnzeigen() {
-		if (btRouteAnzeigen == null) {
-			btRouteAnzeigen = new Button("Route Anzeigen");
-			btRouteAnzeigen.setMinWidth(180);
-			btRouteAnzeigen.setOnAction(e -> {
-				// primaryStage.setScene(new RouteAnzeigen(primaryStage, getWidth(),
-				// getHeight()));
-
-			});
-		}
-		return btRouteAnzeigen;
-	}
-
-	private Button setBtFahrzeugpositionAnzeigen() {
-		if (btFahrzeugpositionAnzeigen == null) {
-			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
-			btFahrzeugpositionAnzeigen.setMinWidth(180);
-			btFahrzeugpositionAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new FahrzeugpositionAnzeigen(primaryStage, getWidth(), getHeight()));
-			});
-
-		}
-		return btFahrzeugpositionAnzeigen;
-	}
-
-	private Button setBtKundeNichtDa() {
-		if (btKundeNichtDa == null) {
-			btKundeNichtDa = new Button("Kunde nicht da");
-			btKundeNichtDa.setMinWidth(180);
-			btKundeNichtDa.setOnAction(e -> {
-				primaryStage.setScene(new KundeNichtDa(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btKundeNichtDa;
-	}
-
-	private Button setBtPersoenlicheDatenAnzeigen() {
-		if (btPersoenlicheDatenAnzeigen == null) {
-			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
-			btPersoenlicheDatenAnzeigen.setMinWidth(180);
-			btPersoenlicheDatenAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenAnzeigen;
-	}
-
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.setMinWidth(180);
-			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
-				primaryStage.setScene(new PersoenlicheDatenBearbeiten(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenBearbeiten;
-	}
-
 }
