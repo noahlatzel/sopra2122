@@ -1,7 +1,7 @@
 package de.wwu.sopra.darstellung.main;
 
+import de.wwu.sopra.darstellung.fahrer.FahrzeugAuswaehlen;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainJavaFx extends Application {
@@ -10,7 +10,7 @@ public class MainJavaFx extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
-		primaryStage.setScene(new Scene(null, 400, 400));
+		primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, 300, 300));
 		primaryStage.show();
 
 	}
