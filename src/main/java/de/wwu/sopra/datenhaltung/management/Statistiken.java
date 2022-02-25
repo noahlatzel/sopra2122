@@ -97,4 +97,13 @@ public class Statistiken implements Serializable {
 		this.arbeitszeit = arbeitszeit;
 	}
 
+	/**
+	 * Fuegt einen Betrag zu den Ausgaben hinzu.
+	 * 
+	 * @param ausgaben Die Ausgaben, die hinzugekommen sind.
+	 */
+	public void addAusgaben(float ausgaben) {
+		this.ausgaben += ausgaben;
+	}
+
 }
