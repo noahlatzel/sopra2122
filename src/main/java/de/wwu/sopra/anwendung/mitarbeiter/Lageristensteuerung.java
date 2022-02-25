@@ -109,6 +109,23 @@ public class Lageristensteuerung {
 	}
 
 	/**
+	 * Diese Methode gibt die Menge aller belegten oder zustellenden Fahrzeuge im
+	 * System zurueck.
+	 * 
+	 * @return Die Menge aller belegten / zustellenden Fahrzeuge.
+	 */
+	public HashSet<Fahrzeug> getFahrzeugeMitRoute() {
+		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+		HashSet<Fahrzeug> alleFahrzeuge = fahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : alleFahrzeuge) {
+			if (f.getRoute() != null) {
+				fahrzeuge.add(f);
+			}
+		}
+		return fahrzeuge;
+	}
+
+	/**
 	 * Oeffentliche Methode, ueber die die offenen Bestellungen abgerufen werden.
 	 * 
 	 * @return Alle offenen Bestellungen im System
