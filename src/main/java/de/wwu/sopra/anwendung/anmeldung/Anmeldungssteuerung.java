@@ -6,6 +6,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
@@ -116,7 +117,7 @@ public class Anmeldungssteuerung {
 			System.out.println("Lagerist angemeldet!");
 			break;
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung(); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, benutzerReg); // TODO Fehlende Parameter
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}

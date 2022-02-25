@@ -16,15 +16,23 @@ import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 public class Inhabersteuerung {
-	// Angemeldeter Inhaber
 	private Inhaber inhaber;
 	private Statistiken statistiken;
+	private BenutzerRegister benutzerReg;
 	
-	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken) {
+	/**
+	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
+	 * @param inhaber
+	 * @param statistiken
+	 * @param benutzerReg
+	 */
+	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, BenutzerRegister benutzerReg) {
 		this.inhaber = inhaber;
 		this.statistiken = statistiken;
+		this.benutzerReg = benutzerReg;
 	}
 	
 	/**
@@ -157,9 +165,11 @@ public class Inhabersteuerung {
 		if (rolle == Rolle.FAHRER) {
 			Fahrer fahrer = new Fahrer(benutzername, passwort, email, adresse, vorname, nachname, bankverbindung, this.inhaber);
 			this.inhaber.fahrerHinzufuegen(fahrer);
+			this.benutzerReg.benutzerHinzufuegen(fahrer);
 		} else if (rolle == Rolle.LAGERIST) {
 			Lagerist lagerist = new Lagerist(benutzername, passwort, email, adresse, vorname, nachname, bankverbindung, this.inhaber);
 			this.inhaber.lageristHinzufuegen(lagerist);
+			this.benutzerReg.benutzerHinzufuegen(lagerist);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -176,6 +186,7 @@ public class Inhabersteuerung {
 		} else if (mitarbeiter.getRolle() == Rolle.LAGERIST) {
 			this.inhaber.lageristEntfernen((Lagerist) mitarbeiter);
 		}
+		this.benutzerReg.benutzerEntfernen(mitarbeiter);
 	}
 	
 	/**

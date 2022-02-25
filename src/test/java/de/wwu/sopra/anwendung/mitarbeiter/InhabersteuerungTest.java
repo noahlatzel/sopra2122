@@ -21,6 +21,7 @@ import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 public class InhabersteuerungTest {
 	String benutzername;
@@ -33,6 +34,7 @@ public class InhabersteuerungTest {
 	Inhaber inhaber;
 	Inhabersteuerung ihs;
 	Statistiken statistiken = new Statistiken();
+	BenutzerRegister benutzerReg = new BenutzerRegister();
 	
 	@BeforeEach
 	void init() {
@@ -44,7 +46,7 @@ public class InhabersteuerungTest {
 		name = "Sparrow";
 		bankverbindung = "DE00 0000 0000 0000 00";
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		ihs = new Inhabersteuerung(inhaber, statistiken);
+		ihs = new Inhabersteuerung(inhaber, statistiken, benutzerReg);
 	}
 	
 	/**
@@ -98,13 +100,16 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testFahrzeugDatenAendern() {
+		// Erstellung von Fahrzeug
 		Fahrzeug fzeug = new Fahrzeug(94231, 321894215);
+		
+		// Fahrzeugkapazitaet aendern
 		ihs.fahrzeugDatenAendern(fzeug, fzeug.getFahrzeugNummer(), 123456789);
 		assertEquals(fzeug.getKapazitaet(), 123456789);
 	}
 	
 	/**
-	 * 
+	 * Testet, ob alle Daten des Benutzers im richtigen Format zurueckgegeben werden
 	 */
 	@Test
 	void testPersoenlicheDatenAnzeigen() {
@@ -114,14 +119,18 @@ public class InhabersteuerungTest {
 	}
 	
 	/**
-	 * 
+	 * Testet, ob die Daten des Benutzers erfolgreich geaendert werden koennen
 	 */
 	@Test
 	void testPersoenlicheDatenAendern() {
 		ihs.persoenlicheDatenAendern(benutzername, passwort, "imapirateyeahyeah@online.de", adresse, vorname, name, bankverbindung);
+		// Email aendern
 		assertEquals(inhaber.getEmail(), "imapirateyeahyeah@online.de");
 	}
 	
+	/**
+	 * Testet, ob ein Produkt vom Inhaber bearbeitet werden kann
+	 */
 	@Test
 	void testProduktBearbeiten() {
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
@@ -129,21 +138,29 @@ public class InhabersteuerungTest {
 		assertEquals(producto.getVerkaufspreis(), 10.99);
 	}
 	
+	/**
+	 * Tests, dass der Inhaber Produkte zu Lager hinzufuegen und entfernen kann
+	 */
 	@Test
 	void testLagerVerwalten() {
+		// Erstellung von Lager und Produkte
 		Lager lager = new Lager();
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		Produkt product = new Produkt("Cola", "American", 5.99, 7.99);
+		
+		// Erstellung von Produkte-um-hinzufuegen Liste
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(producto);
 		productsToAdd.add(product);
 		
 		ihs.lagerVerwalten(lager, productsToAdd, "hinzufuegen");
 		
+		// Produkte von Lager erhalten
 		HashSet<Produkt> lagerProdukte = lager.getLager();
 		
 		assertTrue(lagerProdukte.size() == 2);
 		
+		// Erstellung von Produkte-um-loeschen Liste
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
 		productsToRemove.add(product);
 		
@@ -152,21 +169,30 @@ public class InhabersteuerungTest {
 		assertTrue(lagerProdukte.size() == 1);
 	}
 	
+	/**
+	 * Testet, ob der Inhaber eine Kategorie bearbeiten kann, indem er ihren Namen aendert oder Ober- und Unterkategorien hinzufuegt und entfernt
+	 */
 	@Test
 	void testKategorieVerwalten() {
+		// Erstellung von Kategorien
 		Kategorie softDrinks = new Kategorie("Fizzy Drinks");
 		Kategorie sauer = new Kategorie("Sauer");
 		
+		// Name der ersten Kategorie aendern
 		ihs.kategorieBearbeiten(softDrinks, null, null, "Soft Drinks");
 		
 		assertEquals(softDrinks.getName(), "Soft Drinks");
 		
+		// Unterkategorie zu ersten Kategorie hinzufuegen
 		ihs.kategorieBearbeiten(softDrinks, sauer, "unter", null);
 		
 		assertTrue(softDrinks.getUnterkategorien().contains(sauer));
 		
+		// Erstellung von Produkten
 		Produkt product = new Produkt("Stang", "The World's Most Sour Soda", 2.99, 3.99);
 		Produkt product2 = new Produkt("Fanta", "Yummy", 1.99, 2.99);
+		
+		// Erstellung von Produkte-um-hinzufuegen Liste
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(product);
 		productsToAdd.add(product2);
@@ -176,6 +202,7 @@ public class InhabersteuerungTest {
 		assertTrue(sauer.getProdukte().contains(product));
 		assertTrue(sauer.getProdukte().contains(product2));
 		
+		// Erstellung von Produkte-um-loeschen Liste
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
 		productsToRemove.add(product2);
 		
@@ -183,8 +210,12 @@ public class InhabersteuerungTest {
 		assertFalse(sauer.getProdukte().contains(product2));
 	}
 	
+	/**
+	 * Testet, ob die abgerufenen statistischen Daten im richtigen Format mit den richtigen Daten zurueckgegeben werden
+	 */
 	@Test
 	void teststatistikenAusgeben() {
+		
 		HashMap<String, Float> statistics = ihs.statistikenAusgeben();
 		
 		HashMap<String, Float> statisticsSupposedResult = new HashMap<String, Float>();
