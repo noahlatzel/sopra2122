@@ -113,7 +113,7 @@ public class Fahrzeug implements Serializable {
 	/**
 	 * Route der Fahrzeug setzen "setRoute" wird beim Erstellen eines Route-Objekts
 	 * aufgerufen. Eine neue Route wird nur gesetzt, wenn das Fahrzeug FREI ist und
-	 * anschließend wird der Status auf BELEGT geaendert.
+	 * anschliessend wird der Status auf BELEGT geaendert.
 	 * 
 	 * @param route zu setzen
 	 */
