@@ -31,7 +31,9 @@ public class KundeTest {
 	public void setup() {
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		bestellung = new Bestellung(1234, datum, new ArrayList<Produkt>(), kunde);
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		bestellung = new Bestellung(1234, datum, produkte, kunde);
 	}
 
 	/**
@@ -75,9 +77,11 @@ public class KundeTest {
 	@Test
 	void testGetBestellungen() {
 		// Erstellung von Bestellungen-Liste
-		Bestellung bestellung2 = new Bestellung(1235, datum, new ArrayList<Produkt>(), kunde);
-		Bestellung bestellung3 = new Bestellung(1236, datum, new ArrayList<Produkt>(), kunde);
-		Bestellung bestellung4 = new Bestellung(1237, datum, new ArrayList<Produkt>(), kunde);
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Bestellung bestellung2 = new Bestellung(1235, datum, produkte, kunde);
+		Bestellung bestellung3 = new Bestellung(1236, datum, produkte, kunde);
+		Bestellung bestellung4 = new Bestellung(1237, datum, produkte, kunde);
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		bestellungen.add(bestellung2);
@@ -100,7 +104,9 @@ public class KundeTest {
 	@Test
 	void testGetWarenkorb() {
 		// Erstellung von Warenkorb und zu Kunde zuordnen
-		Warenkorb warenkorb = new Warenkorb(new ArrayList<Produkt>(), kunde);
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Warenkorb warenkorb = new Warenkorb(produkte, kunde);
 		Warenkorb kundesWarenkorb = kunde.getWarenkorb();
 
 		assertEquals(warenkorb, kundesWarenkorb);

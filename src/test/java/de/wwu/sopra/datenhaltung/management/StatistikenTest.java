@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.wwu.sopra.datenhaltung.management.Statistiken;
-
 class StatistikenTest {
 
 	/**
@@ -18,6 +16,17 @@ class StatistikenTest {
 		assertTrue(statistik.getAusgaben() == 0);
 		assertTrue(statistik.getEinnahmen() == 0);
 		assertTrue(statistik.getUmsatz() == 0);
+	}
+
+	/**
+	 * Testet addAusgaben
+	 */
+	@Test
+	void testAddAusgaben() {
+		Statistiken statistik = new Statistiken();
+		statistik.addAusgaben(1);
+		statistik.addAusgaben(1);
+		assertTrue(statistik.getAusgaben() == 2);
 	}
 
 }
