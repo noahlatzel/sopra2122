@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import de.wwu.sopra.datenhaltung.management.Kategorie;
-import de.wwu.sopra.datenhaltung.management.Produkt;
-
 @TestInstance(Lifecycle.PER_CLASS)
 public class ProduktTest {
 	Produkt produkt_1;
@@ -103,5 +100,19 @@ public class ProduktTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			produkt_1.setVerkaufspreis(0);
 		});
+	}
+
+	/**
+	 * Testet klonen.
+	 */
+	@Test
+	public void testClone() {
+		produkt_1.setKategorie(kategorie_1);
+		Produkt produkt_clone = produkt_1.clone(1.5);
+		assertTrue(produkt_clone.getBeschreibung().equals(produkt_1.getBeschreibung()));
+		assertTrue(produkt_clone.getName().equals(produkt_1.getName()));
+		assertTrue(produkt_clone.getKategorie().equals(produkt_1.getKategorie()));
+		assertTrue(produkt_clone.getEinkaufspreis() == 1.5);
+		assertTrue(produkt_clone.getVerkaufspreis() == 1.7);
 	}
 }

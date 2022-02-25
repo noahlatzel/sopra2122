@@ -1,6 +1,7 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -9,9 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-
-import de.wwu.sopra.datenhaltung.management.Lager;
-import de.wwu.sopra.datenhaltung.management.Produkt;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class LagerTest {
@@ -74,5 +72,28 @@ public class LagerTest {
 		}
 		assertTrue(lager.getLagerbestand().get(produkte.get(0).getName()) == 0);
 		assertTrue(lager.getLagerbestand().get(produkte.get(3).getName()) == 0);
+	}
+
+	/**
+	 * Testet getProduktBestand
+	 */
+	@Test
+	void testGetProduktBestand() {
+		lager.addProdukte(produkte);
+		assertTrue(lager.getProduktBestand(produkte.get(0)) == lager.getProduktBestand(produkte.get(0).getName()));
+		assertTrue(lager.getProduktBestand(produkte.get(0)) == 3);
+	}
+
+	/**
+	 * Testet Ausnahmeverhalten von getProduktBestand
+	 */
+	@Test
+	void testThrowsGetProduktBestand() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			lager.getProduktBestand("kein Produkt");
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			lager.getProduktBestand(new Produkt("keinProdukt", "Toller Geschmack", 0.99, 1.29));
+		});
 	}
 }

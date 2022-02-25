@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.management.Fahrzeug;
-import de.wwu.sopra.datenhaltung.management.Route;
 
 /**
  * 
@@ -66,7 +64,8 @@ class RouteTest {
 	}
 
 	/**
-	 * Test method for {@link de.wwu.sopra.datenhaltung.management.Route#getFahrzeug()}.
+	 * Test method for
+	 * {@link de.wwu.sopra.datenhaltung.management.Route#getFahrzeug()}.
 	 * 
 	 * @throws IllegalArgumentException
 	 */
@@ -122,7 +121,9 @@ class RouteTest {
 	 */
 	@Test
 	void testBestellungen() {
-		Bestellung bestellung = new Bestellung(0, 0, null, null, null);
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Bestellung bestellung = new Bestellung(0, null, produkte, null);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		Fahrzeug fzeug = new Fahrzeug(9879871, 100);
