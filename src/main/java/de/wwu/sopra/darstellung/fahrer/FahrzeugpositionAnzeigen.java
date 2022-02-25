@@ -4,14 +4,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FahrzeugpositionAnzeigen extends Scene {
 
 	BorderPane root = new BorderPane();
 	Stage primaryStage;
-	GridPane gridPane;
+	VBox vbox;
 	Button btFahrzeugwahlen;
 	Button btRouteAnzeigen;
 	Button btFahrzeugpositionAnzeigen;
@@ -24,25 +24,27 @@ public class FahrzeugpositionAnzeigen extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setLeft(this.setGridPane());
-		root.setCenter(new Label("this is FahrzeugpositionAnzeigen"));
+		root.setCenter(new Label("this is Position"));
 	}
 
-	private GridPane setGridPane() {
-		if (gridPane == null) {
-			gridPane = new GridPane();
-			gridPane.add(setBtFahrzeugwahlen(), 1, 0);
-			gridPane.add(setBtRouteAnzeigen(), 1, 1);
-			gridPane.add(setBtFahrzeugpositionAnzeigen(), 1, 2);
-			gridPane.add(setBtKundeNichtDa(), 1, 3);
-			gridPane.add(setBtPersoenlicheDatenAnzeigen(), 1, 4);
-			gridPane.add(setBtPersoenlicheDatenBearbeiten(), 1, 5);
+	private VBox setGridPane() {
+		if (vbox == null) {
+			vbox = new VBox();
+			vbox.setSpacing(5);
+			vbox.getChildren().add(setBtFahrzeugwahlen());
+			vbox.getChildren().add(setBtRouteAnzeigen());
+			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
+			vbox.getChildren().add(setBtKundeNichtDa());
+			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 		}
-		return gridPane;
+		return vbox;
 	}
 
 	private Button setBtFahrzeugwahlen() {
 		if (btFahrzeugwahlen == null) {
 			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
+			btFahrzeugwahlen.setMinWidth(180);
 			btFahrzeugwahlen.setOnAction(e -> {
 				primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, getWidth(), getHeight()));
 			});
@@ -53,11 +55,11 @@ public class FahrzeugpositionAnzeigen extends Scene {
 	private Button setBtRouteAnzeigen() {
 		if (btRouteAnzeigen == null) {
 			btRouteAnzeigen = new Button("Route Anzeigen");
-			// btRouteAnzeigen.setOnAction(e -> {
-			// primaryStage.setScene(new
-			// FahrzeugAuswaehlen(primaryStage,getWidth(),getHeight()));
+			btRouteAnzeigen.setMinWidth(180);
+			btRouteAnzeigen.setOnAction(e -> {
+				primaryStage.setScene(new RouteAnzeigen(primaryStage, getWidth(), getHeight()));
 
-			// });
+			});
 		}
 		return btRouteAnzeigen;
 	}
@@ -65,6 +67,12 @@ public class FahrzeugpositionAnzeigen extends Scene {
 	private Button setBtFahrzeugpositionAnzeigen() {
 		if (btFahrzeugpositionAnzeigen == null) {
 			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
+			btFahrzeugpositionAnzeigen.setMinWidth(180);
+			btFahrzeugpositionAnzeigen.setOnAction(e -> {
+				// primaryStage.setScene(new FahrzeugpositionAnzeigen(primaryStage, getWidth(),
+				// getHeight()));
+			});
+
 		}
 		return btFahrzeugpositionAnzeigen;
 	}
@@ -72,6 +80,10 @@ public class FahrzeugpositionAnzeigen extends Scene {
 	private Button setBtKundeNichtDa() {
 		if (btKundeNichtDa == null) {
 			btKundeNichtDa = new Button("Kunde nicht da");
+			btKundeNichtDa.setMinWidth(180);
+			btKundeNichtDa.setOnAction(e -> {
+				primaryStage.setScene(new KundeNichtDa(primaryStage, getWidth(), getHeight()));
+			});
 		}
 		return btKundeNichtDa;
 	}
@@ -79,6 +91,10 @@ public class FahrzeugpositionAnzeigen extends Scene {
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (btPersoenlicheDatenAnzeigen == null) {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
+			btPersoenlicheDatenAnzeigen.setMinWidth(180);
+			btPersoenlicheDatenAnzeigen.setOnAction(e -> {
+				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight()));
+			});
 		}
 		return btPersoenlicheDatenAnzeigen;
 	}
@@ -86,6 +102,10 @@ public class FahrzeugpositionAnzeigen extends Scene {
 	private Button setBtPersoenlicheDatenBearbeiten() {
 		if (btPersoenlicheDatenBearbeiten == null) {
 			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
+			btPersoenlicheDatenBearbeiten.setMinWidth(180);
+			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
+				primaryStage.setScene(new PersoenlicheDatenBearbeiten(primaryStage, getWidth(), getHeight()));
+			});
 		}
 		return btPersoenlicheDatenBearbeiten;
 	}

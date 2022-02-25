@@ -10,7 +10,7 @@ public class MainJavaFx extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
-		primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, 300, 300));
+		primaryStage.setScene(new FahrzeugAuswaehlen(primaryStage, 600, 300));
 		primaryStage.show();
 
 	}
