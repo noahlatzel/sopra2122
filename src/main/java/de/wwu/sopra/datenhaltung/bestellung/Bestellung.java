@@ -21,6 +21,7 @@ public class Bestellung implements Serializable {
 	private final Kunde kunde;
 	private LocalDateTime datum;
 	private Rechnung rechnung;
+	private int kapazitaet;
 
 	/**
 	 * Konstruktor der Klasse Bestellung
@@ -38,6 +39,7 @@ public class Bestellung implements Serializable {
 		this.produkte = produkte;
 		this.betrag = calcBetrag();
 		this.kunde = kunde;
+		this.kapazitaet = produkte.size();
 	}
 
 	/**
@@ -134,8 +136,8 @@ public class Bestellung implements Serializable {
 	 * 
 	 * @return Die Kapazitaet, die durch die Bestellung belegt wird.
 	 */
-	public int getKapazitaetBelegt() {
-		return this.getProdukte().size();
+	public int getKapazitaet() {
+		return this.kapazitaet;
 	}
 
 	@Override
