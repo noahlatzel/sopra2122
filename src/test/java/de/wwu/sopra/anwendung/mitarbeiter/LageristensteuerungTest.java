@@ -162,10 +162,10 @@ public class LageristensteuerungTest {
 		testbestellung1.setStatus(BestellStatus.ABGESCHLOSSEN);
 		testbestellung2.setStatus(BestellStatus.OFFEN);
 
-		benutzerRegister.benutzerHinzufuegen(kunde2);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
-		benutzerRegister.benutzerHinzufuegen(kunde1);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
+		BenutzerRegister.benutzerHinzufuegen(kunde2);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
+		BenutzerRegister.benutzerHinzufuegen(kunde1);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
 
 		System.out.println(lageristenSteuerung.zeigeOffeneBestellungen().size());
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().contains(testbestellung2));
