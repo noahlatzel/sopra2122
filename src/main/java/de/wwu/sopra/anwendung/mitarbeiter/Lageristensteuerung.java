@@ -152,11 +152,16 @@ public class Lageristensteuerung {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
 		for (BenutzerDatenTripel benutzerDaten : BenutzerRegister.getBenutzerListe()) {
 			List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
-			for (Bestellung b : tempBestellungen) {
-				if (b.getStatus().equals(BestellStatus.OFFEN)) {
-					bestellungen.add(b);
+			for (int i = 0; i < tempBestellungen.size(); i++) {
+				if (tempBestellungen.get(i).getStatus().equals(BestellStatus.OFFEN)) {
+					bestellungen.add(tempBestellungen.get(i));
 				}
 			}
+			// for (Bestellung b : tempBestellungen) {
+			// if (b.getStatus().equals(BestellStatus.OFFEN)) {
+			// bestellungen.add(b);
+			// }
+			// }
 		}
 		return bestellungen;
 	}
