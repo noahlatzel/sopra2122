@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author Paul Dirksen
  *
  */
-public class BenutzerRegister {
+public class BenutzerRegister implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
 
 	/**
