@@ -1,8 +1,10 @@
 package de.wwu.sopra.anwendung.kunde;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,27 +21,29 @@ public class KundensteuerungTest {
 
 	Kunde kunde;
 	Lager lager;
-	List<Produkt> liste;
-	List<Produkt> liste2;
-	List<Bestellung> bestellungen;
-	Warenkorb warenkorb = new Warenkorb(liste2,kunde);
+	List<Produkt> liste = new ArrayList<Produkt>();
+	List<Produkt> liste2  = new ArrayList<Produkt>();
+	List<Bestellung> bestellungen  = new ArrayList<Bestellung>();
+	Warenkorb warenkorb;
 	
 	// vor jedem Test
 		@BeforeEach
 		public void init() {
-			lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-			lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-			lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-			lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-			lager.addProdukt(new Produkt("Cola", "Toller Geschmack", 0.99, 1.29));
+			kunde = new Kunde("MuellerAgi.123","12345","Agatha.b@gmail.com","Privet Drive 3","Agatha","Mueller","De414580364567893456");
+			lager = new Lager();
 			Produkt cola = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);
 			Produkt cola2 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 			Produkt cola3 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 			Produkt cola4 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+			lager.addProdukt(cola);
+			lager.addProdukt(cola2);
+			lager.addProdukt(cola3);
+			lager.addProdukt(cola4);
 			liste.add(cola);
 			liste2.add(cola2);
 			liste2.add(cola3);
 			liste2.add(cola4);
+			warenkorb = new Warenkorb(liste2,kunde);
 		}
 	
 	/**
@@ -64,7 +68,7 @@ public class KundensteuerungTest {
 	void testpersoenlicheDatenAnzeigen() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		assertTrue(kundensteuerung.persoenlicheDatenAnzeigen()
-				.equals("Agi.123,12345,Agatha.b@gmail.com,Privet Drive 3,Agatha, Mueller,De414580364567893456"));
+				.equals("MuellerAgi.123;12345;Agatha.b@gmail.com;Privet Drive 3;Agatha;Mueller;De414580364567893456;"));
 	}
 	
 	/**
@@ -73,9 +77,9 @@ public class KundensteuerungTest {
 	@Test
 	void testpersoenlicheDatenAendern() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		kundensteuerung.persoenlicheDatenAendern("Agi.123","12345","Agatha.b@gmail.com","Privet Drive 3","Agatha","Mueller","De414580364567893456");
-		String vorher = "Agi.123,12345,Agatha.b@gmail.com,Privet Drive 3,Agatha, Mueller,De414580364567893456";
-		assertTrue(kundensteuerung.persoenlicheDatenAnzeigen().equals(vorher));
+		kundensteuerung.persoenlicheDatenAendern("MuellerAgi.123","45678","Agatha.b@gmail.com","Privet Drive 3","Agatha","Mueller","De414580364567893456");
+		String vorher = "MuellerAgi.123;12345;Agatha.b@gmail.com;Privet Drive 3;Agatha;Mueller;De414580364567893456;";
+		assertFalse(kundensteuerung.persoenlicheDatenAnzeigen().equals(vorher));
 	}
 	
 	/**
