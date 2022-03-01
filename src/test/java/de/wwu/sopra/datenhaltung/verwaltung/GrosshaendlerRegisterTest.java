@@ -13,7 +13,6 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  *
  */
 public class GrosshaendlerRegisterTest {
-	GrosshaendlerRegister preisRegister;
 	Produkt produkt1;
 
 	/**
@@ -21,10 +20,9 @@ public class GrosshaendlerRegisterTest {
 	 */
 	@Test
 	void testAddPreis() {
-		preisRegister = new GrosshaendlerRegister();
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		preisRegister.setPreis(produkt1, 0.89);
-		assertTrue(preisRegister.getPreis(produkt1) == 0.89);
+		GrosshaendlerRegister.setPreis(produkt1, 0.89);
+		assertTrue(GrosshaendlerRegister.getPreis(produkt1) == 0.89);
 	}
 
 	/**
@@ -32,11 +30,10 @@ public class GrosshaendlerRegisterTest {
 	 */
 	@Test
 	void testAddPreisString() {
-		preisRegister = new GrosshaendlerRegister();
-		preisRegister.setPreis("Orangensaft", 0.89);
+		GrosshaendlerRegister.setPreis("Orangensaft", 0.89);
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		assertTrue(preisRegister.getPreis("Orangensaft") == 0.89);
-		assertTrue(preisRegister.getPreis(produkt1) == 0.89);
+		assertTrue(GrosshaendlerRegister.getPreis("Orangensaft") == 0.89);
+		assertTrue(GrosshaendlerRegister.getPreis(produkt1) == 0.89);
 	}
 
 }
