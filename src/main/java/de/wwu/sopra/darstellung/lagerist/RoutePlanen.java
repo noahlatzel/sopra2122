@@ -82,9 +82,12 @@ public class RoutePlanen extends LageristOverview {
 			btRouteAbschicken = new Button("Route planen");
 			btRouteAbschicken.setMinWidth(200);
 			btRouteAbschicken.setOnAction(a -> {
-				lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
-						tableViewFahrzeug.getSelectionModel().getSelectedItem());
-				primaryStage.setScene(new RoutePlanen(primaryStage, 1280, 720, lageristenSteuerung));
+				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
+						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
+					lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
+							tableViewFahrzeug.getSelectionModel().getSelectedItem());
+					primaryStage.setScene(new RoutePlanen(primaryStage, 1280, 720, lageristenSteuerung));
+				}
 			});
 		}
 		return this.btRouteAbschicken;

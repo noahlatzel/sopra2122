@@ -37,6 +37,7 @@ public class LageristOverview extends Scene {
 		this.lageristenSteuerung = lageristenSteuerung;
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("Startseite..."));
+
 	}
 
 	private VBox setVBox() {

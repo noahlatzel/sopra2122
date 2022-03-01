@@ -182,4 +182,13 @@ public class Lageristensteuerung {
 		}
 		return bestellungen;
 	}
+
+	/**
+	 * Gibt das GrosshaendlerRegister zurueck.
+	 * 
+	 * @return Das GrosshaendlerRegister
+	 */
+	public GrosshaendlerRegister getGrosshaendlerRegister() {
+		return this.preisRegister;
+	}
 }
