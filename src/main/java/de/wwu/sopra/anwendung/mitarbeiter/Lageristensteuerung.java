@@ -40,14 +40,8 @@ public class Lageristensteuerung {
 
 	public Lageristensteuerung(Lager lager, Statistiken statistiken, GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
-	}
-
-	public Lageristensteuerung(Lager lager, FahrzeugRegister fahrzeugRegister, Statistiken statistiken,
-			GrosshaendlerRegister preisRegister) {
-		this.lager = lager;
-
-		this.statistiken = statistiken;
 		this.preisRegister = preisRegister;
+		this.statistiken = statistiken;
 	}
 
 	/**
@@ -61,7 +55,7 @@ public class Lageristensteuerung {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
 				lager.addProdukt(n.getProdukt().clone(this.preisRegister.getPreis(n.getProdukt())));
-				statistiken.addAusgaben((float) n.getProdukt().getEinkaufspreis());
+				statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 			}
 		}
 	}
