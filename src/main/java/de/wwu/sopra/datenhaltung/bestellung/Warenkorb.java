@@ -6,6 +6,12 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
+/**
+ * Klasse Rechung
+ * 
+ * @author Jasmin
+ *
+ */
 public class Warenkorb implements Serializable {
 
 	/**
