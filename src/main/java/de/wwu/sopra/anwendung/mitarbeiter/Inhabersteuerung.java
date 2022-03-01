@@ -18,6 +18,12 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
+/**
+ * Stuert die aufgaben des Lageristen
+ * 
+ * @author Noah
+ *
+ */
 public class Inhabersteuerung {
 	private Inhaber inhaber;
 	private Statistiken statistiken;
@@ -26,8 +32,8 @@ public class Inhabersteuerung {
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
 	 * 
-	 * @param inhaber
-	 * @param statistiken
+	 * @param inhaber     inhaber
+	 * @param statistiken statistiken
 	 */
 	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, Lager lager) {
 		this.inhaber = inhaber;
@@ -241,9 +247,9 @@ public class Inhabersteuerung {
 	/**
 	 * Funktion zum Bearbeiten von Fahrzeugdaten
 	 * 
-	 * @param fahrzeug
-	 * @param fahrzeugNummer
-	 * @param kapazitaet
+	 * @param fahrzeug       fahrzeug
+	 * @param fahrzeugNummer fahrzeugNummer
+	 * @param kapazitaet     kapazitaet
 	 */
 	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
 		if (fahrzeug.equals(null))
