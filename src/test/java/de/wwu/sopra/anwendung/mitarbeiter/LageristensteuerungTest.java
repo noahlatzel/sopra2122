@@ -31,13 +31,21 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
+<<<<<<< HEAD
 	BenutzerRegister benutzerRegister = new BenutzerRegister();
+=======
+	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
+>>>>>>> 1d6aff9ea117924da5f19ce985178942871a994f
 	Statistiken statistiken = new Statistiken();
 	GrosshaendlerRegister preisRegister = new GrosshaendlerRegister();
 
 	@BeforeEach
 	void init() {
+<<<<<<< HEAD
 		lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerRegister, statistiken, preisRegister);
+=======
+		lageristenSteuerung = new Lageristensteuerung(new Lager(), fahrzeugRegister, statistiken, preisRegister);
+>>>>>>> 1d6aff9ea117924da5f19ce985178942871a994f
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
@@ -160,10 +168,10 @@ public class LageristensteuerungTest {
 		testbestellung1.setStatus(BestellStatus.ABGESCHLOSSEN);
 		testbestellung2.setStatus(BestellStatus.OFFEN);
 
-		benutzerRegister.benutzerHinzufuegen(kunde2);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
-		benutzerRegister.benutzerHinzufuegen(kunde1);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
+		BenutzerRegister.benutzerHinzufuegen(kunde2);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
+		BenutzerRegister.benutzerHinzufuegen(kunde1);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
 
 		System.out.println(lageristenSteuerung.zeigeOffeneBestellungen().size());
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().contains(testbestellung2));

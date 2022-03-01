@@ -24,7 +24,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  */
 public class Lageristensteuerung {
 	private Lager lager;
-	private BenutzerRegister benutzerRegister;
 
 	private Statistiken statistiken;
 	private GrosshaendlerRegister preisRegister;
@@ -35,16 +34,18 @@ public class Lageristensteuerung {
 	 * 
 	 * @param lager            Das Lager des Systems, in welchem alle Produkte
 	 *                         enthalten sind.
-	 * @param benutzerRegister Das BenutzerRegister des Systems, in dem alle
-	 *                         Benutzer mit Warenkorb und Bestellung gespeichert
-	 *                         werden.
 	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
 	 *                         Fahrzeuge gespeichert werden.
 	 */
-	public Lageristensteuerung(Lager lager, BenutzerRegister benutzerRegister, Statistiken statistiken,
+
+	public Lageristensteuerung(Lager lager, Statistiken statistiken, GrosshaendlerRegister preisRegister) {
+		this.lager = lager;
+	}
+
+	public Lageristensteuerung(Lager lager, FahrzeugRegister fahrzeugRegister, Statistiken statistiken,
 			GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
-		this.benutzerRegister = benutzerRegister;
+
 		this.statistiken = statistiken;
 		this.preisRegister = preisRegister;
 	}
@@ -154,11 +155,15 @@ public class Lageristensteuerung {
 	 */
 	private HashSet<Bestellung> extractOffeneBestellungenRegister() {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
-		for (BenutzerDatenTripel benutzerDaten : benutzerRegister.getBenutzerListe()) {
-			List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
-			for (Bestellung b : tempBestellungen) {
-				if (b.getStatus().equals(BestellStatus.OFFEN)) {
-					bestellungen.add(b);
+		for (BenutzerDatenTripel benutzerDaten : BenutzerRegister.getBenutzerListe()) {
+
+			if (benutzerDaten.getBestellungen() != null) {
+				List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
+
+				for (int i = 0; i < tempBestellungen.size(); i++) {
+					if (tempBestellungen.get(i).getStatus().equals(BestellStatus.OFFEN)) {
+						bestellungen.add(tempBestellungen.get(i));
+					}
 				}
 			}
 		}

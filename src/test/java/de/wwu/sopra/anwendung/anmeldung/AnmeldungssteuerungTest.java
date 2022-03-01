@@ -35,11 +35,11 @@ public class AnmeldungssteuerungTest {
 		fahrer1 = new Fahrer("killerman", "passwort", "123@online.de", "ostbad 1", "Herbert", "schulze", "123",
 				inhaber1);
 
-		benutzerReg.benutzerHinzufuegen(kunde1);
-		benutzerReg.benutzerHinzufuegen(fahrer1);
-		benutzerReg.benutzerHinzufuegen(lagerist1);
-		benutzerReg.benutzerHinzufuegen(inhaber1);
-		anSt = new Anmeldungssteuerung(benutzerReg);
+		BenutzerRegister.benutzerHinzufuegen(kunde1);
+		BenutzerRegister.benutzerHinzufuegen(fahrer1);
+		BenutzerRegister.benutzerHinzufuegen(lagerist1);
+		BenutzerRegister.benutzerHinzufuegen(inhaber1);
+		anSt = new Anmeldungssteuerung();
 	}
 
 	@Test
