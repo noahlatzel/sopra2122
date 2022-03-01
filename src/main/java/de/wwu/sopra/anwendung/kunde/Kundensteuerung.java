@@ -7,6 +7,7 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
@@ -94,17 +95,17 @@ public class Kundensteuerung {
 	/**
 	 * Methode zur Ansicht seines Warenkorbs
 	 */
-	public void warenkorbAnsicht() {
+	public Warenkorb warenkorbAnsicht() {
 		
-		kunde.getWarenkorb();
+		return kunde.getWarenkorb();
 	}
 	
 	/**
 	 * Methode zur Ansicht seiner Bestellungen
 	 */
-	public void bestellungenAnzeigen() {
+	public List<Bestellung> bestellungenAnzeigen() {
 		
-		kunde.getBestellungen();
+		return kunde.getBestellungen();
 	}
 	
 	/**

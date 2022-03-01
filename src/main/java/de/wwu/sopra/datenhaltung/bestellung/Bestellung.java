@@ -25,13 +25,9 @@ public class Bestellung implements Serializable {
 	/**
 	 * Konstruktor fuer die Klasse Bestellung
 	 * @param bestellnummer Bestellnummer
-<<<<<<< HEAD
 	 * @param datum Datum
 	 * @param produkte Liste von Produkten
 	 * @param kunde Kunde
-=======
-	 * @param produkte      Produkte, die in der Bestellung enthalten sind
->>>>>>> d2bb0c07749501d02d9a819b3fde7ba2039b0e77
 	 */
 	public Bestellung(int bestellnummer, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
