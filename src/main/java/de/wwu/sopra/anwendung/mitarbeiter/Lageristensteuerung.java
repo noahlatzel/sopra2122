@@ -32,10 +32,9 @@ public class Lageristensteuerung {
 	 * Initialisiert die LageristenSteuerung. Dafuer braucht sie Zugriff auf das
 	 * Lager, das BenutzerRegister und das FahrzeugRegister.
 	 * 
-	 * @param lager            Das Lager des Systems, in welchem alle Produkte
-	 *                         enthalten sind.
-	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
-	 *                         Fahrzeuge gespeichert werden.
+	 * @param lager       Das Lager des Systems, in welchem alle Produkte enthalten
+	 *                    sind.
+	 * @param statistiken Die statistiken des Unternehmens werden mit uebergeben
 	 */
 
 	public Lageristensteuerung(Lager lager, Statistiken statistiken, GrosshaendlerRegister preisRegister) {
