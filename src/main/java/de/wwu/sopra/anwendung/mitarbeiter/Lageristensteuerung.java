@@ -24,7 +24,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  */
 public class Lageristensteuerung {
 	private Lager lager;
-	private FahrzeugRegister fahrzeugRegister;
+
 	private Statistiken statistiken;
 	private GrosshaendlerRegister preisRegister;
 
@@ -32,17 +32,15 @@ public class Lageristensteuerung {
 	 * Initialisiert die LageristenSteuerung. Dafuer braucht sie Zugriff auf das
 	 * Lager, das BenutzerRegister und das FahrzeugRegister.
 	 * 
-	 * @param lager            Das Lager des Systems, in welchem alle Produkte
-	 *                         enthalten sind.
-	 * @param fahrzeugRegister Das FahrzeugRegister des Systems, in dem alle
-	 *                         Fahrzeuge gespeichert werden.
+	 * @param lager       Das Lager des Systems, in welchem alle Produkte enthalten
+	 *                    sind.
+	 * @param statistiken Die statistiken des Unternehmens werden mit uebergeben
 	 */
-	public Lageristensteuerung(Lager lager, FahrzeugRegister fahrzeugRegister, Statistiken statistiken,
-			GrosshaendlerRegister preisRegister) {
+
+	public Lageristensteuerung(Lager lager, Statistiken statistiken, GrosshaendlerRegister preisRegister) {
 		this.lager = lager;
-		this.fahrzeugRegister = fahrzeugRegister;
-		this.statistiken = statistiken;
 		this.preisRegister = preisRegister;
+		this.statistiken = statistiken;
 	}
 
 	/**
@@ -56,7 +54,7 @@ public class Lageristensteuerung {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
 				lager.addProdukt(n.getProdukt().clone(this.preisRegister.getPreis(n.getProdukt())));
-				statistiken.addAusgaben((float) n.getProdukt().getEinkaufspreis());
+				statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 			}
 		}
 	}
@@ -122,7 +120,7 @@ public class Lageristensteuerung {
 	 */
 	public HashSet<Fahrzeug> zeigeFreieFahrzeuge() {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
-		HashSet<Fahrzeug> alleFahrzeuge = fahrzeugRegister.getFahrzeuge();
+		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
 			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
 				fahrzeuge.add(f);

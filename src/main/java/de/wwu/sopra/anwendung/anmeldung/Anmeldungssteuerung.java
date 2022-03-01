@@ -121,12 +121,15 @@ public class Anmeldungssteuerung {
 			System.out.println("Fahrer angemeldet!");
 			break;
 		case LAGERIST:
-			Lageristensteuerung ls = new Lageristensteuerung(null, null, null, null); // TODO Fehlende
-																						// Parameter
+
+			Lageristensteuerung ls = new Lageristensteuerung(null, null, null); // TODO Fehlende
+																				// Parameter
 			System.out.println("Lagerist angemeldet!");
 			break;
+
 		case INHABER:
 			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, null); // TODO Fehlende Parameter
+
 			System.out.println("Inhaber angemeldet!");
 			break;
 		default:

@@ -31,15 +31,17 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
-	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
 	Statistiken statistiken = new Statistiken();
-	GrosshaendlerRegister preisRegister = new GrosshaendlerRegister();
+	GrosshaendlerRegister preisRegister;
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung(new Lager(), fahrzeugRegister, statistiken, preisRegister);
+		preisRegister = new GrosshaendlerRegister();
+		lageristenSteuerung = new Lageristensteuerung(new Lager(), statistiken, this.preisRegister);
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
+		preisRegister.setPreis(produkt1, 0.99);
+		preisRegister.setPreis(produkt2, 0.99);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
 		nachbestellung2 = new NachbestellungTupel(produkt2, 2);
 		nachbestellungen = new HashSet<NachbestellungTupel>();
@@ -61,8 +63,9 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testBestelleNach() {
-		preisRegister.setPreis(produkt1, 0.99);
-		preisRegister.setPreis(produkt2, 0.99);
+
+		// preisRegister.setPreis(produkt1, 0.99);
+		// preisRegister.setPreis(produkt2, 0.99);
 		lageristenSteuerung.bestelleNach(nachbestellungen);
 		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Fanta") == 2);
 		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Cola") == 5);
@@ -179,8 +182,8 @@ public class LageristensteuerungTest {
 		Fahrzeug fahrzeug = new Fahrzeug(920, 2);
 		Fahrzeug fahrzeug1 = new Fahrzeug(921, 2);
 		fahrzeug1.setStatus(FahrzeugStatus.BELEGT);
-		fahrzeugRegister.addFahrzeug(fahrzeug1);
-		fahrzeugRegister.addFahrzeug(fahrzeug);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		FahrzeugRegister.addFahrzeug(fahrzeug);
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().contains(fahrzeug));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
 	}
