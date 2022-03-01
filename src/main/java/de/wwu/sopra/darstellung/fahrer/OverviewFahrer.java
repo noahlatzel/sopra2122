@@ -7,6 +7,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * basis oberflauche des Fahrers
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class OverviewFahrer extends Scene {
 
 	BorderPane root = new BorderPane();
@@ -28,10 +34,13 @@ public class OverviewFahrer extends Scene {
 		root.setLeft(this.setGridPane());
 	}
 
+	// gridpane ist links gestezt
 	private VBox setGridPane() {
 		if (vbox == null) {
 			vbox = new VBox();
 			vbox.setSpacing(5);
+
+			// buttons aufrufen
 			vbox.getChildren().add(setBtFahrzeugwahlen());
 			vbox.getChildren().add(setBtRouteAnzeigen());
 			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
@@ -42,6 +51,8 @@ public class OverviewFahrer extends Scene {
 		return vbox;
 	}
 
+	// buttons und actions erstellen
+	// bt zum Fahrzeugwaehlen
 	private Button setBtFahrzeugwahlen() {
 		if (btFahrzeugwahlen == null) {
 			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
@@ -53,6 +64,7 @@ public class OverviewFahrer extends Scene {
 		return btFahrzeugwahlen;
 	}
 
+	// bt zum Route Anzeigen
 	private Button setBtRouteAnzeigen() {
 		if (btRouteAnzeigen == null) {
 			btRouteAnzeigen = new Button("Route Anzeigen");
@@ -65,6 +77,7 @@ public class OverviewFahrer extends Scene {
 		return btRouteAnzeigen;
 	}
 
+	// bt zum Fahrzeuganzeigen
 	private Button setBtFahrzeugpositionAnzeigen() {
 		if (btFahrzeugpositionAnzeigen == null) {
 			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
@@ -77,6 +90,7 @@ public class OverviewFahrer extends Scene {
 		return btFahrzeugpositionAnzeigen;
 	}
 
+	// bt zu kunde ist nicht da
 	private Button setBtKundeNichtDa() {
 		if (btKundeNichtDa == null) {
 			btKundeNichtDa = new Button("Kunde nicht da");
@@ -88,6 +102,7 @@ public class OverviewFahrer extends Scene {
 		return btKundeNichtDa;
 	}
 
+	// bt persoenliche Daten Anzeigen
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (btPersoenlicheDatenAnzeigen == null) {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
@@ -99,6 +114,7 @@ public class OverviewFahrer extends Scene {
 		return btPersoenlicheDatenAnzeigen;
 	}
 
+	// bt Persoenliche Daten Bearbeiten
 	private Button setBtPersoenlicheDatenBearbeiten() {
 		if (btPersoenlicheDatenBearbeiten == null) {
 			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");

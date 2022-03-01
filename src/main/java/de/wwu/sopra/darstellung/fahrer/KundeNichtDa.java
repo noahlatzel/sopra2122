@@ -5,6 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * oberflaeche zum Stornieren der Bestellung, wenn der Kunde nicht da ist
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class KundeNichtDa extends OverviewFahrer {
 
 	public KundeNichtDa(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
@@ -13,6 +19,7 @@ public class KundeNichtDa extends OverviewFahrer {
 		this.nichtDA();
 	}
 
+	// button mit action stornieren
 	private void nichtDA() {
 		Button btStorniern = new Button("Stornieren");
 		btStorniern.setOnAction(e -> {
