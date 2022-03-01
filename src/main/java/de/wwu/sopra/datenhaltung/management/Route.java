@@ -31,9 +31,9 @@ public class Route implements Serializable {
 	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der
 	 * Liste existiert
 	 * 
-	 * @param routenNummer
-	 * @param fahrzeug
-	 * @throws IllegalArgumentException
+	 * @param routenNummer routenNummer
+	 * @param fahrzeug     fahrzeug
+	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
 	public Route(int routenNummer, Fahrzeug fahrzeug) throws IllegalArgumentException {
 		this.setRoutenNummer(routenNummer);
@@ -78,7 +78,7 @@ public class Route implements Serializable {
 	/**
 	 * Bestellungen der Route
 	 * 
-	 * @return
+	 * @return die Lsite der Bestellungen
 	 */
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
@@ -87,7 +87,7 @@ public class Route implements Serializable {
 	/**
 	 * Bestellungen der Route setzen
 	 * 
-	 * @param bestellungen
+	 * @param bestellungen bestellungen
 	 */
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		for (Bestellung b : bestellungen) {

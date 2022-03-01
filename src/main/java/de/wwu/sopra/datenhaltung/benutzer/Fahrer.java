@@ -30,14 +30,14 @@ public class Fahrer extends Benutzer {
 	/**
 	 * Erstellt einen neuen Fahrer mit den uebergebenen Eigenschaften.
 	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param name
-	 * @param bankverbindung
-	 * @param chef
+	 * @param benutzername   benutzername
+	 * @param passwort       passwort
+	 * @param email          email
+	 * @param adresse        adresse
+	 * @param vorname        vorname
+	 * @param name           name
+	 * @param bankverbindung bankverbindung
+	 * @param chef           chef
 	 */
 	public Fahrer(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung, Inhaber chef) {
@@ -57,7 +57,7 @@ public class Fahrer extends Benutzer {
 	/**
 	 * setzt das Fahrzeug
 	 * 
-	 * @param fahrzeug
+	 * @param fahrzeug fahrzeug
 	 */
 	public void setFahrzeug(Fahrzeug fahrzeug) {
 		if (fahrzeug != null) {
@@ -83,7 +83,7 @@ public class Fahrer extends Benutzer {
 	/**
 	 * setzt den Chef
 	 * 
-	 * @param chef
+	 * @param chef Inhaber
 	 */
 	public void setChef(Inhaber chef) {
 		this.chef = chef;

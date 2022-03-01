@@ -22,7 +22,7 @@ public class Kategorie implements Serializable {
 	/**
 	 * konstruktor
 	 * 
-	 * @param name
+	 * @param name name
 	 */
 	public Kategorie(String name) {
 		if (name == "") {

@@ -22,13 +22,13 @@ public class Inhaber extends Benutzer {
 	/**
 	 * Erstellt einen neuen Inhaber mit den uebergebenen Eigenschaften.
 	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param name
-	 * @param bankverbindung
+	 * @param benutzername   benutzername
+	 * @param passwort       passwort
+	 * @param email          email
+	 * @param adresse        adresse
+	 * @param vorname        vorname
+	 * @param name           name
+	 * @param bankverbindung bankverbindung
 	 */
 	public Inhaber(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
@@ -38,7 +38,7 @@ public class Inhaber extends Benutzer {
 	/**
 	 * Fuegt neuen Fahrer der Liste der Fahrer hinzu
 	 * 
-	 * @param fahrer
+	 * @param fahrer fahrer
 	 */
 	public void fahrerHinzufuegen(Fahrer fahrer) throws NullPointerException {
 		if (fahrer == null)
@@ -52,7 +52,7 @@ public class Inhaber extends Benutzer {
 	/**
 	 * Entfernt Fahrer aus der Liste der Fahrer
 	 * 
-	 * @param fahrer
+	 * @param fahrer fahrer
 	 */
 	public void fahrerEntfernen(Fahrer fahrer) throws NullPointerException {
 		if (fahrer == null)
@@ -66,7 +66,7 @@ public class Inhaber extends Benutzer {
 	/**
 	 * Fuegt neuen Lagerist der Liste der Lageristen hinzu
 	 * 
-	 * @param lagerist
+	 * @param lagerist lagerist
 	 */
 	public void lageristHinzufuegen(Lagerist lagerist) throws NullPointerException {
 		if (lagerist == null)
@@ -80,7 +80,7 @@ public class Inhaber extends Benutzer {
 	/**
 	 * Entfernt Lagerist aus der Liste der Lageristen
 	 * 
-	 * @param lagerist
+	 * @param lagerist lagerist
 	 */
 	public void lageristEntfernen(Lagerist lagerist) throws NullPointerException {
 		if (lagerist == null)

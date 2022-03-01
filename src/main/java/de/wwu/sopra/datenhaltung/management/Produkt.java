@@ -22,10 +22,10 @@ public class Produkt implements Serializable {
 	/**
 	 * Konstruktor
 	 * 
-	 * @param name
-	 * @param beschreibung
-	 * @param einkaufspreis
-	 * @param verkaufspreis
+	 * @param name          name
+	 * @param beschreibung  beschreibung
+	 * @param einkaufspreis einkaufspreis
+	 * @param verkaufspreis verkaufspreis
 	 */
 	public Produkt(String name, String beschreibung, double einkaufspreis, double verkaufspreis) {
 		if (einkaufspreis <= 0) {

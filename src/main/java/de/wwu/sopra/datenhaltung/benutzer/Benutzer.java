@@ -26,13 +26,13 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * Erstellt einen neuen Benutzer mit den uebergebenen Eigenschaften.
 	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param name
-	 * @param bankverbindung
+	 * @param benutzername   benutzername
+	 * @param passwort       passwort
+	 * @param email          email
+	 * @param adresse        adresse
+	 * @param vorname        vorname
+	 * @param name           name
+	 * @param bankverbindung bankverbindung
 	 */
 	public Benutzer(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
@@ -48,7 +48,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * gibt den Benutzernamen aus
 	 * 
-	 * @return benutername
+	 * @return benutername benutername
 	 */
 
 	public String getBenutzername() {
@@ -58,7 +58,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt den Benutzernamen
 	 * 
-	 * @param benutzername
+	 * @param benutzername benutzername
 	 */
 	public void setBenutzername(String benutzername) {
 		this.benutzername = benutzername;
@@ -76,7 +76,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt das Passwort
 	 * 
-	 * @param passwort
+	 * @param passwort passwort
 	 */
 	public void setPasswort(String passwort) {
 		this.passwort = passwort;
@@ -94,7 +94,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt die Email
 	 * 
-	 * @param email
+	 * @param email email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -112,7 +112,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt die Adresse
 	 * 
-	 * @param adresse
+	 * @param adresse adresse
 	 */
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
@@ -130,7 +130,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt den Vornamen
 	 * 
-	 * @param vorname
+	 * @param vorname vorname
 	 */
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
@@ -148,7 +148,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt den Namen
 	 * 
-	 * @param name
+	 * @param name name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -166,7 +166,7 @@ public abstract class Benutzer implements Serializable {
 	/**
 	 * setzt die bankverbindung
 	 * 
-	 * @param bankverbindung
+	 * @param bankverbindung bankverbindung
 	 */
 	public void setBankverbindung(String bankverbindung) {
 		this.bankverbindung = bankverbindung;

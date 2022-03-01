@@ -25,13 +25,13 @@ public class Kunde extends Benutzer {
 	/**
 	 * Erstellt einen neuen Kunden mit den uebergebenen Eigenschaften.
 	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param email
-	 * @param adresse
-	 * @param vorname
-	 * @param name
-	 * @param bankverbindung
+	 * @param benutzername   benutzername
+	 * @param passwort       passwort
+	 * @param email          email
+	 * @param adresse        adresse
+	 * @param vorname        vorname
+	 * @param name           name
+	 * @param bankverbindung bankverbindung
 	 */
 	public Kunde(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
@@ -41,7 +41,7 @@ public class Kunde extends Benutzer {
 	/**
 	 * Fuegt eine neue Bestellung zur Liste der Bestellungen hinzu
 	 * 
-	 * @param bestellung
+	 * @param bestellung bestellung
 	 */
 	public void bestellungHinzufuegen(Bestellung bestellung) throws NullPointerException {
 		if (bestellung == null)
@@ -72,7 +72,7 @@ public class Kunde extends Benutzer {
 	/**
 	 * setzt den Warenkorb
 	 * 
-	 * @param warenkorb
+	 * @param warenkorb warenkorb
 	 */
 	public void setWarenkorb(Warenkorb warenkorb) {
 		this.warenkorb = warenkorb;
