@@ -10,9 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import de.wwu.sopra.datenhaltung.management.Kategorie;
-import de.wwu.sopra.datenhaltung.management.Produkt;
-
 @TestInstance(Lifecycle.PER_CLASS)
 public class KategorieTest {
 	Kategorie kategorie_1;

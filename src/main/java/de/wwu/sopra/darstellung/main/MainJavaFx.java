@@ -19,19 +19,19 @@ import javafx.stage.Stage;
 
 public class MainJavaFx extends Application {
 	BorderPane layout;
-	FahrzeugRegister fahrzeugReg = new FahrzeugRegister();
-	BenutzerRegister benutzerReg = new BenutzerRegister();
 
 	@Override
 	public void start(Stage primaryStage) {
 		initDependencies();
-		Lageristensteuerung lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerReg, fahrzeugReg,
-				new Statistiken(), new GrosshaendlerRegister());
+		Lageristensteuerung lageristenSteuerung = new Lageristensteuerung(new Lager(), new Statistiken(),
+				new GrosshaendlerRegister());
 
 		layout = new BorderPane();
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
+
 		primaryStage.setScene(new LageristOverview(primaryStage, 1280, 720, lageristenSteuerung));
+
 		primaryStage.show();
 
 	}
@@ -41,9 +41,9 @@ public class MainJavaFx extends Application {
 	}
 
 	public void initDependencies() {
-		fahrzeugReg.addFahrzeug(new Fahrzeug(0, 1));
-		fahrzeugReg.addFahrzeug(new Fahrzeug(1, 10));
-		fahrzeugReg.addFahrzeug(new Fahrzeug(2, 14));
+		FahrzeugRegister.addFahrzeug(new Fahrzeug(0, 1));
+		FahrzeugRegister.addFahrzeug(new Fahrzeug(1, 10));
+		FahrzeugRegister.addFahrzeug(new Fahrzeug(2, 14));
 
 		Kunde kunde = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 
@@ -57,9 +57,9 @@ public class MainJavaFx extends Application {
 		Bestellung b2 = new Bestellung(1, null, produkte, kunde);
 		Bestellung b3 = new Bestellung(2, null, produkte, kunde);
 
-		benutzerReg.benutzerHinzufuegen(kunde);
-		benutzerReg.bestellungZuBestellungslisteHinzufuegen(kunde, b1);
-		benutzerReg.bestellungZuBestellungslisteHinzufuegen(kunde, b2);
-		benutzerReg.bestellungZuBestellungslisteHinzufuegen(kunde, b3);
+		BenutzerRegister.benutzerHinzufuegen(kunde);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde, b1);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde, b2);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde, b3);
 	}
 }
