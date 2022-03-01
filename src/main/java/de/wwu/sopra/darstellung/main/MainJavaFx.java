@@ -12,7 +12,6 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
-import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -23,8 +22,7 @@ public class MainJavaFx extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		initDependencies();
-		Lageristensteuerung lageristenSteuerung = new Lageristensteuerung(new Lager(), new Statistiken(),
-				new GrosshaendlerRegister());
+		Lageristensteuerung lageristenSteuerung = new Lageristensteuerung(new Lager(), new Statistiken());
 
 		layout = new BorderPane();
 

@@ -115,8 +115,8 @@ public class Anmeldungssteuerung {
 			break;
 		case LAGERIST:
 
-			Lageristensteuerung ls = new Lageristensteuerung(null, null, null); // TODO Fehlende
-																				// Parameter
+			Lageristensteuerung ls = new Lageristensteuerung(null, null); // TODO Fehlende
+																			// Parameter
 			System.out.println("Lagerist angemeldet!");
 			break;
 
