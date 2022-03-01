@@ -1,25 +1,32 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 
 public class FahrzeugRegisterTest {
-	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
 	Fahrzeug fahrzeug1;
+
+	// nach jedem Test wird die Liste geleert
+	@AfterEach
+	public void end() {
+		FahrzeugRegister.removeFahrzeug(fahrzeug1);
+	}
 
 	/**
 	 * Testet die addFahrzeug Funktionalitaet.
 	 */
 	@Test
 	void testAdd() {
-		fahrzeug1 = new Fahrzeug(2603, 1);
-		fahrzeugRegister.addFahrzeug(fahrzeug1);
-		assertTrue(fahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
-		assertTrue(fahrzeugRegister.getFahrzeuge().size() == 1);
+		fahrzeug1 = new Fahrzeug(222, 1);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+
+		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
+		assertTrue(FahrzeugRegister.getFahrzeuge().size() == 1);
+
 	}
 
 	/**
@@ -27,8 +34,11 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testRemove() {
-		fahrzeugRegister.removeFahrzeug(fahrzeug1);
-		assertFalse(fahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
-		assertTrue(fahrzeugRegister.getFahrzeuge().size() == 0);
+		fahrzeug1 = new Fahrzeug(223, 1);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		FahrzeugRegister.removeFahrzeug(fahrzeug1);
+
+		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1) == false);
+		assertTrue(FahrzeugRegister.getFahrzeuge().size() == 0);
 	}
 }

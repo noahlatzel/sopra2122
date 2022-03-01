@@ -31,15 +31,13 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
-	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
 	BenutzerRegister benutzerRegister = new BenutzerRegister();
 	Statistiken statistiken = new Statistiken();
 	GrosshaendlerRegister preisRegister = new GrosshaendlerRegister();
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerRegister, fahrzeugRegister, statistiken,
-				preisRegister);
+		lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerRegister, statistiken, preisRegister);
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
@@ -181,8 +179,8 @@ public class LageristensteuerungTest {
 		Fahrzeug fahrzeug = new Fahrzeug(920, 2);
 		Fahrzeug fahrzeug1 = new Fahrzeug(921, 2);
 		fahrzeug1.setStatus(FahrzeugStatus.BELEGT);
-		fahrzeugRegister.addFahrzeug(fahrzeug1);
-		fahrzeugRegister.addFahrzeug(fahrzeug);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		FahrzeugRegister.addFahrzeug(fahrzeug);
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().contains(fahrzeug));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
 	}
