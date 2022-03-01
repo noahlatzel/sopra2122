@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -10,7 +11,11 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author NoahLatzel
  *
  */
-public class GrosshaendlerRegister {
+public class GrosshaendlerRegister implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();

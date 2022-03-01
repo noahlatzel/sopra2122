@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -11,7 +12,11 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
  * @author Paul Dirksen
  *
  */
-public class FahrzeugRegister {
+public class FahrzeugRegister implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 
 	/**
