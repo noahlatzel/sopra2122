@@ -209,7 +209,8 @@ public class BenutzerRegisterTest {
 		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
 		BenutzerRegister.save();
 		BenutzerRegister.load();
-		assertTrue(temp.toString().equals(BenutzerRegister.getBenutzerListe().toString()));
+		String temp_1 = BenutzerRegister.getBenutzerListe().toString();
+		assertTrue(temp.toString().equals(temp_1));
 	}
 
 }
