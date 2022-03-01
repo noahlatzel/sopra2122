@@ -23,23 +23,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  *
  */
 public class Lageristensteuerung {
-	private Lager lager;
-
-	private Statistiken statistiken;
-
-	/**
-	 * Initialisiert die LageristenSteuerung. Dafuer braucht sie Zugriff auf das
-	 * Lager, das BenutzerRegister und das FahrzeugRegister.
-	 * 
-	 * @param lager       Das Lager des Systems, in welchem alle Produkte enthalten
-	 *                    sind.
-	 * @param statistiken Die statistiken des Unternehmens werden mit uebergeben
-	 */
-
-	public Lageristensteuerung(Lager lager, Statistiken statistiken) {
-		this.lager = lager;
-		this.statistiken = statistiken;
-	}
 
 	/**
 	 * Die Methode fuegt alle Produkte der Nachbestellungen in der gewuenschten
@@ -51,8 +34,8 @@ public class Lageristensteuerung {
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				lager.addProdukt(n.getProdukt().clone(GrosshaendlerRegister.getEinkaufspreis(n.getProdukt())));
-				statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+				Lager.addProdukt(n.getProdukt().clone(GrosshaendlerRegister.getEinkaufspreis(n.getProdukt())));
+				Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 			}
 		}
 	}
@@ -142,15 +125,6 @@ public class Lageristensteuerung {
 			}
 		}
 		return fahrzeuge;
-	}
-
-	/**
-	 * Gibt das Lager der LageristenSteuerung zurueck.
-	 * 
-	 * @return Das Lager, mit dem die LageristenSteuerung verbunden ist.
-	 */
-	public Lager getLager() {
-		return this.lager;
 	}
 
 	/**

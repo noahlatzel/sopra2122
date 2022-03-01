@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -10,10 +11,15 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author NoahLatzel
  *
  */
-public class GrosshaendlerRegister {
+public class GrosshaendlerRegister implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();
+	private static String path = "grosshaendlerReg.ser";
 
 	/**
 	 * Initialisiert das GrosshaendlerRegister mit einer neuen preisListe.
@@ -68,6 +74,35 @@ public class GrosshaendlerRegister {
 	 */
 	public static void setEinkaufspreis(String produktname, double preis) {
 		preisListeIn.put(produktname, preis);
+	}
+
+	/**
+	 * Gibt die Liste der Einkaufspreise zurueck.
+	 * 
+	 * @return Die Einkaufspreisliste.
+	 */
+	public static HashMap<String, Double> getPreislisteIn() {
+		return preisListeIn;
+	}
+
+	/**
+	 * Deserialisiert das FahrzeugRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		preisListeIn = (HashMap<String, Double>) sp.deserialisieren(path);
+		if (preisListeIn == null) {
+			preisListeIn = new HashMap<String, Double>();
+		}
+	}
+
+	/**
+	 * Serialisiert das FahrzeugRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(GrosshaendlerRegister.preisListeIn, path);
 	}
 
 }

@@ -148,4 +148,14 @@ public class Fahrzeug implements Serializable {
 		this.fahrer = fahrer;
 	}
 
+	/**
+	 * Implementiert die toString() Methode, die die Fahrzeugnummer zurueckgibt.
+	 * 
+	 * @return Fahrzeugnummer
+	 */
+	@Override
+	public String toString() {
+		return "" + this.fahrzeugNummer;
+	}
+
 }

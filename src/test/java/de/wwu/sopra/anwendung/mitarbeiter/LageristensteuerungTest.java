@@ -36,7 +36,7 @@ public class LageristensteuerungTest {
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung(new Lager(), statistiken);
+		lageristenSteuerung = new Lageristensteuerung();
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
@@ -65,9 +65,13 @@ public class LageristensteuerungTest {
 
 		// preisRegister.setPreis(produkt1, 0.99);
 		// preisRegister.setPreis(produkt2, 0.99);
+		HashSet<Produkt> temp = Lager.getLager();
+		for (Produkt p : temp) {
+			Lager.removeProdukt(p);
+		}
 		lageristenSteuerung.bestelleNach(nachbestellungen);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Fanta") == 2);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Cola") == 5);
+		assertTrue(Lager.getProduktBestand("Fanta") == 2);
+		assertTrue(Lager.getProduktBestand("Cola") == 5);
 	}
 
 	/**
@@ -177,6 +181,10 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testFreieFahrzeuge() {
+		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : temp) {
+			FahrzeugRegister.removeFahrzeug(f);
+		}
 		Fahrzeug fahrzeug = new Fahrzeug(920, 2);
 		Fahrzeug fahrzeug1 = new Fahrzeug(921, 2);
 		fahrzeug1.setStatus(FahrzeugStatus.BELEGT);
@@ -189,6 +197,10 @@ public class LageristensteuerungTest {
 
 	@Test
 	void testBelegteFahrzeuge() {
+		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : temp) {
+			FahrzeugRegister.removeFahrzeug(f);
+		}
 		ArrayList<Produkt> produkte1 = new ArrayList<Produkt>();
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
