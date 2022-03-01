@@ -24,6 +24,7 @@ public class BenutzerRegister implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
+	private static String path = "benutzerReg.ser";
 
 	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
@@ -232,4 +233,22 @@ public class BenutzerRegister implements Serializable {
 	public static List<BenutzerDatenTripel> getBenutzerListe() {
 		return benutzerListe;
 	}
+
+	/**
+	 * Deserialisiert das BenutzerRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		benutzerListe = (List<BenutzerDatenTripel>) sp.deserialisieren(path);
+	}
+
+	/**
+	 * Serialisiert das BenutzerRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(BenutzerRegister.getBenutzerListe(), path);
+	}
+
 }

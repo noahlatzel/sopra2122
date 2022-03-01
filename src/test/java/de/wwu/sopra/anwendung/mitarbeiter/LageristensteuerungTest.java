@@ -36,7 +36,7 @@ public class LageristensteuerungTest {
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung(new Lager(), statistiken);
+		lageristenSteuerung = new Lageristensteuerung();
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
@@ -66,8 +66,8 @@ public class LageristensteuerungTest {
 		// preisRegister.setPreis(produkt1, 0.99);
 		// preisRegister.setPreis(produkt2, 0.99);
 		lageristenSteuerung.bestelleNach(nachbestellungen);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Fanta") == 2);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Cola") == 5);
+		assertTrue(Lager.getProduktBestand("Fanta") == 2);
+		assertTrue(Lager.getProduktBestand("Cola") == 5);
 	}
 
 	/**

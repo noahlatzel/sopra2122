@@ -1,6 +1,7 @@
 package de.wwu.sopra.darstellung.lagerist;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -24,16 +25,15 @@ public class BestelleNach extends LageristOverview {
 		Produkt p1 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt p2 = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
 		Produkt p3 = new Produkt("Sprite", "Toller Geschmack", 0.99, 1.29);
-		lageristenSteuerung.getLager().addProdukt(p1);
-		lageristenSteuerung.getLager().addProdukt(p2);
-		lageristenSteuerung.getLager().addProdukt(p3);
-		lageristenSteuerung.getLager().removeProdukt(p3);
-		lageristenSteuerung.getLager().removeProdukt(p2);
-		lageristenSteuerung.getLager().removeProdukt(p1);
+		Lager.addProdukt(p1);
+		Lager.addProdukt(p2);
+		Lager.addProdukt(p3);
+		Lager.removeProdukt(p3);
+		Lager.removeProdukt(p2);
+		Lager.removeProdukt(p1);
 
-		for (String s : lageristenSteuerung.getLager().getLagerbestand().keySet()) {
-			tilePane.getChildren()
-					.add(produktGUI.setProduktAnsicht(s, lageristenSteuerung.getLager().getProduktBestand(s)));
+		for (String s : Lager.getLagerbestand().keySet()) {
+			tilePane.getChildren().add(produktGUI.setProduktAnsicht(s, Lager.getProduktBestand(s)));
 		}
 		root.setCenter(tilePane);
 	}

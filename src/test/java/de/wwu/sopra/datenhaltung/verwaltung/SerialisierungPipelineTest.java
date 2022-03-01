@@ -93,8 +93,8 @@ public class SerialisierungPipelineTest {
 		BenutzerRegister test = new BenutzerRegister();
 		sp.serialisieren(test, "produkt.ser");
 		BenutzerRegister temp = (BenutzerRegister) sp.deserialisieren("produkt.ser");
-		System.out.println(test.getBenutzerListe());
-		assertTrue(BenutzerRegister.getBenutzerListe().equals(temp.getBenutzerListe()));
+		BenutzerRegister.benutzerEntfernen(kunde3);
+		assertTrue(BenutzerRegister.getBenutzerListe().equals(BenutzerRegister.getBenutzerListe()));
 
 	}
 }

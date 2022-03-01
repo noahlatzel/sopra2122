@@ -19,6 +19,7 @@ public class GrosshaendlerRegister implements Serializable {
 	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();
+	private static String path = "grosshaendlerReg.ser";
 
 	/**
 	 * Initialisiert das GrosshaendlerRegister mit einer neuen preisListe.
@@ -73,6 +74,23 @@ public class GrosshaendlerRegister implements Serializable {
 	 */
 	public static void setEinkaufspreis(String produktname, double preis) {
 		preisListeIn.put(produktname, preis);
+	}
+
+	/**
+	 * Deserialisiert das FahrzeugRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		preisListeIn = (HashMap<String, Double>) sp.deserialisieren(path);
+	}
+
+	/**
+	 * Serialisiert das FahrzeugRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(GrosshaendlerRegister.preisListeIn, path);
 	}
 
 }

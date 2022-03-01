@@ -18,6 +18,7 @@ public class FahrzeugRegister implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+	private static String path = "fahrzeugReg.ser";
 
 	/**
 	 * Fuegt ein Fahrzeug dem Register hinzu.
@@ -44,5 +45,22 @@ public class FahrzeugRegister implements Serializable {
 	 */
 	public static HashSet<Fahrzeug> getFahrzeuge() {
 		return FahrzeugRegister.fahrzeuge;
+	}
+
+	/**
+	 * Deserialisiert das FahrzeugRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		fahrzeuge = (HashSet<Fahrzeug>) sp.deserialisieren(path);
+	}
+
+	/**
+	 * Serialisiert das FahrzeugRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(FahrzeugRegister.getFahrzeuge(), path);
 	}
 }

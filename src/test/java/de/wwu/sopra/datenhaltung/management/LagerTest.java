@@ -31,9 +31,9 @@ public class LagerTest {
 	 */
 	@Test
 	void testAddProdukt() {
-		lager.addProdukt(produkte.get(0));
-		assertTrue(lager.getLager().contains(produkte.get(0)));
-		assertTrue(lager.getLagerbestand().get(produkte.get(0).getName()) == 1);
+		Lager.addProdukt(produkte.get(0));
+		assertTrue(Lager.getLager().contains(produkte.get(0)));
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == 1);
 	}
 
 	/**
@@ -41,10 +41,10 @@ public class LagerTest {
 	 */
 	@Test
 	void testRemoveProdukt() {
-		lager.addProdukt(produkte.get(0));
-		lager.removeProdukt(produkte.get(0));
-		assertTrue(!(lager.getLager().contains(produkte.get(0))));
-		assertTrue(lager.getLagerbestand().get(produkte.get(0).getName()) == 0);
+		Lager.addProdukt(produkte.get(0));
+		Lager.removeProdukt(produkte.get(0));
+		assertTrue(!(Lager.getLager().contains(produkte.get(0))));
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == 0);
 	}
 
 	/**
@@ -52,12 +52,12 @@ public class LagerTest {
 	 */
 	@Test
 	void testAddProdukte() {
-		lager.addProdukte(produkte);
+		Lager.addProdukte(produkte);
 		for (Produkt p : produkte) {
-			assertTrue(lager.getLager().contains(p));
+			assertTrue(Lager.getLager().contains(p));
 		}
-		assertTrue(lager.getLagerbestand().get(produkte.get(0).getName()) == 3);
-		assertTrue(lager.getLagerbestand().get(produkte.get(3).getName()) == 1);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == 3);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(3).getName()) == 1);
 	}
 
 	/**
@@ -65,13 +65,13 @@ public class LagerTest {
 	 */
 	@Test
 	void testRemoveProdukte() {
-		lager.addProdukte(produkte);
-		lager.removeProdukte(produkte);
+		Lager.addProdukte(produkte);
+		Lager.removeProdukte(produkte);
 		for (Produkt p : produkte) {
-			assertFalse(lager.getLager().contains(p));
+			assertFalse(Lager.getLager().contains(p));
 		}
-		assertTrue(lager.getLagerbestand().get(produkte.get(0).getName()) == 0);
-		assertTrue(lager.getLagerbestand().get(produkte.get(3).getName()) == 0);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == 0);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(3).getName()) == 0);
 	}
 
 	/**
@@ -79,9 +79,9 @@ public class LagerTest {
 	 */
 	@Test
 	void testGetProduktBestand() {
-		lager.addProdukte(produkte);
-		assertTrue(lager.getProduktBestand(produkte.get(0)) == lager.getProduktBestand(produkte.get(0).getName()));
-		assertTrue(lager.getProduktBestand(produkte.get(0)) == 3);
+		Lager.addProdukte(produkte);
+		assertTrue(Lager.getProduktBestand(produkte.get(0)) == Lager.getProduktBestand(produkte.get(0).getName()));
+		assertTrue(Lager.getProduktBestand(produkte.get(0)) == 3);
 	}
 
 	/**
@@ -90,10 +90,10 @@ public class LagerTest {
 	@Test
 	void testThrowsGetProduktBestand() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			lager.getProduktBestand("kein Produkt");
+			Lager.getProduktBestand("kein Produkt");
 		});
 		assertThrows(IllegalArgumentException.class, () -> {
-			lager.getProduktBestand(new Produkt("keinProdukt", "Toller Geschmack", 0.99, 1.29));
+			Lager.getProduktBestand(new Produkt("keinProdukt", "Toller Geschmack", 0.99, 1.29));
 		});
 	}
 }
