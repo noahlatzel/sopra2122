@@ -29,6 +29,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 		root.setCenter(new Label("Route von Fahrzeugen anzeigen..."));
 		tilePane = new TilePane();
 		tilePane.getChildren().add(this.setScrollPaneFahrzeug());
+		tilePane.getChildren().add(this.setScrollPaneRoute());
 
 		root.setCenter(tilePane);
 	}
@@ -50,9 +51,8 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 			tableViewFahrzeug.setItems(fahrzeuge);
 			scrollPaneFahrzeug.setContent(tableViewFahrzeug);
 			tableViewFahrzeug.setOnMouseClicked(a -> {
-				if (!(tilePane.getChildren().contains(this.setScrollPaneRoute()))
-						& this.tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
-					tilePane.getChildren().add(this.setScrollPaneRoute());
+				if (this.tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
+					this.setScrollPaneRouteDaten();
 				}
 			});
 		}
@@ -61,13 +61,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 
 	public ScrollPane setScrollPaneRoute() {
 		if (scrollPaneBestellung == null) {
-			bestellungen = FXCollections.observableArrayList();
 			scrollPaneBestellung = new ScrollPane();
-			Fahrzeug fahrzeug = this.tableViewFahrzeug.getSelectionModel().getSelectedItem();
-			Route route = fahrzeug.getRoute();
-			for (Bestellung b : route.getBestellungen()) {
-				bestellungen.add(b);
-			}
 			TableColumn<Bestellung, String> bestellnrSpalte = new TableColumn<>("Bestellnummer");
 			bestellnrSpalte.setCellValueFactory(new PropertyValueFactory<>("bestellnummer"));
 			TableColumn<Bestellung, String> adressSpalte = new TableColumn<>("Adresse");
@@ -75,9 +69,21 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 			tableViewBestellung = new TableView<Bestellung>();
 			tableViewBestellung.getColumns().add(bestellnrSpalte);
 			tableViewBestellung.getColumns().add(adressSpalte);
-			tableViewBestellung.setItems(bestellungen);
 			scrollPaneBestellung.setContent(tableViewBestellung);
 		}
 		return scrollPaneBestellung;
+	}
+
+	public void setScrollPaneRouteDaten() {
+		if (scrollPaneBestellung != null) {
+			bestellungen = FXCollections.observableArrayList();
+			Fahrzeug fahrzeug = this.tableViewFahrzeug.getSelectionModel().getSelectedItem();
+			Route route = fahrzeug.getRoute();
+			for (Bestellung b : route.getBestellungen()) {
+				bestellungen.add(b);
+			}
+			tableViewBestellung.setItems(bestellungen);
+			scrollPaneBestellung.setContent(tableViewBestellung);
+		}
 	}
 }
