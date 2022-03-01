@@ -76,6 +76,9 @@ public class BenutzerDatenTripel implements Serializable {
 	 */
 	@Override
 	public String toString() {
+		if (this.getWarenkorb() == null && this.getBestellungen() == null) {
+			return this.getBenutzer().getName() + " " + 0 + " " + 0;
+		}
 		return this.getBenutzer().getName() + " " + this.getWarenkorb().size() + " " + this.getBestellungen().size();
 	}
 
