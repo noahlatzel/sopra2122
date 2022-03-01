@@ -21,8 +21,8 @@ public class GrosshaendlerRegisterTest {
 	@Test
 	void testAddPreis() {
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		GrosshaendlerRegister.setPreis(produkt1, 0.89);
-		assertTrue(GrosshaendlerRegister.getPreis(produkt1) == 0.89);
+		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis(produkt1) == 0.89);
 	}
 
 	/**
@@ -30,10 +30,10 @@ public class GrosshaendlerRegisterTest {
 	 */
 	@Test
 	void testAddPreisString() {
-		GrosshaendlerRegister.setPreis("Orangensaft", 0.89);
+		GrosshaendlerRegister.setEinkaufspreis("Orangensaft", 0.89);
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		assertTrue(GrosshaendlerRegister.getPreis("Orangensaft") == 0.89);
-		assertTrue(GrosshaendlerRegister.getPreis(produkt1) == 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis("Orangensaft") == 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis(produkt1) == 0.89);
 	}
 
 }

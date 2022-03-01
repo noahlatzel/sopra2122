@@ -11,7 +11,9 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  *
  */
 public class GrosshaendlerRegister {
-	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();;
+	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
+	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
+	// Produkt>();
 
 	/**
 	 * Initialisiert das GrosshaendlerRegister mit einer neuen preisListe.
@@ -30,8 +32,9 @@ public class GrosshaendlerRegister {
 	 * @param produkt Das Produkt, fuer was der Preis abgefragt werden soll.
 	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
 	 */
-	public static double getPreis(Produkt produkt) {
+	public static double getEinkaufspreis(Produkt produkt) {
 		return preisListeIn.get(produkt.getName());
+		// return produktListe.get(produkt.getName()).getEinkaufspreis();
 	}
 
 	/**
@@ -41,8 +44,9 @@ public class GrosshaendlerRegister {
 	 *                    soll.
 	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
 	 */
-	public static double getPreis(String produktname) {
+	public static double getEinkaufspreis(String produktname) {
 		return preisListeIn.get(produktname);
+		// return produktListe.get(produktname).getEinkaufspreis();
 	}
 
 	/**
@@ -51,7 +55,7 @@ public class GrosshaendlerRegister {
 	 * @param produkt Das Produkt, fuer was ein neuer Preis festgelegt wird.
 	 * @param preis   Der neue Preis.
 	 */
-	public static void setPreis(Produkt produkt, double preis) {
+	public static void setEinkaufspreis(Produkt produkt, double preis) {
 		preisListeIn.put(produkt.getName(), preis);
 	}
 
@@ -62,7 +66,7 @@ public class GrosshaendlerRegister {
 	 *                    soll.
 	 * @param preis       Der neue Preis.
 	 */
-	public static void setPreis(String produktname, double preis) {
+	public static void setEinkaufspreis(String produktname, double preis) {
 		preisListeIn.put(produktname, preis);
 	}
 
