@@ -39,8 +39,8 @@ public class LageristensteuerungTest {
 		lageristenSteuerung = new Lageristensteuerung(new Lager(), statistiken);
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
-		GrosshaendlerRegister.setPreis(produkt1, 0.99);
-		GrosshaendlerRegister.setPreis(produkt2, 0.99);
+		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
+		GrosshaendlerRegister.setEinkaufspreis(produkt2, 0.99);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
 		nachbestellung2 = new NachbestellungTupel(produkt2, 2);
 		nachbestellungen = new HashSet<NachbestellungTupel>();
