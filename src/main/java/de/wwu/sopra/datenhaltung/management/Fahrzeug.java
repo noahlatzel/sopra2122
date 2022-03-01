@@ -11,6 +11,8 @@ import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 
 /**
  * Erstellung der Fahrzeug-Klasse
+ * 
+ * @author Valeria
  */
 public class Fahrzeug implements Serializable {
 	/**

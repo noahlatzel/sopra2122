@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * Klasse der Kategorien
+ * 
+ * @author Noah
+ */
 public class Kategorie implements Serializable {
 	/**
 	 * 
@@ -14,6 +19,11 @@ public class Kategorie implements Serializable {
 	private HashSet<Kategorie> unterkategorien;
 	private Kategorie oberkategorie;
 
+	/**
+	 * konstruktor
+	 * 
+	 * @param name
+	 */
 	public Kategorie(String name) {
 		if (name == "") {
 			throw new IllegalArgumentException("Der Name einer Kategorie darf nicht leer sein.");

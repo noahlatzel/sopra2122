@@ -13,6 +13,8 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
  * Erstellung der Route-Klasse
+ * 
+ * @author valeria
  */
 public class Route implements Serializable {
 	/**

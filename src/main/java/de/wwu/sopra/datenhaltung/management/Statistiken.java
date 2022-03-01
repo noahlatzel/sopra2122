@@ -2,6 +2,12 @@ package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
 
+/**
+ * Klasse fuer die Statistiken
+ * 
+ * @author valeria
+ *
+ */
 public class Statistiken implements Serializable {
 
 	/**

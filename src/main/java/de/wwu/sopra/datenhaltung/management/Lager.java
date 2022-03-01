@@ -5,6 +5,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * klasse lager
+ * 
+ * @author noah
+ *
+ */
 public class Lager implements Serializable {
 	/**
 	 * 
