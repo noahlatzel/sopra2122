@@ -240,7 +240,10 @@ public class BenutzerRegister implements Serializable {
 	@SuppressWarnings("unchecked")
 	public static void load() {
 		SerialisierungPipeline sp = new SerialisierungPipeline();
-		benutzerListe = (List<BenutzerDatenTripel>) sp.deserialisieren(path);
+		BenutzerRegister.benutzerListe = (List<BenutzerDatenTripel>) sp.deserialisieren(path);
+		if (BenutzerRegister.benutzerListe == null) {
+			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
+		}
 	}
 
 	/**

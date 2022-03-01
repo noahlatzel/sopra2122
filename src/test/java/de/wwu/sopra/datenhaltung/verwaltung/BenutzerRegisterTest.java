@@ -201,4 +201,15 @@ public class BenutzerRegisterTest {
 		assertNull(BenutzerRegister.getBestellungen(benutzer1));
 	}
 
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
+		BenutzerRegister.save();
+		BenutzerRegister.load();
+		assertTrue(temp.toString().equals(BenutzerRegister.getBenutzerListe().toString()));
+	}
+
 }

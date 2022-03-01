@@ -77,12 +77,24 @@ public class GrosshaendlerRegister implements Serializable {
 	}
 
 	/**
+	 * Gibt die Liste der Einkaufspreise zurueck.
+	 * 
+	 * @return Die Einkaufspreisliste.
+	 */
+	public static HashMap<String, Double> getPreislisteIn() {
+		return preisListeIn;
+	}
+
+	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
 	@SuppressWarnings("unchecked")
 	public static void load() {
 		SerialisierungPipeline sp = new SerialisierungPipeline();
 		preisListeIn = (HashMap<String, Double>) sp.deserialisieren(path);
+		if (preisListeIn == null) {
+			preisListeIn = new HashMap<String, Double>();
+		}
 	}
 
 	/**

@@ -69,4 +69,14 @@ public class BenutzerDatenTripel implements Serializable {
 		return warenkorb;
 	}
 
+	/**
+	 * toString() Methode
+	 * 
+	 * @return Kunde, Warenkorb, Bestellungen
+	 */
+	@Override
+	public String toString() {
+		return this.getBenutzer().getName() + " " + this.getWarenkorb().size() + " " + this.getBestellungen().size();
+	}
+
 }

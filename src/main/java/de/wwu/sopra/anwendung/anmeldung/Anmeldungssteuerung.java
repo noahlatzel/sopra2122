@@ -132,8 +132,6 @@ public class Anmeldungssteuerung {
 
 			System.out.println("Inhaber angemeldet!");
 			break;
-		default:
-			System.out.println("Fehlerhafter Benutzer!");
 		}
 	}
 

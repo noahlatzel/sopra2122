@@ -14,8 +14,8 @@ public class Lager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String path_set = "lager_set.ser";
 	private static final String path_map = "lager_map.ser";
-	private static HashSet<Produkt> lager;
-	private static HashMap<String, Integer> lagerbestand;
+	private static HashSet<Produkt> lager = new HashSet<Produkt>();
+	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
 
 	public Lager() {
 		lager = new HashSet<Produkt>();
@@ -151,6 +151,12 @@ public class Lager implements Serializable {
 		SerialisierungPipeline sp = new SerialisierungPipeline();
 		lagerbestand = (HashMap<String, Integer>) sp.deserialisieren(path_map);
 		lager = (HashSet<Produkt>) sp.deserialisieren(path_set);
+		if (lagerbestand == null) {
+			lagerbestand = new HashMap<String, Integer>();
+		}
+		if (lager == null) {
+			lager = new HashSet<Produkt>();
+		}
 	}
 
 	/**

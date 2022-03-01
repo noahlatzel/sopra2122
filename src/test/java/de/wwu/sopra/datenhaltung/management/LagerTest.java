@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,5 +96,16 @@ public class LagerTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			Lager.getProduktBestand(new Produkt("keinProdukt", "Toller Geschmack", 0.99, 1.29));
 		});
+	}
+
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		HashSet<Produkt> temp_1 = Lager.getLager();
+		Lager.save();
+		Lager.load();
+		assertTrue(temp_1.equals(Lager.getLager()));
 	}
 }

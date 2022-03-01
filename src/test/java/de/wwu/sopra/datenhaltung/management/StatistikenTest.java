@@ -33,4 +33,15 @@ class StatistikenTest {
 		assertTrue(Statistiken.getAusgaben() == 2);
 	}
 
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		double temp_1 = Statistiken.getUmsatz();
+		Statistiken.save();
+		Statistiken.load();
+		assertTrue(temp_1 == Statistiken.getUmsatz());
+	}
+
 }
