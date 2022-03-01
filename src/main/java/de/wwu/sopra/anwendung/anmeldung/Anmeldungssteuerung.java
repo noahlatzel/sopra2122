@@ -105,7 +105,7 @@ public class Anmeldungssteuerung {
 
 		switch (benutzer.getRolle()) {
 		case KUNDE:
-			Kundensteuerung ks = new Kundensteuerung(); // TODO Fehlende Parameter
+			Kundensteuerung ks = new Kundensteuerung(null); // TODO Fehlende Parameter
 			// wechsleSzene(ks);
 			System.out.println("Kunde angemeldet!");
 			break;
