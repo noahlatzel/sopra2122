@@ -80,7 +80,7 @@ public class InhaberOverview extends Scene {
 			btStatistiken = new Button("Statistiken");
 			btStatistiken.setMinWidth(250);
 			btStatistiken.setOnAction(action -> {
-				primaryStage.setScene(new Statistiken(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+				primaryStage.setScene(new StatistikenAnzeigen(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 
