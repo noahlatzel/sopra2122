@@ -29,6 +29,7 @@ public class InhaberOverview extends Scene {
 	BorderPane header;
 	Button btStatistiken;
 	Button btMitarbeiterRegistrieren;
+	Button btMitarbeiterVerwalten;
 	Button btSortimentBearbeiten;
 	Button btFahrzeugdatenAendern;
 	Button btPersoenlicheDatenAnzeigen;
@@ -47,9 +48,10 @@ public class InhaberOverview extends Scene {
 	
 	private VBox setVBox() {
 		if (this.vbox == null) {
-			vbox = new VBox(6);
+			vbox = new VBox(7);
 			vbox.getChildren().add(this.setBtStatistiken());
 			vbox.getChildren().add(this.setBtMitarbeiterRegistrieren());
+			vbox.getChildren().add(this.setBtMitarbeiterVerwalten());
 			vbox.getChildren().add(this.setBtSortimentBearbeiten());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
@@ -97,6 +99,18 @@ public class InhaberOverview extends Scene {
 		}
 		
 		return this.btMitarbeiterRegistrieren;
+	}
+	
+	private Button setBtMitarbeiterVerwalten() {
+		if (this.btMitarbeiterVerwalten == null) {
+			btMitarbeiterVerwalten = new Button("Mitarbeiter Verwalten");
+			btMitarbeiterVerwalten.setMinWidth(250);
+			btMitarbeiterVerwalten.setOnAction(action -> {
+				primaryStage.setScene(new MitarbeiterVerwalten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+			});
+		}
+		
+		return this.btMitarbeiterVerwalten;
 	}
 	
 	private Button setBtSortimentBearbeiten() {

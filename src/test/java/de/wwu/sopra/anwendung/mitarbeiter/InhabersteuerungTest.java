@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
@@ -254,5 +255,26 @@ public class InhabersteuerungTest {
 		statisticsSupposedResult.put("arbeitszeit", (float) 0);
 		
 		assertEquals(statistics, statisticsSupposedResult);
+	}
+	
+	/**
+	 * testet, ob die Liste mit den richtigen Daten zurueckgegeben wird
+	 */
+	@Test
+	void testMitarbeiternAnzeigen() {
+		Fahrer fahrer1 = new Fahrer("driver", "passwort", "sam@online.de", "ostbad 1", "Sam", "Winchester", "1234", inhaber);
+		Fahrer fahrer2 = new Fahrer("conductor", "passwort", "dean@online.de", "ostbad 1", "Dean", "Winchester", "1235", inhaber);
+		inhaber.fahrerHinzufuegen(fahrer1);
+		inhaber.fahrerHinzufuegen(fahrer2);
+		
+		Lagerist lagerist1 = new Lagerist("lagerista", "passwort", "cas@online.de", "ostbad 1", "Castiel", "Angel", "1235", inhaber);
+		inhaber.lageristHinzufuegen(lagerist1);
+		
+		List<Benutzer> mitarbeitern = new ArrayList<Benutzer>();
+		mitarbeitern.add(fahrer1);
+		mitarbeitern.add(fahrer2);
+		mitarbeitern.add(lagerist1);
+		
+		assertEquals(mitarbeitern, ihs.mitarbeiternAnzeigen());
 	}
 }

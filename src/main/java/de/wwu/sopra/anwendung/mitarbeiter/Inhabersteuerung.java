@@ -1,5 +1,6 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -214,6 +215,17 @@ public class Inhabersteuerung {
 		if (!mitarbeiter.getVorname().equals(vorname)) mitarbeiter.setVorname(vorname);
 		if (!mitarbeiter.getName().equals(nachname)) mitarbeiter.setName(nachname);
 		if (!mitarbeiter.getBankverbindung().equals(bankverbindung)) mitarbeiter.setBankverbindung(bankverbindung);
+	}
+	
+	/**
+	 * Rueckgabeliste aller Lageristen und Fahrer
+	 * @return mitarbeitern		Liste von allen Mitarbeitern
+	 */
+	public List<Benutzer> mitarbeiternAnzeigen() {
+		List<Benutzer> mitarbeitern = new ArrayList<Benutzer>();
+		mitarbeitern.addAll(inhaber.getFahrer());
+		mitarbeitern.addAll(inhaber.getLageristen());
+		return mitarbeitern;
 	}
 	
 	/**
