@@ -33,17 +33,29 @@ public class Lagerist extends Benutzer {
 		this.setChef(chef);
 	}
 
-	// gibt Chef aus
+	/**
+	 * gibt Chef aus
+	 * 
+	 * @return Inhaber
+	 */
 	public Inhaber getChef() {
 		return chef;
 	}
 
-	// setzt Chef aus
+	/**
+	 * setzt den Chef
+	 * 
+	 * @param chef
+	 */
 	public void setChef(Inhaber chef) {
 		this.chef = chef;
 	}
 
-	// gibt rolle aus
+	/**
+	 * gibt die Rolle aus
+	 * 
+	 * @return rolle.Lagerist
+	 */
 	public Rolle getRolle() {
 		return rolle;
 	}

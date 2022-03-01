@@ -45,12 +45,20 @@ public class Fahrer extends Benutzer {
 		this.setChef(chef);
 	}
 
-	// gibt das Fahrzeug aus
+	/**
+	 * gibt das Fahrzeug aus
+	 * 
+	 * @return Fahrzeug
+	 */
 	public Fahrzeug getFahrzeug() {
 		return fahrzeug;
 	}
 
-	// setzt das Fahrzeug
+	/**
+	 * setzt das Fahrzeug
+	 * 
+	 * @param fahrzeug
+	 */
 	public void setFahrzeug(Fahrzeug fahrzeug) {
 		if (fahrzeug != null) {
 			this.fahrzeug = fahrzeug;
@@ -63,17 +71,29 @@ public class Fahrer extends Benutzer {
 
 	}
 
-	// gibt den Chef aus
+	/**
+	 * gibt den Chef aus
+	 * 
+	 * @return Inhaber
+	 */
 	public Inhaber getChef() {
 		return chef;
 	}
 
-	// setzt den Chef
+	/**
+	 * setzt den Chef
+	 * 
+	 * @param chef
+	 */
 	public void setChef(Inhaber chef) {
 		this.chef = chef;
 	}
 
-	// gibt die Rolle aus
+	/**
+	 * gibt die Rolle aus
+	 * 
+	 * @return die Rolle des Fahrer
+	 */
 	public Rolle getRolle() {
 		return rolle;
 	}
