@@ -54,7 +54,6 @@ public class Registrierung extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setGridPane());
-		// root.setBottom(setFlowPane());
 
 	}
 
@@ -84,20 +83,10 @@ public class Registrierung extends Scene {
 			gridpane.add(textFeldAdresse, 2, 7);
 			gridpane.add(labelBankverbindung, 1, 9);
 			gridpane.add(textFeldBankverbindung, 1, 10);
-			gridpane.add(buttonRegistrieren, 1, 12, 1, 2);
+			gridpane.add(setButtonRegistrieren(), 1, 12, 1, 2);
 			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
-	}
-
-	public FlowPane setFlowPane() {
-		if (flowpane == null) {
-			flowpane = new FlowPane();
-			flowpane.getChildren().add(setButtonRegistrieren());
-		}
-		flowpane.setAlignment(Pos.TOP_CENTER);
-
-		return flowpane;
 	}
 
 	/**

@@ -26,7 +26,6 @@ public class Lageristensteuerung {
 	private Lager lager;
 
 	private Statistiken statistiken;
-	private GrosshaendlerRegister preisRegister;
 
 	/**
 	 * Initialisiert die LageristenSteuerung. Dafuer braucht sie Zugriff auf das
@@ -37,9 +36,8 @@ public class Lageristensteuerung {
 	 * @param statistiken Die statistiken des Unternehmens werden mit uebergeben
 	 */
 
-	public Lageristensteuerung(Lager lager, Statistiken statistiken, GrosshaendlerRegister preisRegister) {
+	public Lageristensteuerung(Lager lager, Statistiken statistiken) {
 		this.lager = lager;
-		this.preisRegister = preisRegister;
 		this.statistiken = statistiken;
 	}
 
@@ -53,7 +51,7 @@ public class Lageristensteuerung {
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				lager.addProdukt(n.getProdukt().clone(this.preisRegister.getPreis(n.getProdukt())));
+				lager.addProdukt(n.getProdukt().clone(GrosshaendlerRegister.getEinkaufspreis(n.getProdukt())));
 				statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 			}
 		}
@@ -74,7 +72,7 @@ public class Lageristensteuerung {
 	public void planeRoute(List<Bestellung> bestellungen, Fahrzeug fahrzeug) {
 		int gesamtBelegung = 0;
 		for (Bestellung b : bestellungen) {
-			gesamtBelegung += b.getKapazitaetBelegt();
+			gesamtBelegung += b.getKapazitaet();
 		}
 		if (gesamtBelegung > fahrzeug.getKapazitaet()) {
 			throw new IllegalArgumentException("Das Fahrzeug ist zu klein fuer die Bestellung. " + "\n" + gesamtBelegung
@@ -99,6 +97,23 @@ public class Lageristensteuerung {
 			throw new IllegalArgumentException("Das Fahrzeug hat keine Route.");
 		}
 		return route;
+	}
+
+	/**
+	 * Diese Methode gibt die Menge aller belegten oder zustellenden Fahrzeuge im
+	 * System zurueck.
+	 * 
+	 * @return Die Menge aller belegten / zustellenden Fahrzeuge.
+	 */
+	public HashSet<Fahrzeug> getFahrzeugeMitRoute() {
+		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : alleFahrzeuge) {
+			if (f.getRoute() != null) {
+				fahrzeuge.add(f);
+			}
+		}
+		return fahrzeuge;
 	}
 
 	/**
@@ -162,4 +177,5 @@ public class Lageristensteuerung {
 		}
 		return bestellungen;
 	}
+
 }

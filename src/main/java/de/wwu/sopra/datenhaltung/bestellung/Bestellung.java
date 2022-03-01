@@ -21,6 +21,8 @@ public class Bestellung implements Serializable {
 	private final Kunde kunde;
 	private LocalDateTime datum;
 	private Rechnung rechnung;
+	private int kapazitaet;
+	private String adresse;
 
 	/**
 	 * Konstruktor fuer die Klasse Bestellung
@@ -39,6 +41,8 @@ public class Bestellung implements Serializable {
 		this.produkte = produkte;
 		this.betrag = calcBetrag();
 		this.kunde = kunde;
+		this.adresse = kunde.getAdresse();
+		this.kapazitaet = produkte.size();
 	}
 
 	/**
@@ -149,8 +153,26 @@ public class Bestellung implements Serializable {
 		this.rechnung = rechnung;
 	}
 
-	public int getKapazitaetBelegt() {
-		return this.getProdukte().size();
+	/**
+	 * Gibt die Kapazitaetsbelegung der Bestellung zurueck.
+	 * 
+	 * @return Die Kapazitaet, die durch die Bestellung belegt wird.
+	 */
+	public int getKapazitaet() {
+		return this.kapazitaet;
+	}
+
+	/**
+	 * 
+	 * @return Die Adresse, an die die Bestellung geliefert werden soll.
+	 */
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+	@Override
+	public String toString() {
+		return "Bestellung " + this.getBestellnummer();
 	}
 
 }

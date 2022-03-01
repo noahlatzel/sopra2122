@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
@@ -121,13 +122,15 @@ class RouteTest {
 	 */
 	@Test
 	void testBestellungen() {
+		Kunde kunde1 = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Bestellung bestellung = new Bestellung(0, null, produkte, null);
+		Fahrzeug fzeug3 = new Fahrzeug(98791288, 200);
+		Bestellung bestellung = new Bestellung(0, null, produkte, kunde1);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		Fahrzeug fzeug = new Fahrzeug(9879871, 100);
-		Route routeFirst = new Route(10, fzeug);
+		Route routeFirst = new Route(10, fzeug3);
 		routeFirst.setBestellungen(bestellungen);
 		assertTrue(routeFirst.getBestellungen().contains(bestellung));
 	}
