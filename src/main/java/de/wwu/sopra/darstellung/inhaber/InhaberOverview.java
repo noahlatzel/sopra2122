@@ -4,12 +4,17 @@
 package de.wwu.sopra.darstellung.inhaber;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -21,6 +26,7 @@ public class InhaberOverview extends Scene {
 	Stage primaryStage;
 	Image image;
 	VBox vbox;
+	BorderPane header;
 	Button btStatistiken;
 	Button btMitarbeiterRegistrieren;
 	Button btSortimentBearbeiten;
@@ -34,6 +40,7 @@ public class InhaberOverview extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.inhaberSteuerung = inhaberSteuerung;
+		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("INHABER STARTSEITE"));
 	}
@@ -51,12 +58,29 @@ public class InhaberOverview extends Scene {
 		return this.vbox;
 	}
 	
+	private BorderPane setHeader() {
+		if (this.header == null) {
+			header = new BorderPane();
+			header.minHeight(300);
+			header.setPadding(new Insets(10, 20, 10, 20));
+			header.setBackground(new Background(new BackgroundFill(Color.web("#c4c4c4"), new CornerRadii(0), Insets.EMPTY)));
+			Label logoLabel = new Label("Logo");
+			logoLabel.setTextFill(Color.web("#000000"));
+			Label userLabel = new Label("User");
+			userLabel.setTextFill(Color.web("#000000"));
+			header.setLeft(logoLabel);
+			header.setRight(userLabel);
+		}
+		
+		return this.header;
+	}
+	
 	private Button setBtStatistiken() {
 		if (this.btStatistiken == null) {
 			btStatistiken = new Button("Statistiken");
 			btStatistiken.setMinWidth(250);
 			btStatistiken.setOnAction(action -> {
-				primaryStage.setScene(new Statistiken(primaryStage, 1280, 720, inhaberSteuerung));
+				primaryStage.setScene(new Statistiken(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 
@@ -68,7 +92,7 @@ public class InhaberOverview extends Scene {
 			btMitarbeiterRegistrieren = new Button("Mitarbeiter Registrieren");
 			btMitarbeiterRegistrieren.setMinWidth(250);
 			btMitarbeiterRegistrieren.setOnAction(action -> {
-				primaryStage.setScene(new MitarbeiterRegistrieren(primaryStage, 1280, 720, inhaberSteuerung));
+				primaryStage.setScene(new MitarbeiterRegistrieren(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 		
@@ -80,7 +104,7 @@ public class InhaberOverview extends Scene {
 			btSortimentBearbeiten = new Button("Sortiment Bearbeiten");
 			btSortimentBearbeiten.setMinWidth(250);
 			btSortimentBearbeiten.setOnAction(action -> {
-				primaryStage.setScene(new SortimentBearbeiten(primaryStage, 1280, 720, inhaberSteuerung));
+				primaryStage.setScene(new SortimentBearbeiten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 		
@@ -92,7 +116,7 @@ public class InhaberOverview extends Scene {
 			btFahrzeugdatenAendern = new Button("Fahrzeugdaten Aendern");
 			btFahrzeugdatenAendern.setMinWidth(250);
 			btFahrzeugdatenAendern.setOnAction(action -> {
-				primaryStage.setScene(new FahrzeugdatenAendern(primaryStage, 1280, 720, inhaberSteuerung));
+				primaryStage.setScene(new FahrzeugdatenAendern(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 		
@@ -116,7 +140,7 @@ public class InhaberOverview extends Scene {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
 			btPersoenlicheDatenAnzeigen.setMinWidth(250);
 			btPersoenlicheDatenAnzeigen.setOnAction(action -> {
-				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, 1280, 720, inhaberSteuerung));
+				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 		
