@@ -23,6 +23,7 @@ import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class InhabersteuerungTest {
@@ -51,6 +52,7 @@ public class InhabersteuerungTest {
 		vorname = "Jack";
 		name = "Sparrow";
 		bankverbindung = "DE00 0000 0000 0000 00";
+		BenutzerRegister.getBenutzerListe().clear();
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
 		ihs = new Inhabersteuerung(inhaber);
 	}

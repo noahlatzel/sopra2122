@@ -27,6 +27,7 @@ public class InhaberTest {
 
 	@BeforeEach
 	public void setup() {
+		BenutzerRegister.getBenutzerListe().clear();
 		inhaber = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname",
 				"eineBankverbindung");
 		fahrer = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
@@ -132,7 +133,6 @@ public class InhaberTest {
 	 */
 	@Test
 	void testGetLageristenUndFahrer() {
-		BenutzerRegister.getBenutzerListe().clear();
 
 		Lagerist lagerist2 = new Lagerist("almacenista", "4322", "email3", "Bochum", "Jane", "Doe", "LaBankverbindung",
 				inhaber);
