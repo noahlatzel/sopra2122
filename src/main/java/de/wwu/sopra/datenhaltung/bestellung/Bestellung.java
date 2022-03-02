@@ -7,6 +7,12 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
+/**
+ * Die klasse Bestellung
+ * 
+ * @author Jasmin
+ *
+ */
 public class Bestellung implements Serializable {
 
 	/**
@@ -21,12 +27,16 @@ public class Bestellung implements Serializable {
 	private final Kunde kunde;
 	private LocalDateTime datum;
 	private Rechnung rechnung;
+	private int kapazitaet;
+	private String adresse;
 
 	/**
-	 * Konstruktor der Klasse Bestellung
+	 * Konstruktor fuer die Klasse Bestellung
 	 * 
 	 * @param bestellnummer Bestellnummer
-	 * @param produkte      Produkte, die in der Bestellung enthalten sind
+	 * @param datum         Datum
+	 * @param produkte      Liste von Produkten
+	 * @param kunde         Kunde
 	 */
 	public Bestellung(int bestellnummer, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
@@ -38,6 +48,25 @@ public class Bestellung implements Serializable {
 		this.produkte = produkte;
 		this.betrag = calcBetrag();
 		this.kunde = kunde;
+		this.adresse = kunde.getAdresse();
+		this.kapazitaet = produkte.size();
+	}
+
+	/**
+	 * Zaehlt die Anzahl eines Produkts
+	 * 
+	 * @param produkt
+	 * @return Anzahl des Produkts im Warenkorb/Bestellung
+	 */
+	public int getProduktAnzahl(Produkt produkt, List<Produkt> produktliste) {
+
+		int i = 0;
+		for (int j = 0; j <= produkte.size(); j++) {
+			if (produkt.equals(produktliste.get(i))) {
+				i++;
+			}
+		}
+		return i;
 	}
 
 	/**
@@ -58,6 +87,11 @@ public class Bestellung implements Serializable {
 		return status;
 	}
 
+	/**
+	 * Berechnet den Betrag der Bestellung
+	 * 
+	 * @return Betrag
+	 */
 	public double calcBetrag() {
 		double temp = 0;
 		for (Produkt p : this.getProdukte()) {
@@ -129,8 +163,30 @@ public class Bestellung implements Serializable {
 		this.rechnung = rechnung;
 	}
 
-	public int getKapazitaetBelegt() {
-		return this.getProdukte().size();
+	/**
+	 * Gibt die Kapazitaetsbelegung der Bestellung zurueck.
+	 * 
+	 * @return Die Kapazitaet, die durch die Bestellung belegt wird.
+	 */
+	public int getKapazitaet() {
+		return this.kapazitaet;
+	}
+
+	/**
+	 * gibt die Adresse aus
+	 * 
+	 * @return Die Adresse, an die die Bestellung geliefert werden soll.
+	 */
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+	/**
+	 * overrides die toString() methode
+	 */
+	@Override
+	public String toString() {
+		return "Bestellung " + this.getBestellnummer();
 	}
 
 }

@@ -58,6 +58,14 @@ public class FahrersteuerungTest {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(10124123, 100);
 		Route route = new Route(24136, fahrzeug);
+		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		List<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(cola);
+		Bestellung bestellung = new Bestellung(91293, null, produkte,
+				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
+		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(bestellung);
+		route.setBestellungen(bestellungen);
 
 		fahrer.setFahrzeug(fahrzeug);
 		fahrzeug.setStatus(FahrzeugStatus.BELEGT);
@@ -90,6 +98,14 @@ public class FahrersteuerungTest {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(100124124, 100);
 		Route route = new Route(1241, fahrzeug);
+		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		List<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(cola);
+		Bestellung bestellung = new Bestellung(91293, null, produkte,
+				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
+		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(bestellung);
+		route.setBestellungen(bestellungen);
 
 		// test der korrektheit der ausggebenen Route
 		steuerung.fahrzeugZuordnen(fahrzeug);

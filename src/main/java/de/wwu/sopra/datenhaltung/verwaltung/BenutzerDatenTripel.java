@@ -27,23 +27,25 @@ public class BenutzerDatenTripel implements Serializable {
 	 * und einem leeren Warenkorb. Fuer alle anderen Benutzer wird keine Liste
 	 * erstellt.
 	 * 
-	 * @param benutzer
+	 * @param benutzer benutzer
 	 */
 	public BenutzerDatenTripel(Benutzer benutzer) {
-		this.benutzer = benutzer;
-		if (benutzer.getRolle() == Rolle.KUNDE) {
-			bestellungen = new ArrayList<Bestellung>();
-			warenkorb = new ArrayList<Produkt>();
-		} else {
-			bestellungen = null;
-			warenkorb = null;
+		if (benutzer != null) {
+			this.benutzer = benutzer;
+			if (benutzer.getRolle() == Rolle.KUNDE) {
+				bestellungen = new ArrayList<Bestellung>();
+				warenkorb = new ArrayList<Produkt>();
+			} else {
+				bestellungen = null;
+				warenkorb = null;
+			}
 		}
 	}
 
 	/**
 	 * Gibt den Benutzer des Tripels zurueck.
 	 * 
-	 * @return
+	 * @return benutzer
 	 */
 	public Benutzer getBenutzer() {
 		return benutzer;
@@ -52,7 +54,7 @@ public class BenutzerDatenTripel implements Serializable {
 	/**
 	 * Gibt die Liste der Bestellungen zurueck.
 	 * 
-	 * @return
+	 * @return liste der bestellungen
 	 */
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
@@ -61,10 +63,23 @@ public class BenutzerDatenTripel implements Serializable {
 	/**
 	 * Gibt den Warenkorb zurueck.
 	 * 
-	 * @return
+	 * @return Liste der waren
 	 */
 	public List<Produkt> getWarenkorb() {
 		return warenkorb;
+	}
+
+	/**
+	 * toString() Methode
+	 * 
+	 * @return Kunde, Warenkorb, Bestellungen
+	 */
+	@Override
+	public String toString() {
+		if (this.getWarenkorb() == null && this.getBestellungen() == null) {
+			return this.getBenutzer().getName() + " " + 0 + " " + 0;
+		}
+		return this.getBenutzer().getName() + " " + this.getWarenkorb().size() + " " + this.getBestellungen().size();
 	}
 
 }

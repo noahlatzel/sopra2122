@@ -19,6 +19,7 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.management.Route;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
@@ -31,17 +32,15 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
-	FahrzeugRegister fahrzeugRegister = new FahrzeugRegister();
-	BenutzerRegister benutzerRegister = new BenutzerRegister();
 	Statistiken statistiken = new Statistiken();
-	GrosshaendlerRegister preisRegister = new GrosshaendlerRegister();
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung(new Lager(), benutzerRegister, fahrzeugRegister, statistiken,
-				preisRegister);
+		lageristenSteuerung = new Lageristensteuerung();
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
+		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
+		GrosshaendlerRegister.setEinkaufspreis(produkt2, 0.99);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
 		nachbestellung2 = new NachbestellungTupel(produkt2, 2);
 		nachbestellungen = new HashSet<NachbestellungTupel>();
@@ -63,11 +62,16 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testBestelleNach() {
-		preisRegister.setPreis(produkt1, 0.99);
-		preisRegister.setPreis(produkt2, 0.99);
+
+		// preisRegister.setPreis(produkt1, 0.99);
+		// preisRegister.setPreis(produkt2, 0.99);
+		HashSet<Produkt> temp = Lager.getLager();
+		for (Produkt p : temp) {
+			Lager.removeProdukt(p);
+		}
 		lageristenSteuerung.bestelleNach(nachbestellungen);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Fanta") == 2);
-		assertTrue(lageristenSteuerung.getLager().getProduktBestand("Cola") == 5);
+		assertTrue(Lager.getProduktBestand("Fanta") == 2);
+		assertTrue(Lager.getProduktBestand("Cola") == 5);
 	}
 
 	/**
@@ -162,12 +166,11 @@ public class LageristensteuerungTest {
 		testbestellung1.setStatus(BestellStatus.ABGESCHLOSSEN);
 		testbestellung2.setStatus(BestellStatus.OFFEN);
 
-		benutzerRegister.benutzerHinzufuegen(kunde2);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
-		benutzerRegister.benutzerHinzufuegen(kunde1);
-		benutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
+		BenutzerRegister.benutzerHinzufuegen(kunde2);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
+		BenutzerRegister.benutzerHinzufuegen(kunde1);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
 
-		System.out.println(lageristenSteuerung.zeigeOffeneBestellungen().size());
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().contains(testbestellung2));
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().size() == 1);
 
@@ -178,12 +181,42 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testFreieFahrzeuge() {
+		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : temp) {
+			FahrzeugRegister.removeFahrzeug(f);
+		}
 		Fahrzeug fahrzeug = new Fahrzeug(920, 2);
 		Fahrzeug fahrzeug1 = new Fahrzeug(921, 2);
 		fahrzeug1.setStatus(FahrzeugStatus.BELEGT);
-		fahrzeugRegister.addFahrzeug(fahrzeug1);
-		fahrzeugRegister.addFahrzeug(fahrzeug);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		FahrzeugRegister.addFahrzeug(fahrzeug);
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().contains(fahrzeug));
+		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
+		FahrzeugRegister.removeFahrzeug(fahrzeug);
+	}
+
+	@Test
+	void testBelegteFahrzeuge() {
+		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		for (Fahrzeug f : temp) {
+			FahrzeugRegister.removeFahrzeug(f);
+		}
+		ArrayList<Produkt> produkte1 = new ArrayList<Produkt>();
+		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
+		Bestellung testbestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte1,
+				kunde2);
+		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(testbestellung1);
+		Fahrzeug fahrzeug = new Fahrzeug(90022, 2);
+		Fahrzeug fahrzeug1 = new Fahrzeug(92003, 3);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		FahrzeugRegister.addFahrzeug(fahrzeug);
+		Route route = new Route(110, fahrzeug1);
+		route.setBestellungen(bestellungen);
+		assertTrue(lageristenSteuerung.getFahrzeugeMitRoute().contains(fahrzeug1));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
 	}
 }

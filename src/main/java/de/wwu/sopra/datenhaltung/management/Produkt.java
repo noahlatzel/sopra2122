@@ -2,6 +2,12 @@ package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
 
+/**
+ * Klasse der Produkte
+ * 
+ * @author noah
+ *
+ */
 public class Produkt implements Serializable {
 	/**
 	 * 
@@ -13,6 +19,14 @@ public class Produkt implements Serializable {
 	private final double einkaufspreis;
 	private double verkaufspreis;
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @param name          name
+	 * @param beschreibung  beschreibung
+	 * @param einkaufspreis einkaufspreis
+	 * @param verkaufspreis verkaufspreis
+	 */
 	public Produkt(String name, String beschreibung, double einkaufspreis, double verkaufspreis) {
 		if (einkaufspreis <= 0) {
 			throw new IllegalArgumentException("Der Einkaufspreis kann nicht 0 oder negativ sein.");

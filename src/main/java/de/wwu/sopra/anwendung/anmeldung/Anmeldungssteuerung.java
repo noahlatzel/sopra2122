@@ -20,10 +20,8 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  */
 public class Anmeldungssteuerung {
 
-	BenutzerRegister benutzerReg;
+	public Anmeldungssteuerung() {
 
-	public Anmeldungssteuerung(BenutzerRegister benutzerReg) {
-		this.benutzerReg = benutzerReg;
 	}
 
 	/**
@@ -39,7 +37,7 @@ public class Anmeldungssteuerung {
 
 			// Falls der Benutzername im System bekannt ist wird der zugehoerige Benutzer
 			// zurueckgegeben.
-			Benutzer benutzer = benutzerReg.getBenutzerZuBenutzername(benutzername);
+			Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
 
 			if (!(benutzer == null)) {
 				// HIGH SECURITY PASSWORT CHECK
@@ -72,19 +70,28 @@ public class Anmeldungssteuerung {
 	 */
 	public void registrieren(String benutzername, String passwort, String email, String adresse, String vorname,
 			String name, String bankverbindung) throws NullPointerException {
-		if (!(benutzername == null || passwort == null || email == null || adresse == null || vorname == null
-				|| name == null || bankverbindung == null)) {
+		// Falls null uebergeben wurde:
+		if ((!(benutzername == null || passwort == null || email == null || adresse == null || vorname == null
+				|| name == null || bankverbindung == null))) {
 
-			// Pruefe ob Benutzername im System vorhanden
-			Benutzer benutzer = benutzerReg.getBenutzerZuBenutzername(benutzername);
+			if (!(benutzername.isBlank() || passwort.isBlank() || email.isBlank() || adresse.isBlank()
+					|| vorname.isBlank() || name.isBlank() || bankverbindung.isBlank())) {
 
-			if (benutzer == null) {
-				benutzerReg.benutzerHinzufuegen(
-						new Kunde(benutzername, passwort, email, adresse, vorname, name, bankverbindung));
+				// Pruefe ob Benutzername im System vorhanden
+				Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
+
+				if (benutzer == null) {
+					BenutzerRegister.benutzerHinzufuegen(
+							new Kunde(benutzername, passwort, email, adresse, vorname, name, bankverbindung));
+				} else {
+					// Falls Benutzername schon vergeben: Fehlermeldung
+					System.out.println("Benutzername schon vergeben!");
+					// TODO Fehlermeldung in der Oberflaeche
+				}
 			} else {
-				// Falls Benutzername schon vergeben: Fehlermeldung
-				System.out.println("Benutzername schon vergeben!");
-				// TODO
+				// Falls ein leerer String uebergeben wurde:
+				System.out.println("Leere Eingabe!");
+				// TODO Fehlermeldung in der Oberflaeche
 			}
 		} else {
 			throw new NullPointerException("Fehlerhafte Eingabe!");
@@ -98,13 +105,15 @@ public class Anmeldungssteuerung {
 	 * @param benutzer
 	 * @pre Der uebergebene Nutzer ist ein im System eingetragener Benutzer
 	 */
-	public void leiteWeiter(Benutzer benutzer) {
-		assert benutzerReg.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
+	@SuppressWarnings("unused")
+	private void leiteWeiter(Benutzer benutzer) {
+		assert BenutzerRegister.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
 				: "Benutzer ist nicht im System registriert";
 
 		switch (benutzer.getRolle()) {
 		case KUNDE:
-			Kundensteuerung ks = new Kundensteuerung(); // TODO Fehlende Parameter
+			Kundensteuerung ks = new Kundensteuerung(null); // TODO Fehlende Parameter
+			// wechsleSzene(ks);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:
@@ -112,15 +121,21 @@ public class Anmeldungssteuerung {
 			System.out.println("Fahrer angemeldet!");
 			break;
 		case LAGERIST:
-			Lageristensteuerung ls = new Lageristensteuerung(null, benutzerReg, null, null, null); // TODO Fehlende
-																									// Parameter
+
+			Lageristensteuerung ls = new Lageristensteuerung(); // TODO Fehlende
+																// Parameter
 			System.out.println("Lagerist angemeldet!");
 			break;
+
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, benutzerReg, null, null); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}
+	}
+
+	private void wechsleSzene(Object klasse) {
+
 	}
 
 }

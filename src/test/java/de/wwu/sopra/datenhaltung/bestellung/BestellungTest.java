@@ -33,6 +33,7 @@ class BestellungTest {
 	 */
 	@Test
 	void testKonstruktor() {
+		IdZaehler test = new IdZaehler();
 		assertTrue(bestellung.getStatus().equals(BestellStatus.OFFEN));
 		assertTrue(bestellung.getDatum() == null);
 		assertTrue(bestellung.getBestellnummer() == 1);
@@ -40,6 +41,8 @@ class BestellungTest {
 		assertTrue(bestellung.getBetrag() == 1.29);
 		assertTrue(bestellung.getProdukte() == produkte);
 		assertTrue(bestellung.getKunde() == kunde);
+		assertTrue(bestellung.toString().equals("Bestellung 1"));
+		assertTrue(bestellung.getAdresse().equals(bestellung.getKunde().getAdresse()));
 	}
 
 	/**
