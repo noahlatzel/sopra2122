@@ -132,8 +132,6 @@ public class Lageristensteuerung {
 	 * Eine interne Methode, die alle offenen Bestellungen aus dem BenutzerRegister
 	 * liest.
 	 * 
-	 * @param benutzerRegister Das BenutzerRegister aus dem die Daten gelesen
-	 *                         werden.
 	 * @return Alle offenen Bestellungen, die im BenutzerRegister gefuehrt sind.
 	 */
 	private HashSet<Bestellung> extractOffeneBestellungenRegister() {

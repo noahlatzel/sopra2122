@@ -14,6 +14,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+/**
+ * Grenzklasse ZeigeRouteVonFahrzeug
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	TilePane tilePane;
 	ScrollPane scrollPaneFahrzeug;

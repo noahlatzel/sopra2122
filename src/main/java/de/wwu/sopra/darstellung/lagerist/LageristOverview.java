@@ -10,6 +10,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Grenzklasse LageristOverview
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class LageristOverview extends Scene {
 	BorderPane root = new BorderPane();
 	Stage primaryStage;

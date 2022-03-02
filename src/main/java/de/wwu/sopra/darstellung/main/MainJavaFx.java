@@ -10,6 +10,12 @@ import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Main-Klasse
+ * 
+ * @author Johannes
+ *
+ */
 public class MainJavaFx extends Application {
 	BorderPane layout;
 	SerialisierungPipeline sp = new SerialisierungPipeline();

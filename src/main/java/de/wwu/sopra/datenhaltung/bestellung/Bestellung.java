@@ -183,6 +183,8 @@ public class Bestellung implements Serializable {
 
 	/**
 	 * overrides die toString() methode
+	 * 
+	 * @return Bestellungsnummer
 	 */
 	@Override
 	public String toString() {

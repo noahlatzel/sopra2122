@@ -4,6 +4,12 @@ import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Grenzklasse PersoenlicheDatenAnzeigen
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height,

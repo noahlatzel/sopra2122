@@ -129,7 +129,6 @@ public class Fahrzeug implements Serializable {
 	/**
 	 * Setzt die Route wieder auf null und setzt das fahrzeug auf FREI
 	 */
-
 	public void entferneRoute() {
 		this.route = null;
 		this.setStatus(FahrzeugStatus.FREI);
