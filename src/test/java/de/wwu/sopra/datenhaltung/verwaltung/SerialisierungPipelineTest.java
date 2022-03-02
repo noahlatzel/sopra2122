@@ -44,7 +44,7 @@ public class SerialisierungPipelineTest {
 		// Kunden
 		Kunde kunde1 = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
-		Kunde kunde3 = new Kunde("Eimer", "1234", "hart@test.de", "Davidwache", "püü", "Reh", "test");
+		Kunde kunde3 = new Kunde("Eimer", "1234", "hart@test.de", "Davidwache", "poo", "Reh", "test");
 
 		// Produkte
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
