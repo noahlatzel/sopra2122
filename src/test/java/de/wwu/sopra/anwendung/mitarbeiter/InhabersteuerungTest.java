@@ -113,21 +113,35 @@ public class InhabersteuerungTest {
 	}
 	
 	/**
-	 * Testet die Bearbeitung von Fahrzeugdaten
+	 * Testet die Verwaltung von Fahrzeugdaten
 	 */
 	@Test
-	void testFahrzeugDatenAendern() {
-		// Erstellung von Fahrzeug
-		Fahrzeug fzeug = new Fahrzeug(94231, 321894215);
+	void testFahrzeugeVerwalten() {
+		// Erstellung von Fahrzeuge
+		Fahrzeug fzeug1 = new Fahrzeug(94231, 321894215);
+		Fahrzeug fzeug2 = new Fahrzeug(1111111, 52);
+		Fahrzeug fzeug3 = new Fahrzeug(1865111, 1000);
 		
-		// Fahrzeugkapazitaet aendern
-		ihs.fahrzeugDatenAendern(fzeug, fzeug.getFahrzeugNummer(), 123456789);
-		assertEquals(fzeug.getKapazitaet(), 123456789);
+		fahrzeugReg.addFahrzeug(fzeug1);
+		fahrzeugReg.addFahrzeug(fzeug2);
+		fahrzeugReg.addFahrzeug(fzeug3);
+		
+		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+		fahrzeuge.add(fzeug1);
+		fahrzeuge.add(fzeug2);
+		fahrzeuge.add(fzeug3);
+		
+		// Testet, ob alle Fahrzeuge korrekt angezeigt werden
+		assertEquals(fahrzeuge, ihs.fahrzeugeAnzeigen());
+		
+		// Fahrzeug1kapazitaet aendern
+		ihs.fahrzeugDatenAendern(fzeug1, fzeug1.getFahrzeugNummer(), 123456789);
+		assertEquals(fzeug1.getKapazitaet(), 123456789);
+		
+		// Testet das Loeschen von einem Fahrzeug
+		ihs.fahrzeugLoeschen(fzeug3);
+		assertFalse(ihs.fahrzeugeAnzeigen().contains(fzeug3));
 	}
-	
-	/**
-	 * TODO: testFahrzeugLoeschen()
-	 */
 	
 	/**
 	 * Testet, ob alle Daten des Benutzers im richtigen Format zurueckgegeben werden
