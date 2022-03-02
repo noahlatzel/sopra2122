@@ -196,4 +196,14 @@ public class Lager implements Serializable {
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
 	}
+
+	/**
+	 * Setzt das Lager zurueck (fuer Tests).
+	 */
+	public static void reset() {
+		HashSet<Produkt> lager_old = (HashSet<Produkt>) Lager.getLager().clone();
+		for (Produkt p : lager_old) {
+			Lager.removeProdukt(p);
+		}
+	}
 }
