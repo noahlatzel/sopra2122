@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,6 +17,17 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 public class LagerTest {
 	Lager lager;
 	ArrayList<Produkt> produkte;
+
+	/**
+	 * Lager wieder aufraeumen.
+	 */
+	@AfterEach
+	void end() {
+		HashSet<Produkt> lager_old = (HashSet<Produkt>) Lager.getLager().clone();
+		for (Produkt p : lager_old) {
+			Lager.removeProdukt(p);
+		}
+	}
 
 	@BeforeEach
 	void init() {
