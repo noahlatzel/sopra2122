@@ -8,6 +8,7 @@ build/
 /recources/
 bin/
 tmp/
+resources/
 *.tmp
 *.bak
 *.swp

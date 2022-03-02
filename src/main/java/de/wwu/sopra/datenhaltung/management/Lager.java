@@ -26,9 +26,10 @@ public class Lager implements Serializable {
 	private static HashSet<Produkt> lager = new HashSet<Produkt>();
 	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
 
-	public Lager() {
-		lager = new HashSet<Produkt>();
-		lagerbestand = new HashMap<String, Integer>();
+	/**
+	 * Singleton Konstruktor
+	 */
+	private Lager() {
 	}
 
 	/**
@@ -194,5 +195,15 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
+	}
+
+	/**
+	 * Setzt das Lager zurueck (fuer Tests).
+	 */
+	public static void reset() {
+		HashSet<Produkt> lager_old = (HashSet<Produkt>) Lager.getLager().clone();
+		for (Produkt p : lager_old) {
+			Lager.removeProdukt(p);
+		}
 	}
 }

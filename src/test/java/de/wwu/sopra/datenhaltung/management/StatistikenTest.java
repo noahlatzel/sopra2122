@@ -2,9 +2,17 @@ package de.wwu.sopra.datenhaltung.management;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
+
 class StatistikenTest {
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	/**
 	 * Testet den Kontruktor.

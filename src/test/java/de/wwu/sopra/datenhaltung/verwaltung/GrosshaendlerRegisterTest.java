@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
@@ -16,6 +18,12 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 public class GrosshaendlerRegisterTest {
 	Produkt produkt1;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	/**
 	 * Testet addPreis fuer Produkt.

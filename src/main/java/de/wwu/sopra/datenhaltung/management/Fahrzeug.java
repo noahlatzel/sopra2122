@@ -28,17 +28,18 @@ public class Fahrzeug implements Serializable {
 	private FahrzeugStatus status;
 	private Route route;
 	private Fahrer fahrer;
+	private static int zaehler;
 
 	/**
 	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der
 	 * Liste existiert
 	 * 
-	 * @param fahrzeugNummer fahrzeugNummer
-	 * @param kapazitaet     kapazitaet
+	 * @param kapazitaet kapazitaet
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
-	public Fahrzeug(int fahrzeugNummer, float kapazitaet) throws IllegalArgumentException {
-		this.setFahrzeugNummer(fahrzeugNummer);
+	public Fahrzeug(float kapazitaet) throws IllegalArgumentException {
+		this.setFahrzeugNummer(zaehler);
+		zaehler++;
 		this.kapazitaet = kapazitaet;
 		this.status = FahrzeugStatus.FREI;
 	}

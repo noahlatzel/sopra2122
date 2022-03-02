@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
@@ -133,8 +132,7 @@ public class Fahrersteuerung {
 	public void bestellungAusliefern() throws NullPointerException {
 		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
 			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
-			inbearbeitung.setRechnung(new Rechnung(IdZaehler.getRechnungsId(), inbearbeitung.getBetrag(),
-					LocalDateTime.now(), inbearbeitung));
+			inbearbeitung.setRechnung(new Rechnung(inbearbeitung.getBetrag(), LocalDateTime.now(), inbearbeitung));
 			inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 			aktuelleBestellung++;
 		} else

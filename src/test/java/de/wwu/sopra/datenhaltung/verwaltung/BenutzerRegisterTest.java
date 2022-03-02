@@ -18,6 +18,7 @@ import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
@@ -35,6 +36,12 @@ public class BenutzerRegisterTest {
 	Produkt produkt2;
 	Bestellung bestellung;
 	List<Produkt> warenkorbTester;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	public void setup() {
@@ -173,7 +180,7 @@ public class BenutzerRegisterTest {
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
 
 		// Hinzufuegen der neuen Bestellung zur Liste der Bestellungen des Kunden
-		bestellung = new Bestellung(3, LocalDateTime.now(), warenkorbTester, benutzer1);
+		bestellung = new Bestellung(LocalDateTime.now(), warenkorbTester, benutzer1);
 		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, bestellung);
 
 		assertTrue(BenutzerRegister.getBestellungen(benutzer1).get(0).equals(bestellung));

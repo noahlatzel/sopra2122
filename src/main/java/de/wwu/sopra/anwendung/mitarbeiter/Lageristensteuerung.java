@@ -73,7 +73,7 @@ public class Lageristensteuerung {
 					+ " > " + fahrzeug.getKapazitaet());
 		}
 		// TODO Routennummer in der Route selbst berechnen.
-		Route route = new Route(1, fahrzeug);
+		Route route = new Route(fahrzeug);
 
 		route.setBestellungen(bestellungen);
 
