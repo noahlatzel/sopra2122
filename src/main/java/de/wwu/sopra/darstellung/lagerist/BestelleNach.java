@@ -8,6 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+/**
+ * Grenzklasse BestelleNach
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class BestelleNach extends LageristOverview {
 	TilePane tilePane;
 	NachbestellungProduktGUI produktGUI;

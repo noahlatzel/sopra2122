@@ -1,6 +1,16 @@
 package de.wwu.sopra.darstellung.anmeldung;
 
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
+import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
+import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
+import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
+import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
+import de.wwu.sopra.darstellung.lagerist.LageristOverview;
+import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
+import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -69,7 +79,12 @@ public class Anmeldung extends Scene {
 			textFeldBenutzername.setMaxWidth(170);
 			textFeldPasswort.setMaxWidth(170);
 
-			buttonAnmelden.setOnAction(e -> anmelden(textFeldBenutzername.getText(), textFeldPasswort.getText()));
+			buttonAnmelden.setOnAction(e -> {
+				Benutzer benutzer = anmelden(textFeldBenutzername.getText(), textFeldPasswort.getText());
+				if (benutzer != null) {
+					leiteWeiter(benutzer);
+				}
+			});
 
 			vbox.setSpacing(10);
 			vbox.setAlignment(Pos.CENTER);
@@ -84,8 +99,45 @@ public class Anmeldung extends Scene {
 	 * @param benutzername Ins Textfeld eingegebener Benutzername.
 	 * @param passwort     Ins Textfeld eingegebenes Passwort.
 	 */
-	private void anmelden(String benutzername, String passwort) {
+	private Benutzer anmelden(String benutzername, String passwort) {
 		Anmeldungssteuerung anSt = new Anmeldungssteuerung();
-		anSt.anmelden(benutzername, passwort);
+		return anSt.anmelden(benutzername, passwort);
+	}
+
+	/**
+	 * Bearbeitet die Weiterleitung an die dem uebergebenen Benutzer zugehoerige
+	 * GrenzklassenOverview
+	 * 
+	 * @param benutzer Benutzer
+	 * @pre Der uebergebene Nutzer ist ein im System eingetragener Benutzer
+	 */
+	private void leiteWeiter(Benutzer benutzer) {
+		assert BenutzerRegister.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
+				: "Benutzer ist nicht im System registriert";
+
+		switch (benutzer.getRolle()) {
+		case KUNDE:
+			Kundensteuerung ks = new Kundensteuerung(null); // TODO Fehlende Parameter
+			System.out.println("Kunde angemeldet!");
+			break;
+		case FAHRER:
+			Fahrersteuerung fs = new Fahrersteuerung((Fahrer) benutzer);
+			OverviewFahrer fo = new OverviewFahrer(fs, primaryStage, 800, 600);
+			primaryStage.setScene(fo);
+			System.out.println("Fahrer angemeldet!");
+			break;
+		case LAGERIST:
+			Lageristensteuerung ls = new Lageristensteuerung();
+			LageristOverview lo = new LageristOverview(primaryStage, 800, 600, ls);
+			primaryStage.setScene(lo);
+			System.out.println("Lagerist angemeldet!");
+			break;
+
+		case INHABER:
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
+
+			System.out.println("Inhaber angemeldet!");
+			break;
+		}
 	}
 }

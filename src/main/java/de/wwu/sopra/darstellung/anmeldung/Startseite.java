@@ -40,7 +40,7 @@ public class Startseite extends Scene {
 	 * Erstellt, falls noch nicht vorhanden, eine VBox mit den passenden
 	 * Komponenten.
 	 * 
-	 * @return
+	 * @return VBox mit Komponenten
 	 */
 	public VBox setVBox() {
 		if (vbox == null) {
