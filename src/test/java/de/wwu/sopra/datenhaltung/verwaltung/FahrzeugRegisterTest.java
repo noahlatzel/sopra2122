@@ -47,10 +47,14 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testLoad() {
+		HashSet<Fahrzeug> temp = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
+		for (Fahrzeug f : temp) {
+			FahrzeugRegister.removeFahrzeug(f);
+		}
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
-		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		HashSet<Fahrzeug> temp_1 = FahrzeugRegister.getFahrzeuge();
 		FahrzeugRegister.save();
 		FahrzeugRegister.load();
-		assertTrue(temp.toString().equals(FahrzeugRegister.getFahrzeuge().toString()));
+		assertTrue(temp_1.toString().equals(FahrzeugRegister.getFahrzeuge().toString()));
 	}
 }
