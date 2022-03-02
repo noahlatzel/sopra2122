@@ -1,4 +1,4 @@
-package darstellung.kunde;
+package de.wwu.sopra.darstellung.kunde;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import javafx.scene.Scene;
