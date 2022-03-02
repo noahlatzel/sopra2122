@@ -5,6 +5,7 @@ build/
 
 # Eclipse (https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore)
 .metadata
+recources/
 bin/
 tmp/
 *.tmp
