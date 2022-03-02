@@ -11,13 +11,20 @@ import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -32,10 +39,14 @@ public class Anmeldung extends Scene {
 	BorderPane root = new BorderPane();
 	Button buttonAnmelden;
 	TextField textFeldBenutzername;
-	TextField textFeldPasswort;
+	PasswordField textFeldPasswort;
 	Label labelBenutzername;
 	Label labelPasswort;
 	VBox vbox;
+	Text title;
+	
+	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -65,19 +76,47 @@ public class Anmeldung extends Scene {
 			labelPasswort = new Label("Passwort");
 
 			textFeldBenutzername = new TextField();
-			textFeldPasswort = new TextField();
-
+			textFeldPasswort = new PasswordField();
+			
 			buttonAnmelden = new Button("Anmelden");
+			
+			title = new Text("Anmeldung");
+			title.setStyle("-fx-font-weight: bold; -fx-font-size: 48");
+
+			DropShadow dropShadowButton = new DropShadow();
+			dropShadowButton.setRadius(5.0);
+			dropShadowButton.setOffsetX(4.0);
+			dropShadowButton.setOffsetY(4.0);
+			dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
+			DropShadow dropShadowTextField = new DropShadow();
+			dropShadowTextField.setRadius(5.0);
+			dropShadowTextField.setOffsetX(2.0);
+			dropShadowTextField.setOffsetY(2.0);
+			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
+			
+			labelBenutzername.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
+			labelPasswort.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
+			textFeldBenutzername.setStyle("-fx-padding: 12");
+			textFeldPasswort.setStyle("-fx-padding: 12");
+			textFeldBenutzername.setEffect(dropShadowTextField);
+			textFeldPasswort.setEffect(dropShadowTextField);
+			buttonAnmelden.setEffect(dropShadowButton);
+			changeButtonStyleOnHover(buttonAnmelden);
+			buttonAnmelden.setPrefHeight(40);
+			buttonAnmelden.setPrefWidth(120);
+			VBox.setMargin(title, new Insets(0, 0, 30, 0));
+			VBox.setMargin(buttonAnmelden, new Insets(40, 10, 0, 0));
 
 			// Hinzufuegen der Buttons und Label
+			vbox.getChildren().add(title);
 			vbox.getChildren().add(labelBenutzername);
 			vbox.getChildren().add(textFeldBenutzername);
 			vbox.getChildren().add(labelPasswort);
 			vbox.getChildren().add(textFeldPasswort);
 			vbox.getChildren().add(buttonAnmelden);
 
-			textFeldBenutzername.setMaxWidth(170);
-			textFeldPasswort.setMaxWidth(170);
+			textFeldBenutzername.setMaxWidth(240);
+			textFeldPasswort.setMaxWidth(240);
 
 			buttonAnmelden.setOnAction(e -> {
 				Benutzer benutzer = anmelden(textFeldBenutzername.getText(), textFeldPasswort.getText());
@@ -86,10 +125,25 @@ public class Anmeldung extends Scene {
 				}
 			});
 
-			vbox.setSpacing(10);
+			vbox.setSpacing(16);
 			vbox.setAlignment(Pos.CENTER);
 		}
 		return vbox;
+	}
+	
+	private void changeButtonStyleOnHover(final Button button) {
+		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
+		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
+		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent mouseEvent) {
+				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
+			}
+	    });
+		button.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent mouseEvent) {
+				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
+			}
+	    });
 	}
 
 	/**
