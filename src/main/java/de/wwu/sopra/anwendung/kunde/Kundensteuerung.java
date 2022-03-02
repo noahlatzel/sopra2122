@@ -14,17 +14,16 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * Die Klasse verwaltet den Zugriff der Kunden auf dessen Bestellungen, die
- * Artikel, die pers�nlichen Daten, Rechnungen und den Warenkorb. Dies geschieht
- * �ber die Grenzklassen PersoenlicheDatenAendern, PersoenlicheDatenAnzeigen,
- * Suchen, Bestellen, Rechnung, WarenkorbAnsicht, BestellungVerwalten und
- * BestellungenAnzeigen.
+ * Artikel, die persoenlichen Daten, Rechnungen und den Warenkorb. Dies
+ * geschieht ueber die Grenzklassen PersoenlicheDatenAendern,
+ * PersoenlicheDatenAnzeigen, Suchen, Bestellen, Rechnung, WarenkorbAnsicht,
+ * BestellungVerwalten und BestellungenAnzeigen.
  * 
  *
  */
 public class Kundensteuerung {
 
 	private Kunde kunde;
-	private Lager lager;
 
 	/**
 	 * Konstruktor der Klasse Kundensteuerung
@@ -33,7 +32,6 @@ public class Kundensteuerung {
 	 */
 	public Kundensteuerung(Kunde kunde) {
 		this.kunde = kunde;
-		lager = new Lager();
 	}
 
 	/**
@@ -83,10 +81,10 @@ public class Kundensteuerung {
 
 		if (gesuchtesObjekt == null)
 			throw new NullPointerException();
-		if (!(lager.getProduktBestand(gesuchtesObjekt) > 0)) {
+		if (!(Lager.getProduktBestand(gesuchtesObjekt) > 0)) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		}
-		return lager.getProdukteAusLager(lager.getLager(), gesuchtesObjekt);
+		return Lager.getProdukteAusLager(Lager.getLager(), gesuchtesObjekt);
 	}
 
 	/**
@@ -134,7 +132,7 @@ public class Kundensteuerung {
 				|| bestellung.getStatus() == BestellStatus.ABGESCHLOSSEN)) {
 
 			bestellung.setStatus(BestellStatus.STORNIERT);
-			lager.addProdukte(bestellung.getProdukte());
+			Lager.addProdukte(bestellung.getProdukte());
 
 		} else {
 
@@ -153,8 +151,8 @@ public class Kundensteuerung {
 
 		if (bestellung == null)
 			throw new NullPointerException();
-		for (int i = 0; i <= bestellung.getProdukte().size(); i++) {
-			if (lager.getProduktBestand(bestellung.getProdukte().get(i)) < bestellung
+		for (int i = 0; i < bestellung.getProdukte().size(); i++) {
+			if (Lager.getProduktBestand(bestellung.getProdukte().get(i)) < bestellung
 					.getProduktAnzahl(bestellung.getProdukte().get(i), bestellung.getProdukte())) {
 				throw new IllegalArgumentException("Eine Nachlieferung  ist leider nicht moeglich.");
 			}

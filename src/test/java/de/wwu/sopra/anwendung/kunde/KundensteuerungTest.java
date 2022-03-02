@@ -20,7 +20,6 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 public class KundensteuerungTest {
 
 	Kunde kunde;
-	Lager lager;
 	List<Produkt> liste = new ArrayList<Produkt>();
 	List<Produkt> liste2 = new ArrayList<Produkt>();
 	List<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -31,15 +30,15 @@ public class KundensteuerungTest {
 	public void init() {
 		kunde = new Kunde("MuellerAgi.123", "12345", "Agatha.b@gmail.com", "Privet Drive 3", "Agatha", "Mueller",
 				"De414580364567893456");
-		lager = new Lager();
 		Produkt cola = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola2 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola3 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola4 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		lager.addProdukt(cola);
-		lager.addProdukt(cola2);
-		lager.addProdukt(cola3);
-		lager.addProdukt(cola4);
+		Lager.getLager().clear();
+		Lager.addProdukt(cola);
+		Lager.addProdukt(cola2);
+		Lager.addProdukt(cola3);
+		Lager.addProdukt(cola4);
 		liste.add(cola);
 		liste2.add(cola2);
 		liste2.add(cola3);
@@ -89,10 +88,12 @@ public class KundensteuerungTest {
 	 */
 	@Test
 	void testeSuchen() {
+
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 
 		List<Produkt> produkte = kundensteuerung.suchen("Coca Cola");
-		assertTrue(produkte.equals(liste));
+
+		assertTrue(produkte.containsAll(liste2));
 	}
 
 	/**
@@ -182,7 +183,16 @@ public class KundensteuerungTest {
 		kunde.bestellungHinzufuegen(bestellung1);
 		kunde.bestellungHinzufuegen(bestellung2);
 		kundensteuerung.nachbestellen(bestellung2);
-		assertTrue(bestellungen.equals(kunde.getBestellungen()));
+
+		List<String> namen1 = new ArrayList<String>();
+		List<String> namen2 = new ArrayList<String>();
+		for (int i = 0; i < liste2.size(); i++) {
+			namen1.add(liste2.get(i).getName());
+			namen2.add(kunde.getBestellungen().get(2).getProdukte().get(i).getName());
+		}
+
+		assertTrue(namen1.containsAll(namen2));
+
 	}
 
 	/**
