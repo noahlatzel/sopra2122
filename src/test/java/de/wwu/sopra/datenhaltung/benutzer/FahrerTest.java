@@ -64,9 +64,8 @@ public class FahrerTest {
 	@Test
 	public void testSetGetFahrzeug() {
 		// beispiel Fahrzeug
-		int nummer = 5453;
 		float kapazitaet = 100;
-		Fahrzeug fahrzeug = new Fahrzeug(nummer, kapazitaet);
+		Fahrzeug fahrzeug = new Fahrzeug(kapazitaet);
 
 		fahrer.setFahrzeug(fahrzeug);
 		assertTrue(fahrer.getFahrzeug().equals(fahrzeug));
@@ -79,7 +78,7 @@ public class FahrerTest {
 	 */
 	@Test
 	void testFahrzeugStatusAenderungBeimZuordnen() {
-		Fahrzeug fahrzeug = new Fahrzeug(65492, 300);
+		Fahrzeug fahrzeug = new Fahrzeug(300);
 		FahrzeugStatus anfangStatus = fahrzeug.getStatus();
 		fahrer.setFahrzeug(fahrzeug);
 		FahrzeugStatus endeStatus = fahrzeug.getStatus();

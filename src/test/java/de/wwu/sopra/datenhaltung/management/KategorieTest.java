@@ -6,9 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class KategorieTest {
@@ -19,6 +22,12 @@ public class KategorieTest {
 	Produkt produkt_1;
 	Produkt produkt_2;
 	HashSet<Produkt> produkte;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeAll
 	public void init() {

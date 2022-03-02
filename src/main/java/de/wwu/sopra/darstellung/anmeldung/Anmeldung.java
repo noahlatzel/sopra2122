@@ -6,6 +6,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
+import de.wwu.sopra.darstellung.inhaber.InhaberOverview;
 import de.wwu.sopra.darstellung.lagerist.LageristOverview;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -16,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -33,7 +35,7 @@ public class Anmeldung extends Scene {
 	BorderPane root = new BorderPane();
 	Button buttonAnmelden;
 	TextField textFeldBenutzername;
-	TextField textFeldPasswort;
+	PasswordField textFeldPasswort;
 	Label labelBenutzername;
 	Label labelPasswort;
 	VBox vbox;
@@ -50,6 +52,8 @@ public class Anmeldung extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setVBox());
+		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
+		BenutzerRegister.benutzerHinzufuegen(inhaber);
 
 	}
 
@@ -66,7 +70,7 @@ public class Anmeldung extends Scene {
 			labelPasswort = new Label("Passwort");
 
 			textFeldBenutzername = new TextField();
-			textFeldPasswort = new TextField();
+			textFeldPasswort = new PasswordField();
 
 			buttonAnmelden = new Button("Anmelden");
 
@@ -136,6 +140,8 @@ public class Anmeldung extends Scene {
 
 		case INHABER:
 			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
+			InhaberOverview io = new InhaberOverview(primaryStage, getWidth(), getHeight(), is);
+			primaryStage.setScene(io);
 
 			System.out.println("Inhaber angemeldet!");
 			break;

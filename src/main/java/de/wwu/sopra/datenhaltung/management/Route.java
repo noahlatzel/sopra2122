@@ -22,7 +22,7 @@ public class Route implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Set<Integer> RoutenNummern = new HashSet<Integer>();
-
+	private static int zaehler = 0;
 	private int routenNummer;
 	private Fahrzeug fahrzeug;
 	private List<Bestellung> bestellungen;
@@ -31,13 +31,12 @@ public class Route implements Serializable {
 	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der
 	 * Liste existiert
 	 * 
-	 * @param routenNummer routenNummer
-	 * @param fahrzeug     fahrzeug
+	 * @param fahrzeug fahrzeug
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
-	public Route(int routenNummer, Fahrzeug fahrzeug) throws IllegalArgumentException {
-		this.setRoutenNummer(routenNummer);
-		this.routenNummer = routenNummer;
+	public Route(Fahrzeug fahrzeug) throws IllegalArgumentException {
+		this.setRoutenNummer(zaehler);
+		zaehler++;
 		this.fahrzeug = fahrzeug;
 		this.fahrzeug.setRoute(this);
 	}

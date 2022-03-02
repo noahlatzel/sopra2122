@@ -6,12 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class BestellungTest {
@@ -19,13 +22,19 @@ class BestellungTest {
 	Kunde kunde;
 	Bestellung bestellung;
 
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeAll
 	void init() {
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		bestellung = new Bestellung(1, null, produkte, kunde);
+		bestellung = new Bestellung(null, produkte, kunde);
 	}
 
 	/**
@@ -33,15 +42,13 @@ class BestellungTest {
 	 */
 	@Test
 	void testKonstruktor() {
-		IdZaehler test = new IdZaehler();
 		assertTrue(bestellung.getStatus().equals(BestellStatus.OFFEN));
 		assertTrue(bestellung.getDatum() == null);
-		assertTrue(bestellung.getBestellnummer() == 1);
 		System.out.println(bestellung.getBetrag());
 		assertTrue(bestellung.getBetrag() == 1.29);
 		assertTrue(bestellung.getProdukte() == produkte);
 		assertTrue(bestellung.getKunde() == kunde);
-		assertTrue(bestellung.toString().equals("Bestellung 1"));
+		assertTrue(bestellung.toString().equals("Bestellung " + bestellung.getBestellnummer()));
 		assertTrue(bestellung.getAdresse().equals(bestellung.getKunde().getAdresse()));
 	}
 
@@ -50,7 +57,7 @@ class BestellungTest {
 	 */
 	@Test
 	void testSetGetRechnung() {
-		Rechnung rechnung = new Rechnung(1, 0.99, null, bestellung);
+		Rechnung rechnung = new Rechnung(0.99, null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));
 	}
@@ -61,7 +68,7 @@ class BestellungTest {
 	@Test
 	void testThrowsKonstruktor() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Bestellung(0, null, new ArrayList<Produkt>(), kunde);
+			new Bestellung(null, new ArrayList<Produkt>(), kunde);
 		});
 	}
 

@@ -27,6 +27,13 @@ public class BenutzerRegister implements Serializable {
 	private static String path = "benutzerReg.ser";
 
 	/**
+	 * Singleton Konstruktor
+	 */
+	private BenutzerRegister() {
+
+	}
+
+	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
 	 * 
 	 * @param benutzer benutzer

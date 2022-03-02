@@ -16,8 +16,10 @@ import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * test zum Fahrersteuerung
@@ -34,6 +36,12 @@ public class FahrersteuerungTest {
 	Bestellung testbestellung1;
 	List<Produkt> produkte;
 
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	// vor jedem Test
 	@BeforeEach
 	public void init() {
@@ -43,8 +51,8 @@ public class FahrersteuerungTest {
 		kunde = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-		testbestellung = new Bestellung(1, LocalDateTime.now(), produkte, kunde);
-		testbestellung1 = new Bestellung(2, LocalDateTime.now(), produkte, kunde);
+		testbestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
+		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		bestellungen.add(testbestellung);
 		bestellungen.add(testbestellung1);
 
@@ -56,12 +64,12 @@ public class FahrersteuerungTest {
 
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(10124123, 100);
-		Route route = new Route(24136, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
-		Bestellung bestellung = new Bestellung(91293, null, produkte,
+		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
@@ -96,12 +104,12 @@ public class FahrersteuerungTest {
 
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(100124124, 100);
-		Route route = new Route(1241, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
-		Bestellung bestellung = new Bestellung(91293, null, produkte,
+		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
@@ -118,8 +126,8 @@ public class FahrersteuerungTest {
 
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(103124, 100);
-		Route route = new Route(5124, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		steuerung.kundeNichtDa();
@@ -141,8 +149,8 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(1041231, 100);
-		Route route = new Route(101231, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 
@@ -170,16 +178,18 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(1231109, 100);
-		Route route = new Route(61323, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		steuerung.bestellungAusliefern();
 		// normalfall testen
 		assertTrue(steuerung.getAktuelleBestellung() == 1);
 		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung() - 1).getStatus() == BestellStatus.ABGESCHLOSSEN);
-		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung() - 1).getBestellnummer() == 1);
-		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung()).getBestellnummer() == 2);
+		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung() - 1).getBestellnummer() == testbestellung
+				.getBestellnummer());
+		assertTrue(bestellungen.get(steuerung.getAktuelleBestellung()).getBestellnummer() == testbestellung1
+				.getBestellnummer());
 		steuerung.bestellungAusliefern();
 
 		// wenn alle bestellunfen schon asugeliefert sind
@@ -195,8 +205,8 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
-		Fahrzeug fahrzeug = new Fahrzeug(123109, 100);
-		Route route = new Route(6123, fahrzeug);
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 

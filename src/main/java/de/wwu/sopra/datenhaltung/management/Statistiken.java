@@ -18,20 +18,16 @@ public class Statistiken implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static double umsatz;
-	private static double ausgaben;
-	private static double einnahmen;
-	private static double arbeitszeit;
+	private static double umsatz = 0;
+	private static double ausgaben = 0;
+	private static double einnahmen = 0;
+	private static double arbeitszeit = 0;
 	private static String path = "statistiken.ser";
 
 	/**
-	 * Konstruktor der Klasse Statistiken
+	 * Singleton Konstruktor
 	 */
-	public Statistiken() {
-		setUmsatz(0);
-		setAusgaben(0);
-		setEinnahmen(0);
-		setArbeitszeit(0);
+	private Statistiken() {
 
 	}
 
