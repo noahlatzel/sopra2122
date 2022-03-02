@@ -7,10 +7,12 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
 import de.wwu.sopra.darstellung.inhaber.InhaberOverview;
+import de.wwu.sopra.darstellung.kunde.KundeOverview;
 import de.wwu.sopra.darstellung.lagerist.LageristOverview;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
+import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import javafx.geometry.Pos;
@@ -122,7 +124,9 @@ public class Anmeldung extends Scene {
 
 		switch (benutzer.getRolle()) {
 		case KUNDE:
-			Kundensteuerung ks = new Kundensteuerung(null); // TODO Fehlende Parameter
+			Kundensteuerung ks = new Kundensteuerung((Kunde) benutzer);
+			KundeOverview ko = new KundeOverview(primaryStage , 800, 600, ks);
+			primaryStage.setScene(ko);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:
@@ -137,12 +141,10 @@ public class Anmeldung extends Scene {
 			primaryStage.setScene(lo);
 			System.out.println("Lagerist angemeldet!");
 			break;
-
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); 
 			InhaberOverview io = new InhaberOverview(primaryStage, getWidth(), getHeight(), is);
 			primaryStage.setScene(io);
-
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}
