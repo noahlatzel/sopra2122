@@ -37,6 +37,24 @@ public class InhaberTest {
 	}
 
 	/**
+	 * Test ob das BenutzerRegister richtig Kopiert wird
+	 */
+	@Test
+	public void testInhaber() {
+		assertTrue(inhaber.getFahrer().size() == 0);
+		assertTrue(inhaber.getLageristen().size() == 0);
+		Inhaber inhaber2;
+		BenutzerRegister.benutzerHinzufuegen(new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname",
+				"CoolerNachname", "nochEineBankverbindung", inhaber));
+		BenutzerRegister.benutzerHinzufuegen(new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname",
+				"CoolerNachname", "nochEineBankverbindung", inhaber));
+		inhaber2 = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname",
+				"eineBankverbindung");
+		assertTrue(inhaber2.getFahrer().size() == 1);
+		assertTrue(inhaber2.getLageristen().size() == 1);
+	}
+
+	/**
 	 * Test ob Fahrer hinzugefuegt wird, was passiert wenn der Fahrer schon
 	 * hinzugefuegt worden ist und was bei einer null-Uebergabe passiert.
 	 */
