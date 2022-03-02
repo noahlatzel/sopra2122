@@ -8,6 +8,7 @@ import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
@@ -122,8 +123,8 @@ public class Anmeldungssteuerung {
 			break;
 		case LAGERIST:
 
-			Lageristensteuerung ls = new Lageristensteuerung(); // TODO Fehlende
-																// Parameter
+			Lageristensteuerung ls = new Lageristensteuerung((Lagerist) benutzer); // TODO Fehlende
+			// Parameter
 			System.out.println("Lagerist angemeldet!");
 			break;
 

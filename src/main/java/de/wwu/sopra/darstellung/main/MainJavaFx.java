@@ -1,6 +1,8 @@
 package de.wwu.sopra.darstellung.main;
 
-import de.wwu.sopra.darstellung.anmeldung.Startseite;
+import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import de.wwu.sopra.darstellung.lagerist.LageristOverview;
+import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
@@ -28,7 +30,9 @@ public class MainJavaFx extends Application {
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
-		primaryStage.setScene(new Startseite(primaryStage, 800, 600));
+		primaryStage.setScene(
+				new LageristOverview(primaryStage, 800, 600, new Lageristensteuerung(new Lagerist("noahlatzel", "123",
+						"nlatzel@uni-muenster.de", "Muenster", "Noah", "Latzel", "GuteBank", null))));
 
 		primaryStage.show();
 

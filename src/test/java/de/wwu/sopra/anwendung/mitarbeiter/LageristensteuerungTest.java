@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
@@ -36,7 +37,8 @@ public class LageristensteuerungTest {
 
 	@BeforeEach
 	void init() {
-		lageristenSteuerung = new Lageristensteuerung();
+		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
+				"Muenster", "Noah", "Latzel", "GuteBank", null));
 		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
@@ -218,5 +220,17 @@ public class LageristensteuerungTest {
 		route.setBestellungen(bestellungen);
 		assertTrue(lageristenSteuerung.getFahrzeugeMitRoute().contains(fahrzeug1));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);
+	}
+
+	// Test von Persoenlich daten Bearbeiten und anzeigen
+	@Test
+	public void testPersoenlicheDatenBearbeiten() {
+
+		lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "1", "1", "1", "1", "1");
+		String wunsch = "1;1;1;1;1;1;1;";
+		String ergebnis = lageristenSteuerung.persoenlicheDatenAnzeigen();
+
+		// ueberpruefen
+		assertTrue(ergebnis.equals(wunsch));
 	}
 }

@@ -3,6 +3,7 @@ package de.wwu.sopra.anwendung.mitarbeiter;
 import java.util.HashSet;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -23,6 +24,11 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  *
  */
 public class Lageristensteuerung {
+	Lagerist lagerist;
+
+	public Lageristensteuerung(Lagerist lagerist) {
+		this.lagerist = lagerist;
+	}
 
 	/**
 	 * Die Methode fuegt alle Produkte der Nachbestellungen in der gewuenschten
@@ -151,6 +157,43 @@ public class Lageristensteuerung {
 			}
 		}
 		return bestellungen;
+	}
+
+	/**
+	 * Die persoenlichen Daten des Lageristen werden durch die neuen Daten
+	 * ueberschieben
+	 * 
+	 * @param benutzername   benutzername des Lageristen
+	 * @param passwort       passwort des Lageristen
+	 * @param email          email des Lageristen
+	 * @param adresse        adresse des Lageristen
+	 * @param vorname        Vorname des Lageristen
+	 * @param name           Name des Lageristen
+	 * @param bankverbindung Bankverbindung des Lageristen
+	 */
+	public void persoenlicheDatenBearbeiten(String benutzername, String passwort, String email, String adresse,
+			String vorname, String name, String bankverbindung) {
+		this.lagerist.setBenutzername(benutzername);
+		this.lagerist.setPasswort(passwort);
+		this.lagerist.setEmail(email);
+		this.lagerist.setAdresse(adresse);
+		this.lagerist.setVorname(vorname);
+		this.lagerist.setName(name);
+		this.lagerist.setBankverbindung(bankverbindung);
+	}
+
+	/**
+	 * persoenliche Daten werden in einem String der Form: benutzername;passwort;
+	 * email;adresse;vorname;name;bankverbindung; gespeichert
+	 * 
+	 * @return gibt den String aus
+	 */
+	public String persoenlicheDatenAnzeigen() {
+		String returnstring = lagerist.getBenutzername() + ";" + lagerist.getPasswort() + ";" + lagerist.getEmail()
+				+ ";" + lagerist.getAdresse() + ";" + lagerist.getVorname() + ";" + lagerist.getName() + ";"
+				+ lagerist.getBankverbindung() + ";";
+		return returnstring;
+
 	}
 
 }
