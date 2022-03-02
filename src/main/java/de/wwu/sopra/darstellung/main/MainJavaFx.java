@@ -7,6 +7,7 @@ import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.Lager;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
@@ -37,7 +38,16 @@ public class MainJavaFx extends Application {
 		fzReg.addFahrzeug(fzeug2);
 		fzReg.addFahrzeug(fzeug3);
 		
-		Inhabersteuerung inhaberSteuerung = new Inhabersteuerung(inhaber, new Statistiken(), benutzerReg, new Lager(), fzReg);
+		Lager lager = new Lager();
+		
+		Produkt p1 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Produkt p2 = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
+		Produkt p3 = new Produkt("Sprite", "Toller Geschmack", 0.99, 1.29);
+		lager.addProdukt(p1);
+		lager.addProdukt(p2);
+		lager.addProdukt(p3);
+		
+		Inhabersteuerung inhaberSteuerung = new Inhabersteuerung(inhaber, new Statistiken(), benutzerReg, lager, fzReg);
 		
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 		primaryStage.setScene(new InhaberOverview(primaryStage, 1280, 720, inhaberSteuerung));
