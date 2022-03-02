@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.Lager;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * Die Klasse verwaltet die Speicherung aller Fahrzeugdaten, also unter anderem
@@ -71,5 +73,15 @@ public class FahrzeugRegister implements Serializable {
 	public static void save() {
 		SerialisierungPipeline<HashSet<Fahrzeug>> sp = new SerialisierungPipeline<HashSet<Fahrzeug>>();
 		sp.serialisieren(FahrzeugRegister.getFahrzeuge(), path);
+	}
+
+	/**
+	 * Setzt das FahrzeugRegister zurueck (fuer Tests).
+	 */
+	public static void reset() {
+		HashSet<Fahrzeug> register_old = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
+		for (Fahrzeug p : register_old) {
+			FahrzeugRegister.removeFahrzeug(p);
+		}
 	}
 }
