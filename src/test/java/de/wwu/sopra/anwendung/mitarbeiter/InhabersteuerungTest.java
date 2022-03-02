@@ -116,6 +116,11 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testFahrzeugeVerwalten() {
+		HashSet<Fahrzeug> fahrzeugee = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
+		for (Fahrzeug fzeug : fahrzeugee) {
+			FahrzeugRegister.removeFahrzeug(fzeug);
+		}
+		
 		// Erstellung von Fahrzeuge
 		Fahrzeug fzeug1 = new Fahrzeug(94231, 321894215);
 		Fahrzeug fzeug2 = new Fahrzeug(1111111, 52);
@@ -183,6 +188,12 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testLagerVerwalten() throws IllegalArgumentException {
+		HashSet<Produkt> produkteLager = (HashSet<Produkt>) Lager.getLager().clone();
+		
+		for (Produkt p : produkteLager) {
+			Lager.removeProdukt(p);
+		}
+		
 		// Erstellung von Lager und Produkte
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		Produkt product = new Produkt("Cola", "American", 5.99, 7.99);
@@ -199,7 +210,8 @@ public class InhabersteuerungTest {
 		});
 
 		// Produkte von Lager erhalten
-		HashSet<Produkt> lagerProdukte = Lager.getLager();
+		// HashSet<Produkt> lagerProdukte = Lager.getLager();
+		HashSet<Produkt> lagerProdukte = ihs.sortimentAnzeigen();
 
 		assertTrue(lagerProdukte.size() == 2);
 
