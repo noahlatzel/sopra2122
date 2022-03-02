@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
-
 @TestInstance(Lifecycle.PER_CLASS)
 public class LagerTest {
 	Lager lager;
@@ -22,7 +20,7 @@ public class LagerTest {
 	@BeforeEach
 	void init() {
 		Lager.reset();
-		FahrzeugRegister.reset();
+		// FahrzeugRegister.reset();
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
