@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -10,14 +11,25 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author NoahLatzel
  *
  */
-public class GrosshaendlerRegister {
-	private HashMap<String, Double> preisListe;
+public class GrosshaendlerRegister implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
+	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
+	// Produkt>();
+	private static String path = "grosshaendlerReg.ser";
 
 	/**
 	 * Initialisiert das GrosshaendlerRegister mit einer neuen preisListe.
 	 */
 	public GrosshaendlerRegister() {
-		preisListe = new HashMap<String, Double>();
+		preisListeIn.put("Coca Cola", 0.49);
+		preisListeIn.put("Fanta", 0.49);
+		preisListeIn.put("Sprite", 0.49);
+		preisListeIn.put("Orangensaft", 0.49);
+		preisListeIn.put("Milch", 0.49);
 	}
 
 	/**
@@ -26,8 +38,9 @@ public class GrosshaendlerRegister {
 	 * @param produkt Das Produkt, fuer was der Preis abgefragt werden soll.
 	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
 	 */
-	public double getPreis(Produkt produkt) {
-		return preisListe.get(produkt.getName());
+	public static double getEinkaufspreis(Produkt produkt) {
+		return preisListeIn.get(produkt.getName());
+		// return produktListe.get(produkt.getName()).getEinkaufspreis();
 	}
 
 	/**
@@ -37,8 +50,9 @@ public class GrosshaendlerRegister {
 	 *                    soll.
 	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
 	 */
-	public double getPreis(String produktname) {
-		return preisListe.get(produktname);
+	public static double getEinkaufspreis(String produktname) {
+		return preisListeIn.get(produktname);
+		// return produktListe.get(produktname).getEinkaufspreis();
 	}
 
 	/**
@@ -47,8 +61,8 @@ public class GrosshaendlerRegister {
 	 * @param produkt Das Produkt, fuer was ein neuer Preis festgelegt wird.
 	 * @param preis   Der neue Preis.
 	 */
-	public void setPreis(Produkt produkt, double preis) {
-		preisListe.put(produkt.getName(), preis);
+	public static void setEinkaufspreis(Produkt produkt, double preis) {
+		preisListeIn.put(produkt.getName(), preis);
 	}
 
 	/**
@@ -58,8 +72,37 @@ public class GrosshaendlerRegister {
 	 *                    soll.
 	 * @param preis       Der neue Preis.
 	 */
-	public void setPreis(String produktname, double preis) {
-		preisListe.put(produktname, preis);
+	public static void setEinkaufspreis(String produktname, double preis) {
+		preisListeIn.put(produktname, preis);
+	}
+
+	/**
+	 * Gibt die Liste der Einkaufspreise zurueck.
+	 * 
+	 * @return Die Einkaufspreisliste.
+	 */
+	public static HashMap<String, Double> getPreislisteIn() {
+		return preisListeIn;
+	}
+
+	/**
+	 * Deserialisiert das FahrzeugRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		preisListeIn = (HashMap<String, Double>) sp.deserialisieren(path);
+		if (preisListeIn == null) {
+			preisListeIn = new HashMap<String, Double>();
+		}
+	}
+
+	/**
+	 * Serialisiert das FahrzeugRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(GrosshaendlerRegister.preisListeIn, path);
 	}
 
 }

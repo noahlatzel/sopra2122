@@ -1,6 +1,9 @@
 package de.wwu.sopra.anwendung.anmeldung;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,13 +71,78 @@ public class AnmeldungssteuerungTest {
 		assertThrows(NullPointerException.class, () -> {
 			anSt.anmelden(null, null);
 		});
+
 	}
 
+	/**
+	 * Testet die Funktionalitaet der registrieren Funktion
+	 */
 	@Test
 	public void registrieren() {
+
 		// Fehlerhafte/Leere Eingabe
 		assertThrows(NullPointerException.class, () -> {
 			anSt.registrieren(null, null, null, null, null, null, null);
 		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren(null, "Test2", "Test3", "Test4", "Test5", "Test6", "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", null, "Test3", "Test4", "Test5", "Test6", "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", "Test2", null, "Test4", "Test5", "Test6", "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", "Test2", "Test3", null, "Test5", "Test6", "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", "Test2", "Test3", "Test4", null, "Test6", "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", "Test2", "Test3", "Test4", "Test5", null, "Test7");
+		});
+
+		assertThrows(NullPointerException.class, () -> {
+			anSt.registrieren("Test1", "Test2", "Test3", "Test4", "Test5", "Test6", null);
+		});
+
+		// Registrieren eines neuen Benutzers
+		anSt.registrieren("CoolerNutzer69", "passwort", "1", "2", "3", "4", "5");
+		// Das Passwort ist hier zwar nicht eindeutig, aber reicht um zu bestaetigen
+		// dass der Benutzer erfolgreich registriert worden ist
+		assertTrue(BenutzerRegister.getBenutzerZuBenutzername("CoolerNutzer69").getPasswort().equals("passwort"));
+
+		// Versucht einen Nutzer zu registrieren mit einem bereits vergebenen
+		// Benutzernamen
+		// Der neue Benutzer haette ein anderes Passwort, welche bei der Assertion
+		// abgefragt wird
+		anSt.registrieren("Beton", "doppelterNutzername", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
+		assertFalse(BenutzerRegister.getBenutzerZuBenutzername("Beton").getPasswort().equals("doppelterNutzername"));
+
+		// Versucht Nutzer mit einer leeren Eingabe zu registrieren.
+		anSt.registrieren("", "Test", "Test", "Test", "Test", "Test", "Test");
+		anSt.registrieren("TestB", "", "Test", "Test", "Test", "Test", "Test");
+		anSt.registrieren("TestC", "Test", "", "Test", "Test", "Test", "Test");
+		anSt.registrieren("TestD", "Test", "Test", "", "Test", "Test", "Test");
+		anSt.registrieren("TestE", "Test", "Test", "Test", "", "Test", "Test");
+		anSt.registrieren("TestF", "Test", "Test", "Test", "Test", "", "Test");
+		anSt.registrieren("TestG", "Test", "Test", "Test", "Test", "Test", "");
+
+		// Da das registrieren mit einer leeren Eingabe nicht erlaubt sein soll sollten
+		// diese Benutzer nicht existieren
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername(""));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestB"));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestC"));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestD"));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestE"));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestF"));
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("TestG"));
 	}
 }

@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,14 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author Paul Dirksen
  *
  */
-public class BenutzerRegister {
+public class BenutzerRegister implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
+	private static String path = "benutzerReg.ser";
 
 	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
@@ -227,4 +233,25 @@ public class BenutzerRegister {
 	public static List<BenutzerDatenTripel> getBenutzerListe() {
 		return benutzerListe;
 	}
+
+	/**
+	 * Deserialisiert das BenutzerRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		BenutzerRegister.benutzerListe = (List<BenutzerDatenTripel>) sp.deserialisieren(path);
+		if (BenutzerRegister.getBenutzerListe() == null) {
+			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
+		}
+	}
+
+	/**
+	 * Serialisiert das BenutzerRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		sp.serialisieren(BenutzerRegister.getBenutzerListe(), path);
+	}
+
 }

@@ -70,6 +70,11 @@ public class BenutzerRegisterTest {
 			BenutzerRegister.benutzerHinzufuegen(null);
 		});
 
+		// Benutzerabfrage eines null-Benutzernamens
+		assertThrows(NullPointerException.class, () -> {
+			BenutzerRegister.getBenutzerZuBenutzername(null);
+		});
+
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
@@ -153,6 +158,11 @@ public class BenutzerRegisterTest {
 			BenutzerRegister.produktAusWarenkorbEntfernen(null, null);
 		});
 
+		// Warenkorbabfrage eines null-Benutzers
+		assertThrows(NullPointerException.class, () -> {
+			BenutzerRegister.getWarenkorb(null);
+		});
+
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
@@ -179,7 +189,30 @@ public class BenutzerRegisterTest {
 		assertThrows(NullPointerException.class, () -> {
 			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, null);
 		});
+
+		// Bestellungslistenabfrage eines null-Benutzers
+		assertThrows(NullPointerException.class, () -> {
+			BenutzerRegister.getBestellungen(null);
+		});
+
 		BenutzerRegister.benutzerEntfernen(benutzer1);
+
+		// Ein nicht registrierter Benutzer sollte keine Liste mit Bestellungen haben.
+		assertNull(BenutzerRegister.getBestellungen(benutzer1));
+	}
+
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
+		System.out.println(temp.toString());
+		BenutzerRegister.save();
+		BenutzerRegister.load();
+		String temp_1 = BenutzerRegister.getBenutzerListe().toString();
+		System.out.println(temp_1.toString());
+		assertTrue(temp.toString().equals(temp_1));
 	}
 
 }

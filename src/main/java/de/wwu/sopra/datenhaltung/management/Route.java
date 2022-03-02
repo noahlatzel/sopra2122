@@ -88,6 +88,9 @@ public class Route implements Serializable {
 	 * @param bestellungen
 	 */
 	public void setBestellungen(List<Bestellung> bestellungen) {
+		for (Bestellung b : bestellungen) {
+			b.setStatus(BestellStatus.IN_BEARBEITUNG);
+		}
 		this.bestellungen = bestellungen;
 		for (Bestellung b : bestellungen) {
 			b.setStatus(BestellStatus.IN_BEARBEITUNG);

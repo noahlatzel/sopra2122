@@ -2,6 +2,8 @@ package de.wwu.sopra.datenhaltung.verwaltung;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -13,7 +15,6 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  *
  */
 public class GrosshaendlerRegisterTest {
-	GrosshaendlerRegister preisRegister;
 	Produkt produkt1;
 
 	/**
@@ -21,10 +22,9 @@ public class GrosshaendlerRegisterTest {
 	 */
 	@Test
 	void testAddPreis() {
-		preisRegister = new GrosshaendlerRegister();
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		preisRegister.setPreis(produkt1, 0.89);
-		assertTrue(preisRegister.getPreis(produkt1) == 0.89);
+		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis(produkt1) == 0.89);
 	}
 
 	/**
@@ -32,11 +32,21 @@ public class GrosshaendlerRegisterTest {
 	 */
 	@Test
 	void testAddPreisString() {
-		preisRegister = new GrosshaendlerRegister();
-		preisRegister.setPreis("Orangensaft", 0.89);
+		GrosshaendlerRegister.setEinkaufspreis("Orangensaft", 0.89);
 		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		assertTrue(preisRegister.getPreis("Orangensaft") == 0.89);
-		assertTrue(preisRegister.getPreis(produkt1) == 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis("Orangensaft") == 0.89);
+		assertTrue(GrosshaendlerRegister.getEinkaufspreis(produkt1) == 0.89);
+	}
+
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		HashMap<String, Double> temp = GrosshaendlerRegister.getPreislisteIn();
+		GrosshaendlerRegister.save();
+		GrosshaendlerRegister.load();
+		assertTrue(temp.equals(GrosshaendlerRegister.getPreislisteIn()));
 	}
 
 }

@@ -20,8 +20,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  */
 public class Anmeldungssteuerung {
 
-	BenutzerRegister benutzerReg;
-
 	public Anmeldungssteuerung() {
 
 	}
@@ -72,19 +70,28 @@ public class Anmeldungssteuerung {
 	 */
 	public void registrieren(String benutzername, String passwort, String email, String adresse, String vorname,
 			String name, String bankverbindung) throws NullPointerException {
-		if (!(benutzername == null || passwort == null || email == null || adresse == null || vorname == null
-				|| name == null || bankverbindung == null)) {
+		// Falls null uebergeben wurde:
+		if ((!(benutzername == null || passwort == null || email == null || adresse == null || vorname == null
+				|| name == null || bankverbindung == null))) {
 
-			// Pruefe ob Benutzername im System vorhanden
-			Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
+			if (!(benutzername.isBlank() || passwort.isBlank() || email.isBlank() || adresse.isBlank()
+					|| vorname.isBlank() || name.isBlank() || bankverbindung.isBlank())) {
 
-			if (benutzer == null) {
-				BenutzerRegister.benutzerHinzufuegen(
-						new Kunde(benutzername, passwort, email, adresse, vorname, name, bankverbindung));
+				// Pruefe ob Benutzername im System vorhanden
+				Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
+
+				if (benutzer == null) {
+					BenutzerRegister.benutzerHinzufuegen(
+							new Kunde(benutzername, passwort, email, adresse, vorname, name, bankverbindung));
+				} else {
+					// Falls Benutzername schon vergeben: Fehlermeldung
+					System.out.println("Benutzername schon vergeben!");
+					// TODO Fehlermeldung in der Oberflaeche
+				}
 			} else {
-				// Falls Benutzername schon vergeben: Fehlermeldung
-				System.out.println("Benutzername schon vergeben!");
-				// TODO
+				// Falls ein leerer String uebergeben wurde:
+				System.out.println("Leere Eingabe!");
+				// TODO Fehlermeldung in der Oberflaeche
 			}
 		} else {
 			throw new NullPointerException("Fehlerhafte Eingabe!");
@@ -115,13 +122,13 @@ public class Anmeldungssteuerung {
 			break;
 		case LAGERIST:
 
-			Lageristensteuerung ls = new Lageristensteuerung(null, null, null); // TODO Fehlende
-																				// Parameter
+			Lageristensteuerung ls = new Lageristensteuerung(); // TODO Fehlende
+																// Parameter
 			System.out.println("Lagerist angemeldet!");
 			break;
 
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, null); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
 
 			System.out.println("Inhaber angemeldet!");
 			break;
