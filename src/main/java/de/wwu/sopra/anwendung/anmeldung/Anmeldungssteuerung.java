@@ -1,12 +1,7 @@
 package de.wwu.sopra.anwendung.anmeldung;
 
-import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
-import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
-import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
-import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
-import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
@@ -102,44 +97,4 @@ public class Anmeldungssteuerung {
 		}
 	}
 
-	/**
-	 * Bearbeitet die Weiterleitung von der Anmeldungssteuerung an die dem
-	 * uebergebenen Benutzer zugehoerige Steuerungsklasse
-	 * 
-	 * @param benutzer
-	 * @pre Der uebergebene Nutzer ist ein im System eingetragener Benutzer
-	 */
-	@SuppressWarnings("unused")
-	private void leiteWeiter(Benutzer benutzer) {
-		assert BenutzerRegister.getBenutzerZuBenutzername(benutzer.getBenutzername()) != null
-				: "Benutzer ist nicht im System registriert";
-
-		switch (benutzer.getRolle()) {
-		case KUNDE:
-			Kundensteuerung ks = new Kundensteuerung(null); // TODO Fehlende Parameter
-			// wechsleSzene(ks);
-			System.out.println("Kunde angemeldet!");
-			break;
-		case FAHRER:
-			Fahrersteuerung fs = new Fahrersteuerung(null); // TODO Fehlende Parameter
-			System.out.println("Fahrer angemeldet!");
-			break;
-		case LAGERIST:
-
-			Lageristensteuerung ls = new Lageristensteuerung((Lagerist) benutzer); // TODO Fehlende
-			// Parameter
-			System.out.println("Lagerist angemeldet!");
-			break;
-
-		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung(null); // TODO Fehlende Parameter
-
-			System.out.println("Inhaber angemeldet!");
-			break;
-		}
-	}
-
-	private void wechsleSzene(Object klasse) {
-
-	}
 }
