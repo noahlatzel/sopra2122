@@ -30,20 +30,20 @@ public class KundeOverview extends Scene {
 	ChoiceBox<Button> choicebox;
 	Button btWarenkorb;
 	Kundensteuerung kundensteuerung;
-	
+
 	public KundeOverview(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
-		
+
 		super(new BorderPane(), width, height);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.kundensteuerung = kundensteuerung;
 		root.setTop(this.setFlowpane());
-		root.setCenter(new Label("KUNDE STARTSEITE"));
+		root.setCenter(new Label("KUNDE OVERVIEW"));
 	}
-	
-	private FlowPane setFlowpane() {
-		
-		if(this.flowpane == null) {
+
+	public FlowPane setFlowpane() {
+
+		if (this.flowpane == null) {
 			flowpane = new FlowPane();
 			flowpane.getChildren().add(setBtLogo());
 			flowpane.getChildren().add(setBtWarenkorb());
@@ -53,9 +53,7 @@ public class KundeOverview extends Scene {
 		}
 		return this.flowpane;
 	}
-	
 
-	
 	private Button setBtWarenkorb() {
 		if (this.btWarenkorb == null) {
 			btWarenkorb = new Button("Warenkorb");
@@ -67,7 +65,7 @@ public class KundeOverview extends Scene {
 
 		return this.btWarenkorb;
 	}
-	
+
 	private Button setBtLogo() {
 		if (this.btLogo == null) {
 			btLogo = new Button("Logo");
@@ -78,9 +76,9 @@ public class KundeOverview extends Scene {
 		}
 
 		return this.btLogo;
-		
+
 	}
-	
+
 	private Button setBtProfil() {
 		if (this.btProfil == null) {
 			btProfil = new Button("Profil");
@@ -91,9 +89,9 @@ public class KundeOverview extends Scene {
 		}
 
 		return this.btProfil;
-		
+
 	}
-	
+
 	private Button setBtAbmelden() {
 		if (this.btAbmelden == null) {
 			btAbmelden = new Button("Abmelden");
@@ -104,7 +102,7 @@ public class KundeOverview extends Scene {
 		}
 
 		return this.btAbmelden;
-		
+
 	}
 
 	private Button setBtBestellungen() {
@@ -117,10 +115,11 @@ public class KundeOverview extends Scene {
 		}
 
 		return this.btBestellungen;
-		
+
 	}
+
 	private ChoiceBox<Button> setChoiceBox() {
-		if(choicebox == null) {
+		if (choicebox == null) {
 			choicebox = new ChoiceBox<Button>();
 			choicebox.getItems().add(setBtProfil());
 			choicebox.getItems().add(setBtBestellungen());
