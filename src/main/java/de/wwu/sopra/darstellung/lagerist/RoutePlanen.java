@@ -16,10 +16,9 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 /**
- * Grenzklasse RoutePlanen
+ * GUI Klasse fuer RoutePlanen
  * 
- * @author intruq
- *
+ * @author Noah Latzel
  */
 public class RoutePlanen extends LageristOverview {
 	TilePane tilePane;

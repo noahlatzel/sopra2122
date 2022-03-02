@@ -1,6 +1,7 @@
 package de.wwu.sopra.darstellung.lagerist;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,10 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Grenzklasse LageristOverview
+ * GUI Klasse fuer LageristOverview. Die anderen Lageristen GUIs erben von
+ * dieser Klasse.
  * 
- * @author Paul Dirksen
- *
+ * @author Noah Latzel
  */
 public class LageristOverview extends Scene {
 	BorderPane root = new BorderPane();
@@ -27,6 +28,7 @@ public class LageristOverview extends Scene {
 	Button btPersDatenAnzeigen;
 	Button btPersDatenBearbeiten;
 	Button btZeigeRouteVonFahrzeug;
+	Button btAbmelden;
 	Lageristensteuerung lageristenSteuerung;
 
 	public LageristOverview(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
@@ -54,6 +56,7 @@ public class LageristOverview extends Scene {
 			vbox.getChildren().add(this.setBtBestelleNach());
 			vbox.getChildren().add(this.setBtPersDatenAnzeigen());
 			vbox.getChildren().add(this.setBtZeigeRouteVonFahrzeug());
+			vbox.getChildren().add(this.setAbmelden());
 
 		}
 		return this.vbox;
@@ -101,5 +104,16 @@ public class LageristOverview extends Scene {
 			});
 		}
 		return this.btZeigeRouteVonFahrzeug;
+	}
+
+	private Button setAbmelden() {
+		if (btAbmelden == null) {
+			btAbmelden = new Button("Abmelden");
+			btAbmelden.setMinWidth(200);
+			btAbmelden.setOnAction(a -> {
+				primaryStage.setScene(new Startseite(primaryStage, 800, 600));
+			});
+		}
+		return this.btAbmelden;
 	}
 }

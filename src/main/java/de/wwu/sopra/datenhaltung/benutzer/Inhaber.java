@@ -3,6 +3,9 @@ package de.wwu.sopra.datenhaltung.benutzer;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+
 /**
  * Implementiert die Klasse Inhaber.
  * 
@@ -33,6 +36,13 @@ public class Inhaber extends Benutzer {
 	public Inhaber(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
+		for (BenutzerDatenTripel i : BenutzerRegister.getBenutzerListe()) {
+			if (i.getBenutzer().getRolle() == Rolle.FAHRER) {
+				fahrer.add((Fahrer) i.getBenutzer());
+			} else if (i.getBenutzer().getRolle() == Rolle.LAGERIST) {
+				lageristen.add((Lagerist) i.getBenutzer());
+			}
+		}
 	}
 
 	/**

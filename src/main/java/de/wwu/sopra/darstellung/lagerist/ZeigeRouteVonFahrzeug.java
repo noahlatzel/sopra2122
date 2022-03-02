@@ -15,10 +15,9 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 /**
- * Grenzklasse ZeigeRouteVonFahrzeug
+ * GUI Klasse fuer ZeigeRouteVonFahrzeug
  * 
- * @author Paul Dirksen
- *
+ * @author Noah Latzel
  */
 public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	TilePane tilePane;

@@ -8,16 +8,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class SerialisierungPipeline {
+/**
+ * Klasse zur Serialisierung der Objekte.
+ * 
+ * @author Noah Latzel
+ *
+ * @param <T> Objekttyp, mit dem die Pipeline arbeiten soll
+ */
+public class SerialisierungPipeline<T> {
 
 	/**
 	 * Serialisiert ein gegebens Objekt in /resources/(name)
 	 * 
-	 * @param <T>  Der Datentyp des Objekts.
 	 * @param obj  Das zu serialisierende Objekt.
 	 * @param name Der Name, unter welchem das Objekt gespeichert werden soll.
 	 */
-	public <T> void serialisieren(T obj, String name) {
+	public void serialisieren(T obj, String name) {
 		File f = new File("resources/" + name);
 
 		try (FileOutputStream outputStream = new FileOutputStream(f);
@@ -37,15 +43,16 @@ public class SerialisierungPipeline {
 	 * @param name Der Dateiname des serialisierten Objekts.
 	 * @return Das deserialisierte Objekt. null, wenn nicht vorhanden.
 	 */
-	public Object deserialisieren(String name) {
-		Object obj = null;
+	@SuppressWarnings("unchecked")
+	public T deserialisieren(String name) {
+		T obj = null;
 		File f = new File("resources/" + name);
 		if (!(f.exists() && !f.isDirectory())) {
 			return obj;
 		}
 		try (FileInputStream inputStream = new FileInputStream(f);
 				ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);) {
-			obj = objectInputStream.readObject();
+			obj = (T) objectInputStream.readObject();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
@@ -25,6 +26,12 @@ public class BenutzerDatenTripelTest {
 	List<Bestellung> bestellungen;
 	List<Produkt> warenkorb;
 	BenutzerDatenTripel benutzerDatenTripel;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	public void setup() {

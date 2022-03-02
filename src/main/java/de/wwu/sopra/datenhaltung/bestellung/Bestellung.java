@@ -29,18 +29,19 @@ public class Bestellung implements Serializable {
 	private Rechnung rechnung;
 	private int kapazitaet;
 	private String adresse;
+	private static int zaehler = 0;
 
 	/**
 	 * Konstruktor fuer die Klasse Bestellung
 	 * 
-	 * @param bestellnummer Bestellnummer
-	 * @param datum         Datum
-	 * @param produkte      Liste von Produkten
-	 * @param kunde         Kunde
+	 * @param datum    Datum
+	 * @param produkte Liste von Produkten
+	 * @param kunde    Kunde
 	 */
-	public Bestellung(int bestellnummer, LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
+	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
-		this.bestellnummer = bestellnummer;
+		this.bestellnummer = zaehler;
+		zaehler++;
 		this.setStatus(BestellStatus.OFFEN);
 		if (produkte.isEmpty()) {
 			throw new IllegalArgumentException("Eine Bestellung kann nicht leer sein.");

@@ -5,12 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.Lager;
 
 public class FahrzeugRegisterTest {
 	Fahrzeug fahrzeug1;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	// nach jedem Test wird die Liste geleert
 	@AfterEach
@@ -23,7 +31,7 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testAdd() {
-		fahrzeug1 = new Fahrzeug(22772, 1);
+		fahrzeug1 = new Fahrzeug(1);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 
 		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
@@ -35,7 +43,7 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testRemove() {
-		fahrzeug1 = new Fahrzeug(22773, 1);
+		fahrzeug1 = new Fahrzeug(1);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 		FahrzeugRegister.removeFahrzeug(fahrzeug1);
 

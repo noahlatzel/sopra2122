@@ -18,20 +18,16 @@ public class Statistiken implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static double umsatz;
-	private static double ausgaben;
-	private static double einnahmen;
-	private static double arbeitszeit;
+	private static double umsatz = 0;
+	private static double ausgaben = 0;
+	private static double einnahmen = 0;
+	private static double arbeitszeit = 0;
 	private static String path = "statistiken.ser";
 
 	/**
-	 * Konstruktor der Klasse Statistiken
+	 * Singleton Konstruktor
 	 */
-	public Statistiken() {
-		setUmsatz(0);
-		setAusgaben(0);
-		setEinnahmen(0);
-		setArbeitszeit(0);
+	private Statistiken() {
 
 	}
 
@@ -119,10 +115,9 @@ public class Statistiken implements Serializable {
 	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		ArrayList<Double> raw_statistiken = (ArrayList<Double>) sp.deserialisieren(path);
+		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
+		ArrayList<Double> raw_statistiken = sp.deserialisieren(path);
 		if (raw_statistiken != null) {
 			Statistiken.setUmsatz(raw_statistiken.get(0));
 			Statistiken.setAusgaben(raw_statistiken.get(1));
@@ -135,7 +130,7 @@ public class Statistiken implements Serializable {
 	 * Serialisiert das FahrzeugRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
 		ArrayList<Double> raw_statistiken = new ArrayList<Double>();
 		raw_statistiken.add(umsatz);
 		raw_statistiken.add(ausgaben);

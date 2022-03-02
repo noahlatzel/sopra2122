@@ -3,6 +3,7 @@ package de.wwu.sopra.anwendung.mitarbeiter;
 import java.util.HashSet;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -19,10 +20,15 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  * Die LageristenSteuerung des Systems ist das Bindeglied zwischen
  * Grenzklassen/GUI und der Datenhaltungsschicht.
  * 
- * @author NoahLatzel
+ * @author Noah Latzel
  *
  */
 public class Lageristensteuerung {
+	Lagerist lagerist;
+
+	public Lageristensteuerung(Lagerist lagerist) {
+		this.lagerist = lagerist;
+	}
 
 	/**
 	 * Die Methode fuegt alle Produkte der Nachbestellungen in der gewuenschten
@@ -34,8 +40,13 @@ public class Lageristensteuerung {
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				Lager.addProdukt(n.getProdukt().clone(GrosshaendlerRegister.getEinkaufspreis(n.getProdukt())));
-				Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+				if (n != null) {
+					if (n.getProdukt() != null) {
+						double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
+						Lager.addProdukt(n.getProdukt().clone(preis));
+						Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+					}
+				}
 			}
 		}
 	}
@@ -62,7 +73,7 @@ public class Lageristensteuerung {
 					+ " > " + fahrzeug.getKapazitaet());
 		}
 		// TODO Routennummer in der Route selbst berechnen.
-		Route route = new Route(1, fahrzeug);
+		Route route = new Route(fahrzeug);
 
 		route.setBestellungen(bestellungen);
 
@@ -93,8 +104,10 @@ public class Lageristensteuerung {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
-			if (f.getRoute() != null) {
-				fahrzeuge.add(f);
+			if (f != null) {
+				if (f.getRoute() != null) {
+					fahrzeuge.add(f);
+				}
 			}
 		}
 		return fahrzeuge;
@@ -121,8 +134,10 @@ public class Lageristensteuerung {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
-			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
-				fahrzeuge.add(f);
+			if (f != null) {
+				if (f.getStatus().equals(FahrzeugStatus.FREI)) {
+					fahrzeuge.add(f);
+				}
 			}
 		}
 		return fahrzeuge;
@@ -149,6 +164,43 @@ public class Lageristensteuerung {
 			}
 		}
 		return bestellungen;
+	}
+
+	/**
+	 * Die persoenlichen Daten des Lageristen werden durch die neuen Daten
+	 * ueberschieben
+	 * 
+	 * @param benutzername   benutzername des Lageristen
+	 * @param passwort       passwort des Lageristen
+	 * @param email          email des Lageristen
+	 * @param adresse        adresse des Lageristen
+	 * @param vorname        Vorname des Lageristen
+	 * @param name           Name des Lageristen
+	 * @param bankverbindung Bankverbindung des Lageristen
+	 */
+	public void persoenlicheDatenBearbeiten(String benutzername, String passwort, String email, String adresse,
+			String vorname, String name, String bankverbindung) {
+		this.lagerist.setBenutzername(benutzername);
+		this.lagerist.setPasswort(passwort);
+		this.lagerist.setEmail(email);
+		this.lagerist.setAdresse(adresse);
+		this.lagerist.setVorname(vorname);
+		this.lagerist.setName(name);
+		this.lagerist.setBankverbindung(bankverbindung);
+	}
+
+	/**
+	 * persoenliche Daten werden in einem String der Form: benutzername;passwort;
+	 * email;adresse;vorname;name;bankverbindung; gespeichert
+	 * 
+	 * @return gibt den String aus
+	 */
+	public String persoenlicheDatenAnzeigen() {
+		String returnstring = lagerist.getBenutzername() + ";" + lagerist.getPasswort() + ";" + lagerist.getEmail()
+				+ ";" + lagerist.getAdresse() + ";" + lagerist.getVorname() + ";" + lagerist.getName() + ";"
+				+ lagerist.getBankverbindung() + ";";
+		return returnstring;
+
 	}
 
 }

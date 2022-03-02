@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+
 /**
  * Testklasse zur Klasse Inhaber
  * 
@@ -25,12 +27,31 @@ public class InhaberTest {
 
 	@BeforeEach
 	public void setup() {
+		BenutzerRegister.getBenutzerListe().clear();
 		inhaber = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname",
 				"eineBankverbindung");
 		fahrer = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
 				"nochEineBankverbindung", inhaber);
 		lagerist = new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
 				"nochEineBankverbindung", inhaber);
+	}
+
+	/**
+	 * Test ob das BenutzerRegister richtig Kopiert wird
+	 */
+	@Test
+	public void testInhaber() {
+		assertTrue(inhaber.getFahrer().size() == 0);
+		assertTrue(inhaber.getLageristen().size() == 0);
+		Inhaber inhaber2;
+		BenutzerRegister.benutzerHinzufuegen(new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname",
+				"CoolerNachname", "nochEineBankverbindung", inhaber));
+		BenutzerRegister.benutzerHinzufuegen(new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname",
+				"CoolerNachname", "nochEineBankverbindung", inhaber));
+		inhaber2 = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname",
+				"eineBankverbindung");
+		assertTrue(inhaber2.getFahrer().size() == 1);
+		assertTrue(inhaber2.getLageristen().size() == 1);
 	}
 
 	/**
@@ -130,6 +151,7 @@ public class InhaberTest {
 	 */
 	@Test
 	void testGetLageristenUndFahrer() {
+
 		Lagerist lagerist2 = new Lagerist("almacenista", "4322", "email3", "Bochum", "Jane", "Doe", "LaBankverbindung",
 				inhaber);
 		Fahrer fahrer2 = new Fahrer("conductor", "4324", "email4", "Essen", "John", "Doe", "LaBankverbindung", inhaber);

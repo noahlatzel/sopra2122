@@ -23,10 +23,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * Grenzklasse NachbestellungProduktGUI
+ * GUI Klasse fuer die Produkte in BestelleNach GUI
  * 
- * @author Paul Dirksen
- *
+ * @author Noah Latzel
  */
 public class NachbestellungProduktGUI extends LageristOverview {
 

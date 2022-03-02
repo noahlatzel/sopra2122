@@ -96,4 +96,5 @@ public class Anmeldungssteuerung {
 			throw new NullPointerException("Fehlerhafte Eingabe!");
 		}
 	}
+
 }

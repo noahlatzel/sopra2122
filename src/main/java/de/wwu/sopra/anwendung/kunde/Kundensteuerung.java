@@ -7,7 +7,6 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -97,7 +96,7 @@ public class Kundensteuerung {
 			produkte.add(p);
 		}
 
-		Bestellung bestellung = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte, kunde);
+		Bestellung bestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		kunde.bestellungHinzufuegen(bestellung);
 		kunde.getWarenkorb().warenkorbLeeren();
 	}
@@ -157,7 +156,7 @@ public class Kundensteuerung {
 				throw new IllegalArgumentException("Eine Nachlieferung  ist leider nicht moeglich.");
 			}
 		}
-		Bestellung nachbestellung = new Bestellung(0, LocalDateTime.now(), neueProduktListe(bestellung.getProdukte()),
+		Bestellung nachbestellung = new Bestellung(LocalDateTime.now(), neueProduktListe(bestellung.getProdukte()),
 				kunde);
 		kunde.bestellungHinzufuegen(nachbestellung);
 	}
