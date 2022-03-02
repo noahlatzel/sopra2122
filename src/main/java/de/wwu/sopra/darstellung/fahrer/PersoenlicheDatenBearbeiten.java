@@ -10,6 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Oberflaeche zum Bearbeiten der Persoenlichen Daten
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class PersoenlicheDatenBearbeiten extends OverviewFahrer {
 
 	public PersoenlicheDatenBearbeiten(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {

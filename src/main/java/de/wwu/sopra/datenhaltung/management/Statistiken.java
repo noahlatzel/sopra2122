@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
+/**
+ * Klasse fuer die Statistiken
+ * 
+ * @author valeria
+ *
+ */
 public class Statistiken implements Serializable {
 
 	/**

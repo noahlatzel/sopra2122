@@ -3,6 +3,12 @@ package de.wwu.sopra.datenhaltung.bestellung;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Die Klasse Rechnug
+ * 
+ * @author Jasmin
+ *
+ */
 public class Rechnung implements Serializable {
 
 	/**

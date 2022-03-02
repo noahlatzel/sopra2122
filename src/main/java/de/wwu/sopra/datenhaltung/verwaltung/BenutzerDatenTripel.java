@@ -27,7 +27,7 @@ public class BenutzerDatenTripel implements Serializable {
 	 * und einem leeren Warenkorb. Fuer alle anderen Benutzer wird keine Liste
 	 * erstellt.
 	 * 
-	 * @param benutzer
+	 * @param benutzer benutzer
 	 */
 	public BenutzerDatenTripel(Benutzer benutzer) {
 		if (benutzer != null) {
@@ -45,7 +45,7 @@ public class BenutzerDatenTripel implements Serializable {
 	/**
 	 * Gibt den Benutzer des Tripels zurueck.
 	 * 
-	 * @return
+	 * @return benutzer
 	 */
 	public Benutzer getBenutzer() {
 		return benutzer;
@@ -54,7 +54,7 @@ public class BenutzerDatenTripel implements Serializable {
 	/**
 	 * Gibt die Liste der Bestellungen zurueck.
 	 * 
-	 * @return
+	 * @return liste der bestellungen
 	 */
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
@@ -63,7 +63,7 @@ public class BenutzerDatenTripel implements Serializable {
 	/**
 	 * Gibt den Warenkorb zurueck.
 	 * 
-	 * @return
+	 * @return Liste der waren
 	 */
 	public List<Produkt> getWarenkorb() {
 		return warenkorb;

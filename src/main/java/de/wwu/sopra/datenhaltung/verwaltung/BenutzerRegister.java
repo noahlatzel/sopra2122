@@ -29,7 +29,7 @@ public class BenutzerRegister implements Serializable {
 	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
 	 * 
-	 * @param benutzer
+	 * @param benutzer benutzer
 	 */
 	public static void benutzerHinzufuegen(Benutzer benutzer) throws NullPointerException {
 		if (!(benutzer == null)) {
@@ -61,8 +61,8 @@ public class BenutzerRegister implements Serializable {
 	 * Gibt einen Benutzer zurueck, falls der uebergebene benutzername zu einem
 	 * Benutzer im System gehoert
 	 * 
-	 * @param benutzername
-	 * @return Benutzer
+	 * @param benutzername benutzername
+	 * @return Benutzer Benutzer
 	 */
 	public static Benutzer getBenutzerZuBenutzername(String benutzername) throws NullPointerException {
 		Benutzer gesuchterBenutzer = null;

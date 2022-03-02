@@ -7,6 +7,13 @@ import java.util.HashSet;
 
 import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
+/**
+ * klasse lager
+ * 
+ * @author noah
+ *
+ */
+
 public class Lager implements Serializable {
 	/**
 	 * 

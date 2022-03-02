@@ -13,6 +13,8 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
  * Erstellung der Fahrzeug-Klasse
+ * 
+ * @author Valeria
  */
 public class Fahrzeug implements Serializable {
 	/**
@@ -31,9 +33,9 @@ public class Fahrzeug implements Serializable {
 	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der
 	 * Liste existiert
 	 * 
-	 * @param fahrzeugNummer
-	 * @param kapazitaet
-	 * @throws IllegalArgumentException
+	 * @param fahrzeugNummer fahrzeugNummer
+	 * @param kapazitaet     kapazitaet
+	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
 	public Fahrzeug(int fahrzeugNummer, float kapazitaet) throws IllegalArgumentException {
 		this.setFahrzeugNummer(fahrzeugNummer);

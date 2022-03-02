@@ -11,6 +11,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
+/**
+ * Oberflaeche zum anzeigen der Route des Fahrzeugs
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class RouteAnzeigen extends OverviewFahrer {
 
 	public RouteAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
@@ -18,10 +24,17 @@ public class RouteAnzeigen extends OverviewFahrer {
 		this.zeigeRoute();
 	}
 
-	public void zeigeRoute() {
+	// route wird angezeigt
+	private void zeigeRoute() {
+
+		// pane wird erstellt
 		ScrollPane tabelle = new ScrollPane();
 		root.setCenter(tabelle);
+
+		// liste der bestellungen im format
 		List<String> ausgabeListe = new ArrayList<String>();
+
+		// fuellen der Liste
 		try {
 			List<Bestellung> bestellungen = steuerung.routeAusgeben().getBestellungen();
 
@@ -32,6 +45,7 @@ public class RouteAnzeigen extends OverviewFahrer {
 			System.out.println("Keine Route im Fahrzeug oder kein Fahrzeug");
 		}
 
+		// Liste wird angeszeigt
 		ObservableList<String> stopps = (ObservableList<String>) FXCollections.observableArrayList(ausgabeListe);
 		ListView<String> listView = new ListView<String>(stopps);
 		tabelle.setContent(listView);
