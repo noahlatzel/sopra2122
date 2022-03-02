@@ -15,6 +15,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class KundensteuerungTest {
 
@@ -27,6 +28,8 @@ public class KundensteuerungTest {
 	// vor jedem Test
 	@BeforeEach
 	public void init() {
+		Lager.reset();
+		FahrzeugRegister.reset();
 		kunde = new Kunde("MuellerAgi.123", "12345", "Agatha.b@gmail.com", "Privet Drive 3", "Agatha", "Mueller",
 				"De414580364567893456");
 		Produkt cola = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);

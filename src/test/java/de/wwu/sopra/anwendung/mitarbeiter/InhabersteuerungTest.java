@@ -36,6 +36,12 @@ public class InhabersteuerungTest {
 	Inhabersteuerung ihs;
 
 	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
+	@BeforeEach
 	void init() {
 		benutzername = "JackTheBoss";
 		passwort = "supersicherespasswort123!";

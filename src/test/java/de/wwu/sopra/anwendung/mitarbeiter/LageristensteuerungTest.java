@@ -33,6 +33,12 @@ public class LageristensteuerungTest {
 	HashSet<NachbestellungTupel> nachbestellungen;
 
 	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
+	@BeforeEach
 	void init() {
 		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
 				"Muenster", "Noah", "Latzel", "GuteBank", null));

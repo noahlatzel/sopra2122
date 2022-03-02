@@ -7,28 +7,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class LagerTest {
 	Lager lager;
 	ArrayList<Produkt> produkte;
 
-	/**
-	 * Lager wieder aufraeumen.
-	 */
-	@AfterEach
-	void end() {
-		Lager.reset();
-	}
-
 	@BeforeEach
 	void init() {
 		Lager.reset();
+		FahrzeugRegister.reset();
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));

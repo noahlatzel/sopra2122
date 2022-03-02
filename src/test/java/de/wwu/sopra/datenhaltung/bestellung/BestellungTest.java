@@ -6,18 +6,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class BestellungTest {
 	ArrayList<Produkt> produkte;
 	Kunde kunde;
 	Bestellung bestellung;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeAll
 	void init() {

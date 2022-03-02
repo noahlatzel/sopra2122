@@ -16,8 +16,10 @@ import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * test zum Fahrersteuerung
@@ -33,6 +35,12 @@ public class FahrersteuerungTest {
 	Bestellung testbestellung;
 	Bestellung testbestellung1;
 	List<Produkt> produkte;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	// vor jedem Test
 	@BeforeEach

@@ -5,12 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.Lager;
 
 public class FahrzeugRegisterTest {
 	Fahrzeug fahrzeug1;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	// nach jedem Test wird die Liste geleert
 	@AfterEach

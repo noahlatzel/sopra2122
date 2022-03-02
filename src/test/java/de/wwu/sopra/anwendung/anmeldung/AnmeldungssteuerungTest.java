@@ -12,7 +12,9 @@ import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Testklasse zur Anmeldungssteuerung
@@ -27,6 +29,12 @@ public class AnmeldungssteuerungTest {
 	Fahrer fahrer1;
 	Lagerist lagerist1;
 	Inhaber inhaber1;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	public void setup() {

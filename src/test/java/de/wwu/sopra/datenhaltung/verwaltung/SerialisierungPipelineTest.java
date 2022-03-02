@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -15,9 +16,15 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 public class SerialisierungPipelineTest {
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@Test
 	void testSerialisierung() {

@@ -4,14 +4,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class ProduktTest {
 	Produkt produkt_1;
 	Kategorie kategorie_1;
+
+	@BeforeEach
+	void reset() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeAll
 	public void init() {
