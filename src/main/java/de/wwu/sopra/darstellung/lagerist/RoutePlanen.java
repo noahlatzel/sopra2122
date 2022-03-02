@@ -19,7 +19,6 @@ import javafx.stage.Stage;
  * GUI Klasse fuer RoutePlanen
  * 
  * @author Noah Latzel
- *
  */
 public class RoutePlanen extends LageristOverview {
 	TilePane tilePane;

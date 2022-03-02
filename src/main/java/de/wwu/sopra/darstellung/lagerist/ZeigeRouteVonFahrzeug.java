@@ -18,7 +18,6 @@ import javafx.stage.Stage;
  * GUI Klasse fuer ZeigeRouteVonFahrzeug
  * 
  * @author Noah Latzel
- *
  */
 public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	TilePane tilePane;

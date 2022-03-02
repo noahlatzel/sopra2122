@@ -15,7 +15,6 @@ import javafx.stage.Stage;
  * dieser Klasse.
  * 
  * @author Noah Latzel
- *
  */
 public class LageristOverview extends Scene {
 	BorderPane root = new BorderPane();

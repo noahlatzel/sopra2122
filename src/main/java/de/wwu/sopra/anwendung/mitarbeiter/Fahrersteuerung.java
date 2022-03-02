@@ -159,9 +159,9 @@ public class Fahrersteuerung {
 	}
 
 	/**
-	 * gibt den Index der Aktuellen Bestellung aus
+	 * Gibt den Index der aktuellen Bestellung aus.
 	 * 
-	 * @return
+	 * @return Index der aktuellen Bestellung aus.
 	 */
 	public int getAktuelleBestellung() {
 		return aktuelleBestellung;

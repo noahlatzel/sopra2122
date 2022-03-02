@@ -14,7 +14,6 @@ import javafx.stage.Stage;
  * GUI Klasse fuer persoenliche Daten anzeigen
  * 
  * @author Noah Latzel
- *
  */
 public class PersoenlicheDatenAnzeigen extends LageristOverview {
 

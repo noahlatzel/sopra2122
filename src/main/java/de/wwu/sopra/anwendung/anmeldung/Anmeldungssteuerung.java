@@ -5,8 +5,6 @@ import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
-import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
-import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
@@ -33,17 +31,20 @@ public class Anmeldungssteuerung {
 	 * @param benutzername Zu ueberpruefender Benutzername
 	 * @param passwort     Zu ueberpruefendes Passwort.
 	 */
-	public void anmelden(String benutzername, String passwort) throws NullPointerException {
+	public Benutzer anmelden(String benutzername, String passwort) throws NullPointerException {
+
+		Benutzer benutzer = null;
+
 		if (!(benutzername == null) && !(passwort == null)) {
 
 			// Falls der Benutzername im System bekannt ist wird der zugehoerige Benutzer
 			// zurueckgegeben.
-			Benutzer benutzer = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
+			Benutzer temp = BenutzerRegister.getBenutzerZuBenutzername(benutzername);
 
-			if (!(benutzer == null)) {
+			if (!(temp == null)) {
 				// HIGH SECURITY PASSWORT CHECK
-				if (benutzer.getPasswort().equals(passwort)) {
-					leiteWeiter(benutzer);
+				if (temp.getPasswort().equals(passwort)) {
+					return temp;
 				} else {
 					System.out.println("Falsches Passwort!");
 					// TODO
@@ -55,6 +56,8 @@ public class Anmeldungssteuerung {
 		} else {
 			throw new NullPointerException("Leere Eingabe!");
 		}
+
+		return benutzer;
 	}
 
 	/**
@@ -118,7 +121,7 @@ public class Anmeldungssteuerung {
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:
-			Fahrersteuerung fs = new Fahrersteuerung((Fahrer) benutzer); // TODO Fehlende Parameter
+			Fahrersteuerung fs = new Fahrersteuerung(null); // TODO Fehlende Parameter
 			System.out.println("Fahrer angemeldet!");
 			break;
 		case LAGERIST:
@@ -129,7 +132,7 @@ public class Anmeldungssteuerung {
 			break;
 
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung(null); // TODO Fehlende Parameter
 
 			System.out.println("Inhaber angemeldet!");
 			break;
@@ -139,5 +142,4 @@ public class Anmeldungssteuerung {
 	private void wechsleSzene(Object klasse) {
 
 	}
-
 }
