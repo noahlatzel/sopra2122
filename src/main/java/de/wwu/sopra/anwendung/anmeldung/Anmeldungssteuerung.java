@@ -117,7 +117,7 @@ public class Anmeldungssteuerung {
 			System.out.println("Lagerist angemeldet!");
 			break;
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, benutzerReg, null); // TODO Fehlende Parameter
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer, null, benutzerReg, null, null); // TODO Fehlende Parameter
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}

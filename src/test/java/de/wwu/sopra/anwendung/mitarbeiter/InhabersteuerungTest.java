@@ -24,6 +24,7 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class InhabersteuerungTest {
 	String benutzername;
@@ -38,6 +39,7 @@ public class InhabersteuerungTest {
 	Statistiken statistiken = new Statistiken();
 	BenutzerRegister benutzerReg = new BenutzerRegister();
 	Lager lager = new Lager();	
+	FahrzeugRegister fahrzeugReg = new FahrzeugRegister();
 	
 	@BeforeEach
 	void init() {
@@ -49,7 +51,7 @@ public class InhabersteuerungTest {
 		name = "Sparrow";
 		bankverbindung = "DE00 0000 0000 0000 00";
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		ihs = new Inhabersteuerung(inhaber, statistiken, benutzerReg, lager);
+		ihs = new Inhabersteuerung(inhaber, statistiken, benutzerReg, lager, fahrzeugReg);
 	}
 	
 	/**
@@ -122,6 +124,10 @@ public class InhabersteuerungTest {
 		ihs.fahrzeugDatenAendern(fzeug, fzeug.getFahrzeugNummer(), 123456789);
 		assertEquals(fzeug.getKapazitaet(), 123456789);
 	}
+	
+	/**
+	 * TODO: testFahrzeugLoeschen()
+	 */
 	
 	/**
 	 * Testet, ob alle Daten des Benutzers im richtigen Format zurueckgegeben werden

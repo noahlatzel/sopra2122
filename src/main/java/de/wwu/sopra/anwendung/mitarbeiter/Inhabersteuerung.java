@@ -18,12 +18,14 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class Inhabersteuerung {
 	private Inhaber inhaber;
 	private Statistiken statistiken;
 	private BenutzerRegister benutzerReg;
 	private Lager lager;
+	private FahrzeugRegister fahrzeugReg;
 	
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
@@ -31,11 +33,12 @@ public class Inhabersteuerung {
 	 * @param statistiken
 	 * @param benutzerReg
 	 */
-	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, BenutzerRegister benutzerReg, Lager lager) {
+	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, BenutzerRegister benutzerReg, Lager lager, FahrzeugRegister fahrzeugReg) {
 		this.inhaber = inhaber;
 		this.statistiken = statistiken;
 		this.benutzerReg = benutzerReg;
 		this.lager = lager;
+		this.fahrzeugReg = fahrzeugReg;
 	}
 	
 	/**
@@ -238,6 +241,23 @@ public class Inhabersteuerung {
 		if (fahrzeug.equals(null)) return;
 		if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer) fahrzeug.setFahrzeugNummer(fahrzeugNummer);
 		if (fahrzeug.getKapazitaet() != kapazitaet) fahrzeug.setKapazitaet(kapazitaet);
+	}
+	
+	/**
+	 * Funktion zum Loeschen eines Fahrzeugs
+	 * @param fahrzeug		Fahrzeug, das geloescht wird
+	 */
+	public void fahrzeugLoeschen(Fahrzeug fahrzeug) {
+		this.fahrzeugReg.removeFahrzeug(fahrzeug);
+	}
+	
+	/**
+	 * Funktion zum Auflisten aller Fahrzeuge
+	 * @return fahrzeugeHSet	HashSet von allen Fahrzeuge in FahrzeugRegister
+	 */
+	public HashSet<Fahrzeug> fahrzeugeAnzeigen() {
+		HashSet<Fahrzeug> fahrzeugeHSet = this.fahrzeugReg.getFahrzeuge();
+		return fahrzeugeHSet;
 	}
 	
 	/**
