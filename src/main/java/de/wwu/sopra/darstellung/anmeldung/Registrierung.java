@@ -26,7 +26,6 @@ import javafx.stage.Stage;
  *
  */
 public class Registrierung extends Scene {
-
 	Stage primaryStage;
 	BorderPane root = new BorderPane();
 	GridPane gridpane;

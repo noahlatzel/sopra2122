@@ -188,24 +188,24 @@ public class Anmeldung extends Scene {
 		switch (benutzer.getRolle()) {
 		case KUNDE:
 			Kundensteuerung ks = new Kundensteuerung((Kunde) benutzer);
-			KundeOverview ko = new KundeOverview(primaryStage , 800, 600, ks);
+			KundeOverview ko = new KundeOverview(primaryStage, getWidth(), getHeight(), ks);
 			primaryStage.setScene(ko);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:
 			Fahrersteuerung fs = new Fahrersteuerung((Fahrer) benutzer);
-			OverviewFahrer fo = new OverviewFahrer(fs, primaryStage, 800, 600);
+			OverviewFahrer fo = new OverviewFahrer(fs, primaryStage, getWidth(), getHeight());
 			primaryStage.setScene(fo);
 			System.out.println("Fahrer angemeldet!");
 			break;
 		case LAGERIST:
 			Lageristensteuerung ls = new Lageristensteuerung((Lagerist) benutzer);
-			LageristOverview lo = new LageristOverview(primaryStage, 800, 600, ls);
+			LageristOverview lo = new LageristOverview(primaryStage, getWidth(), getHeight(), ls);
 			primaryStage.setScene(lo);
 			System.out.println("Lagerist angemeldet!");
 			break;
 		case INHABER:
-			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); 
+			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer);
 			InhaberOverview io = new InhaberOverview(primaryStage, getWidth(), getHeight(), is);
 			primaryStage.setScene(io);
 			System.out.println("Inhaber angemeldet!");
