@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 
 /**
@@ -133,5 +134,8 @@ class RouteTest {
 		Route routeFirst = new Route(10, fzeug3);
 		routeFirst.setBestellungen(bestellungen);
 		assertTrue(routeFirst.getBestellungen().contains(bestellung));
+		for (Bestellung b : bestellungen) {
+			assertTrue(b.getStatus().equals(BestellStatus.IN_BEARBEITUNG));
+		}
 	}
 }

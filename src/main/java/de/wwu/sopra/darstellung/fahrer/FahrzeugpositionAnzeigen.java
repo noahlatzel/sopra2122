@@ -4,6 +4,12 @@ import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Oberflaeche zum anzeigen der position
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class FahrzeugpositionAnzeigen extends OverviewFahrer {
 
 	public FahrzeugpositionAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
@@ -11,7 +17,8 @@ public class FahrzeugpositionAnzeigen extends OverviewFahrer {
 		this.zeigePosition();
 	}
 
-	public void zeigePosition() {
+	// poition wird auf einem Label angezeigt
+	private void zeigePosition() {
 		try {
 			root.setCenter(new Label(steuerung.positionDesFahrzeugs()));
 		} catch (NullPointerException i) {

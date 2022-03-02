@@ -6,6 +6,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Oberflaeche zeigt Persoenliche Daten an
+ * 
+ * @author Johannes Thiel
+ *
+ */
 public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 
 	public PersoenlicheDatenAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
@@ -14,7 +21,10 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 		this.DatenZeigen();
 	}
 
+	// Daten zeigen
 	private void DatenZeigen() {
+
+		// pane erstellen
 		GridPane grid = new GridPane();
 		root.setCenter(grid);
 

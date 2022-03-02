@@ -7,6 +7,12 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
+/**
+ * Die klasse Bestellung
+ * 
+ * @author Jasmin
+ *
+ */
 public class Bestellung implements Serializable {
 
 	/**
@@ -163,6 +169,7 @@ public class Bestellung implements Serializable {
 	}
 
 	/**
+	 * gibt die Adresse aus
 	 * 
 	 * @return Die Adresse, an die die Bestellung geliefert werden soll.
 	 */
@@ -170,6 +177,9 @@ public class Bestellung implements Serializable {
 		return this.adresse;
 	}
 
+	/**
+	 * overrides die toString() methode
+	 */
 	@Override
 	public String toString() {
 		return "Bestellung " + this.getBestellnummer();
