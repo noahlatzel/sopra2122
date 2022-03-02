@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
@@ -104,7 +103,7 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		Produkt fanta = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
 		liste.add(fanta);
-		Bestellung bestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste, kunde);
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung1);
@@ -141,8 +140,8 @@ public class KundensteuerungTest {
 	@Test
 	void testeBestellungenAnzeigen() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		Bestellung bestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste, kunde);
-		Bestellung bestellung2 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste2, kunde);
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
+		Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), liste2, kunde);
 		bestellungen.add(bestellung1);
 		bestellungen.add(bestellung2);
 		kunde.bestellungHinzufuegen(bestellung1);
@@ -156,8 +155,8 @@ public class KundensteuerungTest {
 	@Test
 	void testeStornieren() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		Bestellung bestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste, kunde);
-		Bestellung bestellung2 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste2, kunde);
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
+		Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), liste2, kunde);
 		bestellungen.add(bestellung1);
 		kunde.bestellungHinzufuegen(bestellung1);
 		kunde.bestellungHinzufuegen(bestellung2);
@@ -174,9 +173,9 @@ public class KundensteuerungTest {
 	@Test
 	void testeNachbestellen() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		Bestellung bestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste, kunde);
-		Bestellung bestellung2 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste2, kunde);
-		Bestellung bestellung3 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), liste2, kunde);
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
+		Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), liste2, kunde);
+		Bestellung bestellung3 = new Bestellung(LocalDateTime.now(), liste2, kunde);
 		bestellungen.add(bestellung1);
 		bestellungen.add(bestellung2);
 		bestellungen.add(bestellung3);

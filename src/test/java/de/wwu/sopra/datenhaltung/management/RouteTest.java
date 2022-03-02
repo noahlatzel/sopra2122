@@ -27,9 +27,9 @@ class RouteTest {
 	 */
 	@Test
 	void testRoute() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(2352, 100);
+		Fahrzeug fzeug = new Fahrzeug(100);
 
-		Route route = new Route(100, fzeug);
+		Route route = new Route(fzeug);
 
 		assertTrue(route instanceof Route);
 	}
@@ -42,11 +42,11 @@ class RouteTest {
 	 */
 	@Test
 	void testGetRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(36436, 100);
+		Fahrzeug fzeug = new Fahrzeug(100);
 
-		Route route = new Route(98, fzeug);
-
-		assertEquals(route.getRoutenNummer(), 98);
+		Route route = new Route(fzeug);
+		int nummer = route.getRoutenNummer();
+		assertEquals(route.getRoutenNummer(), nummer);
 	}
 
 	/**
@@ -57,9 +57,9 @@ class RouteTest {
 	 */
 	@Test
 	void testSetRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(548, 100);
+		Fahrzeug fzeug = new Fahrzeug(100);
 
-		Route route = new Route(3, fzeug);
+		Route route = new Route(fzeug);
 		route.setRoutenNummer(1520);
 
 		assertEquals(route.getRoutenNummer(), 1520);
@@ -73,12 +73,13 @@ class RouteTest {
 	 */
 	@Test
 	void testGetFahrzeug() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(3548, 100);
+		Fahrzeug fzeug = new Fahrzeug(100);
+		int temp = fzeug.getFahrzeugNummer();
 
-		Route route = new Route(546548, fzeug);
+		Route route = new Route(fzeug);
 
 		assertTrue(route.getFahrzeug() instanceof Fahrzeug);
-		assertEquals(route.getFahrzeug().getFahrzeugNummer(), 3548);
+		assertTrue(route.getFahrzeug().getFahrzeugNummer() == temp);
 		assertEquals(route.getFahrzeug().getKapazitaet(), 100);
 	}
 
@@ -89,10 +90,10 @@ class RouteTest {
 	 */
 	@Test
 	void testRoutenerstellungMitFahrzeugMitRoute() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(12354, 100);
+		Fahrzeug fzeug = new Fahrzeug(100);
 
-		Route routeFirst = new Route(8462, fzeug);
-		Route routeSecond = new Route(8463, fzeug);
+		Route routeFirst = new Route(fzeug);
+		Route routeSecond = new Route(fzeug);
 
 		assertEquals(fzeug.getRoute(), routeFirst);
 		assertNotEquals(fzeug.getRoute(), routeSecond);
@@ -105,16 +106,16 @@ class RouteTest {
 	 */
 	@Test
 	void testRoutenerstellungMitExistierenderRoutenNummer() throws IllegalArgumentException {
-		Fahrzeug fzeug = new Fahrzeug(987987, 100);
-		Fahrzeug fzeug2 = new Fahrzeug(987988, 200);
+		Fahrzeug fzeug = new Fahrzeug(100);
+		Fahrzeug fzeug2 = new Fahrzeug(200);
 
 		@SuppressWarnings("unused")
-		Route routeFirst = new Route(654879, fzeug);
+		Route routeFirst = new Route(fzeug);
 
 		@SuppressWarnings("unused")
 		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-			@SuppressWarnings("unused")
-			Route routeSecond = new Route(654879, fzeug2);
+			Route routeSecond = new Route(fzeug2);
+			routeSecond.setRoutenNummer(1);
 		});
 	}
 
@@ -126,12 +127,12 @@ class RouteTest {
 		Kunde kunde1 = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Fahrzeug fzeug3 = new Fahrzeug(98791288, 200);
-		Bestellung bestellung = new Bestellung(0, null, produkte, kunde1);
+		Fahrzeug fzeug3 = new Fahrzeug(200);
+		Bestellung bestellung = new Bestellung(null, produkte, kunde1);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
-		Fahrzeug fzeug = new Fahrzeug(9879871, 100);
-		Route routeFirst = new Route(10, fzeug3);
+		Fahrzeug fzeug = new Fahrzeug(100);
+		Route routeFirst = new Route(fzeug3);
 		routeFirst.setBestellungen(bestellungen);
 		assertTrue(routeFirst.getBestellungen().contains(bestellung));
 		for (Bestellung b : bestellungen) {

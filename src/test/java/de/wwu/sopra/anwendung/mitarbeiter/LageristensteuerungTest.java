@@ -15,7 +15,6 @@ import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
@@ -81,7 +80,7 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testPlaneRoute() {
-		Fahrzeug fahrzeug = new Fahrzeug(13234, 10);
+		Fahrzeug fahrzeug = new Fahrzeug(10);
 		ArrayList<Produkt> produkte1 = new ArrayList<Produkt>();
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
@@ -92,8 +91,8 @@ public class LageristensteuerungTest {
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		Bestellung bestellung1 = new Bestellung(0, null, produkte1, kunde);
-		Bestellung bestellung2 = new Bestellung(1, null, produkte2, kunde);
+		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
+		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
 
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung1);
@@ -110,7 +109,7 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testThrowsPlaneRoute() {
-		Fahrzeug fahrzeug = new Fahrzeug(111, 2);
+		Fahrzeug fahrzeug = new Fahrzeug(2);
 		ArrayList<Produkt> produkte1 = new ArrayList<Produkt>();
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
@@ -121,8 +120,8 @@ public class LageristensteuerungTest {
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		Bestellung bestellung1 = new Bestellung(2, null, produkte1, kunde);
-		Bestellung bestellung2 = new Bestellung(3, null, produkte2, kunde);
+		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
+		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
 
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung1);
@@ -138,7 +137,7 @@ public class LageristensteuerungTest {
 	 */
 	@Test
 	void testThrowsZeigeRouteVonFahrzeug() {
-		Fahrzeug fahrzeug = new Fahrzeug(919, 2);
+		Fahrzeug fahrzeug = new Fahrzeug(2);
 		assertThrows(IllegalArgumentException.class, () -> {
 			lageristenSteuerung.zeigeRouteVonFahrzeug(fahrzeug);
 		});
@@ -160,10 +159,8 @@ public class LageristensteuerungTest {
 		produkte.add(cola);
 		produkte.add(korn);
 
-		Bestellung testbestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte,
-				kunde2);
-		Bestellung testbestellung2 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte,
-				kunde1);
+		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
+		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);
 
 		testbestellung1.setStatus(BestellStatus.ABGESCHLOSSEN);
 		testbestellung2.setStatus(BestellStatus.OFFEN);
@@ -187,8 +184,8 @@ public class LageristensteuerungTest {
 		for (Fahrzeug f : temp) {
 			FahrzeugRegister.removeFahrzeug(f);
 		}
-		Fahrzeug fahrzeug = new Fahrzeug(920, 2);
-		Fahrzeug fahrzeug1 = new Fahrzeug(921, 2);
+		Fahrzeug fahrzeug = new Fahrzeug(2);
+		Fahrzeug fahrzeug1 = new Fahrzeug(2);
 		fahrzeug1.setStatus(FahrzeugStatus.BELEGT);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 		FahrzeugRegister.addFahrzeug(fahrzeug);
@@ -208,15 +205,14 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
-		Bestellung testbestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte1,
-				kunde2);
+		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(testbestellung1);
-		Fahrzeug fahrzeug = new Fahrzeug(90022, 2);
-		Fahrzeug fahrzeug1 = new Fahrzeug(92003, 3);
+		Fahrzeug fahrzeug = new Fahrzeug(2);
+		Fahrzeug fahrzeug1 = new Fahrzeug(3);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 		FahrzeugRegister.addFahrzeug(fahrzeug);
-		Route route = new Route(110, fahrzeug1);
+		Route route = new Route(fahrzeug1);
 		route.setBestellungen(bestellungen);
 		assertTrue(lageristenSteuerung.getFahrzeugeMitRoute().contains(fahrzeug1));
 		assertTrue(lageristenSteuerung.zeigeFreieFahrzeuge().size() == 1);

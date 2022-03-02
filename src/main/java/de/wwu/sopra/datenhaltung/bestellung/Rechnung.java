@@ -20,17 +20,18 @@ public class Rechnung implements Serializable {
 	private final double endbetrag;
 	private final LocalDateTime datum;
 	private final Bestellung bestellung;
+	private static int zaehler = 0;
 
 	/**
 	 * Konstruktor der Klasse Rechnung
 	 * 
-	 * @param rechnungsnummer Rechnungsnummer
-	 * @param endbetrag       Endbetrag der Bestellung
-	 * @param datum           Datum der Bestellung
+	 * @param endbetrag Endbetrag der Bestellung
+	 * @param datum     Datum der Bestellung
 	 */
-	public Rechnung(int rechnungsnummer, double endbetrag, LocalDateTime datum, Bestellung bestellung) {
+	public Rechnung(double endbetrag, LocalDateTime datum, Bestellung bestellung) {
 
-		this.rechnungsnummer = rechnungsnummer;
+		this.rechnungsnummer = zaehler;
+		zaehler++;
 		this.endbetrag = endbetrag;
 		this.datum = datum;
 		this.bestellung = bestellung;

@@ -12,7 +12,6 @@ import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
-import de.wwu.sopra.datenhaltung.bestellung.IdZaehler;
 import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -46,9 +45,9 @@ public class SerialisierungPipelineTest {
 		Produkt korn = new Produkt("Sasse Korn", "LEEEECKER", 4.20, 6.66);
 
 		// fahrzeuge
-		Fahrzeug porsche = new Fahrzeug(1234, 5);
-		Fahrzeug bus = new Fahrzeug(12344, 200);
-		Fahrzeug mini = new Fahrzeug(12234, 1);
+		Fahrzeug porsche = new Fahrzeug(5);
+		Fahrzeug bus = new Fahrzeug(200);
+		Fahrzeug mini = new Fahrzeug(1);
 
 		// Liste der Produkte
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -57,12 +56,9 @@ public class SerialisierungPipelineTest {
 		produkte.add(korn);
 
 		// bestellungen
-		Bestellung testbestellung1 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte,
-				kunde2);
-		Bestellung testbestellung2 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte,
-				kunde1);
-		Bestellung testbestellung3 = new Bestellung(IdZaehler.getBestellungsId(), LocalDateTime.now(), produkte,
-				kunde3);
+		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
+		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);
+		Bestellung testbestellung3 = new Bestellung(LocalDateTime.now(), produkte, kunde3);
 
 		// Liste von Bestellungen
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -76,12 +72,9 @@ public class SerialisierungPipelineTest {
 		Warenkorb warenkorb1 = new Warenkorb(produkte, kunde1);
 
 		// Rechnug
-		Rechnung rechnung1 = new Rechnung(IdZaehler.getRechnungsId(), testbestellung1.getBetrag(), LocalDateTime.now(),
-				testbestellung1);
-		Rechnung rechnung2 = new Rechnung(IdZaehler.getRechnungsId(), testbestellung2.getBetrag(), LocalDateTime.now(),
-				testbestellung2);
-		Rechnung rechnung3 = new Rechnung(IdZaehler.getRechnungsId(), testbestellung3.getBetrag(), LocalDateTime.now(),
-				testbestellung3);
+		Rechnung rechnung1 = new Rechnung(testbestellung1.getBetrag(), LocalDateTime.now(), testbestellung1);
+		Rechnung rechnung2 = new Rechnung(testbestellung2.getBetrag(), LocalDateTime.now(), testbestellung2);
+		Rechnung rechnung3 = new Rechnung(testbestellung3.getBetrag(), LocalDateTime.now(), testbestellung3);
 		BenutzerRegister.benutzerHinzufuegen(kunde3);
 		BenutzerRegister.benutzerHinzufuegen(kunde2);
 		BenutzerRegister.benutzerHinzufuegen(kunde1);

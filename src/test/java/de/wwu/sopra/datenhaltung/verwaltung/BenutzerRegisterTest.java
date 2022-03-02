@@ -173,7 +173,7 @@ public class BenutzerRegisterTest {
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
 
 		// Hinzufuegen der neuen Bestellung zur Liste der Bestellungen des Kunden
-		bestellung = new Bestellung(3, LocalDateTime.now(), warenkorbTester, benutzer1);
+		bestellung = new Bestellung(LocalDateTime.now(), warenkorbTester, benutzer1);
 		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, bestellung);
 
 		assertTrue(BenutzerRegister.getBestellungen(benutzer1).get(0).equals(bestellung));

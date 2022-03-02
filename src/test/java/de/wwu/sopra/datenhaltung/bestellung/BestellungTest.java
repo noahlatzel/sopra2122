@@ -25,7 +25,7 @@ class BestellungTest {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		bestellung = new Bestellung(1, null, produkte, kunde);
+		bestellung = new Bestellung(null, produkte, kunde);
 	}
 
 	/**
@@ -33,15 +33,13 @@ class BestellungTest {
 	 */
 	@Test
 	void testKonstruktor() {
-		IdZaehler test = new IdZaehler();
 		assertTrue(bestellung.getStatus().equals(BestellStatus.OFFEN));
 		assertTrue(bestellung.getDatum() == null);
-		assertTrue(bestellung.getBestellnummer() == 1);
 		System.out.println(bestellung.getBetrag());
 		assertTrue(bestellung.getBetrag() == 1.29);
 		assertTrue(bestellung.getProdukte() == produkte);
 		assertTrue(bestellung.getKunde() == kunde);
-		assertTrue(bestellung.toString().equals("Bestellung 1"));
+		assertTrue(bestellung.toString().equals("Bestellung " + bestellung.getBestellnummer()));
 		assertTrue(bestellung.getAdresse().equals(bestellung.getKunde().getAdresse()));
 	}
 
@@ -50,7 +48,7 @@ class BestellungTest {
 	 */
 	@Test
 	void testSetGetRechnung() {
-		Rechnung rechnung = new Rechnung(1, 0.99, null, bestellung);
+		Rechnung rechnung = new Rechnung(0.99, null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));
 	}
@@ -61,7 +59,7 @@ class BestellungTest {
 	@Test
 	void testThrowsKonstruktor() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Bestellung(0, null, new ArrayList<Produkt>(), kunde);
+			new Bestellung(null, new ArrayList<Produkt>(), kunde);
 		});
 	}
 

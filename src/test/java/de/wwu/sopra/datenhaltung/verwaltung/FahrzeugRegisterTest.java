@@ -23,7 +23,7 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testAdd() {
-		fahrzeug1 = new Fahrzeug(22772, 1);
+		fahrzeug1 = new Fahrzeug(1);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 
 		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
@@ -35,7 +35,7 @@ public class FahrzeugRegisterTest {
 	 */
 	@Test
 	void testRemove() {
-		fahrzeug1 = new Fahrzeug(22773, 1);
+		fahrzeug1 = new Fahrzeug(1);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 		FahrzeugRegister.removeFahrzeug(fahrzeug1);
 
