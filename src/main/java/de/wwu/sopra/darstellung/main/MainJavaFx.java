@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  *
  */
 public class MainJavaFx extends Application {
+	int WIDTH = 800;
+	int HEIGHT = 600;
 	BorderPane layout;
 
 	@Override
@@ -32,7 +34,7 @@ public class MainJavaFx extends Application {
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
-		primaryStage.setScene(new Startseite(primaryStage, 1280, 720));
+		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
 
 		primaryStage.show();
 
