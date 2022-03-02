@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
@@ -133,10 +132,7 @@ public class InhaberTest {
 	 */
 	@Test
 	void testGetLageristenUndFahrer() {
-		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
-		for (BenutzerDatenTripel i : temp) {
-			BenutzerRegister.benutzerEntfernen(i.getBenutzer());
-		}
+		BenutzerRegister.getBenutzerListe().clear();
 
 		Lagerist lagerist2 = new Lagerist("almacenista", "4322", "email3", "Bochum", "Jane", "Doe", "LaBankverbindung",
 				inhaber);
