@@ -23,14 +23,12 @@ public class LagerTest {
 	 */
 	@AfterEach
 	void end() {
-		HashSet<Produkt> lager_old = (HashSet<Produkt>) Lager.getLager().clone();
-		for (Produkt p : lager_old) {
-			Lager.removeProdukt(p);
-		}
+		Lager.reset();
 	}
 
 	@BeforeEach
 	void init() {
+		Lager.reset();
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
