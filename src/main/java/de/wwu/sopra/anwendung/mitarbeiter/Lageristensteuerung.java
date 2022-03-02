@@ -99,8 +99,10 @@ public class Lageristensteuerung {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
-			if (f.getRoute() != null) {
-				fahrzeuge.add(f);
+			if (f != null) {
+				if (f.getRoute() != null) {
+					fahrzeuge.add(f);
+				}
 			}
 		}
 		return fahrzeuge;
@@ -127,8 +129,10 @@ public class Lageristensteuerung {
 		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 		HashSet<Fahrzeug> alleFahrzeuge = FahrzeugRegister.getFahrzeuge();
 		for (Fahrzeug f : alleFahrzeuge) {
-			if (f.getStatus().equals(FahrzeugStatus.FREI)) {
-				fahrzeuge.add(f);
+			if (f != null) {
+				if (f.getStatus().equals(FahrzeugStatus.FREI)) {
+					fahrzeuge.add(f);
+				}
 			}
 		}
 		return fahrzeuge;
