@@ -22,6 +22,7 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class InhabersteuerungTest {
@@ -287,6 +288,11 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void teststatistikenAusgeben() {
+
+		Statistiken.setArbeitszeit(0);
+		Statistiken.setAusgaben(0);
+		Statistiken.setEinnahmen(0);
+		Statistiken.setUmsatz(0);
 
 		HashMap<String, Float> statistics = ihs.statistikenAusgeben();
 

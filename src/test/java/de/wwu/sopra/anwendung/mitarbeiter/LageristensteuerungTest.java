@@ -74,9 +74,13 @@ public class LageristensteuerungTest {
 		for (Produkt p : temp) {
 			Lager.removeProdukt(p);
 		}
+		Lager.addProdukt(produkt2);
+		Lager.addProdukt(produkt1);
+		int anzahl_cola = Lager.getProduktBestand("Cola");
+		int anzahl_fanta = Lager.getProduktBestand("Fanta");
 		lageristenSteuerung.bestelleNach(nachbestellungen);
-		// assertTrue(Lager.getProduktBestand("Cola") == 5);
-		assertTrue(Lager.getProduktBestand("Fanta") == 2);
+		assertTrue(Lager.getProduktBestand("Cola") == anzahl_cola + 5);
+		assertTrue(Lager.getProduktBestand("Fanta") == anzahl_fanta + 2);
 	}
 
 	/**
