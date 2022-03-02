@@ -30,13 +30,15 @@ public class BenutzerDatenTripel implements Serializable {
 	 * @param benutzer
 	 */
 	public BenutzerDatenTripel(Benutzer benutzer) {
-		this.benutzer = benutzer;
-		if (benutzer.getRolle() == Rolle.KUNDE) {
-			bestellungen = new ArrayList<Bestellung>();
-			warenkorb = new ArrayList<Produkt>();
-		} else {
-			bestellungen = null;
-			warenkorb = null;
+		if (benutzer != null) {
+			this.benutzer = benutzer;
+			if (benutzer.getRolle() == Rolle.KUNDE) {
+				bestellungen = new ArrayList<Bestellung>();
+				warenkorb = new ArrayList<Produkt>();
+			} else {
+				bestellungen = null;
+				warenkorb = null;
+			}
 		}
 	}
 

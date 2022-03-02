@@ -12,15 +12,15 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
  *
  */
 public class FahrzeugRegister {
-	private HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 
 	/**
 	 * Fuegt ein Fahrzeug dem Register hinzu.
 	 * 
 	 * @param fahrzeug Das Fahrzeug, was dem Register hinzugefuegt werden soll.
 	 */
-	public void addFahrzeug(Fahrzeug fahrzeug) {
-		this.fahrzeuge.add(fahrzeug);
+	public static void addFahrzeug(Fahrzeug fahrzeug) {
+		FahrzeugRegister.fahrzeuge.add(fahrzeug);
 	}
 
 	/**
@@ -28,8 +28,8 @@ public class FahrzeugRegister {
 	 * 
 	 * @param fahrzeug Das Fahrzeug, was aus dem Register geloescht werden soll.
 	 */
-	public void removeFahrzeug(Fahrzeug fahrzeug) {
-		this.fahrzeuge.remove(fahrzeug);
+	public static void removeFahrzeug(Fahrzeug fahrzeug) {
+		FahrzeugRegister.fahrzeuge.remove(fahrzeug);
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class FahrzeugRegister {
 	 * 
 	 * @return Die Liste aller registrierten Fahrzeuge.
 	 */
-	public HashSet<Fahrzeug> getFahrzeuge() {
-		return this.fahrzeuge;
+	public static HashSet<Fahrzeug> getFahrzeuge() {
+		return FahrzeugRegister.fahrzeuge;
 	}
 }
