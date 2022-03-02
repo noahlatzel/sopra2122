@@ -40,8 +40,13 @@ public class Lageristensteuerung {
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				Lager.addProdukt(n.getProdukt().clone(GrosshaendlerRegister.getEinkaufspreis(n.getProdukt())));
-				Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+				if (n != null) {
+					if (n.getProdukt() != null) {
+						double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
+						Lager.addProdukt(n.getProdukt().clone(preis));
+						Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+					}
+				}
 			}
 		}
 	}
