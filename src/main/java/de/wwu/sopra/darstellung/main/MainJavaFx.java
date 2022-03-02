@@ -34,12 +34,6 @@ public class MainJavaFx extends Application {
 
 		primaryStage.setScene(new Startseite(primaryStage, 1280, 720));
 
-		// primaryStage.setScene(
-		// new LageristOverview(primaryStage, 1280, 720, new Lageristensteuerung(new
-		// Lagerist("noahlatzel",
-		// "nlatzel@uni-muenster.de", "123", "Muenster", "Noah", "Latzel", "DE123",
-		// null))));
-
 		primaryStage.show();
 
 	}
