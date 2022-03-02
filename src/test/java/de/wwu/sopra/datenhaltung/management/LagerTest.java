@@ -19,7 +19,6 @@ public class LagerTest {
 
 	@BeforeEach
 	void init() {
-		lager = new Lager();
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));

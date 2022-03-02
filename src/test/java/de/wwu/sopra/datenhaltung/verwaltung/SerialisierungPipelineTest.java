@@ -82,12 +82,10 @@ public class SerialisierungPipelineTest {
 		BenutzerRegister.produktZuWarenkorbHinzufuegen(kunde3, cola);
 		BenutzerRegister.produktZuWarenkorbHinzufuegen(kunde2, bier);
 
-		SerialisierungPipeline<BenutzerRegister> sp = new SerialisierungPipeline<BenutzerRegister>();
-		BenutzerRegister test = new BenutzerRegister();
-		sp.serialisieren(test, "produkt.ser");
-		BenutzerRegister temp = sp.deserialisieren("produkt.ser");
-		BenutzerRegister.benutzerEntfernen(kunde3);
-		assertTrue(BenutzerRegister.getBenutzerListe().equals(BenutzerRegister.getBenutzerListe()));
+		SerialisierungPipeline<Rechnung> sp = new SerialisierungPipeline<Rechnung>();
+		sp.serialisieren(rechnung1, "produkt.ser");
+		Rechnung temp = sp.deserialisieren("produkt.ser");
+		assertTrue(rechnung1.getRechnungsnummer() == temp.getRechnungsnummer());
 
 	}
 }

@@ -22,9 +22,9 @@ public class GrosshaendlerRegister implements Serializable {
 	private static String path = "grosshaendlerReg.ser";
 
 	/**
-	 * Initialisiert das GrosshaendlerRegister mit einer neuen preisListe.
+	 * Singleton Konstruktor
 	 */
-	public GrosshaendlerRegister() {
+	private GrosshaendlerRegister() {
 		preisListeIn.put("Coca Cola", 0.49);
 		preisListeIn.put("Fanta", 0.49);
 		preisListeIn.put("Sprite", 0.49);

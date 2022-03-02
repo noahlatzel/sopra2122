@@ -21,6 +21,13 @@ public class FahrzeugRegister implements Serializable {
 	private static String path = "fahrzeugReg.ser";
 
 	/**
+	 * Singleton Konstruktor
+	 */
+	private FahrzeugRegister() {
+
+	}
+
+	/**
 	 * Fuegt ein Fahrzeug dem Register hinzu.
 	 * 
 	 * @param fahrzeug Das Fahrzeug, was dem Register hinzugefuegt werden soll.

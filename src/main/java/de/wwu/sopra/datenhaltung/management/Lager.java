@@ -26,9 +26,10 @@ public class Lager implements Serializable {
 	private static HashSet<Produkt> lager = new HashSet<Produkt>();
 	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
 
-	public Lager() {
-		lager = new HashSet<Produkt>();
-		lagerbestand = new HashMap<String, Integer>();
+	/**
+	 * Singleton Konstruktor
+	 */
+	private Lager() {
 	}
 
 	/**

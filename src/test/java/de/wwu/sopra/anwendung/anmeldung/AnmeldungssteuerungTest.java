@@ -22,7 +22,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  */
 public class AnmeldungssteuerungTest {
 
-	BenutzerRegister benutzerReg = new BenutzerRegister();
 	Anmeldungssteuerung anSt;
 	Kunde kunde1;
 	Fahrer fahrer1;
