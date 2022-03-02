@@ -1,6 +1,9 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
 /**
  * Klasse fuer die Statistiken
@@ -15,19 +18,20 @@ public class Statistiken implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private double umsatz;
-	private double ausgaben;
-	private double einnahmen;
-	private double arbeitszeit;
+	private static double umsatz;
+	private static double ausgaben;
+	private static double einnahmen;
+	private static double arbeitszeit;
+	private static String path = "statistiken.ser";
 
 	/**
 	 * Konstruktor der Klasse Statistiken
 	 */
 	public Statistiken() {
-		this.setUmsatz(0);
-		this.setAusgaben(0);
-		this.setEinnahmen(0);
-		this.setArbeitszeit(0);
+		setUmsatz(0);
+		setAusgaben(0);
+		setEinnahmen(0);
+		setArbeitszeit(0);
 
 	}
 
@@ -36,7 +40,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Umsatz
 	 */
-	public double getUmsatz() {
+	public static double getUmsatz() {
 		return umsatz;
 	}
 
@@ -45,8 +49,8 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param umsatz Umsatz
 	 */
-	public void setUmsatz(double umsatz) {
-		this.umsatz = umsatz;
+	public static void setUmsatz(double umsatz) {
+		Statistiken.umsatz = umsatz;
 	}
 
 	/**
@@ -54,7 +58,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Ausgaben
 	 */
-	public double getAusgaben() {
+	public static double getAusgaben() {
 		return ausgaben;
 	}
 
@@ -63,8 +67,8 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param ausgaben Ausgaben
 	 */
-	public void setAusgaben(double ausgaben) {
-		this.ausgaben = ausgaben;
+	public static void setAusgaben(double ausgaben) {
+		Statistiken.ausgaben = ausgaben;
 	}
 
 	/**
@@ -72,7 +76,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Einnahmen
 	 */
-	public double getEinnahmen() {
+	public static double getEinnahmen() {
 		return einnahmen;
 	}
 
@@ -81,8 +85,8 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param einnahmen Einnahmen
 	 */
-	public void setEinnahmen(double einnahmen) {
-		this.einnahmen = einnahmen;
+	public static void setEinnahmen(double einnahmen) {
+		Statistiken.einnahmen = einnahmen;
 	}
 
 	/**
@@ -90,7 +94,7 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @return Arbeitszeit
 	 */
-	public double getArbeitszeit() {
+	public static double getArbeitszeit() {
 		return arbeitszeit;
 	}
 
@@ -99,8 +103,8 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param arbeitszeit Arbeitszeit
 	 */
-	public void setArbeitszeit(double arbeitszeit) {
-		this.arbeitszeit = arbeitszeit;
+	public static void setArbeitszeit(double arbeitszeit) {
+		Statistiken.arbeitszeit = arbeitszeit;
 	}
 
 	/**
@@ -108,8 +112,36 @@ public class Statistiken implements Serializable {
 	 * 
 	 * @param ausgaben Die Ausgaben, die hinzugekommen sind.
 	 */
-	public void addAusgaben(double ausgaben) {
-		this.ausgaben += ausgaben;
+	public static void addAusgaben(double ausgaben) {
+		Statistiken.ausgaben += ausgaben;
+	}
+
+	/**
+	 * Deserialisiert das FahrzeugRegister.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void load() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		ArrayList<Double> raw_statistiken = (ArrayList<Double>) sp.deserialisieren(path);
+		if (raw_statistiken != null) {
+			Statistiken.setUmsatz(raw_statistiken.get(0));
+			Statistiken.setAusgaben(raw_statistiken.get(1));
+			Statistiken.setEinnahmen(raw_statistiken.get(2));
+			Statistiken.setArbeitszeit(raw_statistiken.get(3));
+		}
+	}
+
+	/**
+	 * Serialisiert das FahrzeugRegister.
+	 */
+	public static void save() {
+		SerialisierungPipeline sp = new SerialisierungPipeline();
+		ArrayList<Double> raw_statistiken = new ArrayList<Double>();
+		raw_statistiken.add(umsatz);
+		raw_statistiken.add(ausgaben);
+		raw_statistiken.add(einnahmen);
+		raw_statistiken.add(arbeitszeit);
+		sp.serialisieren(raw_statistiken, path);
 	}
 
 }

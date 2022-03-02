@@ -26,19 +26,16 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  */
 public class Inhabersteuerung {
 	private Inhaber inhaber;
-	private Statistiken statistiken;
-	private Lager lager;
 
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
 	 * 
-	 * @param inhaber     inhaber
-	 * @param statistiken statistiken
+	 * 
+	 * @param inhaber
+	 * 
 	 */
-	public Inhabersteuerung(Inhaber inhaber, Statistiken statistiken, Lager lager) {
+	public Inhabersteuerung(Inhaber inhaber) {
 		this.inhaber = inhaber;
-		this.statistiken = statistiken;
-		this.lager = lager;
 	}
 
 	/**
@@ -92,9 +89,9 @@ public class Inhabersteuerung {
 	 */
 	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
-			this.lager.addProdukte(produkte);
+			Lager.addProdukte(produkte);
 		} else if (action == "loeschen") {
-			this.lager.removeProdukte(produkte);
+			Lager.removeProdukte(produkte);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -106,7 +103,7 @@ public class Inhabersteuerung {
 	 * @return lagerProdukte HashSet mit allen Produkten im Lager
 	 */
 	public HashSet<Produkt> sortimentAnzeigen() {
-		return this.lager.getLager();
+		return Lager.getLager();
 	}
 
 	/**
@@ -314,10 +311,10 @@ public class Inhabersteuerung {
 	 */
 	public HashMap<String, Float> statistikenAusgeben() {
 		HashMap<String, Float> statistikHashMap = new HashMap<String, Float>();
-		statistikHashMap.put("umsatz", (float) statistiken.getUmsatz());
-		statistikHashMap.put("ausgaben", (float) statistiken.getAusgaben());
-		statistikHashMap.put("einnahmen", (float) statistiken.getEinnahmen());
-		statistikHashMap.put("arbeitszeit", (float) statistiken.getArbeitszeit());
+		statistikHashMap.put("umsatz", (float) Statistiken.getUmsatz());
+		statistikHashMap.put("ausgaben", (float) Statistiken.getAusgaben());
+		statistikHashMap.put("einnahmen", (float) Statistiken.getEinnahmen());
+		statistikHashMap.put("arbeitszeit", (float) Statistiken.getArbeitszeit());
 
 		return statistikHashMap;
 	}

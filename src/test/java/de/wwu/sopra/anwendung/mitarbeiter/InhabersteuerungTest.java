@@ -48,7 +48,7 @@ public class InhabersteuerungTest {
 		name = "Sparrow";
 		bankverbindung = "DE00 0000 0000 0000 00";
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		ihs = new Inhabersteuerung(inhaber, statistiken, lager);
+		ihs = new Inhabersteuerung(inhaber);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class InhabersteuerungTest {
 		});
 
 		// Produkte von Lager erhalten
-		HashSet<Produkt> lagerProdukte = lager.getLager();
+		HashSet<Produkt> lagerProdukte = Lager.getLager();
 
 		assertTrue(lagerProdukte.size() == 2);
 

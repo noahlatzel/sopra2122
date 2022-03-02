@@ -2,6 +2,8 @@ package de.wwu.sopra.datenhaltung.verwaltung;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +27,6 @@ public class FahrzeugRegisterTest {
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 
 		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1));
-		// assertTrue(FahrzeugRegister.getFahrzeuge().size() == 1);
 
 	}
 
@@ -39,6 +40,17 @@ public class FahrzeugRegisterTest {
 		FahrzeugRegister.removeFahrzeug(fahrzeug1);
 
 		assertTrue(FahrzeugRegister.getFahrzeuge().contains(fahrzeug1) == false);
-		// assertTrue(FahrzeugRegister.getFahrzeuge().size() == 0);
+	}
+
+	/**
+	 * Testet load und save.
+	 */
+	@Test
+	void testLoad() {
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+		HashSet<Fahrzeug> temp = FahrzeugRegister.getFahrzeuge();
+		FahrzeugRegister.save();
+		FahrzeugRegister.load();
+		assertTrue(temp.toString().equals(FahrzeugRegister.getFahrzeuge().toString()));
 	}
 }
