@@ -28,6 +28,7 @@ public class Startseite extends Scene {
 	VBox vbox;
 	Label title;
 	
+	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
 	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
@@ -60,9 +61,8 @@ public class Startseite extends Scene {
 			buttonAnmelden = new Button("Anmelden");
 			buttonRegistrieren = new Button("Registrieren");
 			title = new Label("Willkommen!");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Comic Sans MS", 40));
 			
+			// Erstellung von DropShadows fuer Komponenten
 			DropShadow dropShadow = new DropShadow();
 			dropShadow.setRadius(5.0);
 			dropShadow.setOffsetX(4.0);
@@ -73,6 +73,8 @@ public class Startseite extends Scene {
 			vbox.getChildren().add(buttonAnmelden);
 			vbox.getChildren().add(buttonRegistrieren);
 			
+			// Styling
+			title.setStyle("-fx-font-weight: bold; -fx-font-size: 40");
 			vbox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 8px;");
 			vbox.setEffect(dropShadow);
 			vbox.setMaxSize(340, 380);
@@ -87,6 +89,7 @@ public class Startseite extends Scene {
 			changeButtonStyleOnHover(buttonAnmelden);
 			changeButtonStyleOnHover(buttonRegistrieren);
 			
+			// Button-Funktionen
 			buttonAnmelden.setOnAction(e -> primaryStage.setScene(new Anmeldung(primaryStage, 1280, 720)));
 			buttonRegistrieren.setOnAction(e -> primaryStage.setScene(new Registrierung(primaryStage, 1280, 720)));
 
@@ -97,6 +100,10 @@ public class Startseite extends Scene {
 		return vbox;
 	}
 	
+	/**
+	 * Funktion zum Aendern des Buttonsstils beim Hover
+	 * @param button	Button, der gestylt wird
+	 */
 	private void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);

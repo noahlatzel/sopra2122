@@ -49,6 +49,7 @@ public class Anmeldung extends Scene {
 	VBox vbox;
 	Text title;
 	
+	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
 	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
@@ -85,9 +86,11 @@ public class Anmeldung extends Scene {
 			textFeldPasswort = new PasswordField();
 			buttonAnmelden = new Button("Anmelden");
 			
+			// Set und Style Titel der Seite
 			title = new Text("Anmeldung");
 			title.setStyle("-fx-font-weight: bold; -fx-font-size: 48");
 
+			// Erstellung von DropShadows fuer TextField und fuer Button
 			DropShadow dropShadowButton = new DropShadow();
 			dropShadowButton.setRadius(5.0);
 			dropShadowButton.setOffsetX(4.0);
@@ -99,6 +102,7 @@ public class Anmeldung extends Scene {
 			dropShadowTextField.setOffsetY(2.0);
 			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
 			
+			// Styling von Komponenten
 			labelBenutzername.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
 			labelPasswort.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
 			textFeldBenutzername.setStyle("-fx-padding: 12");
@@ -120,6 +124,7 @@ public class Anmeldung extends Scene {
 			vbox.getChildren().add(textFeldPasswort);
 			vbox.getChildren().add(buttonAnmelden);
 
+			// MaxWidth fuer TextFields
 			textFeldBenutzername.setMaxWidth(240);
 			textFeldPasswort.setMaxWidth(240);
 
@@ -136,14 +141,20 @@ public class Anmeldung extends Scene {
 		return vbox;
 	}
 	
+	/**
+	 * Funktion zum Aendern des Buttonsstils beim Hover
+	 * @param button	Button, der gestylt wird
+	 */
 	private void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
+		// Button onHover
 		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent mouseEvent) {
 				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
 			}
 	    });
+		// Button not onHover
 		button.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent mouseEvent) {
 				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
