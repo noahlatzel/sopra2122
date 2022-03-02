@@ -1,5 +1,6 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Stuert die aufgaben des Lageristen
@@ -26,7 +28,6 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  */
 public class Inhabersteuerung {
 	private Inhaber inhaber;
-
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
 	 * 
@@ -242,6 +243,17 @@ public class Inhabersteuerung {
 	}
 
 	/**
+	 * Rueckgabeliste aller Lageristen und Fahrer
+	 * @return mitarbeitern		Liste von allen Mitarbeitern
+	 */
+	public List<Benutzer> mitarbeiternAnzeigen() {
+		List<Benutzer> mitarbeitern = new ArrayList<Benutzer>();
+		mitarbeitern.addAll(inhaber.getFahrer());
+		mitarbeitern.addAll(inhaber.getLageristen());
+		return mitarbeitern;
+	}
+	
+	/**
 	 * Funktion zum Bearbeiten von Fahrzeugdaten
 	 * 
 	 * @param fahrzeug       fahrzeug
@@ -257,6 +269,23 @@ public class Inhabersteuerung {
 			fahrzeug.setKapazitaet(kapazitaet);
 	}
 
+	/**
+	 * Funktion zum Loeschen eines Fahrzeugs
+	 * @param fahrzeug		Fahrzeug, das geloescht wird
+	 */
+	public void fahrzeugLoeschen(Fahrzeug fahrzeug) {
+		FahrzeugRegister.removeFahrzeug(fahrzeug);
+	}
+	
+	/**
+	 * Funktion zum Auflisten aller Fahrzeuge
+	 * @return fahrzeugeHSet	HashSet von allen Fahrzeuge in FahrzeugRegister
+	 */
+	public HashSet<Fahrzeug> fahrzeugeAnzeigen() {
+		HashSet<Fahrzeug> fahrzeugeHSet = FahrzeugRegister.getFahrzeuge();
+		return fahrzeugeHSet;
+	}
+	
 	/**
 	 * Funktion zum Anzeigen der persönlichen Daten des Inhabers
 	 * 

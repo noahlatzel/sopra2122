@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
@@ -21,8 +22,7 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
-import de.wwu.sopra.datenhaltung.management.Statistiken;
-import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class InhabersteuerungTest {
 	String benutzername;
@@ -34,10 +34,6 @@ public class InhabersteuerungTest {
 	String bankverbindung;
 	Inhaber inhaber;
 	Inhabersteuerung ihs;
-	Statistiken statistiken = new Statistiken();
-	BenutzerRegister benutzerReg = new BenutzerRegister();
-	Lager lager = new Lager();
-
 	@BeforeEach
 	void init() {
 		benutzername = "JackTheBoss";
@@ -116,16 +112,39 @@ public class InhabersteuerungTest {
 	}
 
 	/**
-	 * Testet die Bearbeitung von Fahrzeugdaten
+	 * Testet die Verwaltung von Fahrzeugdaten
 	 */
 	@Test
-	void testFahrzeugDatenAendern() {
-		// Erstellung von Fahrzeug
-		Fahrzeug fzeug = new Fahrzeug(94231, 321894215);
-
-		// Fahrzeugkapazitaet aendern
-		ihs.fahrzeugDatenAendern(fzeug, fzeug.getFahrzeugNummer(), 123456789);
-		assertEquals(fzeug.getKapazitaet(), 123456789);
+	void testFahrzeugeVerwalten() {
+		HashSet<Fahrzeug> fahrzeugee = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
+		for (Fahrzeug fzeug : fahrzeugee) {
+			FahrzeugRegister.removeFahrzeug(fzeug);
+		}
+		
+		// Erstellung von Fahrzeuge
+		Fahrzeug fzeug1 = new Fahrzeug(94231, 321894215);
+		Fahrzeug fzeug2 = new Fahrzeug(1111111, 52);
+		Fahrzeug fzeug3 = new Fahrzeug(1865111, 1000);
+		
+		FahrzeugRegister.addFahrzeug(fzeug1);
+		FahrzeugRegister.addFahrzeug(fzeug2);
+		FahrzeugRegister.addFahrzeug(fzeug3);
+		
+		HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+		fahrzeuge.add(fzeug1);
+		fahrzeuge.add(fzeug2);
+		fahrzeuge.add(fzeug3);
+		
+		// Testet, ob alle Fahrzeuge korrekt angezeigt werden
+		assertEquals(fahrzeuge, ihs.fahrzeugeAnzeigen());
+		
+		// Fahrzeug1kapazitaet aendern
+		ihs.fahrzeugDatenAendern(fzeug1, fzeug1.getFahrzeugNummer(), 123456789);
+		assertEquals(fzeug1.getKapazitaet(), 123456789);
+		
+		// Testet das Loeschen von einem Fahrzeug
+		ihs.fahrzeugLoeschen(fzeug3);
+		assertFalse(ihs.fahrzeugeAnzeigen().contains(fzeug3));
 	}
 
 	/**
@@ -169,6 +188,12 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testLagerVerwalten() throws IllegalArgumentException {
+		HashSet<Produkt> produkteLager = (HashSet<Produkt>) Lager.getLager().clone();
+		
+		for (Produkt p : produkteLager) {
+			Lager.removeProdukt(p);
+		}
+		
 		// Erstellung von Lager und Produkte
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		Produkt product = new Produkt("Cola", "American", 5.99, 7.99);
@@ -185,7 +210,8 @@ public class InhabersteuerungTest {
 		});
 
 		// Produkte von Lager erhalten
-		HashSet<Produkt> lagerProdukte = Lager.getLager();
+		// HashSet<Produkt> lagerProdukte = Lager.getLager();
+		HashSet<Produkt> lagerProdukte = ihs.sortimentAnzeigen();
 
 		assertTrue(lagerProdukte.size() == 2);
 
@@ -264,5 +290,26 @@ public class InhabersteuerungTest {
 		statisticsSupposedResult.put("arbeitszeit", (float) 0);
 
 		assertEquals(statistics, statisticsSupposedResult);
+	}
+	
+	/**
+	 * testet, ob die Liste mit den richtigen Daten zurueckgegeben wird
+	 */
+	@Test
+	void testMitarbeiternAnzeigen() {
+		Fahrer fahrer1 = new Fahrer("driver", "passwort", "sam@online.de", "ostbad 1", "Sam", "Winchester", "1234", inhaber);
+		Fahrer fahrer2 = new Fahrer("conductor", "passwort", "dean@online.de", "ostbad 1", "Dean", "Winchester", "1235", inhaber);
+		inhaber.fahrerHinzufuegen(fahrer1);
+		inhaber.fahrerHinzufuegen(fahrer2);
+		
+		Lagerist lagerist1 = new Lagerist("lagerista", "passwort", "cas@online.de", "ostbad 1", "Castiel", "Angel", "1235", inhaber);
+		inhaber.lageristHinzufuegen(lagerist1);
+		
+		List<Benutzer> mitarbeitern = new ArrayList<Benutzer>();
+		mitarbeitern.add(fahrer1);
+		mitarbeitern.add(fahrer2);
+		mitarbeitern.add(lagerist1);
+		
+		assertEquals(mitarbeitern, ihs.mitarbeiternAnzeigen());
 	}
 }

@@ -1,5 +1,4 @@
 package de.wwu.sopra.darstellung.main;
-
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
