@@ -10,6 +10,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * GUI Klasse fuer LageristOverview. Die anderen Lageristen GUIs erben von
+ * dieser Klasse.
+ * 
+ * @author Noah Latzel
+ *
+ */
 public class LageristOverview extends Scene {
 	BorderPane root = new BorderPane();
 	Stage primaryStage;

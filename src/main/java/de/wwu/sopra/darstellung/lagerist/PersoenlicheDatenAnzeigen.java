@@ -10,6 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * GUI Klasse fuer persoenliche Daten anzeigen
+ * 
+ * @author Noah Latzel
+ *
+ */
 public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height,

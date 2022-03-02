@@ -15,6 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+/**
+ * GUI Klasse fuer RoutePlanen
+ * 
+ * @author Noah Latzel
+ *
+ */
 public class RoutePlanen extends LageristOverview {
 	TilePane tilePane;
 	ScrollPane scrollPaneFahrzeug;

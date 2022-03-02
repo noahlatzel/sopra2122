@@ -119,10 +119,9 @@ public class Statistiken implements Serializable {
 	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		ArrayList<Double> raw_statistiken = (ArrayList<Double>) sp.deserialisieren(path);
+		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
+		ArrayList<Double> raw_statistiken = sp.deserialisieren(path);
 		if (raw_statistiken != null) {
 			Statistiken.setUmsatz(raw_statistiken.get(0));
 			Statistiken.setAusgaben(raw_statistiken.get(1));
@@ -135,7 +134,7 @@ public class Statistiken implements Serializable {
 	 * Serialisiert das FahrzeugRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
 		ArrayList<Double> raw_statistiken = new ArrayList<Double>();
 		raw_statistiken.add(umsatz);
 		raw_statistiken.add(ausgaben);

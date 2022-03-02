@@ -237,10 +237,9 @@ public class BenutzerRegister implements Serializable {
 	/**
 	 * Deserialisiert das BenutzerRegister.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		BenutzerRegister.benutzerListe = (List<BenutzerDatenTripel>) sp.deserialisieren(path);
+		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
+		BenutzerRegister.benutzerListe = sp.deserialisieren(path);
 		if (BenutzerRegister.getBenutzerListe() == null) {
 			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
 		}
@@ -250,7 +249,7 @@ public class BenutzerRegister implements Serializable {
 	 * Serialisiert das BenutzerRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
 		sp.serialisieren(BenutzerRegister.getBenutzerListe(), path);
 	}
 

@@ -10,9 +10,9 @@ import java.util.List;
 import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
 /**
- * klasse lager
+ * Klasse fuer das Lager
  * 
- * @author noah
+ * @author Noah Latzel
  *
  */
 
@@ -173,11 +173,11 @@ public class Lager implements Serializable {
 	/**
 	 * Deserialisiert das Lager.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		lagerbestand = (HashMap<String, Integer>) sp.deserialisieren(path_map);
-		lager = (HashSet<Produkt>) sp.deserialisieren(path_set);
+		SerialisierungPipeline<HashMap<String, Integer>> sp = new SerialisierungPipeline<HashMap<String, Integer>>();
+		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
+		lagerbestand = sp.deserialisieren(path_map);
+		lager = sp1.deserialisieren(path_set);
 		if (lagerbestand == null) {
 			lagerbestand = new HashMap<String, Integer>();
 		}
@@ -190,8 +190,9 @@ public class Lager implements Serializable {
 	 * Serialisiert das Lager.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<HashMap<String, Integer>> sp = new SerialisierungPipeline<HashMap<String, Integer>>();
+		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
-		sp.serialisieren(Lager.getLager(), path_set);
+		sp1.serialisieren(Lager.getLager(), path_set);
 	}
 }

@@ -50,10 +50,9 @@ public class FahrzeugRegister implements Serializable {
 	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		FahrzeugRegister.fahrzeuge = (HashSet<Fahrzeug>) sp.deserialisieren(path);
+		SerialisierungPipeline<HashSet<Fahrzeug>> sp = new SerialisierungPipeline<HashSet<Fahrzeug>>();
+		FahrzeugRegister.fahrzeuge = sp.deserialisieren(path);
 		if (FahrzeugRegister.fahrzeuge == null) {
 			FahrzeugRegister.fahrzeuge = new HashSet<Fahrzeug>();
 		}
@@ -63,7 +62,7 @@ public class FahrzeugRegister implements Serializable {
 	 * Serialisiert das FahrzeugRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<HashSet<Fahrzeug>> sp = new SerialisierungPipeline<HashSet<Fahrzeug>>();
 		sp.serialisieren(FahrzeugRegister.getFahrzeuge(), path);
 	}
 }

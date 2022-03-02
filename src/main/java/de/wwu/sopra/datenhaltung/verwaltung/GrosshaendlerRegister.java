@@ -8,7 +8,7 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 /**
  * Verwaltet die Preisliste des Grosshaendlers
  * 
- * @author NoahLatzel
+ * @author Noah Latzel
  *
  */
 public class GrosshaendlerRegister implements Serializable {
@@ -88,10 +88,9 @@ public class GrosshaendlerRegister implements Serializable {
 	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void load() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
-		preisListeIn = (HashMap<String, Double>) sp.deserialisieren(path);
+		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
+		preisListeIn = sp.deserialisieren(path);
 		if (preisListeIn == null) {
 			preisListeIn = new HashMap<String, Double>();
 		}
@@ -101,7 +100,7 @@ public class GrosshaendlerRegister implements Serializable {
 	 * Serialisiert das FahrzeugRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline sp = new SerialisierungPipeline();
+		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
 		sp.serialisieren(GrosshaendlerRegister.preisListeIn, path);
 	}
 

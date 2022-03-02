@@ -22,6 +22,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * GUI Klasse fuer die Produkte in BestelleNach GUI
+ * 
+ * @author Noah Latzel
+ *
+ */
 public class NachbestellungProduktGUI extends LageristOverview {
 
 	public NachbestellungProduktGUI(Stage primaryStage, double width, double height,

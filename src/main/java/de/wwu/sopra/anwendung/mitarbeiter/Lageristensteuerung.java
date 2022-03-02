@@ -20,7 +20,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  * Die LageristenSteuerung des Systems ist das Bindeglied zwischen
  * Grenzklassen/GUI und der Datenhaltungsschicht.
  * 
- * @author NoahLatzel
+ * @author Noah Latzel
  *
  */
 public class Lageristensteuerung {

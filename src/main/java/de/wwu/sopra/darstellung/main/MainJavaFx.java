@@ -8,14 +8,12 @@ import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
-import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainJavaFx extends Application {
 	BorderPane layout;
-	SerialisierungPipeline sp = new SerialisierungPipeline();
 
 	@Override
 	public void start(Stage primaryStage) {
