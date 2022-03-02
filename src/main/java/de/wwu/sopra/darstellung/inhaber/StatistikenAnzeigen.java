@@ -20,6 +20,7 @@ import javafx.stage.Stage;
  *
  */
 public class StatistikenAnzeigen extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	TilePane tilePane;
 	HashMap<String,Float> stats;
@@ -33,6 +34,7 @@ public class StatistikenAnzeigen extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -47,6 +49,7 @@ public class StatistikenAnzeigen extends InhaberOverview {
 	}
 	
 	private TilePane setStatistikenOverviews() {
+		// TilePane als Main Content Wrapper
 		if (this.tilePane == null) {
 			tilePane = new TilePane();
 			for (String key : stats.keySet()) {

@@ -29,6 +29,7 @@ import javafx.stage.Stage;
  *
  */
 public class FahrzeugdatenAendern extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
 	ScrollPane scrollPaneFahrzeug;
@@ -50,6 +51,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -64,6 +66,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	}
 	
 	private GridPane setContent() {
+		// GridPane als Main Content Wrapper
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
 			gridPane.add(this.setFahrzeugListeScrollPane(), 0, 0);
@@ -79,12 +82,15 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	
 	private ScrollPane setFahrzeugListeScrollPane() {
 		ScrollPane scrollPane = new ScrollPane();
+		// Get Fahrzeugen Liste
 		fahrzeugeListe = new ArrayList<Fahrzeug>(inhaberSteuerung.fahrzeugeAnzeigen());
 		
+		// Neue Liste mit den IDs von den Fahrzeugen
 		List<Integer> fahrzeugeid = new ArrayList<Integer>();
 		for (int i = 0; i < fahrzeugeListe.size(); i++)
 			fahrzeugeid.add(fahrzeugeListe.get(i).getFahrzeugNummer());
 
+		// Erstellung einer ListView, um Fahrzeugen zu zeigen
 		fahrzeuge = (ObservableList<Integer>) FXCollections.observableArrayList(fahrzeugeid);
 		listView = new ListView<Integer>(fahrzeuge);
 		scrollPane.setContent(listView);
@@ -92,11 +98,13 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		scrollPane.setMinWidth(600);
 		listView.setOnMouseClicked(e -> {
 			try {
+				// Data TextFields fuellen
 				int index = listView.getSelectionModel().getSelectedIndex();
 				
 				tfFahrzeugNummer.setText(String.valueOf(fahrzeugeListe.get(index).getFahrzeugNummer()));
 				tfKapazitaet.setText(String.valueOf(fahrzeugeListe.get(index).getKapazitaet()));
 				
+				// Button, um Fahrzeug zu bearbeiten
 				btnBearbeiten.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 			        public void handle(MouseEvent event) {
@@ -114,8 +122,8 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 					}
 			    });
 				
-			} catch (IndexOutOfBoundsException k) {
-				System.out.println("kein objekt an dieser Stelle, bitte waehle ein Rezept");
+			} catch (IndexOutOfBoundsException E) {
+				E.printStackTrace();
 			}
 
 		});
@@ -123,6 +131,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	}
 	
 	public VBox setForm() {
+		// Temp!!! TextFields, um Fahrzeug zu sehen und bearbeiten
 		if (this.form == null) {
 			form = new VBox(6);
 			form.getChildren().add(lblFahrzeugnummer);
@@ -137,6 +146,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	}
 	
 	public Button setLoeschenButton() {
+		// Erstellung von Loeschen-Button, um ein Fahrzeug zu loeschen
 		if (this.loeschenButton == null) {
 			loeschenButton = new Button("Fahrzeug Loeschen");
 			loeschenButton.setOnAction(e -> {

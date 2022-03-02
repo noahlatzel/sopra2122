@@ -22,6 +22,7 @@ import javafx.stage.Stage;
  *
  */
 public class InhaberOverview extends Scene {
+	// Erstellung von Variablen
 	BorderPane root = new BorderPane();
 	Stage primaryStage;
 	Image image;
@@ -47,6 +48,7 @@ public class InhaberOverview extends Scene {
 	}
 	
 	private VBox setVBox() {
+		// Erstellung von SideBar mit allen Buttons
 		if (this.vbox == null) {
 			vbox = new VBox(7);
 			vbox.getChildren().add(this.setBtStatistiken());
@@ -61,6 +63,7 @@ public class InhaberOverview extends Scene {
 	}
 	
 	private BorderPane setHeader() {
+		// Main Header, konstant
 		if (this.header == null) {
 			header = new BorderPane();
 			header.minHeight(300);
@@ -76,6 +79,8 @@ public class InhaberOverview extends Scene {
 		
 		return this.header;
 	}
+	
+	// Erstellungen von Buttons, die auf andere Websites weiterleiten
 	
 	private Button setBtStatistiken() {
 		if (this.btStatistiken == null) {

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
  *
  */
 public class SortimentBearbeiten extends InhaberOverview {
+	// Erstellung von Variable
 	BorderPane contentWrapper;
 
 	public SortimentBearbeiten(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
@@ -23,6 +24,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));

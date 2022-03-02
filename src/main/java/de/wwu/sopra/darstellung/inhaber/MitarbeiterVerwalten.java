@@ -27,6 +27,7 @@ import javafx.stage.Stage;
  *
  */
 public class MitarbeiterVerwalten extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
 	ScrollPane spMitarbeitern;
@@ -40,6 +41,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -54,6 +56,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	}
 	
 	private GridPane setContent() {
+		// GridPane als Main Content Wrapper
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
 			gridPane.add(this.setMitarbeiternTableView(), 0, 0);
@@ -64,19 +67,24 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	}
 	
 	private ScrollPane setMitarbeiternTableView() {
+		// Erstellung von TableView, um eine bessere Overview von allen Mitarbeitern zu haben
 		if (this.spMitarbeitern == null) {
 			mitarbeitern = FXCollections.observableArrayList();
 			spMitarbeitern = new ScrollPane();
 			
+			// Get alle Mitarbeitern
 			for (Benutzer mitarbeiter : inhaberSteuerung.mitarbeiternAnzeigen()) {
 				mitarbeitern.add(mitarbeiter);
 			}
 
 			tableViewMitarbeitern = new TableView<Benutzer>();
+			// Tabelle beartbeitbar zu machen
 			tableViewMitarbeitern.setEditable(true);
 			
+			// Spalten zur Tabelle hinzufuegen
 			TableColumn<Benutzer, String> benutzerBenutzernameSpalte = new TableColumn<>("Benutzername");
 			benutzerBenutzernameSpalte.setCellValueFactory(new PropertyValueFactory<>("benutzername"));
+			// Table Cell bearbeitbar zu machen (Benuztername-Aenderung)
 			benutzerBenutzernameSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerBenutzernameSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -94,6 +102,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	        
 			TableColumn<Benutzer, String> benutzerVornameSpalte = new TableColumn<>("Vorname");
 			benutzerVornameSpalte.setCellValueFactory(new PropertyValueFactory<>("vorname"));
+			// Table Cell bearbeitbar zu machen (Vorname-Aenderung)
 			benutzerVornameSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerVornameSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -111,6 +120,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			
 			TableColumn<Benutzer, String> benutzerNameSpalte = new TableColumn<>("Name");
 			benutzerNameSpalte.setCellValueFactory(new PropertyValueFactory<>("name"));
+			// Table Cell bearbeitbar zu machen (Nachname-Aenderung)
 			benutzerNameSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerNameSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -128,6 +138,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			
 			TableColumn<Benutzer, String> benutzerEmailSpalte = new TableColumn<>("E-Mail");
 			benutzerEmailSpalte.setCellValueFactory(new PropertyValueFactory<>("email"));
+			// Table Cell bearbeitbar zu machen (EMail-Aenderung)
 			benutzerEmailSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerEmailSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -145,6 +156,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			
 			TableColumn<Benutzer, String> benutzerAdresseSpalte = new TableColumn<>("Adresse");
 			benutzerAdresseSpalte.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+			// Table Cell bearbeitbar zu machen (Adresse-Aenderung)
 			benutzerAdresseSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerAdresseSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -162,6 +174,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			
 			TableColumn<Benutzer, String> benutzerBankverbindungSpalte = new TableColumn<>("Bankverbindung");
 			benutzerBankverbindungSpalte.setCellValueFactory(new PropertyValueFactory<>("bankverbindung"));
+			// Table Cell bearbeitbar zu machen (Bankverbindung-Aenderung)
 			benutzerBankverbindungSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerBankverbindungSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -179,6 +192,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			
 			TableColumn<Benutzer, String> benutzerPasswortSpalte = new TableColumn<>("Passwort");
 			benutzerPasswortSpalte.setCellValueFactory(new PropertyValueFactory<>("passwort"));
+			// Table Cell bearbeitbar zu machen (Passwort-Aenderung)
 			benutzerPasswortSpalte.setCellFactory(TextFieldTableCell.forTableColumn());
 			benutzerPasswortSpalte.setOnEditCommit(
 	            new EventHandler<CellEditEvent<Benutzer, String>>() {
@@ -194,9 +208,11 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	            }
 	        );
 			
+			// Rolle sollte nicht bearbeitbar sein
 			TableColumn<Benutzer, String> benutzerRolleSpalte = new TableColumn<>("Rolle");
 			benutzerRolleSpalte.setCellValueFactory(new PropertyValueFactory<>("rolle"));
 			
+			// Spalten zur Tabelle hinzufuegen
 			tableViewMitarbeitern.getColumns().add(benutzerRolleSpalte);
 			tableViewMitarbeitern.getColumns().add(benutzerBenutzernameSpalte);
 			tableViewMitarbeitern.getColumns().add(benutzerVornameSpalte);
@@ -213,6 +229,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 	}
 	
 	public Button setLoeschenButton() {
+		// Erstellung des Loeschen-Buttons
 		if (this.loeschenButton == null) {
 			loeschenButton = new Button("Benutzer Loeschen");
 			loeschenButton.setOnAction(e -> {

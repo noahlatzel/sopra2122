@@ -26,6 +26,7 @@ import javafx.stage.Stage;
  *
  */
 public class MitarbeiterRegistrieren extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane grid;
 	
@@ -35,6 +36,7 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -49,9 +51,11 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 	}
 	
 	private GridPane setRegistrierungFields() {
+		// GridPane als Main Content Wrapper
 		if (this.grid == null) {
 			grid = new GridPane();
 			
+			// Erstellung von Labeln
 			Label lblBenutzername = new Label("Benutzername");
 			Label lblPasswort = new Label("Passwort");
 			Label lblEmail = new Label("Email");
@@ -61,6 +65,7 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 			Label lblBankverbindung = new Label("Bankverbindung");
 			Label lblRolle = new Label("Rolle");
 			
+			// Erstellung von TextFields und PasswordField
 			TextField tfBenutzername = new TextField();
 			PasswordField tfPasswort = new PasswordField();
 			TextField tfEmail = new TextField();
@@ -69,6 +74,7 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 			TextField tfNachname = new TextField();
 			TextField tfBankverbindung = new TextField();
 
+			// in organisierten Komponenten zeigen
 			VBox vboxBenutzerName = new VBox(2);
 			vboxBenutzerName.getChildren().add(lblBenutzername);
 			vboxBenutzerName.getChildren().add(tfBenutzername);
@@ -97,6 +103,7 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 			vboxBankverbindung.getChildren().add(lblBankverbindung);
 			vboxBankverbindung.getChildren().add(tfBankverbindung);
 			
+			// ComboBox/Dropdown fuer Rollen
 			ComboBox<Rolle> rollenCB = new ComboBox<>();
 			rollenCB.getItems().add(Rolle.FAHRER);
 			rollenCB.getItems().add(Rolle.LAGERIST);
@@ -105,8 +112,10 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 			vboxRolle.getChildren().add(lblRolle);
 			vboxRolle.getChildren().add(rollenCB);
 
+			// Erstellung von Registrierung-Button
 			Button btRegistrieren = new Button("Registrieren");
 			
+			// Alles auf Grid
 			grid.add(vboxBenutzerName, 0, 0);
 			grid.add(vboxVorname, 0, 1);
 			grid.add(vboxPasswort, 0, 2);
@@ -117,6 +126,7 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 			grid.add(vboxRolle, 1, 3);
 			grid.add(btRegistrieren, 1, 4);
 			
+			// Funktion/Listener zu Registrieren-Button hinzufuegen
 			btRegistrieren.setOnAction(action -> {
 				boolean validInputs = true;
 				

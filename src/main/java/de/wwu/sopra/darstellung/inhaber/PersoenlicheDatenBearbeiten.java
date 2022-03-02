@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
  *
  */
 public class PersoenlicheDatenBearbeiten extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
 
@@ -32,6 +34,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -48,8 +51,10 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 	private GridPane setContent() {
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
+			// Get alle Daten vom Inhaber als String
 			String alleDatenAlsString = inhaberSteuerung.persoenlicheDatenAnzeigen();
 
+			// Erstellung von Labeln und TextFields
 			Label lblBenutzername = new Label("Benutzername");
 			Label lblPasswort = new Label("Passwort");
 			Label lblEmail = new Label("Email");
@@ -66,6 +71,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			TextField tfNachname = new TextField();
 			TextField tfBankverbindung = new TextField();
 
+			// in organisierten Komponenten zeigen
 			VBox vboxBenutzerName = new VBox(2);
 			vboxBenutzerName.getChildren().add(lblBenutzername);
 			vboxBenutzerName.getChildren().add(tfBenutzername);
@@ -94,6 +100,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			vboxBankverbindung.getChildren().add(lblBankverbindung);
 			vboxBankverbindung.getChildren().add(tfBankverbindung);
 			
+			// Alles auf Grid
 			gridPane.add(vboxBenutzerName, 0, 0);
 			gridPane.add(vboxVorname, 0, 1);
 			gridPane.add(vboxPasswort, 0, 2);
@@ -102,6 +109,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			gridPane.add(vboxNachname, 1, 1);
 			gridPane.add(vboxBankverbindung, 1, 2);
 
+			// Lange String durch ";" teilen und Daten einsetzen
 			String[] getrennteDatenString = alleDatenAlsString.split(";");
 			tfBenutzername.setText(getrennteDatenString[0]);
 			tfPasswort.setText(getrennteDatenString[1]);
@@ -111,10 +119,12 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			tfNachname.setText(getrennteDatenString[5]);
 			tfBankverbindung.setText(getrennteDatenString[6]);
 			
+			// Erstellung von Speicher-Button
 			Button btSpeichern = new Button("Speichern");
 			gridPane.add(btSpeichern, 1, 4);
 			btSpeichern.setOnAction(e -> {
 
+				// Ueberprueft, dass alle Eingaben nicht leer sing
 				boolean gueltigeEinngaben = true;
 				List<TextField> felder = new ArrayList<TextField>();
 				felder.add(tfBankverbindung);
@@ -129,7 +139,9 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 						gueltigeEinngaben = false;
 				}
 				
+				// Erstellung von neuem roten Error-Label
 				Label errorLabel = new Label();
+				errorLabel.setTextFill(Color.web("#ff0000"));
 
 				if (gueltigeEinngaben == true) {
 					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(), tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(), tfBankverbindung.getText());

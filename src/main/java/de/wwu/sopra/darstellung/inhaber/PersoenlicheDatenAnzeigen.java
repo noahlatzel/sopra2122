@@ -19,6 +19,7 @@ import javafx.stage.Stage;
  *
  */
 public class PersoenlicheDatenAnzeigen extends InhaberOverview {
+	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
 	
@@ -28,6 +29,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 	}
 	
 	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
@@ -44,8 +46,10 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 	private GridPane setContent() {
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
+			// Get alle Daten vom Inhaber als String
 			String alleDatenAlsString = inhaberSteuerung.persoenlicheDatenAnzeigen();
 
+			// Erstellung von Labeln und TextFields
 			Label lblBenutzername = new Label("Benutzername");
 			Label lblPasswort = new Label("Passwort");
 			Label lblEmail = new Label("Email");
@@ -62,6 +66,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			TextField tfNachname = new TextField();
 			TextField tfBankverbindung = new TextField();
 
+			// in organisierten Komponenten zeigen
 			VBox vboxBenutzerName = new VBox(2);
 			vboxBenutzerName.getChildren().add(lblBenutzername);
 			vboxBenutzerName.getChildren().add(tfBenutzername);
@@ -90,6 +95,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			vboxBankverbindung.getChildren().add(lblBankverbindung);
 			vboxBankverbindung.getChildren().add(tfBankverbindung);
 			
+			// Alles auf Grid
 			gridPane.add(vboxBenutzerName, 0, 0);
 			gridPane.add(vboxVorname, 0, 1);
 			gridPane.add(vboxPasswort, 0, 2);
@@ -98,6 +104,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			gridPane.add(vboxNachname, 1, 1);
 			gridPane.add(vboxBankverbindung, 1, 2);
 
+			// Lange String durch ";" teilen und Daten einsetzen
 			String[] getrennteDatenString = alleDatenAlsString.split(";");
 			tfBenutzername.setText(getrennteDatenString[0]);
 			tfPasswort.setText(getrennteDatenString[1]);
@@ -107,6 +114,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			tfNachname.setText(getrennteDatenString[5]);
 			tfBankverbindung.setText(getrennteDatenString[6]);
 
+			// TextFields nicht bearbeitbar zu machen
 			tfBenutzername.setEditable(false);
 			tfPasswort.setEditable(false);
 			tfEmail.setEditable(false);
