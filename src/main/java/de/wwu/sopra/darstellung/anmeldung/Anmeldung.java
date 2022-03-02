@@ -6,6 +6,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
+import de.wwu.sopra.darstellung.inhaber.InhaberOverview;
 import de.wwu.sopra.darstellung.lagerist.LageristOverview;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -51,6 +52,8 @@ public class Anmeldung extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setVBox());
+		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
+		BenutzerRegister.benutzerHinzufuegen(inhaber);
 
 	}
 
@@ -137,6 +140,8 @@ public class Anmeldung extends Scene {
 
 		case INHABER:
 			Inhabersteuerung is = new Inhabersteuerung((Inhaber) benutzer); // TODO Fehlende Parameter
+			InhaberOverview io = new InhaberOverview(primaryStage, getWidth(), getHeight(), is);
+			primaryStage.setScene(io);
 
 			System.out.println("Inhaber angemeldet!");
 			break;
