@@ -39,7 +39,7 @@ public class Fahrzeug implements Serializable {
 	 */
 	public Fahrzeug(float kapazitaet) throws IllegalArgumentException {
 		this.setFahrzeugNummer(zaehler);
-		zaehler++;
+		Fahrzeug.zaehler++;
 		this.kapazitaet = kapazitaet;
 		this.status = FahrzeugStatus.FREI;
 	}
