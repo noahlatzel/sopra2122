@@ -92,26 +92,35 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 		lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
 
 		// Textfeld nicht editierbar
-		tfBenutzername.setEditable(false);
-		tfPasswort.setEditable(false);
-		tfEmail.setEditable(false);
-		tfAdresse.setEditable(false);
-		tfVorname.setEditable(false);
-		tfNachname.setEditable(false);
-		tfBankverbindung.setEditable(false);
+		tfBenutzername.setDisable(true);
+		tfPasswort.setDisable(true);
+		tfEmail.setDisable(true);
+		tfAdresse.setDisable(true);
+		tfVorname.setDisable(true);
+		tfNachname.setDisable(true);
+		tfBankverbindung.setDisable(true);
+
+		// Text Style
+		tfBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
 
 		// Buttons setzen
 		Button bearbeiten = new Button("Bearbeiten");
 		bearbeiten.setEffect(dropShadow);
 		changeButtonStyleOnHover(bearbeiten);
 		bearbeiten.setOnAction(a -> {
-			tfBenutzername.setEditable(true);
-			tfPasswort.setEditable(true);
-			tfEmail.setEditable(true);
-			tfAdresse.setEditable(true);
-			tfVorname.setEditable(true);
-			tfNachname.setEditable(true);
-			tfBankverbindung.setEditable(true);
+			tfBenutzername.setDisable(false);
+			tfPasswort.setDisable(false);
+			tfEmail.setDisable(false);
+			tfAdresse.setDisable(false);
+			tfVorname.setDisable(false);
+			tfNachname.setDisable(false);
+			tfBankverbindung.setDisable(false);
 		});
 		Button speichern = new Button("Speichern");
 		speichern.setEffect(dropShadow);
@@ -140,13 +149,13 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 			} else {
 				grid.add(new Label("es gibt Leere Angaben"), 2, 7);
 			}
-			tfBenutzername.setEditable(false);
-			tfPasswort.setEditable(false);
-			tfEmail.setEditable(false);
-			tfAdresse.setEditable(false);
-			tfVorname.setEditable(false);
-			tfNachname.setEditable(false);
-			tfBankverbindung.setEditable(false);
+			tfBenutzername.setDisable(true);
+			tfPasswort.setDisable(true);
+			tfEmail.setDisable(true);
+			tfAdresse.setDisable(true);
+			tfVorname.setDisable(true);
+			tfNachname.setDisable(true);
+			tfBankverbindung.setDisable(true);
 		});
 
 		// Grid setzen
