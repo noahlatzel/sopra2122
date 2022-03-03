@@ -1,6 +1,7 @@
 package de.wwu.sopra.datenhaltung.verwaltung;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,11 @@ public class BenutzerDatenTripelTest {
 		assertEquals(benutzerDatenTripel.getBenutzer(), benutzer);
 		assertEquals(benutzerDatenTripel.getBestellungen(), bestellungen);
 		assertEquals(benutzerDatenTripel.getWarenkorb(), warenkorb);
+	}
+
+	@Test
+	public void testToString() {
+		assertTrue(benutzerDatenTripel.toString().equals("einName 0 0"));
 	}
 
 }

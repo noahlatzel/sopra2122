@@ -156,7 +156,7 @@ public class Kundensteuerung {
 			throw new NullPointerException();
 		for (int i = 0; i < bestellung.getProdukte().size(); i++) {
 			if (Lager.getProduktBestand(bestellung.getProdukte().get(i)) < bestellung
-					.getProduktAnzahl(bestellung.getProdukte().get(i), bestellung.getProdukte())) {
+					.getProduktAnzahl(bestellung.getProdukte().get(i))) {
 				throw new IllegalArgumentException("Eine Nachlieferung  ist leider nicht moeglich.");
 			}
 		}

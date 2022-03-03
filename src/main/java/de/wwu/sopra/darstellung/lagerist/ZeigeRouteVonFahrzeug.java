@@ -6,6 +6,7 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.Route;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -33,6 +34,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 		super(primaryStage, width, height, lageristenSteuerung);
 		root.setCenter(new Label("Route von Fahrzeugen anzeigen..."));
 		tilePane = new TilePane();
+		tilePane.setPadding(new Insets(20));
 		tilePane.getChildren().add(this.setScrollPaneFahrzeug());
 		tilePane.getChildren().add(this.setScrollPaneRoute());
 

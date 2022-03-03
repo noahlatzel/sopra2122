@@ -25,6 +25,7 @@ public class BenutzerRegister implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
 	private static String path = "benutzerReg.ser";
+	private static int zaehlerBestellung = 0;
 
 	/**
 	 * Singleton Konstruktor
@@ -247,9 +248,6 @@ public class BenutzerRegister implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
 		BenutzerRegister.benutzerListe = sp.deserialisieren(path);
-		if (BenutzerRegister.getBenutzerListe() == null) {
-			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
-		}
 	}
 
 	/**
@@ -258,6 +256,15 @@ public class BenutzerRegister implements Serializable {
 	public static void save() {
 		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
 		sp.serialisieren(BenutzerRegister.getBenutzerListe(), path);
+	}
+
+	/**
+	 * Gibt den Zaehler fuer Bestellung zurueck.
+	 * 
+	 * @return Den Zaehler fuer Bestellung
+	 */
+	public static int getZaehlerBestellung() {
+		return ++zaehlerBestellung;
 	}
 
 }
