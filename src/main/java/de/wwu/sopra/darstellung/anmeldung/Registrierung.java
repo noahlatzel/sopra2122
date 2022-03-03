@@ -13,8 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -47,10 +45,10 @@ public class Registrierung extends Scene {
 	Label labelName = new Label("Name");
 	Label labelBankverbindung = new Label("Bankverbindung");
 	Text title;
-	
+
 	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
+	private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -70,20 +68,20 @@ public class Registrierung extends Scene {
 	private GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
-			
+
 			// Styles fuer TextFields und Labels
 			String textFieldStyles = "-fx-padding: 12";
 			String labelStyles = "-fx-font-weight: bold; -fx-font-size: 18";
-			
+
 			title = new Text("Registrierung");
-			
+
 			// Erstellung von DropShadows fuer TextField
 			DropShadow dropShadowTextField = new DropShadow();
 			dropShadowTextField.setRadius(5.0);
 			dropShadowTextField.setOffsetX(2.0);
 			dropShadowTextField.setOffsetY(2.0);
 			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
-			
+
 			// Styling von Komponenten
 			GridPane.setMargin(title, new Insets(0, 0, 30, 0));
 			GridPane.setMargin(setButtonRegistrieren(), new Insets(40, 10, 0, 0));
@@ -144,14 +142,14 @@ public class Registrierung extends Scene {
 	private Button setButtonRegistrieren() {
 		buttonRegistrieren.setAlignment(Pos.TOP_CENTER);
 		buttonRegistrieren.setPadding(new Insets(10));
-		
+
 		// Erstellung von DropShadows fuer Button
 		DropShadow dropShadowButton = new DropShadow();
 		dropShadowButton.setRadius(5.0);
 		dropShadowButton.setOffsetX(4.0);
 		dropShadowButton.setOffsetY(4.0);
 		dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
-		
+
 		buttonRegistrieren.setEffect(dropShadowButton);
 
 		// Knopfdruckfunktionalitaet
@@ -162,30 +160,33 @@ public class Registrierung extends Scene {
 					textFeldBankverbindung.getText());
 			primaryStage.setScene(new Anmeldung(primaryStage, 800, 600)); // TODO
 		});
-		
+
 		changeButtonStyleOnHover(buttonRegistrieren);
 
 		return buttonRegistrieren;
 	}
-	
+
 	/**
 	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * @param button	Button, der gestylt wird
+	 * 
+	 * @param button Button, der gestylt wird
 	 */
 	private void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 		// Button onHover
 		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
 			}
-	    });
+		});
 		// Button not onHover
 		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 			}
-	    });
+		});
 	}
 }

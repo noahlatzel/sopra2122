@@ -7,7 +7,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
 import de.wwu.sopra.darstellung.inhaber.InhaberOverview;
-import de.wwu.sopra.darstellung.kunde.KundeOverview;
+import de.wwu.sopra.darstellung.kunde.StartseiteKunde;
 import de.wwu.sopra.darstellung.lagerist.LageristOverview;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -48,10 +48,10 @@ public class Anmeldung extends Scene {
 	Label labelPasswort;
 	VBox vbox;
 	Text title;
-	
+
 	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
+	private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -85,7 +85,7 @@ public class Anmeldung extends Scene {
 			textFeldBenutzername = new TextField();
 			textFeldPasswort = new PasswordField();
 			buttonAnmelden = new Button("Anmelden");
-			
+
 			// Set und Style Titel der Seite
 			title = new Text("Anmeldung");
 			title.setStyle("-fx-font-weight: bold; -fx-font-size: 48");
@@ -101,7 +101,7 @@ public class Anmeldung extends Scene {
 			dropShadowTextField.setOffsetX(2.0);
 			dropShadowTextField.setOffsetY(2.0);
 			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
-			
+
 			// Styling von Komponenten
 			labelBenutzername.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
 			labelPasswort.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
@@ -140,26 +140,29 @@ public class Anmeldung extends Scene {
 		}
 		return vbox;
 	}
-	
+
 	/**
 	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * @param button	Button, der gestylt wird
+	 * 
+	 * @param button Button, der gestylt wird
 	 */
 	private void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 		// Button onHover
 		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
 			}
-	    });
+		});
 		// Button not onHover
 		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 			}
-	    });
+		});
 	}
 
 	/**
@@ -188,8 +191,8 @@ public class Anmeldung extends Scene {
 		switch (benutzer.getRolle()) {
 		case KUNDE:
 			Kundensteuerung ks = new Kundensteuerung((Kunde) benutzer);
-			KundeOverview ko = new KundeOverview(primaryStage, getWidth(), getHeight(), ks);
-			primaryStage.setScene(ko);
+			StartseiteKunde sk = new StartseiteKunde(primaryStage, getWidth(), getHeight(), ks, ks.getLager());
+			primaryStage.setScene(sk);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:

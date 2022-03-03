@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
@@ -209,5 +211,17 @@ public class KundensteuerungTest {
 		for (int i = 0; i < liste2.size(); i++) {
 			assertTrue(liste2.get(i).getName().equals(neueListe.get(i).getName()));
 		}
+	}
+
+	@Test
+	void getKategorienTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
+		for (Produkt p : Lager.getLager()) {
+			kategorien.add(p.getKategorie());
+		}
+
+		assertTrue(kundensteuerung.getKategorien().equals(kategorien));
+
 	}
 }

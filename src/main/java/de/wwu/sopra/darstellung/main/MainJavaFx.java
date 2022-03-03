@@ -17,8 +17,8 @@ import javafx.stage.Stage;
  *
  */
 public class MainJavaFx extends Application {
-	int WIDTH = 800;
-	int HEIGHT = 600;
+	int WIDTH = 1280;
+	int HEIGHT = 720;
 	BorderPane layout;
 
 	@Override

@@ -2,14 +2,18 @@ package de.wwu.sopra.anwendung.kunde;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
  * Die Klasse verwaltet den Zugriff der Kunden auf dessen Bestellungen, die
@@ -175,5 +179,78 @@ public class Kundensteuerung {
 					produkte.get(j).getEinkaufspreis(), produkte.get(j).getVerkaufspreis()));
 		}
 		return neueProdukte;
+	}
+
+	/**
+	 * Gibt eine Liste der Kategorien zurueck.
+	 * 
+	 * @return Liste mit allen Kategorien im Sortiment.
+	 */
+	public HashSet<Kategorie> getKategorien() {
+		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
+
+		HashSet<Produkt> produkteUnique = Lager.getLager();
+
+		Iterator<Produkt> iterator = produkteUnique.iterator();
+		while (iterator.hasNext()) {
+			Produkt p = iterator.next();
+			if (p.getKategorie() != null) {
+				kategorien.add(p.getKategorie());
+			}
+		}
+
+		return kategorien;
+	}
+
+	/**
+	 * Gibt eine Produktliste aus dem Lager zurueck.
+	 * 
+	 * @return Produktliste aus dem Lager
+	 */
+	public HashSet<Produkt> getLager() {
+		return Lager.getLager();
+	}
+
+	/**
+	 * Gibt den Produktbestand des uebergebenen Produkts zurueck.
+	 * 
+	 * @param Produkt dessen Bestand abgefragt wird.
+	 * @return Produktbestand des uebergebenen Produktes.
+	 */
+	public int getProduktBestand(Produkt p) {
+		return Lager.getProduktBestand(p);
+	}
+
+	/**
+	 * Fuegt das uebergebene Produkt dem Warenkorb des eingeloggten Kunden so oft
+	 * hinzu, wie die uebergebene Anzahl
+	 * 
+	 * @param p      Produkt welches zum Warenkorb hinzugefuegt wird.
+	 * @param anzahl Wie oft soll das uebergebene Produkt zum Warenkorb hinzugefuegt
+	 *               werden.
+	 */
+	public void produktZuWarenkorbHinzufuegen(Produkt p, int anzahl) {
+		while (anzahl > 0) {
+			BenutzerRegister.produktZuWarenkorbHinzufuegen(kunde, p);
+			anzahl--;
+		}
+	}
+
+	/**
+	 * Filtert das uebergebene HashSet nach Produkten der uebergebenen Kategorie
+	 * 
+	 * @param produkte  Hashset das nach der uebergebenen Kategorie gefiltert wird.
+	 * @param kategorie Kategorie nach der das uebergebene Hashset gefiltert wird.
+	 * @return Gefiltertes HashSet.
+	 */
+	public HashSet<Produkt> filterProdukteNachKategorie(HashSet<Produkt> produkte, Kategorie kategorie) {
+		HashSet<Produkt> filteredProdukte = new HashSet<Produkt>();
+		for (Produkt produkt : produkte) {
+			if (produkt.getKategorie().equals(kategorie)) {
+				filteredProdukte.add(produkt);
+			}
+		}
+
+		return filteredProdukte;
 	}
 }
