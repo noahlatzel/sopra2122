@@ -77,15 +77,28 @@ public class InhabersteuerungTest {
 					"Mia", "Miga", "DE11 1111 1111 1111 11", Rolle.LAGERIST);
 		});
 
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.mitarbeiterRegistrieren("Test", "notatpirate", "everglow@online.de",
+					"No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11", Rolle.INHABER);
+		});
+
 		// Bearbeitung Lagerist-Objekt
 
-		ihs.mitarbeiterDatenAendern(neuerLagerist, "lagerista", "notapirate", "everglow@online.de",
-				"No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
+		ihs.mitarbeiterDatenAendern(neuerLagerist, "lagerista", "notapirate", "everglow@online.dee",
+				"No en mi casa 24, 15086 Lima, Peru", "Miaa", "Migaa", "PR11 1111 1111 1111 11");
 		assertEquals(neuerLagerist.getBenutzername(), "lagerista");
 		assertEquals(neuerLagerist.getPasswort(), "notapirate");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			ihs.mitarbeiterDatenAendern(neuerLagerist, "lagerista", "", "everglow@online.de",
+					"No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.mitarbeiterDatenAendern(null, "lagerista", "", "everglow@online.de",
+					"No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			ihs.mitarbeiterDatenAendern(null, "lagerista", "a", "everglow@online.de",
 					"No en mi casa 23, 15086 Lima, Peru", "Mia", "Miga", "DE11 1111 1111 1111 11");
 		});
 
@@ -149,9 +162,9 @@ public class InhabersteuerungTest {
 		assertEquals(fahrzeuge, ihs.fahrzeugeAnzeigen());
 
 		// Fahrzeug1kapazitaet aendern
-		ihs.fahrzeugDatenAendern(fzeug1, fzeug1.getFahrzeugNummer(), 123456789);
+		ihs.fahrzeugDatenAendern(fzeug1, 345345, 123456789);
 		assertEquals(fzeug1.getKapazitaet(), 123456789);
-
+		assertEquals(fzeug1.getFahrzeugNummer(), 345345);
 		// Testet das Loeschen von einem Fahrzeug
 		ihs.fahrzeugLoeschen(fzeug3);
 		assertFalse(ihs.fahrzeugeAnzeigen().contains(fzeug3));
@@ -173,8 +186,7 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testPersoenlicheDatenAendern() throws IllegalArgumentException {
-		ihs.persoenlicheDatenAendern(benutzername, passwort, "imapirateyeahyeah@online.de", adresse, vorname, name,
-				bankverbindung);
+		ihs.persoenlicheDatenAendern("adw", "adw", "imapirateyeahyeah@online.de", "adw", "adw", "adw", "adw");
 		// Email aendern
 		assertEquals(inhaber.getEmail(), "imapirateyeahyeah@online.de");
 
@@ -191,6 +203,9 @@ public class InhabersteuerungTest {
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		ihs.produktBearbeiten(producto, producto.getName(), producto.getBeschreibung(), 10.99);
 		assertEquals(producto.getVerkaufspreis(), 10.99);
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.produktBearbeiten(producto, "", producto.getBeschreibung(), 10.99);
+		});
 	}
 
 	/**
@@ -241,22 +256,28 @@ public class InhabersteuerungTest {
 	@Test
 	void testKategorieVerwalten() throws IllegalArgumentException {
 		// Erstellung von Kategorien
+		Kategorie softDrinks1 = new Kategorie("Fizzy Drinks");
+		Kategorie sauer1 = new Kategorie("Sauer");
+
+		ihs.kategorieBearbeiten(softDrinks1, sauer1, "ober", null);
+		assertTrue(softDrinks1.getOberkategorie().equals(sauer1));
+
+		// Erstellung von Kategorien
 		Kategorie softDrinks = new Kategorie("Fizzy Drinks");
 		Kategorie sauer = new Kategorie("Sauer");
 
-		// Name der ersten Kategorie aendern
-		ihs.kategorieBearbeiten(softDrinks, null, null, "Soft Drinks");
-
-		assertEquals(softDrinks.getName(), "Soft Drinks");
-
 		// Unterkategorie zu ersten Kategorie hinzufuegen
-		ihs.kategorieBearbeiten(softDrinks, sauer, "unter", null);
+		ihs.kategorieBearbeiten(softDrinks, sauer, "unter", "aaa");
+		assertTrue(softDrinks.getName() == "aaa");
+		assertTrue(softDrinks.getUnterkategorien().contains(sauer));
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			ihs.kategorieBearbeiten(softDrinks, sauer, "aaaaaa", null);
 		});
 
-		assertTrue(softDrinks.getUnterkategorien().contains(sauer));
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieBearbeiten(null, null, "aaaaaa", "Soft Drinks");
+		});
 
 		// Erstellung von Produkten
 		Produkt product = new Produkt("Stang", "The World's Most Sour Soda", 2.99, 3.99);

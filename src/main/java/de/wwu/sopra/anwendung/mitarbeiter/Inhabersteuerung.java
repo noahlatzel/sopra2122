@@ -28,6 +28,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  */
 public class Inhabersteuerung {
 	private Inhaber inhaber;
+
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
 	 * 
@@ -52,9 +53,6 @@ public class Inhabersteuerung {
 		for (Object input : inputList) {
 			if (input instanceof String) {
 				if (input == null || input == "")
-					result = false;
-			} else if (input instanceof Number) {
-				if ((Double) input < 0)
 					result = false;
 			}
 		}
@@ -140,13 +138,11 @@ public class Inhabersteuerung {
 	 */
 	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name)
 			throws IllegalArgumentException {
-		if (name != null) {
-			kategorie1.setName(name);
-			return;
-		}
-
 		if (kategorie1 == null || kategorie2 == null)
 			throw new IllegalArgumentException();
+		if (name != null) {
+			kategorie1.setName(name);
+		}
 
 		if (aenderung == "ober") {
 			kategorie1.setOberkategorie(kategorie2);
@@ -244,7 +240,8 @@ public class Inhabersteuerung {
 
 	/**
 	 * Rueckgabeliste aller Lageristen und Fahrer
-	 * @return mitarbeitern		Liste von allen Mitarbeitern
+	 * 
+	 * @return mitarbeitern Liste von allen Mitarbeitern
 	 */
 	public List<Benutzer> mitarbeiternAnzeigen() {
 		List<Benutzer> mitarbeitern = new ArrayList<Benutzer>();
@@ -252,7 +249,7 @@ public class Inhabersteuerung {
 		mitarbeitern.addAll(inhaber.getLageristen());
 		return mitarbeitern;
 	}
-	
+
 	/**
 	 * Funktion zum Bearbeiten von Fahrzeugdaten
 	 * 
@@ -261,31 +258,33 @@ public class Inhabersteuerung {
 	 * @param kapazitaet     kapazitaet
 	 */
 	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
-		if (fahrzeug.equals(null))
-			return;
-		if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
-			fahrzeug.setFahrzeugNummer(fahrzeugNummer);
-		if (fahrzeug.getKapazitaet() != kapazitaet)
-			fahrzeug.setKapazitaet(kapazitaet);
+		if (fahrzeug != null) {
+			if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
+				fahrzeug.setFahrzeugNummer(fahrzeugNummer);
+			if (fahrzeug.getKapazitaet() != kapazitaet)
+				fahrzeug.setKapazitaet(kapazitaet);
+		}
 	}
 
 	/**
 	 * Funktion zum Loeschen eines Fahrzeugs
-	 * @param fahrzeug		Fahrzeug, das geloescht wird
+	 * 
+	 * @param fahrzeug Fahrzeug, das geloescht wird
 	 */
 	public void fahrzeugLoeschen(Fahrzeug fahrzeug) {
 		FahrzeugRegister.removeFahrzeug(fahrzeug);
 	}
-	
+
 	/**
 	 * Funktion zum Auflisten aller Fahrzeuge
-	 * @return fahrzeugeHSet	HashSet von allen Fahrzeuge in FahrzeugRegister
+	 * 
+	 * @return fahrzeugeHSet HashSet von allen Fahrzeuge in FahrzeugRegister
 	 */
 	public HashSet<Fahrzeug> fahrzeugeAnzeigen() {
 		HashSet<Fahrzeug> fahrzeugeHSet = FahrzeugRegister.getFahrzeuge();
 		return fahrzeugeHSet;
 	}
-	
+
 	/**
 	 * Funktion zum Anzeigen der persönlichen Daten des Inhabers
 	 * 
