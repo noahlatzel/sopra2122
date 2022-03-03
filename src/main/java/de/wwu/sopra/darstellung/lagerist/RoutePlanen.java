@@ -5,6 +5,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +35,7 @@ public class RoutePlanen extends LageristOverview {
 		super(primaryStage, width, height, lageristenSteuerung);
 		root.setCenter(new Label("Route planen..."));
 		tilePane = new TilePane();
+		tilePane.setPadding(new Insets(20));
 		tilePane.getChildren().add(this.setScrollPaneFahrzeug());
 		tilePane.getChildren().add(this.setScrollPaneProdukt());
 		tilePane.getChildren().add(this.setBtRouteAbschicken());
@@ -86,6 +88,8 @@ public class RoutePlanen extends LageristOverview {
 		if (this.btRouteAbschicken == null) {
 			btRouteAbschicken = new Button("Route planen");
 			btRouteAbschicken.setMinWidth(200);
+			btRouteAbschicken.setEffect(dropShadow);
+			changeButtonStyleOnHover(btRouteAbschicken);
 			btRouteAbschicken.setOnAction(a -> {
 				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {

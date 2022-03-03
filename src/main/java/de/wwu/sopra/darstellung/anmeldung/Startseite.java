@@ -26,10 +26,10 @@ public class Startseite extends Scene {
 	Button buttonRegistrieren;
 	VBox vbox;
 	Label title;
-	
+
 	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
+	private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Startseite.
@@ -60,7 +60,7 @@ public class Startseite extends Scene {
 			buttonAnmelden = new Button("Anmelden");
 			buttonRegistrieren = new Button("Registrieren");
 			title = new Label("Willkommen!");
-			
+
 			// Erstellung von DropShadows fuer Komponenten
 			DropShadow dropShadow = new DropShadow();
 			dropShadow.setRadius(5.0);
@@ -71,7 +71,7 @@ public class Startseite extends Scene {
 			vbox.getChildren().add(title);
 			vbox.getChildren().add(buttonAnmelden);
 			vbox.getChildren().add(buttonRegistrieren);
-			
+
 			// Styling
 			title.setStyle("-fx-font-weight: bold; -fx-font-size: 40");
 			vbox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 8px;");
@@ -82,15 +82,17 @@ public class Startseite extends Scene {
 			buttonRegistrieren.setPrefHeight(50);
 			buttonAnmelden.setPrefWidth(170);
 			buttonRegistrieren.setPrefWidth(170);
-			
+
 			buttonAnmelden.setEffect(dropShadow);
 			buttonRegistrieren.setEffect(dropShadow);
 			changeButtonStyleOnHover(buttonAnmelden);
 			changeButtonStyleOnHover(buttonRegistrieren);
-			
+
 			// Button-Funktionen
-			buttonAnmelden.setOnAction(e -> primaryStage.setScene(new Anmeldung(primaryStage, 1280, 720)));
-			buttonRegistrieren.setOnAction(e -> primaryStage.setScene(new Registrierung(primaryStage, 1280, 720)));
+			buttonAnmelden
+					.setOnAction(e -> primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight())));
+			buttonRegistrieren
+					.setOnAction(e -> primaryStage.setScene(new Registrierung(primaryStage, getWidth(), getHeight())));
 
 			vbox.setAlignment(Pos.CENTER);
 
@@ -98,24 +100,27 @@ public class Startseite extends Scene {
 		}
 		return vbox;
 	}
-	
+
 	/**
 	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * @param button	Button, der gestylt wird
+	 * 
+	 * @param button Button, der gestylt wird
 	 */
 	private void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
 			}
-	    });
+		});
 		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 			}
-	    });
+		});
 	}
 
 }
