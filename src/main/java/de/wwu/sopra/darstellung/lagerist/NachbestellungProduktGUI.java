@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.NachbestellungTupel;
+import de.wwu.sopra.darstellung.main.MainJavaFx;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,7 +54,10 @@ public class NachbestellungProduktGUI extends LageristOverview {
 				neueNachbestellung.add(new NachbestellungTupel(new Produkt(nameProdukt, "Test", 0.1, 5),
 						comboBox.getSelectionModel().getSelectedItem()));
 				lageristenSteuerung.bestelleNach(neueNachbestellung);
-				primaryStage.setScene(new BestelleNach(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
+				System.out.println(getWidth());
+				System.out.println(getHeight());
+				primaryStage.setScene(
+						new BestelleNach(primaryStage, MainJavaFx.WIDTH, MainJavaFx.HEIGHT, lageristenSteuerung));
 			}
 
 		});
