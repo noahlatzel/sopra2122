@@ -20,6 +20,7 @@ public class FahrzeugRegister implements Serializable {
 	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 	private static String path = "fahrzeugReg.ser";
 	private static int zaehler = 0;
+	private static int zaehlerRoute = 0;
 
 	/**
 	 * Singleton Konstruktor
@@ -96,5 +97,19 @@ public class FahrzeugRegister implements Serializable {
 		for (Fahrzeug p : register_old) {
 			FahrzeugRegister.removeFahrzeug(p);
 		}
+	}
+
+	/**
+	 * Gibt den Zaehler fuer Route zurueck.
+	 * 
+	 * @return Den Zaehler fuer Route
+	 */
+	public static int getZaehlerRoute() {
+		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
+			if (f.getRoute() != null && f.getRoute().getRoutenNummer() == FahrzeugRegister.zaehlerRoute) {
+				FahrzeugRegister.zaehlerRoute++;
+			}
+		}
+		return ++zaehlerRoute;
 	}
 }
