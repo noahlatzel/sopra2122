@@ -10,6 +10,7 @@ import java.util.Set;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Erstellung der Fahrzeug-Klasse
@@ -28,7 +29,6 @@ public class Fahrzeug implements Serializable {
 	private FahrzeugStatus status;
 	private Route route;
 	private Fahrer fahrer;
-	private static int zaehler;
 
 	/**
 	 * Neues Route-Objekt erstellen nur wenn angegebene fahrzeugNummer nicht auf der
@@ -38,8 +38,7 @@ public class Fahrzeug implements Serializable {
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
 	public Fahrzeug(float kapazitaet) throws IllegalArgumentException {
-		this.setFahrzeugNummer(zaehler);
-		Fahrzeug.zaehler++;
+		this.setFahrzeugNummer(FahrzeugRegister.getZaehler());
 		this.kapazitaet = kapazitaet;
 		this.status = FahrzeugStatus.FREI;
 	}
@@ -60,11 +59,11 @@ public class Fahrzeug implements Serializable {
 	 * @param fahrzeugNummer zu setzen
 	 */
 	public void setFahrzeugNummer(int fahrzeugNummer) throws IllegalArgumentException {
-		if (fahrzeugNummern.contains(fahrzeugNummer)) {
-			throw new IllegalArgumentException();
+		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
+			if (f.getFahrzeugNummer() == fahrzeugNummer) {
+				throw new IllegalArgumentException();
+			}
 		}
-		fahrzeugNummern.remove(this.fahrzeugNummer);
-		fahrzeugNummern.add(fahrzeugNummer);
 		this.fahrzeugNummer = fahrzeugNummer;
 	}
 

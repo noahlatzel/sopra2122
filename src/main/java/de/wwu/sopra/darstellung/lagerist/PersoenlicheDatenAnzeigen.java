@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -29,6 +30,7 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 		// GridPane erstellen
 		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(20));
 		root.setCenter(grid);
 
 		String gesamtString = lageristenSteuerung.persoenlicheDatenAnzeigen();
@@ -80,27 +82,49 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 		tfNachname.setText(aufgeteilt[5]);
 		tfBankverbindung.setText(aufgeteilt[6]);
 
+		// Label Style
+		lbBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+
 		// Textfeld nicht editierbar
-		tfBenutzername.setEditable(false);
-		tfPasswort.setEditable(false);
-		tfEmail.setEditable(false);
-		tfAdresse.setEditable(false);
-		tfVorname.setEditable(false);
-		tfNachname.setEditable(false);
-		tfBankverbindung.setEditable(false);
+		tfBenutzername.setDisable(true);
+		tfPasswort.setDisable(true);
+		tfEmail.setDisable(true);
+		tfAdresse.setDisable(true);
+		tfVorname.setDisable(true);
+		tfNachname.setDisable(true);
+		tfBankverbindung.setDisable(true);
+
+		// Text Style
+		tfBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
 
 		// Buttons setzen
 		Button bearbeiten = new Button("Bearbeiten");
+		bearbeiten.setEffect(dropShadow);
+		changeButtonStyleOnHover(bearbeiten);
 		bearbeiten.setOnAction(a -> {
-			tfBenutzername.setEditable(true);
-			tfPasswort.setEditable(true);
-			tfEmail.setEditable(true);
-			tfAdresse.setEditable(true);
-			tfVorname.setEditable(true);
-			tfNachname.setEditable(true);
-			tfBankverbindung.setEditable(true);
+			tfBenutzername.setDisable(false);
+			tfPasswort.setDisable(false);
+			tfEmail.setDisable(false);
+			tfAdresse.setDisable(false);
+			tfVorname.setDisable(false);
+			tfNachname.setDisable(false);
+			tfBankverbindung.setDisable(false);
 		});
 		Button speichern = new Button("Speichern");
+		speichern.setEffect(dropShadow);
+		changeButtonStyleOnHover(speichern);
 		speichern.setOnAction(a -> {
 			// test auf blank stellen
 			boolean istallesvoll = true;
@@ -125,13 +149,13 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 			} else {
 				grid.add(new Label("es gibt Leere Angaben"), 2, 7);
 			}
-			tfBenutzername.setEditable(false);
-			tfPasswort.setEditable(false);
-			tfEmail.setEditable(false);
-			tfAdresse.setEditable(false);
-			tfVorname.setEditable(false);
-			tfNachname.setEditable(false);
-			tfBankverbindung.setEditable(false);
+			tfBenutzername.setDisable(true);
+			tfPasswort.setDisable(true);
+			tfEmail.setDisable(true);
+			tfAdresse.setDisable(true);
+			tfVorname.setDisable(true);
+			tfNachname.setDisable(true);
+			tfBankverbindung.setDisable(true);
 		});
 
 		// Grid setzen

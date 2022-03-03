@@ -4,12 +4,11 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Erstellung der Route-Klasse
@@ -21,8 +20,6 @@ public class Route implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final Set<Integer> RoutenNummern = new HashSet<Integer>();
-	private static int zaehler = 0;
 	private int routenNummer;
 	private Fahrzeug fahrzeug;
 	private List<Bestellung> bestellungen;
@@ -35,8 +32,7 @@ public class Route implements Serializable {
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
 	public Route(Fahrzeug fahrzeug) throws IllegalArgumentException {
-		this.setRoutenNummer(zaehler);
-		zaehler++;
+		this.setRoutenNummer(FahrzeugRegister.getZaehlerRoute());
 		this.fahrzeug = fahrzeug;
 		this.fahrzeug.setRoute(this);
 	}
@@ -57,11 +53,11 @@ public class Route implements Serializable {
 	 * @param routenNummer zu setzen
 	 */
 	public void setRoutenNummer(int routenNummer) throws IllegalArgumentException {
-		if (RoutenNummern.contains(routenNummer)) {
-			throw new IllegalArgumentException();
+		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
+			if (f.getRoute() != null && f.getRoute().getRoutenNummer() == routenNummer) {
+				throw new IllegalArgumentException();
+			}
 		}
-		RoutenNummern.remove(this.routenNummer);
-		RoutenNummern.add(routenNummer);
 		this.routenNummer = routenNummer;
 	}
 

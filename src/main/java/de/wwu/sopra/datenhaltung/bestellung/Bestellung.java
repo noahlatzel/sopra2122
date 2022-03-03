@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
  * Die klasse Bestellung
@@ -29,7 +30,6 @@ public class Bestellung implements Serializable {
 	private Rechnung rechnung;
 	private int kapazitaet;
 	private String adresse;
-	private static int zaehler = 0;
 
 	/**
 	 * Konstruktor fuer die Klasse Bestellung
@@ -40,8 +40,7 @@ public class Bestellung implements Serializable {
 	 */
 	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 
-		this.bestellnummer = zaehler;
-		zaehler++;
+		this.bestellnummer = BenutzerRegister.getZaehlerBestellung();
 		this.setStatus(BestellStatus.OFFEN);
 		if (produkte.isEmpty()) {
 			throw new IllegalArgumentException("Eine Bestellung kann nicht leer sein.");

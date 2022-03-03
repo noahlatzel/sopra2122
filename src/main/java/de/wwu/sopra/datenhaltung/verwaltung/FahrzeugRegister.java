@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
-import de.wwu.sopra.datenhaltung.management.Lager;
-import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * Die Klasse verwaltet die Speicherung aller Fahrzeugdaten, also unter anderem
@@ -21,6 +19,8 @@ public class FahrzeugRegister implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
 	private static String path = "fahrzeugReg.ser";
+	private static int zaehler = 0;
+	private static int zaehlerRoute = 0;
 
 	/**
 	 * Singleton Konstruktor
@@ -57,6 +57,20 @@ public class FahrzeugRegister implements Serializable {
 	}
 
 	/**
+	 * Gibt den Zaehler der Fahrzeug zurueck.
+	 * 
+	 * @return Den Zaehler
+	 */
+	public static int getZaehler() {
+		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
+			if (f.getFahrzeugNummer() == FahrzeugRegister.zaehler) {
+				FahrzeugRegister.zaehler++;
+			}
+		}
+		return ++FahrzeugRegister.zaehler;
+	}
+
+	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
 	public static void load() {
@@ -83,5 +97,19 @@ public class FahrzeugRegister implements Serializable {
 		for (Fahrzeug p : register_old) {
 			FahrzeugRegister.removeFahrzeug(p);
 		}
+	}
+
+	/**
+	 * Gibt den Zaehler fuer Route zurueck.
+	 * 
+	 * @return Den Zaehler fuer Route
+	 */
+	public static int getZaehlerRoute() {
+		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
+			if (f.getRoute() != null && f.getRoute().getRoutenNummer() == FahrzeugRegister.zaehlerRoute) {
+				FahrzeugRegister.zaehlerRoute++;
+			}
+		}
+		return ++zaehlerRoute;
 	}
 }

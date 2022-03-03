@@ -138,7 +138,9 @@ class FahrzeugTest {
 	@Test
 	void testThrowsSetFahrzeugnummer() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Fahrzeug(100).setFahrzeugNummer(1);
+			Fahrzeug temp = new Fahrzeug(100);
+			FahrzeugRegister.addFahrzeug(temp);
+			new Fahrzeug(100).setFahrzeugNummer(temp.getFahrzeugNummer());
 		});
 	}
 }
