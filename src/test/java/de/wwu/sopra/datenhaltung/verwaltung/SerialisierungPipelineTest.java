@@ -2,6 +2,7 @@ package de.wwu.sopra.datenhaltung.verwaltung;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.RandomAccessFile;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,17 @@ public class SerialisierungPipelineTest {
 
 	@Test
 	void testSerialisierung() {
+
+		SerialisierungPipeline<Rechnung> sp = new SerialisierungPipeline<Rechnung>();
+		sp.serialisieren(rechnung1, "produkt.ser");
+		Rechnung temp = sp.deserialisieren("produkt.ser");
+		assertTrue(rechnung1.getRechnungsnummer() == temp.getRechnungsnummer());
+	}
+
+	@Test
+	void testThrowsSerialisierung() {
+		final RandomAccessFile raFile = new RandomAccessFile(csvFile, "rw");
+		raFile.getChannel().lock();
 
 		SerialisierungPipeline<Rechnung> sp = new SerialisierungPipeline<Rechnung>();
 		sp.serialisieren(rechnung1, "produkt.ser");
