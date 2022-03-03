@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -29,6 +30,7 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 		// GridPane erstellen
 		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(20));
 		root.setCenter(grid);
 
 		String gesamtString = lageristenSteuerung.persoenlicheDatenAnzeigen();
@@ -80,6 +82,15 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 		tfNachname.setText(aufgeteilt[5]);
 		tfBankverbindung.setText(aufgeteilt[6]);
 
+		// Label Style
+		lbBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+
 		// Textfeld nicht editierbar
 		tfBenutzername.setEditable(false);
 		tfPasswort.setEditable(false);
@@ -91,6 +102,8 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 		// Buttons setzen
 		Button bearbeiten = new Button("Bearbeiten");
+		bearbeiten.setEffect(dropShadow);
+		changeButtonStyleOnHover(bearbeiten);
 		bearbeiten.setOnAction(a -> {
 			tfBenutzername.setEditable(true);
 			tfPasswort.setEditable(true);
@@ -101,6 +114,8 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 			tfBankverbindung.setEditable(true);
 		});
 		Button speichern = new Button("Speichern");
+		speichern.setEffect(dropShadow);
+		changeButtonStyleOnHover(speichern);
 		speichern.setOnAction(a -> {
 			// test auf blank stellen
 			boolean istallesvoll = true;
