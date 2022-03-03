@@ -1,10 +1,16 @@
 package de.wwu.sopra.darstellung.anmeldung;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +26,11 @@ public class Startseite extends Scene {
 	Button buttonAnmelden;
 	Button buttonRegistrieren;
 	VBox vbox;
+	Label title;
+	
+	// Color constants fuer Buttons-Background
+	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Startseite.
@@ -33,6 +44,7 @@ public class Startseite extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setVBox());
+		root.setStyle("-fx-background-color: #C4C4C4");
 
 	}
 
@@ -48,23 +60,63 @@ public class Startseite extends Scene {
 
 			buttonAnmelden = new Button("Anmelden");
 			buttonRegistrieren = new Button("Registrieren");
+			title = new Label("Willkommen!");
+			
+			// Erstellung von DropShadows fuer Komponenten
+			DropShadow dropShadow = new DropShadow();
+			dropShadow.setRadius(5.0);
+			dropShadow.setOffsetX(4.0);
+			dropShadow.setOffsetY(4.0);
+			dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
 
+			vbox.getChildren().add(title);
 			vbox.getChildren().add(buttonAnmelden);
 			vbox.getChildren().add(buttonRegistrieren);
+			
+			// Styling
+			title.setStyle("-fx-font-weight: bold; -fx-font-size: 40");
+			vbox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 8px;");
+			vbox.setEffect(dropShadow);
+			vbox.setMaxSize(340, 380);
 
 			buttonAnmelden.setPrefHeight(50);
 			buttonRegistrieren.setPrefHeight(50);
 			buttonAnmelden.setPrefWidth(170);
 			buttonRegistrieren.setPrefWidth(170);
-
-			buttonAnmelden.setOnAction(e -> primaryStage.setScene(new Anmeldung(primaryStage, 800, 600)));
-			buttonRegistrieren.setOnAction(e -> primaryStage.setScene(new Registrierung(primaryStage, 800, 600)));
+			
+			buttonAnmelden.setEffect(dropShadow);
+			buttonRegistrieren.setEffect(dropShadow);
+			changeButtonStyleOnHover(buttonAnmelden);
+			changeButtonStyleOnHover(buttonRegistrieren);
+			
+			// Button-Funktionen
+			buttonAnmelden.setOnAction(e -> primaryStage.setScene(new Anmeldung(primaryStage, 1280, 720)));
+			buttonRegistrieren.setOnAction(e -> primaryStage.setScene(new Registrierung(primaryStage, 1280, 720)));
 
 			vbox.setAlignment(Pos.CENTER);
 
-			vbox.setSpacing(50);
+			vbox.setSpacing(30);
 		}
 		return vbox;
+	}
+	
+	/**
+	 * Funktion zum Aendern des Buttonsstils beim Hover
+	 * @param button	Button, der gestylt wird
+	 */
+	private void changeButtonStyleOnHover(final Button button) {
+		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
+		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
+		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent mouseEvent) {
+				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
+			}
+	    });
+		button.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent mouseEvent) {
+				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
+			}
+	    });
 	}
 
 }
