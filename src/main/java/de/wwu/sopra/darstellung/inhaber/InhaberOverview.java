@@ -36,6 +36,7 @@ public class InhaberOverview extends Scene {
 	Button btFahrzeugdatenAendern;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
+	Button btProduktKategorieHinzu;
 	Inhabersteuerung inhaberSteuerung;
 	Button btAbmelden;
 
@@ -57,6 +58,7 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtMitarbeiterRegistrieren());
 			vbox.getChildren().add(this.setBtMitarbeiterVerwalten());
 			vbox.getChildren().add(this.setBtSortimentBearbeiten());
+			vbox.getChildren().add(this.setBtProduktKategorieHinzu());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
@@ -184,5 +186,17 @@ public class InhaberOverview extends Scene {
 			});
 		}
 		return this.btAbmelden;
+	}
+
+	private Button setBtProduktKategorieHinzu() {
+		if (this.btProduktKategorieHinzu == null) {
+			btProduktKategorieHinzu = new Button("Produkt/Kategorie Hinzu");
+			btProduktKategorieHinzu.setMinWidth(250);
+			btProduktKategorieHinzu.setOnAction(e -> {
+				primaryStage
+						.setScene(new ProduktKategorieHinzu(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+			});
+		}
+		return this.btProduktKategorieHinzu;
 	}
 }

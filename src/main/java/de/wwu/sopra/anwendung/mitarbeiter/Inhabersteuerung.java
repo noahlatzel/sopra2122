@@ -121,6 +121,9 @@ public class Inhabersteuerung {
 			throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
 			kategorie.addProdukte(produkte);
+			for (Produkt i : produkte) {
+				i.setKategorie(kategorie);
+			}
 		} else if (action == "loeschen") {
 			kategorie.removeProdukte(produkte);
 		} else {
