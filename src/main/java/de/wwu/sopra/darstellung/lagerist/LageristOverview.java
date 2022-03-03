@@ -92,7 +92,7 @@ public class LageristOverview extends Scene {
 			btRoutePlanen.setEffect(dropShadow);
 			changeButtonStyleOnHover(btRoutePlanen);
 			btRoutePlanen.setOnAction(a -> {
-				primaryStage.setScene(new RoutePlanen(primaryStage, 1280, 720, lageristenSteuerung));
+				primaryStage.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
 		}
 		return this.btRoutePlanen;
@@ -105,7 +105,7 @@ public class LageristOverview extends Scene {
 			btBestelleNach.setEffect(dropShadow);
 			changeButtonStyleOnHover(btBestelleNach);
 			btBestelleNach.setOnAction(a -> {
-				primaryStage.setScene(new BestelleNach(primaryStage, 1280, 720, lageristenSteuerung));
+				primaryStage.setScene(new BestelleNach(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
 		}
 		return this.btBestelleNach;
@@ -118,7 +118,8 @@ public class LageristOverview extends Scene {
 			btPersDatenAnzeigen.setEffect(dropShadow);
 			changeButtonStyleOnHover(btPersDatenAnzeigen);
 			btPersDatenAnzeigen.setOnAction(a -> {
-				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, 1280, 720, lageristenSteuerung));
+				primaryStage.setScene(
+						new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
 		}
 		return this.btPersDatenAnzeigen;
@@ -131,7 +132,8 @@ public class LageristOverview extends Scene {
 			btZeigeRouteVonFahrzeug.setEffect(dropShadow);
 			changeButtonStyleOnHover(btZeigeRouteVonFahrzeug);
 			btZeigeRouteVonFahrzeug.setOnAction(a -> {
-				primaryStage.setScene(new ZeigeRouteVonFahrzeug(primaryStage, 1280, 720, lageristenSteuerung));
+				primaryStage.setScene(
+						new ZeigeRouteVonFahrzeug(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
 		}
 		return this.btZeigeRouteVonFahrzeug;
@@ -144,7 +146,7 @@ public class LageristOverview extends Scene {
 			btAbmelden.setEffect(dropShadow);
 			changeButtonStyleOnHover(btAbmelden);
 			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, 800, 600));
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 			});
 		}
 		return this.btAbmelden;
