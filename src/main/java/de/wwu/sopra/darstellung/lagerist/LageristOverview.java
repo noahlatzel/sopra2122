@@ -41,8 +41,8 @@ public class LageristOverview extends Scene {
 	DropShadow dropShadow = new DropShadow();
 
 	// Color constants fuer Buttons-Background
-	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
+	protected static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	public LageristOverview(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(new BorderPane(), width, height);
