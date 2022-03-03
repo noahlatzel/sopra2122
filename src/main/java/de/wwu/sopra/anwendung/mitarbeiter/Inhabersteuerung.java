@@ -54,9 +54,6 @@ public class Inhabersteuerung {
 			if (input instanceof String) {
 				if (input == null || input == "")
 					result = false;
-			} else if (input instanceof Number) {
-				if ((Double) input < 0)
-					result = false;
 			}
 		}
 
@@ -144,13 +141,11 @@ public class Inhabersteuerung {
 	 */
 	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name)
 			throws IllegalArgumentException {
-		if (name != null) {
-			kategorie1.setName(name);
-			return;
-		}
-
 		if (kategorie1 == null || kategorie2 == null)
 			throw new IllegalArgumentException();
+		if (name != null) {
+			kategorie1.setName(name);
+		}
 
 		if (aenderung == "ober") {
 			kategorie1.setOberkategorie(kategorie2);
@@ -266,12 +261,12 @@ public class Inhabersteuerung {
 	 * @param kapazitaet     kapazitaet
 	 */
 	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
-		if (fahrzeug.equals(null))
-			return;
-		if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
-			fahrzeug.setFahrzeugNummer(fahrzeugNummer);
-		if (fahrzeug.getKapazitaet() != kapazitaet)
-			fahrzeug.setKapazitaet(kapazitaet);
+		if (fahrzeug != null) {
+			if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
+				fahrzeug.setFahrzeugNummer(fahrzeugNummer);
+			if (fahrzeug.getKapazitaet() != kapazitaet)
+				fahrzeug.setKapazitaet(kapazitaet);
+		}
 	}
 
 	public void fahrzeugHinzufuegen(int kapazitaet) {

@@ -179,12 +179,6 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		lagerbestand = sp.deserialisieren(path_map);
 		lager = sp1.deserialisieren(path_set);
-		if (lagerbestand == null) {
-			lagerbestand = new HashMap<String, Integer>();
-		}
-		if (lager == null) {
-			lager = new HashSet<Produkt>();
-		}
 	}
 
 	/**

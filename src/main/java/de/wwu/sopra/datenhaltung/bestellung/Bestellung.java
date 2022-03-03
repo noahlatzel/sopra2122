@@ -58,11 +58,11 @@ public class Bestellung implements Serializable {
 	 * @param produkt
 	 * @return Anzahl des Produkts im Warenkorb/Bestellung
 	 */
-	public int getProduktAnzahl(Produkt produkt, List<Produkt> produktliste) {
+	public int getProduktAnzahl(Produkt produkt) {
 
 		int i = 0;
-		for (int j = 0; j <= produkte.size(); j++) {
-			if (produkt.equals(produktliste.get(i))) {
+		for (Produkt p : this.produkte) {
+			if (p.getName().equals(produkt.getName())) {
 				i++;
 			}
 		}

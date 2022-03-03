@@ -2,7 +2,6 @@ package de.wwu.sopra.datenhaltung.verwaltung;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,8 +28,6 @@ public class SerialisierungPipeline<T> {
 		try (FileOutputStream outputStream = new FileOutputStream(f);
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);) {
 			objectOutputStream.writeObject(obj);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -47,14 +44,9 @@ public class SerialisierungPipeline<T> {
 	public T deserialisieren(String name) {
 		T obj = null;
 		File f = new File("resources/" + name);
-		if (!(f.exists() && !f.isDirectory())) {
-			return obj;
-		}
 		try (FileInputStream inputStream = new FileInputStream(f);
 				ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);) {
 			obj = (T) objectInputStream.readObject();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

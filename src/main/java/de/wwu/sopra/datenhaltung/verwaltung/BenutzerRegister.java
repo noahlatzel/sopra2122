@@ -248,9 +248,6 @@ public class BenutzerRegister implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
 		BenutzerRegister.benutzerListe = sp.deserialisieren(path);
-		if (BenutzerRegister.getBenutzerListe() == null) {
-			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
-		}
 	}
 
 	/**

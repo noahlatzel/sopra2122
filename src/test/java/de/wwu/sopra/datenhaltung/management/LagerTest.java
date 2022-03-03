@@ -118,4 +118,5 @@ public class LagerTest {
 		Lager.load();
 		assertTrue(temp_1.equals(Lager.getLager()));
 	}
+
 }

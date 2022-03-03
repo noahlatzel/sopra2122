@@ -52,12 +52,6 @@ public class LageristOverview extends Scene {
 		dropShadow.setOffsetY(4.0);
 		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
 
-		image = new Image("C:\\Users\\Admin\\gruppenprojekt\\images\\logo.jpeg");
-		logo = new ImageView();
-		logo.setImage(image);
-		logo.setFitWidth(200);
-		logo.setPreserveRatio(true);
-
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.lageristenSteuerung = lageristenSteuerung;
@@ -69,7 +63,6 @@ public class LageristOverview extends Scene {
 	private VBox setVBox() {
 		if (this.vbox == null) {
 			vbox = new VBox(5);
-			vbox.getChildren().add(this.logo);
 			vbox.getChildren().add(this.setBtRoutePlanen());
 			vbox.getChildren().add(this.setBtBestelleNach());
 			vbox.getChildren().add(this.setBtPersDatenAnzeigen());

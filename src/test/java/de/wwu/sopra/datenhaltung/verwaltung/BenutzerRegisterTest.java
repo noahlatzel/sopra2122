@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
@@ -62,7 +61,6 @@ public class BenutzerRegisterTest {
 	 * Testet die Funktionalitaet des Hinzufuegen eines neuen Benutzers ins System.
 	 */
 	@Test
-	@Order(2)
 	public void benutzerHinzufuegenTest() {
 
 		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
@@ -89,7 +87,6 @@ public class BenutzerRegisterTest {
 	 * Testet die Funktionalitaet des Entfernens eines Benutzers aus dem System.
 	 */
 	@Test
-	@Order(1)
 	public void benutzerEntfernenTest() {
 		// Registriert Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
@@ -110,7 +107,6 @@ public class BenutzerRegisterTest {
 	 * Testet die verschiedenen Funktionalitaeten des Warenkorbs
 	 */
 	@Test
-	@Order(3)
 	public void warenkorbFunktionalitaetTest() {
 
 		// Registriert neuen Benutzer
@@ -174,7 +170,6 @@ public class BenutzerRegisterTest {
 	}
 
 	@Test
-	@Order(4)
 	public void bestellungenFunktionalitaetTest() {
 		// Registrieren eines Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
