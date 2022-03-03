@@ -3,6 +3,8 @@
  */
 package de.wwu.sopra.darstellung.inhaber;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.event.EventHandler;
@@ -12,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,12 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -58,6 +54,9 @@ public class InhaberOverview extends Scene {
 
 	public InhaberOverview(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(new BorderPane(), width, height);
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 		
 		image = new Image("file:///C:/Users/Admin/gruppenprojekt/images/logo.jpeg");
 		logo = new ImageView();

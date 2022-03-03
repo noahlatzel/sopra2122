@@ -1,19 +1,17 @@
 package de.wwu.sopra.darstellung.anmeldung;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -45,10 +43,6 @@ public class Registrierung extends Scene {
 	Label labelName = new Label("Name");
 	Label labelBankverbindung = new Label("Bankverbindung");
 	Text title;
-	
-	// Color constants fuer Buttons-Background
-	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -62,51 +56,35 @@ public class Registrierung extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setGridPane());
-
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
 	private GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 			
-			// Styles fuer TextFields und Labels
-			String textFieldStyles = "-fx-padding: 12";
-			String labelStyles = "-fx-font-weight: bold; -fx-font-size: 18";
-			
 			title = new Text("Registrierung");
-			
-			// Erstellung von DropShadows fuer TextField
-			DropShadow dropShadowTextField = new DropShadow();
-			dropShadowTextField.setRadius(5.0);
-			dropShadowTextField.setOffsetX(2.0);
-			dropShadowTextField.setOffsetY(2.0);
-			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
 			
 			// Styling von Komponenten
 			GridPane.setMargin(title, new Insets(0, 0, 30, 0));
 			GridPane.setMargin(setButtonRegistrieren(), new Insets(40, 10, 0, 0));
-			title.setStyle("-fx-font-weight: bold; -fx-font-size: 48");
-			textFeldBenutzername.setStyle(textFieldStyles);
-			textFeldPasswort.setStyle(textFieldStyles);
-			textFeldEmail.setStyle(textFieldStyles);
-			textFeldAdresse.setStyle(textFieldStyles);
-			textFeldVorname.setStyle(textFieldStyles);
-			textFeldName.setStyle(textFieldStyles);
-			textFeldBankverbindung.setStyle(textFieldStyles);
-			textFeldBenutzername.setEffect(dropShadowTextField);
-			textFeldPasswort.setEffect(dropShadowTextField);
-			textFeldEmail.setEffect(dropShadowTextField);
-			textFeldAdresse.setEffect(dropShadowTextField);
-			textFeldVorname.setEffect(dropShadowTextField);
-			textFeldName.setEffect(dropShadowTextField);
-			textFeldBankverbindung.setEffect(dropShadowTextField);
-			labelBenutzername.setStyle(labelStyles);
-			labelPasswort.setStyle(labelStyles);
-			labelEmail.setStyle(labelStyles);
-			labelAdresse.setStyle(labelStyles);
-			labelVorname.setStyle(labelStyles);
-			labelName.setStyle(labelStyles);
-			labelBankverbindung.setStyle(labelStyles);
+			title.getStyleClass().add("anmeldung-registrierung-title");
+			textFeldBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldEmail.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldVorname.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldName.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
+			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
+			labelPasswort.getStyleClass().add("anmeldung-registrierung-label");
+			labelEmail.getStyleClass().add("anmeldung-registrierung-label");
+			labelAdresse.getStyleClass().add("anmeldung-registrierung-label");
+			labelVorname.getStyleClass().add("anmeldung-registrierung-label");
+			labelName.getStyleClass().add("anmeldung-registrierung-label");
+			labelBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
 
 			gridpane.setHgap(20);
 			gridpane.setVgap(10);
@@ -140,17 +118,7 @@ public class Registrierung extends Scene {
 	 * @return Gibt den konfigurierten Button zurueck
 	 */
 	private Button setButtonRegistrieren() {
-		buttonRegistrieren.setAlignment(Pos.TOP_CENTER);
-		buttonRegistrieren.setPadding(new Insets(10));
-		
-		// Erstellung von DropShadows fuer Button
-		DropShadow dropShadowButton = new DropShadow();
-		dropShadowButton.setRadius(5.0);
-		dropShadowButton.setOffsetX(4.0);
-		dropShadowButton.setOffsetY(4.0);
-		dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
-		
-		buttonRegistrieren.setEffect(dropShadowButton);
+		buttonRegistrieren.getStyleClass().add("registrierung-button");
 
 		// Knopfdruckfunktionalitaet
 		buttonRegistrieren.setOnAction(e -> {
@@ -158,32 +126,9 @@ public class Registrierung extends Scene {
 			anSt.registrieren(textFeldBenutzername.getText(), textFeldPasswort.getText(), textFeldEmail.getText(),
 					textFeldAdresse.getText(), textFeldVorname.getText(), textFeldName.getText(),
 					textFeldBankverbindung.getText());
-			primaryStage.setScene(new Anmeldung(primaryStage, 800, 600)); // TODO
+			primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight())); // TODO
 		});
-		
-		changeButtonStyleOnHover(buttonRegistrieren);
 
 		return buttonRegistrieren;
-	}
-	
-	/**
-	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * @param button	Button, der gestylt wird
-	 */
-	private void changeButtonStyleOnHover(final Button button) {
-		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
-		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-		// Button onHover
-		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
-				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
-			}
-	    });
-		// Button not onHover
-		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
-				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-			}
-	    });
 	}
 }

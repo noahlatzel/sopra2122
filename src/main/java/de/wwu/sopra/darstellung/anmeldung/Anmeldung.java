@@ -1,5 +1,7 @@
 package de.wwu.sopra.darstellung.anmeldung;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
@@ -15,19 +17,14 @@ import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -48,10 +45,6 @@ public class Anmeldung extends Scene {
 	Label labelPasswort;
 	VBox vbox;
 	Text title;
-	
-	// Color constants fuer Buttons-Background
-	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE  = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -67,7 +60,9 @@ public class Anmeldung extends Scene {
 		root.setCenter(setVBox());
 		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
 		BenutzerRegister.benutzerHinzufuegen(inhaber);
-
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
 	/**
@@ -88,29 +83,15 @@ public class Anmeldung extends Scene {
 			
 			// Set und Style Titel der Seite
 			title = new Text("Anmeldung");
-			title.setStyle("-fx-font-weight: bold; -fx-font-size: 48");
-
-			// Erstellung von DropShadows fuer TextField und fuer Button
-			DropShadow dropShadowButton = new DropShadow();
-			dropShadowButton.setRadius(5.0);
-			dropShadowButton.setOffsetX(4.0);
-			dropShadowButton.setOffsetY(4.0);
-			dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
-			DropShadow dropShadowTextField = new DropShadow();
-			dropShadowTextField.setRadius(5.0);
-			dropShadowTextField.setOffsetX(2.0);
-			dropShadowTextField.setOffsetY(2.0);
-			dropShadowTextField.setColor(Color.color(0.4, 0.5, 0.5));
+			title.getStyleClass().add("anmeldung-registrierung-title");
 			
 			// Styling von Komponenten
-			labelBenutzername.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
-			labelPasswort.setStyle("-fx-font-weight: bold; -fx-font-size: 18");
-			textFeldBenutzername.setStyle("-fx-padding: 12");
-			textFeldPasswort.setStyle("-fx-padding: 12");
-			textFeldBenutzername.setEffect(dropShadowTextField);
-			textFeldPasswort.setEffect(dropShadowTextField);
-			buttonAnmelden.setEffect(dropShadowButton);
-			changeButtonStyleOnHover(buttonAnmelden);
+			vbox.getStyleClass().add("anmeldung-wrapper");
+			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
+			labelPasswort.getStyleClass().add("anmeldung-registrierung-label");
+			textFeldBenutzername.getStyleClass().add("anmeldung-textfield");
+			textFeldPasswort.getStyleClass().add("anmeldung-textfield");
+			buttonAnmelden.getStyleClass().add("anmeldung-button");
 			buttonAnmelden.setPrefHeight(40);
 			buttonAnmelden.setPrefWidth(120);
 			VBox.setMargin(title, new Insets(0, 0, 30, 0));
@@ -124,42 +105,14 @@ public class Anmeldung extends Scene {
 			vbox.getChildren().add(textFeldPasswort);
 			vbox.getChildren().add(buttonAnmelden);
 
-			// MaxWidth fuer TextFields
-			textFeldBenutzername.setMaxWidth(240);
-			textFeldPasswort.setMaxWidth(240);
-
 			buttonAnmelden.setOnAction(e -> {
 				Benutzer benutzer = anmelden(textFeldBenutzername.getText(), textFeldPasswort.getText());
 				if (benutzer != null) {
 					leiteWeiter(benutzer);
 				}
 			});
-
-			vbox.setSpacing(16);
-			vbox.setAlignment(Pos.CENTER);
 		}
 		return vbox;
-	}
-	
-	/**
-	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * @param button	Button, der gestylt wird
-	 */
-	private void changeButtonStyleOnHover(final Button button) {
-		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16";
-		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-		// Button onHover
-		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
-				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
-			}
-	    });
-		// Button not onHover
-		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent mouseEvent) {
-				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-			}
-	    });
 	}
 
 	/**
