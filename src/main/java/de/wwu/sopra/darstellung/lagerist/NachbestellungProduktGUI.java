@@ -54,8 +54,6 @@ public class NachbestellungProduktGUI extends LageristOverview {
 				neueNachbestellung.add(new NachbestellungTupel(new Produkt(nameProdukt, "Test", 0.1, 5),
 						comboBox.getSelectionModel().getSelectedItem()));
 				lageristenSteuerung.bestelleNach(neueNachbestellung);
-				System.out.println(getWidth());
-				System.out.println(getHeight());
 				primaryStage.setScene(
 						new BestelleNach(primaryStage, MainJavaFx.WIDTH, MainJavaFx.HEIGHT, lageristenSteuerung));
 			}
