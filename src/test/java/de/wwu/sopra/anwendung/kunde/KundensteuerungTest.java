@@ -52,6 +52,7 @@ public class KundensteuerungTest {
 		Produkt cola4 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Test", "Lecker", 0.49, 0.99));
 		Lager.getLager().clear();
 		Lager.addProdukt(cola);
 		Lager.addProdukt(cola2);
@@ -112,6 +113,9 @@ public class KundensteuerungTest {
 		List<Produkt> produkte = kundensteuerung.suchen("Coca Cola");
 
 		assertTrue(produkte.containsAll(liste2));
+		assertThrows(IllegalArgumentException.class, () -> {
+			kundensteuerung.suchen("Test");
+		});
 	}
 
 	/**

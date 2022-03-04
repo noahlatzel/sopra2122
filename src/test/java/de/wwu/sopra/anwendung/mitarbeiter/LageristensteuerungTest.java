@@ -127,6 +127,7 @@ public class LageristensteuerungTest {
 		assertThrows(AssertionError.class, () -> {
 			lageristenSteuerung.planeRoute(new ArrayList<Bestellung>(), new Fahrzeug(20));
 		});
+		assertTrue(lageristenSteuerung.getSortiment().equals(Lager.getLagerbestand().keySet()));
 	}
 
 	/**
