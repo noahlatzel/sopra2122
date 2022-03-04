@@ -28,7 +28,7 @@ public class KundeOverview extends Scene {
 	Button btLogo;
 	MenuItem btProfil;
 	MenuItem btBestellungen;
-    MenuItem btAbmelden;
+	MenuItem btAbmelden;
 	MenuButton menubutton;
 	Button btWarenkorb;
 	Kundensteuerung kundensteuerung;
@@ -110,7 +110,8 @@ public class KundeOverview extends Scene {
 		if (this.btProfil == null) {
 			btProfil = new MenuItem("Profil");
 			btProfil.setOnAction(action -> {
-				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(
+						new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), kundensteuerung));
 
 			});
 		}
@@ -119,13 +120,12 @@ public class KundeOverview extends Scene {
 
 	}
 
-
 	private MenuItem setBtAbmelden() {
 
 		if (this.btAbmelden == null) {
 			btAbmelden = new MenuItem("Abmelden");
 			btAbmelden.setOnAction(action -> {
-				primaryStage.setScene(new Startseite(primaryStage , getWidth(), getHeight()));
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 
 			});
 		}
@@ -134,13 +134,13 @@ public class KundeOverview extends Scene {
 
 	}
 
-
 	private MenuItem setBtBestellungen() {
 
 		if (this.btBestellungen == null) {
 			btBestellungen = new MenuItem("Bestellungen");
 			btBestellungen.setOnAction(action -> {
-				primaryStage.setScene(new UebersichtBestellungen(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage
+						.setScene(new BestellungenUebersicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
 
 			});
 		}
@@ -149,15 +149,14 @@ public class KundeOverview extends Scene {
 
 	}
 
-
-  /**
-   * Setzt die Auswahlbox fuer die verschiedenen Buttons
-   * 
-   * @return Auswahlbox
-   */
+	/**
+	 * Setzt die Auswahlbox fuer die verschiedenen Buttons
+	 * 
+	 * @return Auswahlbox
+	 */
 	private MenuButton setMenuButton() {
 		if (menubutton == null) {
-			menubutton = new MenuButton("Konto" ,null ,setBtProfil() ,setBtBestellungen() ,setBtAbmelden());
+			menubutton = new MenuButton("Konto", null, setBtProfil(), setBtBestellungen(), setBtAbmelden());
 
 		}
 		return this.menubutton;
