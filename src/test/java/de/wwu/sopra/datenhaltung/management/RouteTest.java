@@ -114,15 +114,16 @@ class RouteTest {
 	@Test
 	void testRoutenerstellungMitExistierenderRoutenNummer() throws IllegalArgumentException {
 		Fahrzeug fzeug = new Fahrzeug(100);
+		FahrzeugRegister.addFahrzeug(fzeug);
 		Fahrzeug fzeug2 = new Fahrzeug(200);
+		FahrzeugRegister.addFahrzeug(fzeug2);
 
-		@SuppressWarnings("unused")
 		Route routeFirst = new Route(fzeug);
 
 		@SuppressWarnings("unused")
 		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			Route routeSecond = new Route(fzeug2);
-			routeSecond.setRoutenNummer(1);
+			routeSecond.setRoutenNummer(routeFirst.getRoutenNummer());
 		});
 	}
 
