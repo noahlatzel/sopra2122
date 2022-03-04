@@ -166,6 +166,7 @@ public class Anmeldung extends Scene {
 				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
 			}
 		});
+		button.setAlignment(Pos.CENTER);
 	}
 
 	/**

@@ -220,9 +220,9 @@ public class Lager implements Serializable {
 	 * Deserialisiert das Lager.
 	 */
 	public static void load() {
-		SerialisierungPipeline<HashMap<String, Integer>> sp = new SerialisierungPipeline<HashMap<String, Integer>>();
+		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
-		sp.deserialisieren(path_map);
+		lagerBestand = sp.deserialisieren(path_map);
 		lager = sp1.deserialisieren(path_set);
 	}
 
