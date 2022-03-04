@@ -287,6 +287,11 @@ public class Lageristensteuerung {
 
 	}
 
+	/**
+	 * Gibt das Sortiment zurueck
+	 * 
+	 * @return das Sortiment
+	 */
 	public Set<Produkt> getSortiment() {
 		return Lager.sortimentAnzeigen();
 	}

@@ -295,6 +295,9 @@ public class Lager implements Serializable {
 	/**
 	 * Fuegt der Liste einen Namen hinzu und gibt den Index zurueck. Der Index ist
 	 * dann die ProduktID.
+	 * 
+	 * @param name Name des Produkts
+	 * @return der Index des Namen und des Produkts
 	 */
 	public static int addProduktName(String name) {
 		name = name.strip();

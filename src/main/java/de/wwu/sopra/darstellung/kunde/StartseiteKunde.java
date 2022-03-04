@@ -44,7 +44,9 @@ public class StartseiteKunde extends KundeOverview {
 	MenuButton menuButton;
 	HBox hbox;
 	Set<Produkt> produkte;
-
+	/**
+	 * CSS fuer Produkt Panel
+	 */
 	private static final String STANDARD_PRODUKT_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
 	/**
@@ -54,6 +56,7 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
 			Set<Produkt> produkte) {
@@ -69,6 +72,7 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
+	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
 	public BorderPane setBorderPane(Set<Produkt> produkte) {
@@ -101,6 +105,11 @@ public class StartseiteKunde extends KundeOverview {
 		return searchBarBP;
 	}
 
+	/**
+	 * Erzeugt den MenuButton
+	 * 
+	 * @return MenuButton
+	 */
 	public MenuButton setMenuButton() {
 		if (menuButton == null) {
 			menuButton = new MenuButton("Kategorien");
@@ -176,7 +185,7 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
 	 * @param produkte HashSet mit Produkten die dargestellt werden sollen.
-	 * @return
+	 * @return GridPane
 	 */
 	public GridPane setGridPane(Set<Produkt> produkte) {
 		if (gridpane == null) {

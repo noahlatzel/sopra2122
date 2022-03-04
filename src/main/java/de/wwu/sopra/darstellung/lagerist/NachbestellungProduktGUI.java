@@ -42,8 +42,8 @@ public class NachbestellungProduktGUI extends LageristOverview {
 	/**
 	 * Erzeugt eine Produktansicht
 	 * 
-	 * @param nameProdukt Name des Produkts
-	 * @param anzahl      Anzahl des Produkts im Bestand
+	 * @param produkt Name des Produkts
+	 * @param anzahl  Anzahl des Produkts im Bestand
 	 * @return Erzeugt die Produktansicht
 	 */
 	public GridPane setProduktAnsicht(Produkt produkt, Integer anzahl) {
