@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -112,8 +113,8 @@ public class Inhabersteuerung {
 	 * 
 	 * @return lagerProdukte HashSet mit allen Produkten im Lager
 	 */
-	public HashSet<Produkt> sortimentAnzeigen() { // TODO
-		return Lager.getLager();
+	public Set<Produkt> sortimentAnzeigen() { // TODO
+		return Lager.getLagerbestand().keySet();
 	}
 
 	/**

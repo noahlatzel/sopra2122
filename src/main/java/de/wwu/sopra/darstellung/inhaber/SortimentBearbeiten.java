@@ -4,8 +4,8 @@
 package de.wwu.sopra.darstellung.inhaber;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
@@ -82,7 +82,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 		if (this.content == null) {
 			content = new TilePane();
 			// Get Produkte Im Lager
-			HashSet<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
+			Set<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
 
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
