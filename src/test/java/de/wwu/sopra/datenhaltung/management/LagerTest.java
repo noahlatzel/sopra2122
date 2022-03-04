@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +25,8 @@ public class LagerTest {
 		Lager.reset();
 		FahrzeugRegister.reset();
 		produkte = new ArrayList<Produkt>();
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 1.09, 1.29));
@@ -47,10 +48,10 @@ public class LagerTest {
 	@Test
 	void testRemoveProdukt() {
 		Lager.addProdukt(produkte.get(0));
-		int temp = Lager.getLagerbestand().get(produkte.get(0).getName());
+		int temp = Lager.getLagerbestand().get(produkte.get(0));
 		Lager.removeProdukt(produkte.get(0));
 		assertTrue(!(Lager.getLager().contains(produkte.get(0))));
-		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == temp - 1);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0)) == temp - 1);
 	}
 
 	/**
@@ -58,14 +59,14 @@ public class LagerTest {
 	 */
 	@Test
 	void testAddProdukte() {
-		int anzahl = Lager.getLagerbestand().get(produkte.get(0).getName());
-		int anzahl1 = Lager.getLagerbestand().get(produkte.get(3).getName());
+		int anzahl = Lager.getLagerbestand().get(produkte.get(0));
+		int anzahl1 = Lager.getLagerbestand().get(produkte.get(3));
 		Lager.addProdukte(produkte);
 		for (Produkt p : produkte) {
 			assertTrue(Lager.getLager().contains(p));
 		}
-		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == anzahl + 3);
-		assertTrue(Lager.getLagerbestand().get(produkte.get(3).getName()) == anzahl1 + 1);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0)) == anzahl + 3);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(3)) == anzahl1 + 1);
 	}
 
 	/**
@@ -74,14 +75,14 @@ public class LagerTest {
 	@Test
 	void testRemoveProdukte() {
 		Lager.addProdukte(produkte);
-		int anzahl = Lager.getLagerbestand().get(produkte.get(0).getName());
-		int anzahl1 = Lager.getLagerbestand().get(produkte.get(3).getName());
+		int anzahl = Lager.getLagerbestand().get(produkte.get(0));
+		int anzahl1 = Lager.getLagerbestand().get(produkte.get(3));
 		Lager.removeProdukte(produkte);
 		for (Produkt p : produkte) {
 			assertFalse(Lager.getLager().contains(p));
 		}
-		assertTrue(Lager.getLagerbestand().get(produkte.get(0).getName()) == anzahl - 3);
-		assertTrue(Lager.getLagerbestand().get(produkte.get(3).getName()) == anzahl1 - 1);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(0)) == anzahl - 3);
+		assertTrue(Lager.getLagerbestand().get(produkte.get(3)) == anzahl1 - 1);
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class LagerTest {
 	 */
 	@Test
 	void testGetProduktBestand() {
-		int anzahl = Lager.getLagerbestand().get(produkte.get(0).getName());
+		int anzahl = Lager.getLagerbestand().get(produkte.get(0));
 		Lager.addProdukte(produkte);
 		assertTrue(Lager.getProduktBestand(produkte.get(0)) == Lager.getProduktBestand(produkte.get(0).getName()));
 		assertTrue(Lager.getProduktBestand(produkte.get(0)) == anzahl + 3);
@@ -117,6 +118,24 @@ public class LagerTest {
 		Lager.save();
 		Lager.load();
 		assertTrue(temp_1.equals(Lager.getLager()));
+	}
+
+	/**
+	 * Testet ProduktID
+	 */
+	@Test
+	void testIDHash() {
+		Produkt temp1 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Produkt temp2 = new Produkt("Coca Cola ", "Toller Geschmack", 0.99, 1.29);
+		Produkt temp3 = new Produkt("Coca", "Toller Geschmack", 0.99, 1.29);
+		assertTrue(temp1.getProduktID() == temp2.getProduktID());
+		assertFalse(temp1.getProduktID() == temp3.getProduktID());
+
+		HashMap<Produkt, Integer> testMap = new HashMap<Produkt, Integer>();
+		testMap.put(temp1, 1);
+		assertTrue(testMap.get(temp1) == 1);
+		assertTrue(testMap.get(temp2) == 1);
+		assertTrue(testMap.get(temp3) == null);
 	}
 
 }

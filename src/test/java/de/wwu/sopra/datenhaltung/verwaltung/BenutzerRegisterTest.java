@@ -131,8 +131,8 @@ public class BenutzerRegisterTest {
 		// Registrieren eines Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
 
-		Lager.getLagerbestand().put("Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 
 		// Hinzufuegen der neuen Bestellung zur Liste der Bestellungen des Kunden
 		bestellung = new Bestellung(LocalDateTime.now(), warenkorbTester, benutzer1);

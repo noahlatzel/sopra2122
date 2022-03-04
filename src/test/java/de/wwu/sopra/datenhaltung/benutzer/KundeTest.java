@@ -35,7 +35,7 @@ public class KundeTest {
 				"KapitalistenBankverbindung");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Lager.getLagerbestand().put("Cola", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		bestellung = new Bestellung(datum, produkte, kunde);
 	}
 
@@ -130,7 +130,7 @@ public class KundeTest {
 		produkte.add(produkt1);
 		produkte.add(produkt2);
 		Warenkorb warenkorb = new Warenkorb(produkte, kunde);
-
+		kunde.setWarenkorb(warenkorb);
 		// Kundes Warenkorb leeren
 		kunde.getWarenkorb().warenkorbLeeren();
 

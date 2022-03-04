@@ -40,8 +40,7 @@ public class LageristensteuerungTest {
 				"Muenster", "Noah", "Latzel", "GuteBank", null));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.99, 1.29));
-		Lager.getLagerbestand().put("Coca Cola", 10);
-		Lager.getLagerbestand().put("Fanta", 10);
+
 		produkt1 = new Produkt("Coca Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
@@ -138,8 +137,8 @@ public class LageristensteuerungTest {
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 
-		Lager.getLagerbestand().put("Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 
 		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
 		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
@@ -180,9 +179,9 @@ public class LageristensteuerungTest {
 		produkte.add(cola);
 		produkte.add(korn);
 
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Krombacher Pils", 0);
-		Lager.getLagerbestand().put("Sasse Korn", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Krombacher Pils", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Sasse Korn", "Lecker", 0.49, 0.99));
 
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
 		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);

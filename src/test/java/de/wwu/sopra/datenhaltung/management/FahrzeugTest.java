@@ -125,7 +125,7 @@ class FahrzeugTest {
 	void testFahrer() {
 		Fahrzeug fzeug = new Fahrzeug(100);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		Lager.getLagerbestand().put("Coca Cola", 4);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
 		Bestellung bestellung = new Bestellung(null, produkte,

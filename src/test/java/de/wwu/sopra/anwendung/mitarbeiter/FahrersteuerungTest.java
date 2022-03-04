@@ -54,7 +54,7 @@ public class FahrersteuerungTest {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte1 = new ArrayList<Produkt>();
 		produkte1.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		testbestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde);
 		bestellungen.add(testbestellung);

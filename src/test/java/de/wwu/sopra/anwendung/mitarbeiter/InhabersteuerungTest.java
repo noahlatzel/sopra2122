@@ -216,7 +216,6 @@ public class InhabersteuerungTest {
 		HashSet<Produkt> produkteLager = (HashSet<Produkt>) Lager.getLager().clone();
 
 		System.out.println(Lager.getLagerbestand().keySet().size());
-		int sortimentGroessePre = Lager.getLagerbestand().keySet().size();
 
 		for (Produkt p : produkteLager) {
 			Lager.removeProdukt(p);
@@ -230,21 +229,17 @@ public class InhabersteuerungTest {
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(producto);
 		productsToAdd.add(product);
-		Lager.getLagerbestand().put("Chicha", 0);
-		Lager.getLagerbestand().put("Cola", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Chicha", "Lecker", 0.49, 0.99));
 		ihs.lagerVerwalten(productsToAdd, "hinzufuegen");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			ihs.lagerVerwalten(productsToAdd, "no");
 		});
 
-		// Produkte von Lager erhalten
-		// HashSet<Produkt> lagerProdukte = Lager.getLager();
-		HashSet<Produkt> lagerProdukte = ihs.sortimentAnzeigen();
-
 		System.out.println(Lager.getLagerbestand().keySet().size());
-		assertTrue(Lager.getLagerbestand().keySet().contains("Cola"));
-		assertTrue(Lager.getLagerbestand().keySet().contains("Chicha"));
+		assertTrue(Lager.getLagerbestand().keySet().contains(product));
+		assertTrue(Lager.getLagerbestand().keySet().contains(producto));
 
 		// Erstellung von Produkte-um-loeschen Liste
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
@@ -252,8 +247,8 @@ public class InhabersteuerungTest {
 
 		ihs.lagerVerwalten(productsToRemove, "loeschen");
 
-		assertFalse(Lager.getLagerbestand().keySet().contains("Cola"));
-		assertTrue(Lager.getLagerbestand().keySet().contains("Chicha"));
+		assertFalse(Lager.getLagerbestand().keySet().contains(product));
+		assertTrue(Lager.getLagerbestand().keySet().contains(producto));
 	}
 
 	/**

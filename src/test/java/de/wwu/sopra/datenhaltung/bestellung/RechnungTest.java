@@ -26,7 +26,7 @@ class RechnungTest {
 	void testKonstruktor() {
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Lager.getLagerbestand().put("Cola", 10);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 		Bestellung bestellung = new Bestellung(null, produkte, kunde);
