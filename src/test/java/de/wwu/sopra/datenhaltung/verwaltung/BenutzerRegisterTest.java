@@ -143,7 +143,6 @@ public class BenutzerRegisterTest {
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 
 		// Ein nicht registrierter Benutzer sollte keine Liste mit Bestellungen haben.
-		System.out.println(BenutzerRegister.getBestellungen(benutzer1));
 		assertNull(BenutzerRegister.getBestellungen(benutzer1));
 	}
 
@@ -166,11 +165,9 @@ public class BenutzerRegisterTest {
 	@Test
 	void testLoad() {
 		List<Benutzer> temp = BenutzerRegister.getBenutzerListe();
-		System.out.println(temp.toString());
 		BenutzerRegister.save();
 		BenutzerRegister.load();
 		String temp_1 = BenutzerRegister.getBenutzerListe().toString();
-		System.out.println(temp_1.toString());
 		assertTrue(temp.toString().equals(temp_1));
 	}
 
