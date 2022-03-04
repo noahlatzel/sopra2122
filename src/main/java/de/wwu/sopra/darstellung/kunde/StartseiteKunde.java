@@ -16,7 +16,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -296,10 +295,11 @@ public class StartseiteKunde extends KundeOverview {
 		if (btSuche == null) {
 			btSuche = new Button();
 
-			ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
-			view.setFitWidth(30);
-			view.setFitHeight(30);
-			btSuche.setGraphic(view);
+			// ImageView view = new
+			// ImageView(getClass().getResource("lupe.png").toExternalForm());
+			// view.setFitWidth(30);
+			// view.setFitHeight(30);
+			// btSuche.setGraphic(view);
 
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);
