@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
@@ -35,14 +36,14 @@ public class Lager implements Serializable {
 	 */
 	private static HashSet<Produkt> lager = new HashSet<Produkt>();
 	/**
-	 * HashMap fuer den Lagerbestand
-	 */
-	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
-
-	/**
-	 * TODO Alternative fuer den Lagerbestand
+	 * Alternative fuer den Lagerbestand
 	 */
 	private static HashMap<Produkt, Integer> lagerBestand = new HashMap<Produkt, Integer>();
+
+	/**
+	 * Liste der Produktnamen
+	 */
+	private static ArrayList<String> produktNamenListe = new ArrayList<String>();
 
 	/**
 	 * Singleton Konstruktor
@@ -64,8 +65,8 @@ public class Lager implements Serializable {
 		int bestand_p = Lager.getProduktBestand(p);
 
 		lager.add(p);
-		Lager.addBestand(p);
 
+		Lager.addBestand(p);
 		// Nachbedingung pruefen
 		bestand_p += 1;
 		assert Lager.getProduktBestand(p) == bestand_p
@@ -128,10 +129,10 @@ public class Lager implements Serializable {
 	 * @return Den Lagerbestand eines Produkts
 	 */
 	public static int getProduktBestand(String name) {
-		if (Lager.getLagerbestand().get(name) == null) {
+		if (Lager.getLagerbestand().get(new Produkt(name, "fill", 1, 2)) == null) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		} else {
-			return Lager.getLagerbestand().get(name);
+			return Lager.getLagerbestand().get(new Produkt(name, "fill", 1, 2));
 		}
 	}
 
@@ -143,10 +144,10 @@ public class Lager implements Serializable {
 	 * @return Den Lagerbestand des Produktes
 	 */
 	public static int getProduktBestand(Produkt produkt) {
-		if (Lager.getLagerbestand().get(produkt.getName()) == null) {
+		if (Lager.getLagerbestand().get(produkt) == null) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		} else {
-			return Lager.getLagerbestand().get(produkt.getName());
+			return Lager.getLagerbestand().get(produkt);
 		}
 	}
 
@@ -173,8 +174,8 @@ public class Lager implements Serializable {
 	 * 
 	 * @return Den Lagerbestand
 	 */
-	public static HashMap<String, Integer> getLagerbestand() {
-		return lagerbestand;
+	public static HashMap<Produkt, Integer> getLagerbestand() {
+		return lagerBestand;
 	}
 
 	/**
@@ -192,11 +193,12 @@ public class Lager implements Serializable {
 	 * @param p Produkt, was hinzugefuegt wird.
 	 */
 	private static void addBestand(Produkt p) {
-		if (lagerbestand.get(p.getName()) == null) {
-			lagerbestand.put(p.getName(), 1);
+		if (lagerBestand.get(p) == null) {
+			lagerBestand.put(p, 1);
 		} else {
-			lagerbestand.put(p.getName(), lagerbestand.get(p.getName()) + 1);
+			lagerBestand.put(p, lagerBestand.get(p) + 1);
 		}
+
 	}
 
 	/**
@@ -205,7 +207,13 @@ public class Lager implements Serializable {
 	 * @param p Produkt, was entfernt wird.
 	 */
 	private static void removeBestand(Produkt p) {
-		lagerbestand.put(p.getName(), lagerbestand.get(p.getName()) - 1);
+
+		HashMap<Produkt, Integer> lagerBestand_temp = (HashMap<Produkt, Integer>) lagerBestand.clone();
+		for (Produkt produkt : lagerBestand_temp.keySet()) {
+			if (produkt.getName().equals(p.getName())) {
+				lagerBestand.put(p, lagerBestand.get(produkt) - 1);
+			}
+		}
 	}
 
 	/**
@@ -214,7 +222,7 @@ public class Lager implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<HashMap<String, Integer>> sp = new SerialisierungPipeline<HashMap<String, Integer>>();
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
-		lagerbestand = sp.deserialisieren(path_map);
+		sp.deserialisieren(path_map);
 		lager = sp1.deserialisieren(path_set);
 	}
 
@@ -223,8 +231,8 @@ public class Lager implements Serializable {
 	 * 
 	 * @return Sortiment
 	 */
-	public static ArrayList<Produkt> sortimentAnzeigen() {
-		return (ArrayList<Produkt>) Lager.lagerBestand.keySet();
+	public static Set<Produkt> sortimentAnzeigen() {
+		return Lager.lagerBestand.keySet();
 	}
 
 	/**
@@ -233,17 +241,9 @@ public class Lager implements Serializable {
 	 * @param produkt Produkt, das hinzugefuegt werden soll
 	 */
 	public static void produktZumSortimentHinzufuegen(Produkt produkt) {
-		// Prueft, ob Produkt bereits im Sortiment
-		boolean bereitsVorhanden = false;
-		for (Produkt prod : Lager.lagerBestand.keySet()) {
-			if (prod.getName().equals(produkt.getName())) {
-				bereitsVorhanden = true;
-			}
-		}
-		// Wenn nicht im Sortiment, dann wird es ins Sortiment hinzugefuegt
-		if (!bereitsVorhanden) {
+		if (lagerBestand.get(produkt) == null) {
 			System.out.println("ADDED!");
-			Lager.lagerBestand.put(produkt, 0);
+			lagerBestand.put(produkt, 0);
 			GrosshaendlerRegister.getPreislisteIn().put(produkt.getName(), produkt.getEinkaufspreis());
 		}
 	}
@@ -254,16 +254,12 @@ public class Lager implements Serializable {
 	 * @param produkt Produkt, das entfernt werden soll
 	 */
 	public static void produktAusDemSortimentEntfernen(Produkt produkt) {
-		// Entfernt das Produkt aus dem Sortiment
-		for (Produkt prod : Lager.lagerBestand.keySet()) {
-			if (prod.getName().equals(produkt.getName())) {
-				Lager.lagerBestand.remove(prod);
-			}
-		}
+		lagerBestand.remove(produkt);
+
 		HashSet<Produkt> old_lager = (HashSet<Produkt>) Lager.getLager().clone();
 		// Entfernt die restlichen Produkte des Sortiments aus dem Lager
 		for (Produkt prod : old_lager) {
-			if (prod.getName().equals(produkt.getName())) {
+			if (prod.equals(produkt)) {
 				Lager.removeProdukt(prod);
 			}
 		}
@@ -273,7 +269,7 @@ public class Lager implements Serializable {
 	 * Serialisiert das Lager.
 	 */
 	public static void save() {
-		SerialisierungPipeline<HashMap<String, Integer>> sp = new SerialisierungPipeline<HashMap<String, Integer>>();
+		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
@@ -283,9 +279,28 @@ public class Lager implements Serializable {
 	 * Setzt das Lager zurueck (fuer Tests).
 	 */
 	public static void reset() {
-		HashSet<Produkt> lager_old = (HashSet<Produkt>) Lager.getLager().clone();
-		for (Produkt p : lager_old) {
-			Lager.removeProdukt(p);
+		Lager.getLager().clear();
+	}
+
+	/**
+	 * Gibt die Liste aller Produktnamen zurueck. Ist wichtig fuer das Hashing der
+	 * Produkte und die Produktnummer der Produkte.
+	 * 
+	 * @return die produktNamenListe
+	 */
+	public static ArrayList<String> getProduktNamenListe() {
+		return produktNamenListe;
+	}
+
+	/**
+	 * Fuegt der Liste einen Namen hinzu und gibt den Index zurueck. Der Index ist
+	 * dann die ProduktID.
+	 */
+	public static int addProduktName(String name) {
+		name = name.strip();
+		if (!produktNamenListe.contains(name)) {
+			produktNamenListe.add(name);
 		}
+		return produktNamenListe.indexOf(name);
 	}
 }

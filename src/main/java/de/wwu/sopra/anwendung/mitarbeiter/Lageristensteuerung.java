@@ -1,8 +1,8 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
@@ -13,6 +13,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Route;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
@@ -59,7 +60,6 @@ public class Lageristensteuerung {
 
 		// Vorzustand zur Ueberpruefung der Nachbedingung retten
 		double ausgaben = Statistiken.getAusgaben();
-		HashMap<String, Integer> lagerbestand = Lager.getLagerbestand();
 
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
@@ -285,6 +285,10 @@ public class Lageristensteuerung {
 				+ lagerist.getBankverbindung() + ";";
 		return returnstring;
 
+	}
+
+	public Set<Produkt> getSortiment() {
+		return Lager.sortimentAnzeigen();
 	}
 
 }
