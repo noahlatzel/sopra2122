@@ -83,14 +83,14 @@ public class FahrersteuerungTest {
 		fahrzeug.setStatus(FahrzeugStatus.BELEGT);
 
 		// wenn der fahrer schon ein Fahrzeug hat
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.fahrzeugZuordnen(fahrzeug);
 		});
 
 		// wenn das Fahrzeug keine Route hat
 		fahrer.setFahrzeug(null);
 		fahrzeug.setStatus(FahrzeugStatus.FREI);
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.fahrzeugZuordnen(fahrzeug);
 		});
 
@@ -141,7 +141,7 @@ public class FahrersteuerungTest {
 		steuerung.kundeNichtDa();
 
 		// schon alle bestellungen ausgeliefert
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.kundeNichtDa();
 		});
 
@@ -197,7 +197,7 @@ public class FahrersteuerungTest {
 		steuerung.bestellungAusliefern();
 
 		// wenn alle bestellunfen schon asugeliefert sind
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.bestellungAusliefern();
 		});
 	}
@@ -209,13 +209,17 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+		fahrer.setFahrzeug(null);
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAbschliesen();
+		});
 		Fahrzeug fahrzeug = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
 
 		// route abschliesen wenn noch nicht zu ende
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.routeAbschliesen();
 		});
 		steuerung.bestellungAusliefern();

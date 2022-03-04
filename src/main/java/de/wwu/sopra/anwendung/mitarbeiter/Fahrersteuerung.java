@@ -42,11 +42,13 @@ public class Fahrersteuerung {
 	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nicht leer sind
 	 * @pre fahrer und Fahrzeug haben keinen Fahrer und Fahrzeug und das Fahrzeug
 	 *      hat eine Route
+	 * @pre das Fahrzeughat eine Route
+	 * 
 	 */
-	public void fahrzeugZuordnen(Fahrzeug fahrzeug) throws NullPointerException {
-		if (fahrzeug.getStatus() != FahrzeugStatus.BELEGT | this.fahrer.getFahrzeug() != null) {
-			throw new NullPointerException();
-		}
+	public void fahrzeugZuordnen(Fahrzeug fahrzeug) {
+		assert fahrzeug.getStatus() == FahrzeugStatus.BELEGT : "das Fahrzueg ist nicht berreit zur auswahl";
+		assert this.fahrer.getFahrzeug() == null : "Der Faherer hat schon ein Fahrzeug";
+		assert fahrzeug.getFahrer() == null : "das fahrzeug hat schon einen Fahrer";
 		this.fahrer.setFahrzeug(fahrzeug);
 		fahrzeug.setFahrer(this.fahrer);
 		fahrzeug.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
@@ -57,6 +59,7 @@ public class Fahrersteuerung {
 	 * die route des Fahrzugs wird ausgegben
 	 * 
 	 * @return route des Fahrzeugs
+	 * 
 	 */
 	public Route routeAusgeben() {
 		return fahrer.getFahrzeug().getRoute();
@@ -65,15 +68,15 @@ public class Fahrersteuerung {
 	/**
 	 * der Fahrer storniert die Bestellung an seiner aktuellen position
 	 * 
-	 * @throws NullPointerException Eine Bestellung auf dem Weg wurde nicht
-	 *                              ausgeliefert.
+	 * @pre es ist eine Bestellung vorhanden
 	 */
-	public void kundeNichtDa() throws NullPointerException {
-		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
-			this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
-			this.aktuelleBestellung++;
-		} else
-			throw new NullPointerException();
+	public void kundeNichtDa() {
+		assert this.aktuelleBestellung < this.routeAusgeben().getBestellungen().size()
+				: "es gibt keine bestellung mehr";
+
+		this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
+		this.aktuelleBestellung++;
+
 	}
 
 	/**
@@ -132,14 +135,14 @@ public class Fahrersteuerung {
 	 *                              Route schon abgearbeitet ist
 	 * @pre Die aktuelle bestellung ist noch auf der Liste
 	 */
-	public void bestellungAusliefern() throws NullPointerException {
-		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
-			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
-			inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
-			inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
-			aktuelleBestellung++;
-		} else
-			throw new NullPointerException();
+	public void bestellungAusliefern() {
+		assert this.aktuelleBestellung < this.routeAusgeben().getBestellungen().size()
+				: "es gibt keine bestellung mehr";
+
+		Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
+		inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
+		inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
+		aktuelleBestellung++;
 
 	}
 
@@ -149,15 +152,19 @@ public class Fahrersteuerung {
 	 * @throws IllegalArgumentException wennn die Route noch nicht abgearbeitet ist
 	 * @pre die Route muss abgeschollen sein
 	 * @pre es muss eine Route vorhanden sein
+	 * @pre der fahrer hat ein auto
 	 */
 
-	public void routeAbschliesen() throws IllegalArgumentException {
-		if (this.aktuelleBestellung >= this.routeAusgeben().getBestellungen().size()) {
-			this.fahrer.getFahrzeug().entferneRoute();
-			this.fahrer.getFahrzeug().setFahrer(null);
-			this.fahrer.setFahrzeug(null);
-		} else
-			throw new IllegalArgumentException();
+	public void routeAbschliesen() {
+		assert this.aktuelleBestellung == this.routeAusgeben().getBestellungen().size()
+				: "Die route wurde nch nicht abgearbeitet";
+		assert this.routeAusgeben() != null : "keine Route vorhanden";
+		assert this.fahrer.getFahrzeug() != null : "der Fahrer hat kein Auto";
+
+		this.fahrer.getFahrzeug().entferneRoute();
+		this.fahrer.getFahrzeug().setFahrer(null);
+		this.fahrer.setFahrzeug(null);
+
 	}
 
 	/**
