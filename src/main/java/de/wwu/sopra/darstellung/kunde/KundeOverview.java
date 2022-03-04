@@ -1,10 +1,12 @@
 package de.wwu.sopra.darstellung.kunde;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
+import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -24,10 +26,10 @@ public class KundeOverview extends Scene {
 	VBox vbox;
 	FlowPane flowpane;
 	Button btLogo;
-	Button btProfil;
-	Button btBestellungen;
-	Button btAbmelden;
-	ChoiceBox<Button> choicebox;
+	MenuItem btProfil;
+	MenuItem btBestellungen;
+    MenuItem btAbmelden;
+	MenuButton menubutton;
 	Button btWarenkorb;
 	Kundensteuerung kundensteuerung;
 
@@ -47,7 +49,7 @@ public class KundeOverview extends Scene {
 			flowpane = new FlowPane();
 			flowpane.getChildren().add(setBtLogo());
 			flowpane.getChildren().add(setBtWarenkorb());
-			flowpane.getChildren().add(setChoiceBox());
+			flowpane.getChildren().add(setMenuButton());
 			flowpane.setHgap(20);
 			flowpane.setVgap(20);
 		}
@@ -79,12 +81,11 @@ public class KundeOverview extends Scene {
 
 	}
 
-	private Button setBtProfil() {
+	private MenuItem setBtProfil() {
 		if (this.btProfil == null) {
-			btProfil = new Button("Profil");
-			btProfil.setMinWidth(250);
+			btProfil = new MenuItem("Profil");
 			btProfil.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), kundensteuerung));
 			});
 		}
 
@@ -92,12 +93,11 @@ public class KundeOverview extends Scene {
 
 	}
 
-	private Button setBtAbmelden() {
+	private MenuItem setBtAbmelden() {
 		if (this.btAbmelden == null) {
-			btAbmelden = new Button("Abmelden");
-			btAbmelden.setMinWidth(250);
+			btAbmelden = new MenuItem("Abmelden");
 			btAbmelden.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new Startseite(primaryStage , getWidth(), getHeight()));
 			});
 		}
 
@@ -105,12 +105,11 @@ public class KundeOverview extends Scene {
 
 	}
 
-	private Button setBtBestellungen() {
+	private MenuItem setBtBestellungen() {
 		if (this.btBestellungen == null) {
-			btBestellungen = new Button("Bestellungen");
-			btBestellungen.setMinWidth(250);
+			btBestellungen = new MenuItem("Bestellungen");
 			btBestellungen.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new UebersichtBestellungen(primaryStage, getWidth(), getHeight(), kundensteuerung));
 			});
 		}
 
@@ -118,13 +117,10 @@ public class KundeOverview extends Scene {
 
 	}
 
-	private ChoiceBox<Button> setChoiceBox() {
-		if (choicebox == null) {
-			choicebox = new ChoiceBox<Button>();
-			choicebox.getItems().add(setBtProfil());
-			choicebox.getItems().add(setBtBestellungen());
-			choicebox.getItems().add(setBtAbmelden());
+	private MenuButton setMenuButton() {
+		if (menubutton == null) {
+			menubutton = new MenuButton("Konto" ,null ,setBtProfil() ,setBtBestellungen() ,setBtAbmelden());
 		}
-		return this.choicebox;
+		return this.menubutton;
 	}
 }
