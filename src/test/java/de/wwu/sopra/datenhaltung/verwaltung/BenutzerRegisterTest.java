@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,12 @@ public class BenutzerRegisterTest {
 	Produkt produkt2;
 	Bestellung bestellung;
 	List<Produkt> warenkorbTester;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	void reset() {

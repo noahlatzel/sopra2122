@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +32,12 @@ public class LageristensteuerungTest {
 	NachbestellungTupel nachbestellung2;
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	void init() {
@@ -98,6 +105,9 @@ public class LageristensteuerungTest {
 		ArrayList<Produkt> produkte2 = new ArrayList<Produkt>();
 		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
 		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
+
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
@@ -228,6 +238,7 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();

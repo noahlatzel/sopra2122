@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +32,12 @@ public class KundensteuerungTest {
 	List<Produkt> liste2 = new ArrayList<Produkt>();
 	List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 	Warenkorb warenkorb;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	// vor jedem Test
 	@BeforeEach
@@ -302,7 +309,6 @@ public class KundensteuerungTest {
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta-stisch", "Lecker", 0.49, 0.99));
 
 		Produkt produkt = new Produkt("Fanta-stisch", "Beschreibung", 1, 2.99);
-		Lager.reset();
 		Lager.addProdukt(produkt);
 
 		kundensteuerung.produktZuWarenkorbHinzufuegen(produkt, 1);

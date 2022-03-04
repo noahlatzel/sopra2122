@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,12 @@ public class FahrersteuerungTest {
 	Bestellung testbestellung1;
 	List<Produkt> produkte;
 	List<Produkt> produkte1;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	void reset() {
@@ -73,6 +80,7 @@ public class FahrersteuerungTest {
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -113,6 +121,7 @@ public class FahrersteuerungTest {
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -134,6 +143,7 @@ public class FahrersteuerungTest {
 		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		steuerung.kundeNichtDa();
 
 		// Normalfall

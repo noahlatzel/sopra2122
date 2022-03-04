@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,12 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  *
  */
 class FahrzeugTest {
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeEach
 	void reset() {
 		Lager.reset();

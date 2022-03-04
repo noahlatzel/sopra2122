@@ -280,6 +280,7 @@ public class Lager implements Serializable {
 	 */
 	public static void reset() {
 		Lager.getLager().clear();
+		Lager.getLagerbestand().clear();
 	}
 
 	/**

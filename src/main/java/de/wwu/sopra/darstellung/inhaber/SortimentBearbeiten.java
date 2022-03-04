@@ -135,8 +135,9 @@ public class SortimentBearbeiten extends InhaberOverview {
 
 			tfKategorie.setText(String.valueOf(produkt.getKategorie().getName()));
 		} catch (NullPointerException l) {
-			tfKategorie.setText(String.valueOf(produkt.getKategorie()));
+			tfKategorie.setText(String.valueOf("Keine Kategorie"));
 		}
+
 		// Auf Grid setzen
 		produktGP.add(produktImg, 0, 0, 2, 1);
 		produktGP.add(tfName, 0, 1, 2, 1);

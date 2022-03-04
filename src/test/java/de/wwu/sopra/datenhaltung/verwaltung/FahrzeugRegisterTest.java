@@ -24,6 +24,8 @@ public class FahrzeugRegisterTest {
 	@AfterEach
 	public void end() {
 		FahrzeugRegister.removeFahrzeug(fahrzeug1);
+		Lager.reset();
+		FahrzeugRegister.reset();
 	}
 
 	/**
