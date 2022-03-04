@@ -252,7 +252,8 @@ public class InhabersteuerungTest {
 
 		ihs.lagerVerwalten(productsToRemove, "loeschen");
 
-		assertTrue(Lager.getLagerbestand().keySet().size() == sortimentGroessePre + 1);
+		assertFalse(Lager.getLagerbestand().keySet().contains("Cola"));
+		assertTrue(Lager.getLagerbestand().keySet().contains("Chicha"));
 	}
 
 	/**
