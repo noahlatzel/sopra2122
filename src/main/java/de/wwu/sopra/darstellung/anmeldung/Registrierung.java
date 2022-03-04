@@ -53,7 +53,7 @@ public class Registrierung extends Scene {
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
 	 * 
-	 * @param primaryStage
+	 * @param primaryStage PrimaryStage
 	 * @param width        Breite des Fensters.
 	 * @param height       Hoehe des Fensters.
 	 */

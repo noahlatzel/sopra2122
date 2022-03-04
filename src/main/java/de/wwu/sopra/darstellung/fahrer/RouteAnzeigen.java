@@ -18,13 +18,22 @@ import javafx.stage.Stage;
  *
  */
 public class RouteAnzeigen extends OverviewFahrer {
-
+	/**
+	 * Erzeugt RouteAnzeigen
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public RouteAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		this.zeigeRoute();
 	}
 
-	// route wird angezeigt
+	/**
+	 * Zeigt Route
+	 */
 	private void zeigeRoute() {
 
 		// pane wird erstellt

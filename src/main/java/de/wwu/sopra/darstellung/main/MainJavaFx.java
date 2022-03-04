@@ -13,14 +13,23 @@ import javafx.stage.Stage;
 /**
  * Main-Klasse
  * 
- * @author Johannes
+ * @author Johannes Thiel
  *
  */
 public class MainJavaFx extends Application {
 
+	/**
+	 * Breite des Fensters
+	 */
 	public static final int WIDTH = 1280;
+	/**
+	 * Hoehe des Fensters
+	 */
 	public static final int HEIGHT = 720;
 
+	/**
+	 * Basislayout
+	 */
 	BorderPane layout;
 
 	@Override
@@ -42,6 +51,11 @@ public class MainJavaFx extends Application {
 
 	}
 
+	/**
+	 * Startmethode fuer JavaFX GUI
+	 * 
+	 * @param args Argumente
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

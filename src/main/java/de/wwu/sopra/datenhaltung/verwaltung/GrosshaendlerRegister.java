@@ -13,12 +13,18 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 public class GrosshaendlerRegister implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Liste der Einkaufspreise
+	 */
 	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "grosshaendlerReg.ser";
 
 	/**

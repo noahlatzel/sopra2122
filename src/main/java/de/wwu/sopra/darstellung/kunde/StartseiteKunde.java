@@ -25,6 +25,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * Darstellungsklasse fuer StartseiteKunde
+ * 
+ * @author Jasmin Horstknepper
+ *
+ */
 public class StartseiteKunde extends KundeOverview {
 
 	ScrollPane scrollpane;
@@ -40,6 +46,14 @@ public class StartseiteKunde extends KundeOverview {
 
 	private static final String STANDARD_PRODUKT_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
+	/**
+	 * Konstruktor fuer die Startseite des Kunden
+	 * 
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung KundenSteuerung
+	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
 			HashSet<Produkt> produkte) {
 		super(primaryStage, width, height, kundensteuerung);

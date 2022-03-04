@@ -8,24 +8,40 @@ import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 /**
  * Klasse fuer die Statistiken
  * 
- * @author valeria
+ * @author Valeria Vassalo
  *
  */
 public class Statistiken implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Gesamtumsatz
+	 */
 	private static double umsatz = 0;
+	/**
+	 * Gesamtausgaben
+	 */
 	private static double ausgaben = 0;
+	/**
+	 * Gesamteinnahmen
+	 */
 	private static double einnahmen = 0;
+	/**
+	 * Gesamtarbeitszeit
+	 */
 	private static double arbeitszeit = 0;
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "statistiken.ser";
 
 	/**
 	 * Singleton Konstruktor
+	 * 
+	 * @inv Umsatz, Ausgaben und Arbeitszeit sind positiv
 	 */
 	private Statistiken() {
 
@@ -47,6 +63,12 @@ public class Statistiken implements Serializable {
 	 */
 	public static void setUmsatz(double umsatz) {
 		Statistiken.umsatz = umsatz;
+
+		// Klasseninvariante pruefen
+		assert Statistiken.getAusgaben() >= 0 : "Klasseninvariante von Statistiken verletzt: Ausgaben sind negativ";
+		assert Statistiken.getUmsatz() >= 0 : "Klasseninvariante von Statistiken verletzt: Umsatz ist negativ";
+		assert Statistiken.getArbeitszeit() >= 0
+				: "Klasseninvariante von Statistiken verletzt: Arbeitszeit ist negativ";
 	}
 
 	/**
@@ -65,6 +87,12 @@ public class Statistiken implements Serializable {
 	 */
 	public static void setAusgaben(double ausgaben) {
 		Statistiken.ausgaben = ausgaben;
+
+		// Klasseninvariante pruefen
+		assert Statistiken.getAusgaben() >= 0 : "Klasseninvariante von Statistiken verletzt: Ausgaben sind negativ";
+		assert Statistiken.getUmsatz() >= 0 : "Klasseninvariante von Statistiken verletzt: Umsatz ist negativ";
+		assert Statistiken.getArbeitszeit() >= 0
+				: "Klasseninvariante von Statistiken verletzt: Arbeitszeit ist negativ";
 	}
 
 	/**
@@ -73,7 +101,7 @@ public class Statistiken implements Serializable {
 	 * @return Einnahmen
 	 */
 	public static double getEinnahmen() {
-		return einnahmen;
+		return umsatz - ausgaben;
 	}
 
 	/**
@@ -101,15 +129,31 @@ public class Statistiken implements Serializable {
 	 */
 	public static void setArbeitszeit(double arbeitszeit) {
 		Statistiken.arbeitszeit = arbeitszeit;
+
+		// Klasseninvariante pruefen
+		assert Statistiken.getAusgaben() >= 0 : "Klasseninvariante von Statistiken verletzt: Ausgaben sind negativ";
+		assert Statistiken.getUmsatz() >= 0 : "Klasseninvariante von Statistiken verletzt: Umsatz ist negativ";
+		assert Statistiken.getArbeitszeit() >= 0
+				: "Klasseninvariante von Statistiken verletzt: Arbeitszeit ist negativ";
 	}
 
 	/**
 	 * Fuegt einen Betrag zu den Ausgaben hinzu.
 	 * 
 	 * @param ausgaben Die Ausgaben, die hinzugekommen sind.
+	 * @pre Der zu addierende Betrag muss positiv sein
 	 */
 	public static void addAusgaben(double ausgaben) {
+		// Vorbedingung pruefen
+		assert ausgaben >= 0 : "Vorbedingung von Ausgaben verletzt: die zu addierenden Ausgaben sind negativ";
+
 		Statistiken.ausgaben += ausgaben;
+
+		// Klasseninvariante pruefen
+		assert Statistiken.getAusgaben() >= 0 : "Klasseninvariante von Statistiken verletzt: Ausgaben sind negativ";
+		assert Statistiken.getUmsatz() >= 0 : "Klasseninvariante von Statistiken verletzt: Umsatz ist negativ";
+		assert Statistiken.getArbeitszeit() >= 0
+				: "Klasseninvariante von Statistiken verletzt: Arbeitszeit ist negativ";
 	}
 
 	/**

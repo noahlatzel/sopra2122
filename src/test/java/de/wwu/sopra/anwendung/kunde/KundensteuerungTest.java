@@ -43,6 +43,8 @@ public class KundensteuerungTest {
 		Produkt cola2 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola3 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola4 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Lager.getLagerbestand().put("Cola", 0);
+		Lager.getLagerbestand().put("Coca Cola", 0);
 		Lager.getLager().clear();
 		Lager.addProdukt(cola);
 		Lager.addProdukt(cola2);
@@ -113,6 +115,7 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		Produkt fanta = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
 		liste.add(fanta);
+		Lager.getLagerbestand().put("Fanta", 0);
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -125,7 +128,7 @@ public class KundensteuerungTest {
 
 		kundensteuerung.bestellen();
 
-		for (int i = 0; i < kunde.getBestellungen().size(); i++) {
+		for (int i = 0; i < kunde.getBestellungen().size() - 1; i++) {
 			for (int j = 0; j < kunde.getBestellungen().get(i).getProdukte().size(); j++) {
 
 				assertTrue(bestellungen.get(i).getProdukte().get(j)
@@ -192,12 +195,15 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 		Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), liste2, kunde);
-		Bestellung bestellung3 = new Bestellung(LocalDateTime.now(), liste2, kunde);
 		bestellungen.add(bestellung1);
 		bestellungen.add(bestellung2);
-		bestellungen.add(bestellung3);
 		kunde.bestellungHinzufuegen(bestellung1);
 		kunde.bestellungHinzufuegen(bestellung2);
+
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kundensteuerung.nachbestellen(bestellung2);
 
 		List<String> namen1 = new ArrayList<String>();
@@ -217,6 +223,7 @@ public class KundensteuerungTest {
 	@Test
 	void testeNachbestellenThrows() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Lager.getLagerbestand().put("asd", 0);
 		Produkt test = new Produkt("asd", "Toller Geschmack", 0.99, 1.29);
 		Lager.addProdukt(test);
 		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));

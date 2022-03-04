@@ -21,19 +21,22 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
- * Stuert die aufgaben des Lageristen
+ * Steuert die Aufgaben des Inhabers
  * 
- * @author Noah
+ * @author Valeria Vassallo
  *
  */
 public class Inhabersteuerung {
+	/**
+	 * Inhaber, der die Inhabersteuerung bedient
+	 */
 	private Inhaber inhaber;
 
 	/**
 	 * Die Inhabersteuerung zur Verbindung von GUI und Grenzklassen
 	 * 
 	 * 
-	 * @param inhaber
+	 * @param inhaber Der Inhaber, der eingeloggt ist.
 	 * 
 	 */
 	public Inhabersteuerung(Inhaber inhaber) {
@@ -68,6 +71,7 @@ public class Inhabersteuerung {
 	 * @param beschreibung  Beschreibung des Produkts, kann nicht null oder leer
 	 *                      sein
 	 * @param verkaufspreis Verkaufspreis des Produkts, kann nicht negativ sein
+	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis)
 			throws IllegalArgumentException {
@@ -85,6 +89,7 @@ public class Inhabersteuerung {
 	 * @param produkte Produkte, die entweder hinzugefuegt oder geloescht werde
 	 * @param action   String, entweder hinzufuegen oder loeschen, wenn nicht eine
 	 *                 davon, new IllegalArgumentException
+	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
@@ -113,6 +118,7 @@ public class Inhabersteuerung {
 	 *                  werden
 	 * @param action    String, entweder hinzufuegen oder loeschen, wenn nicht eine
 	 *                  davon, new IllegalArgumentException
+	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void kategorieProdukteVerwalten(Kategorie kategorie, Collection<Produkt> produkte, String action)
 			throws IllegalArgumentException {
@@ -138,6 +144,7 @@ public class Inhabersteuerung {
 	 *                   ist neue Oberkategorie, wenn "unter", Unterkategorie, kann
 	 *                   null sein
 	 * @param name       Neuer Name der Kategorie, kann null sein
+	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name)
 			throws IllegalArgumentException {
@@ -167,7 +174,7 @@ public class Inhabersteuerung {
 	 * @param nachname       Nachname des neuen Mitarbeiters
 	 * @param bankverbindung Bankverbindung des neuen Mitarbeiters
 	 * @param rolle          Rolle des neuen Mitarbeiters
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void mitarbeiterRegistrieren(String benutzername, String passwort, String email, String adresse,
 			String vorname, String nachname, String bankverbindung, Rolle rolle) throws IllegalArgumentException {
@@ -193,6 +200,7 @@ public class Inhabersteuerung {
 	 * Funktion zum Loeschen eines Mitarbeiters
 	 * 
 	 * @param mitarbeiter Mitarbeiter, der geloescht wird
+	 * @throws NullPointerException Der zu loeschende Mitarbeiter ist null.
 	 */
 	public void mitarbeiterLoeschen(Benutzer mitarbeiter) throws NullPointerException {
 		if (mitarbeiter == null)
@@ -206,7 +214,6 @@ public class Inhabersteuerung {
 	}
 
 	/**
-	 * Funktion zum Bearbeiten von Mitarbeiterdaten
 	 * 
 	 * @param mitarbeiter    Mitarbeiter, der bearbeitet wird
 	 * @param benutzername   Benutzername des Mitarbeiters
@@ -216,6 +223,8 @@ public class Inhabersteuerung {
 	 * @param vorname        Vorname des Mitarbeiters
 	 * @param nachname       Nachname des Mitarbeiters
 	 * @param bankverbindung Bankverbindung des Mitarbeiters
+	 * @throws IllegalArgumentException Ungueltige Eingabe
+	 * @throws NullPointerException     Der zu bearbeitende Mitarbeiter ist null
 	 */
 	public void mitarbeiterDatenAendern(Benutzer mitarbeiter, String benutzername, String passwort, String email,
 			String adresse, String vorname, String nachname, String bankverbindung)
@@ -269,6 +278,11 @@ public class Inhabersteuerung {
 		}
 	}
 
+	/**
+	 * Fuegt ein Fahrzeug dem FahrzeugRegister hinzu.
+	 * 
+	 * @param kapazitaet Die Kapazitaet des Fahrzeugs, das hinzugefuegt werden soll.
+	 */
 	public void fahrzeugHinzufuegen(int kapazitaet) {
 		FahrzeugRegister.addFahrzeug(new Fahrzeug(kapazitaet));
 	}
@@ -314,6 +328,7 @@ public class Inhabersteuerung {
 	 * @param vorname        Vorname des Inhabers
 	 * @param nachname       Nachname des Inhabers
 	 * @param bankverbindung Bankverbindung des Inhabers
+	 * @throws IllegalArgumentException Die Eingabe ist ungueltig
 	 */
 	public void persoenlicheDatenAendern(String benutzername, String passwort, String email, String adresse,
 			String vorname, String nachname, String bankverbindung) throws IllegalArgumentException {

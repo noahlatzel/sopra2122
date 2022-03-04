@@ -22,12 +22,26 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
-	
-	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
+
+	/**
+	 * Zeigt die persoenlichen Daten
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
+	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height,
+			Inhabersteuerung inhaberSteuerung) {
 		super(primaryStage, width, height, inhaberSteuerung);
 		root.setCenter(this.setContentWrapper());
 	}
-	
+
+	/**
+	 * Erzeugt ContentWrapper fuer Titel
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
 	private BorderPane setContentWrapper() {
 		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
@@ -39,10 +53,15 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}
-		
+
 		return this.contentWrapper;
 	}
-	
+
+	/**
+	 * Setzt Inhalt
+	 * 
+	 * @return GridPane mit Inhalt
+	 */
 	private GridPane setContent() {
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
@@ -70,31 +89,31 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			VBox vboxBenutzerName = new VBox(2);
 			vboxBenutzerName.getChildren().add(lblBenutzername);
 			vboxBenutzerName.getChildren().add(tfBenutzername);
-			
+
 			VBox vboxPasswort = new VBox(2);
 			vboxPasswort.getChildren().add(lblPasswort);
 			vboxPasswort.getChildren().add(tfPasswort);
-			
+
 			VBox vboxEmail = new VBox(2);
 			vboxEmail.getChildren().add(lblEmail);
 			vboxEmail.getChildren().add(tfEmail);
-			
+
 			VBox vboxAdresse = new VBox(2);
 			vboxAdresse.getChildren().add(lblAdresse);
 			vboxAdresse.getChildren().add(tfAdresse);
-			
+
 			VBox vboxVorname = new VBox(2);
 			vboxVorname.getChildren().add(lblVorname);
 			vboxVorname.getChildren().add(tfVorname);
-			
+
 			VBox vboxNachname = new VBox(2);
 			vboxNachname.getChildren().add(lblNachname);
 			vboxNachname.getChildren().add(tfNachname);
-			
+
 			VBox vboxBankverbindung = new VBox(2);
 			vboxBankverbindung.getChildren().add(lblBankverbindung);
 			vboxBankverbindung.getChildren().add(tfBankverbindung);
-			
+
 			// Alles auf Grid
 			gridPane.add(vboxBenutzerName, 0, 0);
 			gridPane.add(vboxVorname, 0, 1);
@@ -126,7 +145,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 			gridPane.setHgap(10);
 			gridPane.setVgap(10);
 		}
-		
+
 		return this.gridPane;
 	}
 }

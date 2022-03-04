@@ -39,8 +39,8 @@ public class Fahrersteuerung {
 	 * Der Fahrer ordnet sich einem fahrzeug zu
 	 * 
 	 * @param fahrzeug fahrzeug seiner wahl
-	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nichtlerr sind
-	 * @pre fahrer und Fahrzeug haben keinen fahrer und Fahrzeug und das Fahrzeug
+	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nicht leer sind
+	 * @pre fahrer und Fahrzeug haben keinen Fahrer und Fahrzeug und das Fahrzeug
 	 *      hat eine Route
 	 */
 	public void fahrzeugZuordnen(Fahrzeug fahrzeug) throws NullPointerException {
@@ -64,6 +64,9 @@ public class Fahrersteuerung {
 
 	/**
 	 * der Fahrer storniert die Bestellung an seiner aktuellen position
+	 * 
+	 * @throws NullPointerException Eine Bestellung auf dem Weg wurde nicht
+	 *                              ausgeliefert.
 	 */
 	public void kundeNichtDa() throws NullPointerException {
 		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
@@ -132,7 +135,7 @@ public class Fahrersteuerung {
 	public void bestellungAusliefern() throws NullPointerException {
 		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
 			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
-			inbearbeitung.setRechnung(new Rechnung(inbearbeitung.getBetrag(), LocalDateTime.now(), inbearbeitung));
+			inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
 			inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 			aktuelleBestellung++;
 		} else

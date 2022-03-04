@@ -15,9 +15,21 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 public class Kunde extends Benutzer {
 
+	/**
+	 * SerialisierungsID
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Rolle des Kunden
+	 */
 	private final Rolle rolle = Rolle.KUNDE;
+	/**
+	 * Liste der Bestellungen des Kunden
+	 */
 	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
+	/**
+	 * Warenkorb des Kunden
+	 */
 	private Warenkorb warenkorb = new Warenkorb(new ArrayList<Produkt>(), this);
 
 	/**
@@ -39,18 +51,31 @@ public class Kunde extends Benutzer {
 	/**
 	 * Fuegt eine neue Bestellung zur Liste der Bestellungen hinzu
 	 * 
-	 * @param bestellung bestellung
+	 * @param bestellung Bestellung
+	 * @throws NullPointerException Die uebergebene Bestellung ist null
+	 * @pre Die Bestellung ist nicht leer
+	 * @post Die Bestellung wurde dem Kunden hinzugefuegt und ist so vermerkt
 	 */
 	public void bestellungHinzufuegen(Bestellung bestellung) throws NullPointerException {
+		// Vorbedingung pruefen
+		assert !bestellung.getProdukte().isEmpty()
+				: "Vorbedingung von bestellungHinzufuegen verletzt: die uebergebene Bestellung ist leer";
+
 		if (bestellung == null)
 			throw new NullPointerException();
 		if (!this.bestellungen.contains(bestellung)) {
 			this.bestellungen.add(bestellung);
 		}
+
+		// Nachbedingung pruefen
+		assert bestellung.getKunde().equals(this)
+				: "Nachbedingung von bestellungHinzufuegen verletzt: die Bestellung enthaelt nicht den Kunden als Referenz";
+		assert this.bestellungen.contains(bestellung)
+				: "Nachbedingung von bestellungHinzufuegen verletzt: die Bestellung ist nicht in der Liste der Bestellungen des Kunden";
 	}
 
 	/**
-	 * gibt eine Liste der Bestellungen des Kunden aus
+	 * Gibt eine Liste der Bestellungen des Kunden zurueck
 	 * 
 	 * @return Liste von Bestellungen
 	 */
@@ -59,7 +84,8 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * Gibt den Warenkorb aus
+	 * <<<<<<< HEAD Gibt den Warenkorb aus ======= Gibt den Warenkorb zurueck
+	 * >>>>>>> 3c2912881e35c2a2a3bedf74d766fbab0240e668
 	 * 
 	 * @return warenkorb
 	 */
@@ -71,15 +97,23 @@ public class Kunde extends Benutzer {
 	 * Setzt den Warenkorb
 	 * 
 	 * @param warenkorb warenkorb
+	 * @post Der Warenkorb ist dem Kunden zugeordnet und andersherum
 	 */
 	public void setWarenkorb(Warenkorb warenkorb) {
 		this.warenkorb = warenkorb;
+
+		// Nachbedingung pruefen
+		assert warenkorb.getKunde().equals(this)
+				: "Nachbedingung von setWarenkorb() verletzt: der Kunde ist nicht dem Warenkorb zugeordnet";
+		assert this.getWarenkorb().equals(warenkorb)
+				: "Nachbedingung von setWarenkorb() verletzt: der Warenkorb ist nicht dem Kunden zugeordnet";
 	}
 
 	/**
-	 * Gibt die Rolle aus
+	 * <<<<<<< HEAD Gibt die Rolle aus ======= Gibt die Rolle zurueck >>>>>>>
+	 * 3c2912881e35c2a2a3bedf74d766fbab0240e668
 	 * 
-	 * @return rolle.Kunde
+	 * @return rolle Kunde
 	 */
 	public Rolle getRolle() {
 		return rolle;

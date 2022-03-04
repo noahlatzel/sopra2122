@@ -40,10 +40,23 @@ public class LageristOverview extends Scene {
 	// Erstellung von DropShadows fuer Komponenten
 	DropShadow dropShadow = new DropShadow();
 
-	// Color constants fuer Buttons-Background
+	/**
+	 * Color constant fuer Button-Background
+	 */
 	protected static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	/**
+	 * Color constant fuer Button-Background
+	 */
 	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
+	/**
+	 * Erzeugt das Fenster fuer den Lageristen
+	 * 
+	 * @param primaryStage        PrimaryStage
+	 * @param width               Breite des Fensters
+	 * @param height              Hoehe des Fensters
+	 * @param lageristenSteuerung LageristenSteuerung
+	 */
 	public LageristOverview(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(new BorderPane(), width, height);
 
@@ -60,6 +73,11 @@ public class LageristOverview extends Scene {
 
 	}
 
+	/**
+	 * Erzeugt die Ansicht aller Buttons
+	 * 
+	 * @return Ansicht aller Buttons
+	 */
 	private VBox setVBox() {
 		if (this.vbox == null) {
 			vbox = new VBox(5);
@@ -78,6 +96,11 @@ public class LageristOverview extends Scene {
 		return this.vbox;
 	}
 
+	/**
+	 * Erzeugt die Ansicht fuer RoutePlanen
+	 * 
+	 * @return Ansicht fuer Route Planen
+	 */
 	private Button setBtRoutePlanen() {
 		if (this.btRoutePlanen == null) {
 			btRoutePlanen = new Button("Route planen");
@@ -91,6 +114,11 @@ public class LageristOverview extends Scene {
 		return this.btRoutePlanen;
 	}
 
+	/**
+	 * Erzeugt Button fuer BestelleNach
+	 * 
+	 * @return Button fuer BestelleNach
+	 */
 	private Button setBtBestelleNach() {
 		if (this.btBestelleNach == null) {
 			btBestelleNach = new Button("Nachbestellen");
@@ -104,6 +132,11 @@ public class LageristOverview extends Scene {
 		return this.btBestelleNach;
 	}
 
+	/**
+	 * Erzeugt Button fuer persoenlicheDatenAnzeigen
+	 * 
+	 * @return Button fuer persoenlicheDatenAnzeigen
+	 */
 	private Button setBtPersDatenAnzeigen() {
 		if (this.btPersDatenAnzeigen == null) {
 			btPersDatenAnzeigen = new Button("Persoenliche Daten anzeigen");
@@ -118,6 +151,11 @@ public class LageristOverview extends Scene {
 		return this.btPersDatenAnzeigen;
 	}
 
+	/**
+	 * Erzeugt Button fuer ZeigeRouteVonFahrzeug
+	 * 
+	 * @return Button fuer ZeigeRouteVonFahrzeug
+	 */
 	private Button setBtZeigeRouteVonFahrzeug() {
 		if (this.btZeigeRouteVonFahrzeug == null) {
 			btZeigeRouteVonFahrzeug = new Button("Routen anzeigen");
@@ -132,6 +170,11 @@ public class LageristOverview extends Scene {
 		return this.btZeigeRouteVonFahrzeug;
 	}
 
+	/**
+	 * Erzeugt Button fuer Abmelden
+	 * 
+	 * @return Button fuer Abmelden
+	 */
 	private Button setAbmelden() {
 		if (btAbmelden == null) {
 			btAbmelden = new Button("Abmelden");

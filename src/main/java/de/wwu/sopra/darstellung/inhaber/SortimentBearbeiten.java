@@ -38,11 +38,24 @@ public class SortimentBearbeiten extends InhaberOverview {
 	BorderPane contentWrapper;
 	TilePane content;
 
+	/**
+	 * Zeigt das Sortiment
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
 	public SortimentBearbeiten(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(primaryStage, width, height, inhaberSteuerung);
 		root.setCenter(this.setContentWrapper());
 	}
 
+	/**
+	 * Gibt den ContentWrapper fuer Titel zurueck
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
 	private BorderPane setContentWrapper() {
 		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
@@ -59,6 +72,11 @@ public class SortimentBearbeiten extends InhaberOverview {
 		return this.contentWrapper;
 	}
 
+	/**
+	 * Setzt den Inhalt
+	 * 
+	 * @return TilePane mit Inhalt
+	 */
 	private TilePane setContent() {
 		// TilePane als Main Component
 		if (this.content == null) {
@@ -86,6 +104,12 @@ public class SortimentBearbeiten extends InhaberOverview {
 		return this.content;
 	}
 
+	/**
+	 * Erzeugt Produktkomponente
+	 * 
+	 * @param produkt Produkt
+	 * @return Produktkomponente
+	 */
 	private GridPane setProduktKomponente(Produkt produkt) {
 		GridPane produktGP = new GridPane();
 

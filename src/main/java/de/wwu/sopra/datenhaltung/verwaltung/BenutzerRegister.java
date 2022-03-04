@@ -22,11 +22,20 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 public class BenutzerRegister implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Liste der Benutzerdaten
+	 */
 	private static List<Benutzer> benutzerListe = new ArrayList<Benutzer>();
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "benutzerReg.ser";
+	/**
+	 * Zaehler fuer die Bestellungen
+	 */
 	private static int zaehlerBestellung = 0;
 
 	/**

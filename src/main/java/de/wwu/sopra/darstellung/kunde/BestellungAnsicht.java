@@ -4,8 +4,21 @@ import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Darstellungsklasse fuer BestellungAnsicht
+ * 
+ * @author Jasmin Horstknepper
+ *
+ */
 public class BestellungAnsicht extends KundeOverview {
-
+	/**
+	 * Konstruktor fuer die Bestellansicht
+	 * 
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung KundenSteuerung
+	 */
 	public BestellungAnsicht(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;

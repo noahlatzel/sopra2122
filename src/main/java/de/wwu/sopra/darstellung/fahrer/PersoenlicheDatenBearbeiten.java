@@ -17,13 +17,23 @@ import javafx.stage.Stage;
  *
  */
 public class PersoenlicheDatenBearbeiten extends OverviewFahrer {
-
+	/**
+	 * Erzeugt PersoenlicheDatenBearbeiten
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public PersoenlicheDatenBearbeiten(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		root.setCenter(new Label("this is Route"));
 		this.DatenBearbeiten();
 	}
 
+	/**
+	 * Daten bearbeiten
+	 */
 	private void DatenBearbeiten() {
 		GridPane grid = new GridPane();
 		root.setCenter(grid);

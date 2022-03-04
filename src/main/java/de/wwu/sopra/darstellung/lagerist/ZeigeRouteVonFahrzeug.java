@@ -29,6 +29,14 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	ObservableList<Fahrzeug> fahrzeuge;
 	ObservableList<Bestellung> bestellungen;
 
+	/**
+	 * Erzeugt das Fenster, um die Route eines Fahrzeugs anzuzeigen
+	 * 
+	 * @param primaryStage        PrimaryStage
+	 * @param width               Breite des Fensters
+	 * @param height              Hoehe des Fensters
+	 * @param lageristenSteuerung LageristenSteuerung
+	 */
 	public ZeigeRouteVonFahrzeug(Stage primaryStage, double width, double height,
 			Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
@@ -41,6 +49,11 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 		root.setCenter(tilePane);
 	}
 
+	/**
+	 * Generiert das ScrollPane
+	 * 
+	 * @return ScrollPane fuer das Setzen des Fahrzeugs
+	 */
 	public ScrollPane setScrollPaneFahrzeug() {
 		if (scrollPaneFahrzeug == null) {
 			fahrzeuge = FXCollections.observableArrayList();
@@ -66,6 +79,11 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 		return scrollPaneFahrzeug;
 	}
 
+	/**
+	 * Setzt die Route fuer das ScrollPane
+	 * 
+	 * @return Route fuer das ScrollPane
+	 */
 	public ScrollPane setScrollPaneRoute() {
 		if (scrollPaneBestellung == null) {
 			scrollPaneBestellung = new ScrollPane();
@@ -81,6 +99,9 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 		return scrollPaneBestellung;
 	}
 
+	/**
+	 * Setzt die Daten fuer das ScrollPane
+	 */
 	public void setScrollPaneRouteDaten() {
 		if (scrollPaneBestellung != null) {
 			bestellungen = FXCollections.observableArrayList();

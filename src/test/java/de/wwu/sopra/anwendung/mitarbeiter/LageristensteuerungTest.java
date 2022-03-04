@@ -42,7 +42,9 @@ public class LageristensteuerungTest {
 	void init() {
 		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
 				"Muenster", "Noah", "Latzel", "GuteBank", null));
-		produkt1 = new Produkt("Cola", "Lecker", 0.99, 1.29);
+		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.getLagerbestand().put("Fanta", 0);
+		produkt1 = new Produkt("Coca Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
 		GrosshaendlerRegister.setEinkaufspreis(produkt2, 0.99);
@@ -76,11 +78,14 @@ public class LageristensteuerungTest {
 		}
 		Lager.addProdukt(produkt2);
 		Lager.addProdukt(produkt1);
-		int anzahl_cola = Lager.getProduktBestand("Cola");
+		int anzahl_cola = Lager.getProduktBestand("Coca Cola");
 		int anzahl_fanta = Lager.getProduktBestand("Fanta");
 		lageristenSteuerung.bestelleNach(nachbestellungen);
-		assertTrue(Lager.getProduktBestand("Cola") == anzahl_cola + 5);
+		assertTrue(Lager.getProduktBestand("Coca Cola") == anzahl_cola + 5);
 		assertTrue(Lager.getProduktBestand("Fanta") == anzahl_fanta + 2);
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.bestelleNach(new HashSet<NachbestellungTupel>());
+		});
 	}
 
 	/**
@@ -109,6 +114,12 @@ public class LageristensteuerungTest {
 		lageristenSteuerung.planeRoute(bestellungen, fahrzeug);
 		assertTrue(fahrzeug.getRoute().getBestellungen().equals(bestellungen));
 		assertTrue(lageristenSteuerung.zeigeRouteVonFahrzeug(fahrzeug).getBestellungen().equals(bestellungen));
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.planeRoute(bestellungen, fahrzeug);
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.planeRoute(new ArrayList<Bestellung>(), new Fahrzeug(20));
+		});
 	}
 
 	/**
@@ -128,6 +139,10 @@ public class LageristensteuerungTest {
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
+
+		Lager.getLagerbestand().put("Cola", 0);
+		Lager.getLagerbestand().put("Fanta", 0);
+
 		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
 		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
 
@@ -146,7 +161,7 @@ public class LageristensteuerungTest {
 	@Test
 	void testThrowsZeigeRouteVonFahrzeug() {
 		Fahrzeug fahrzeug = new Fahrzeug(2);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			lageristenSteuerung.zeigeRouteVonFahrzeug(fahrzeug);
 		});
 	}
@@ -166,6 +181,10 @@ public class LageristensteuerungTest {
 		produkte.add(bier);
 		produkte.add(cola);
 		produkte.add(korn);
+
+		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.getLagerbestand().put("Krombacher Pils", 0);
+		Lager.getLagerbestand().put("Sasse Korn", 0);
 
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
 		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);
@@ -216,8 +235,8 @@ public class LageristensteuerungTest {
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(testbestellung1);
-		Fahrzeug fahrzeug = new Fahrzeug(2);
-		Fahrzeug fahrzeug1 = new Fahrzeug(3);
+		Fahrzeug fahrzeug = new Fahrzeug(20);
+		Fahrzeug fahrzeug1 = new Fahrzeug(20);
 		FahrzeugRegister.addFahrzeug(fahrzeug1);
 		FahrzeugRegister.addFahrzeug(fahrzeug);
 		Route route = new Route(fahrzeug1);
@@ -236,5 +255,26 @@ public class LageristensteuerungTest {
 
 		// ueberpruefen
 		assertTrue(ergebnis.equals(wunsch));
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("", "1", "1", "1", "1", "1", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "", "1", "1", "1", "1", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "", "1", "1", "1", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "1", "", "1", "1", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "1", "1", "", "1", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "1", "1", "1", "", "1");
+		});
+		assertThrows(AssertionError.class, () -> {
+			lageristenSteuerung.persoenlicheDatenBearbeiten("1", "1", "1", "1", "1", "1", "");
+		});
 	}
 }

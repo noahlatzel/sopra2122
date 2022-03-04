@@ -1,5 +1,6 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -26,10 +27,19 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  *
  */
 public class Lageristensteuerung {
+	/**
+	 * Lagerist, der die Lageristensteuerung bedient
+	 */
 	Lagerist lagerist;
 
+	/**
+	 * Der Konstruktor initialisiert die LageristenSteuerung mit einem Lageristen.
+	 * 
+	 * @param lagerist Der eingeloggte Lagerist.
+	 */
 	public Lageristensteuerung(Lagerist lagerist) {
 		this.lagerist = lagerist;
+
 	}
 
 	/**
@@ -38,19 +48,41 @@ public class Lageristensteuerung {
 	 * Grosshaendlers ueber das GrosshaendlerRegister ab.
 	 * 
 	 * @param nachbestellungen Die Nachbestellungen, die verarbeitet werden sollen.
+	 * @pre die Nachbestellung nachbestellungen ist nicht leer
+	 * @post die Ausgaben werden um die Hoehe der Einkaeufe beim Grosshaendler
+	 *       erhoeht, die Produkte wurden in der gewuenschten Menge dem Lager
+	 *       zugefuegt
 	 */
 	public void bestelleNach(HashSet<NachbestellungTupel> nachbestellungen) {
+		// Vorbedingung pruefen
+		assert !(nachbestellungen.isEmpty()) : "Vorbedingung bei Aufruf von bestelleNach() verletzt";
+
+		// Vorzustand zur Ueberpruefung der Nachbedingung retten
+		double ausgaben = Statistiken.getAusgaben();
+		HashMap<String, Integer> lagerbestand = Lager.getLagerbestand();
+
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
-				if (n != null) {
-					if (n.getProdukt() != null) {
-						double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
-						Lager.addProdukt(n.getProdukt().clone(preis));
-						Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
-					}
+				if (n.getProdukt() != null) {
+					double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
+					Lager.addProdukt(n.getProdukt().clone(preis));
+					Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
+
 				}
 			}
 		}
+
+		// Nachbedingung pruefen
+		double gesamtpreis = 0;
+		for (NachbestellungTupel n : nachbestellungen) {
+			for (int i = 0; i < n.getMenge(); i++) {
+				if (n.getProdukt() != null) {
+					gesamtpreis += GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
+				}
+			}
+		}
+		assert ausgaben + gesamtpreis == Statistiken.getAusgaben()
+				: "Nachbedingung bei Terminierung von bestelleNach verletzt: Ausgaben nicht erhoeht";
 	}
 
 	/**
@@ -64,8 +96,18 @@ public class Lageristensteuerung {
 	 * @param bestellungen Die Bestellungen, die in eine Route eingeplant werden und
 	 *                     vorher im GUI ausgewaehlt wurden.
 	 * @param fahrzeug     Das Fahrzeug, dem Bestellungen zugeordnet werden.
+	 * @pre die Liste der Bestellungen bestellungen ist nicht leer, das Fahrzeug hat
+	 *      noch keine Route
+	 * @post die Liste der Bestellungen wurde in einer Route gespeichert und die
+	 *       Route dem Fahrzeug uebergeben, der Status der Bestellungen in der Route
+	 *       muss jetzt IN_BEARBEITUNG sein und der Status des Fahrzeugs muss BELEGT
+	 *       sein
 	 */
 	public void planeRoute(List<Bestellung> bestellungen, Fahrzeug fahrzeug) {
+		// Vorbedingung pruefen
+		assert !(bestellungen.isEmpty()) : "Vorbedingung von planeRoute verletzt: die Liste der Bestellungen ist leer";
+		assert fahrzeug.getRoute() == null : "Vorbedingung von planeRoute verletzt: das Fahrzeug hat schon eine Route";
+
 		int gesamtBelegung = 0;
 		for (Bestellung b : bestellungen) {
 			gesamtBelegung += b.getKapazitaet();
@@ -74,11 +116,19 @@ public class Lageristensteuerung {
 			throw new IllegalArgumentException("Das Fahrzeug ist zu klein fuer die Bestellung. " + "\n" + gesamtBelegung
 					+ " > " + fahrzeug.getKapazitaet());
 		}
-		// TODO Routennummer in der Route selbst berechnen.
 		Route route = new Route(fahrzeug);
 
 		route.setBestellungen(bestellungen);
 
+		// Nachbedingung pruefen
+		assert fahrzeug.getRoute().getBestellungen() == bestellungen
+				: "Nachbedingung von planeRoute verletzt: Die Route hat nicht die richtigen Bestellungen gespeichert";
+		for (Bestellung bestellung : bestellungen) {
+			assert bestellung.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
+					: "Nachbedingung von planeRoute verletzt: Die Bestellungen der Route sind nicht IN_BEARBEITUNG";
+		}
+		assert fahrzeug.getStatus().equals(FahrzeugStatus.BELEGT)
+				: "Nachbedingung von planeRoute verletzt: Das Fahrzeug ist nicht BELEGT";
 	}
 
 	/**
@@ -87,12 +137,14 @@ public class Lageristensteuerung {
 	 * 
 	 * @param fahrzeug Das Fahrzeug, dessen Route angezeigt werden soll.
 	 * @return Die Route des Fahrzeugs, falls sie existiert.
+	 * @pre das Fahrzeug muss eine Route haben
 	 */
 	public Route zeigeRouteVonFahrzeug(Fahrzeug fahrzeug) {
+		// Vorbedingung pruefen
+		assert fahrzeug.getRoute() != null
+				: "Vorbedingung von zeigeRouteVonFahrzeug verletzt: Das uebergebene Fahrzeug hat keine Route";
+
 		Route route = fahrzeug.getRoute();
-		if (route == null) {
-			throw new IllegalArgumentException("Das Fahrzeug hat keine Route.");
-		}
 		return route;
 	}
 
@@ -186,9 +238,23 @@ public class Lageristensteuerung {
 	 * @param vorname        Vorname des Lageristen
 	 * @param name           Name des Lageristen
 	 * @param bankverbindung Bankverbindung des Lageristen
+	 * @pre die uebermittelten Eingaben muessen gueltig sein
+	 * @post die neuen Daten des Lageristen muessen mit den uebermittelten Eingaben
+	 *       uebereinstimmen
 	 */
 	public void persoenlicheDatenBearbeiten(String benutzername, String passwort, String email, String adresse,
 			String vorname, String name, String bankverbindung) {
+		// Vorbedingung pruefen
+		assert !benutzername.equals("")
+				: "Vorbedingung von persoenlicheDatenBearbeiten verletzt: benutzername ist leer";
+		assert !passwort.equals("") : "Vorbedingung von persoenlicheDatenBearbeiten verletzt: passwort ist leer";
+		assert !email.equals("") : "Vorbedingung von persoenlicheDatenBearbeiten verletzt: email ist leer";
+		assert !adresse.equals("") : "Vorbedingung von persoenlicheDatenBearbeiten verletzt: adresse ist leer";
+		assert !vorname.equals("") : "Vorbedingung von persoenlicheDatenBearbeiten verletzt: vorname ist leer";
+		assert !name.equals("") : "Vorbedingung von persoenlicheDatenBearbeiten verletzt: name ist leer";
+		assert !bankverbindung.equals("")
+				: "Vorbedingung von persoenlicheDatenBearbeiten verletzt: bankverbindung ist leer";
+
 		this.lagerist.setBenutzername(benutzername);
 		this.lagerist.setPasswort(passwort);
 		this.lagerist.setEmail(email);
@@ -196,6 +262,15 @@ public class Lageristensteuerung {
 		this.lagerist.setVorname(vorname);
 		this.lagerist.setName(name);
 		this.lagerist.setBankverbindung(bankverbindung);
+
+		// Nachbedingung pruefen
+		assert lagerist.getBenutzername().equals(benutzername) : "Nachbedingung verletzt: benutzername weicht ab";
+		assert lagerist.getPasswort().equals(passwort) : "Nachbedingung verletzt: passwort weicht ab";
+		assert lagerist.getEmail().equals(email) : "Nachbedingung verletzt: email weicht ab";
+		assert lagerist.getAdresse().equals(adresse) : "Nachbedingung verletzt: adresse weicht ab";
+		assert lagerist.getVorname().equals(vorname) : "Nachbedingung verletzt: vorname weicht ab";
+		assert lagerist.getName().equals(name) : "Nachbedingung verletzt: name weicht ab";
+		assert lagerist.getBankverbindung().equals(bankverbindung) : "Nachbedingung verletzt: bankverbindung weicht ab";
 	}
 
 	/**

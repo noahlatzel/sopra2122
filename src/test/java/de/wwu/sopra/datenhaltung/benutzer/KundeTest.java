@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
@@ -34,6 +35,7 @@ public class KundeTest {
 				"KapitalistenBankverbindung");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Lager.getLagerbestand().put("Cola", 0);
 		bestellung = new Bestellung(datum, produkte, kunde);
 	}
 
@@ -69,6 +71,9 @@ public class KundeTest {
 		// Uebergeben von null erzeugt Exception
 		assertThrows(NullPointerException.class, () -> {
 			kunde.bestellungHinzufuegen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			kunde.bestellungHinzufuegen(new Bestellung(datum, new ArrayList<Produkt>(), kunde));
 		});
 	}
 

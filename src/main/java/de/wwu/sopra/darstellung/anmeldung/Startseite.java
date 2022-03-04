@@ -27,14 +27,19 @@ public class Startseite extends Scene {
 	VBox vbox;
 	Label title;
 
-	// Color constants fuer Buttons-Background
-	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
+	/**
+	 * Color constant fuer Button-Background
+	 */
+	protected static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	/**
+	 * Color constant fuer Button-Background
+	 */
+	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt eine neue Startseite.
 	 * 
-	 * @param primaryStage
+	 * @param primaryStage PrimaryStage
 	 * @param width        Breite des Fensters.
 	 * @param height       Hoehe des Fensters.
 	 */
