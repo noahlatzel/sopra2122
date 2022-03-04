@@ -13,7 +13,9 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
  *
  */
 public class Anmeldungssteuerung {
-
+	/**
+	 * Leerer Konstruktor
+	 */
 	public Anmeldungssteuerung() {
 
 	}

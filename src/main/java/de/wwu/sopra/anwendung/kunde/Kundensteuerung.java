@@ -22,7 +22,9 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  *
  */
 public class Kundensteuerung {
-
+	/**
+	 * Kunde, der die Kundensteuerung bedient
+	 */
 	private Kunde kunde;
 
 	/**

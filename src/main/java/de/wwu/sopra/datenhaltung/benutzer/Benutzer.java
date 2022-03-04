@@ -11,15 +11,36 @@ import java.io.Serializable;
 public abstract class Benutzer implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Benutzername des Benutzers
+	 */
 	private String benutzername;
+	/**
+	 * Passwort des Benutzers
+	 */
 	private String passwort;
+	/**
+	 * E-Mail des Benutzers
+	 */
 	private String email;
+	/**
+	 * Adresse des Benutzers
+	 */
 	private String adresse;
+	/**
+	 * Vorname des Benutzers
+	 */
 	private String vorname;
+	/**
+	 * Name des Benutzers
+	 */
 	private String name;
+	/**
+	 * Bankverbindung des Benutzers
+	 */
 	private String bankverbindung;
 
 	/**

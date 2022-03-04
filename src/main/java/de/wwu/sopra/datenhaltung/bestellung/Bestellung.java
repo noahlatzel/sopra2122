@@ -18,18 +18,44 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 public class Bestellung implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Bestellnummer der Bestellung
+	 */
 	private final int bestellnummer;
+	/**
+	 * Betrag der Bestellung
+	 */
 	private final double betrag;
+	/**
+	 * Status der Bestellung
+	 */
 	private BestellStatus status;
+	/**
+	 * Liste der Produkte
+	 */
 	private final List<Produkt> produkte;
+	/**
+	 * Kunde
+	 */
 	private final Kunde kunde;
+	/**
+	 * Datum der Bestellung
+	 */
 	private LocalDateTime datum;
+	/**
+	 * Rechnung der Bestellung
+	 */
 	private Rechnung rechnung;
+	/**
+	 * Kapazitaetsbelegung im Fahrzeug
+	 */
 	private int kapazitaet;
+	/**
+	 * Adresse des Kunden
+	 */
 	private String adresse;
 
 	/**

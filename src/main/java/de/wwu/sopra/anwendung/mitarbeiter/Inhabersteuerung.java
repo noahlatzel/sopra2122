@@ -27,6 +27,9 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  *
  */
 public class Inhabersteuerung {
+	/**
+	 * Inhaber, der die Inhabersteuerung bedient
+	 */
 	private Inhaber inhaber;
 
 	/**

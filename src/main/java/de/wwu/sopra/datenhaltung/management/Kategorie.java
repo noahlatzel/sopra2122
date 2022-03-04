@@ -11,12 +11,24 @@ import java.util.HashSet;
  */
 public class Kategorie implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Name der Kategorie
+	 */
 	private String name;
+	/**
+	 * Liste der Produkte in der Kategorie
+	 */
 	private HashSet<Produkt> produkte;
+	/**
+	 * Liste der Unterkategorien
+	 */
 	private HashSet<Kategorie> unterkategorien;
+	/**
+	 * Oberkategorie
+	 */
 	private Kategorie oberkategorie;
 
 	/**

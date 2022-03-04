@@ -14,14 +14,28 @@ import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 public class Statistiken implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Gesamtumsatz
+	 */
 	private static double umsatz = 0;
+	/**
+	 * Gesamtausgaben
+	 */
 	private static double ausgaben = 0;
+	/**
+	 * Gesamteinnahmen
+	 */
 	private static double einnahmen = 0;
+	/**
+	 * Gesamtarbeitszeit
+	 */
 	private static double arbeitszeit = 0;
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "statistiken.ser";
 
 	/**
@@ -87,7 +101,7 @@ public class Statistiken implements Serializable {
 	 * @return Einnahmen
 	 */
 	public static double getEinnahmen() {
-		return einnahmen;
+		return umsatz - ausgaben;
 	}
 
 	/**

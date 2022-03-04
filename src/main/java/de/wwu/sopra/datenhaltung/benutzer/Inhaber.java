@@ -15,11 +15,20 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 public class Inhaber extends Benutzer {
 
 	/**
-	 * 
+	 * SerialsierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Rolle des Inhabers
+	 */
 	private final Rolle rolle = Rolle.INHABER;
+	/**
+	 * Liste der angestellten Fahrer
+	 */
 	private List<Fahrer> fahrer = new ArrayList<Fahrer>();
+	/**
+	 * Liste der angestellten Lageristen
+	 */
 	private List<Lagerist> lageristen = new ArrayList<Lagerist>();
 
 	/**

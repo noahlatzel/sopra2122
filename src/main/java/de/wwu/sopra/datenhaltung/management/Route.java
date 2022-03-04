@@ -18,11 +18,20 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  */
 public class Route implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Routennummer der Route
+	 */
 	private int routenNummer;
+	/**
+	 * Fahrzeug, das der Route zugeordnet ist
+	 */
 	private Fahrzeug fahrzeug;
+	/**
+	 * Liste der Bestellungen in der Route
+	 */
 	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 
 	/**

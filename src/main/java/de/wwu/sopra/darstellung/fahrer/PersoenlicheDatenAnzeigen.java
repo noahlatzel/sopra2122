@@ -14,14 +14,23 @@ import javafx.stage.Stage;
  *
  */
 public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
-
+	/**
+	 * Erzeugt PersoenlicheDatenAnzeigen
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public PersoenlicheDatenAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		root.setCenter(new Label("this is Route"));
 		this.DatenZeigen();
 	}
 
-	// Daten zeigen
+	/**
+	 * Daten anzeigen
+	 */
 	private void DatenZeigen() {
 
 		// pane erstellen

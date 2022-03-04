@@ -15,18 +15,27 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 public class Warenkorb implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Betrag des Warenkorbs
+	 */
 	private double betrag;
+	/**
+	 * Kunde, dem der Warenkorb gehoert
+	 */
 	private final Kunde kunde;
+	/**
+	 * Liste der Produkte im Warenkorb
+	 */
 	private List<Produkt> produkte;
 
 	/**
 	 * Konstruktor der Klasse Warenkorb
 	 * 
 	 * @param produkte Liste an Produkten
+	 * @param kunde    Kunde, dem der Warenkorb gehoert
 	 * @inv Ein Warenkorb gehoert immer zu einem Kunden
 	 */
 	public Warenkorb(List<Produkt> produkte, Kunde kunde) {

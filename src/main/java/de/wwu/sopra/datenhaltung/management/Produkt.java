@@ -10,13 +10,28 @@ import java.io.Serializable;
  */
 public class Produkt implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Kategorie des Produkts
+	 */
 	private Kategorie kategorie;
+	/**
+	 * Name des Produkts
+	 */
 	private String name;
+	/**
+	 * Beschreibung des Produkts
+	 */
 	private String beschreibung;
+	/**
+	 * Einkaufspreis des Produkts
+	 */
 	private final double einkaufspreis;
+	/**
+	 * Verkaufspreis des Produkts
+	 */
 	private double verkaufspreis;
 
 	/**

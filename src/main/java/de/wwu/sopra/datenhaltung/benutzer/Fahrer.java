@@ -10,21 +10,26 @@ import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
  * @author Johannes Thiel
  *
  */
-
 public class Fahrer extends Benutzer {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// Rolle des Fahrers
+	/**
+	 * Rolle des Fahrers
+	 */
 	private final Rolle rolle = Rolle.FAHRER;
 
-	// Fahrzeug des Fahrers
+	/**
+	 * Fahrzeug des Fahrers
+	 */
 	private Fahrzeug fahrzeug;
 
-	// chef des Fahrers
+	/**
+	 * Chef des Fahrers
+	 */
 	private Inhaber chef;
 
 	/**

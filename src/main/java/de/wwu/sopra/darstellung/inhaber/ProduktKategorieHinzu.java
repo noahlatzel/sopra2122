@@ -17,17 +17,36 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * Darstellungsklasse fuer StartseiteKunde
+ * 
+ * @author Valeria Vassallo
+ *
+ */
 public class ProduktKategorieHinzu extends InhaberOverview {
 	// Erstellung von Variable
 	BorderPane contentWrapper;
 	GridPane content;
 	List<Kategorie> kategorien;
 
+	/**
+	 * Zeigt das Fenster zur Bearbeitung von Produktkategorien
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
 	public ProduktKategorieHinzu(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(primaryStage, width, height, inhaberSteuerung);
 		root.setCenter(this.setContentWrapper());
 	}
 
+	/**
+	 * Gibt den ContentWrapper fuer Titel zurueck
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
 	private BorderPane setContentWrapper() {
 		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
@@ -43,6 +62,11 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 		return this.contentWrapper;
 	}
 
+	/**
+	 * Setzt den Inhalt
+	 * 
+	 * @return GridPane mit Inhalt
+	 */
 	private GridPane getContent() {
 		// grundstrucktur
 		content = new GridPane();

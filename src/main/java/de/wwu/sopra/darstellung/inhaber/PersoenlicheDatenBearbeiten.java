@@ -28,11 +28,25 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 	BorderPane contentWrapper;
 	GridPane gridPane;
 
-	public PersoenlicheDatenBearbeiten(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
+	/**
+	 * Zeigt die persoenlichen Daten zum bearbeiten
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
+	public PersoenlicheDatenBearbeiten(Stage primaryStage, double width, double height,
+			Inhabersteuerung inhaberSteuerung) {
 		super(primaryStage, width, height, inhaberSteuerung);
 		root.setCenter(this.setContentWrapper());
 	}
-	
+
+	/**
+	 * Erzeugt ContentWrapper fuer Titel
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
 	private BorderPane setContentWrapper() {
 		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
@@ -44,10 +58,15 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}
-		
+
 		return this.contentWrapper;
 	}
-	
+
+	/**
+	 * Setzt den Inhalt
+	 * 
+	 * @return GridPane mit Inhalt
+	 */
 	private GridPane setContent() {
 		if (this.gridPane == null) {
 			gridPane = new GridPane();
@@ -75,31 +94,31 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			VBox vboxBenutzerName = new VBox(2);
 			vboxBenutzerName.getChildren().add(lblBenutzername);
 			vboxBenutzerName.getChildren().add(tfBenutzername);
-			
+
 			VBox vboxPasswort = new VBox(2);
 			vboxPasswort.getChildren().add(lblPasswort);
 			vboxPasswort.getChildren().add(tfPasswort);
-			
+
 			VBox vboxEmail = new VBox(2);
 			vboxEmail.getChildren().add(lblEmail);
 			vboxEmail.getChildren().add(tfEmail);
-			
+
 			VBox vboxAdresse = new VBox(2);
 			vboxAdresse.getChildren().add(lblAdresse);
 			vboxAdresse.getChildren().add(tfAdresse);
-			
+
 			VBox vboxVorname = new VBox(2);
 			vboxVorname.getChildren().add(lblVorname);
 			vboxVorname.getChildren().add(tfVorname);
-			
+
 			VBox vboxNachname = new VBox(2);
 			vboxNachname.getChildren().add(lblNachname);
 			vboxNachname.getChildren().add(tfNachname);
-			
+
 			VBox vboxBankverbindung = new VBox(2);
 			vboxBankverbindung.getChildren().add(lblBankverbindung);
 			vboxBankverbindung.getChildren().add(tfBankverbindung);
-			
+
 			// Alles auf Grid
 			gridPane.add(vboxBenutzerName, 0, 0);
 			gridPane.add(vboxVorname, 0, 1);
@@ -118,7 +137,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			tfVorname.setText(getrennteDatenString[4]);
 			tfNachname.setText(getrennteDatenString[5]);
 			tfBankverbindung.setText(getrennteDatenString[6]);
-			
+
 			// Erstellung von Speicher-Button
 			Button btSpeichern = new Button("Speichern");
 			gridPane.add(btSpeichern, 1, 4);
@@ -138,26 +157,28 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 					if (feld.getText().isBlank())
 						gueltigeEinngaben = false;
 				}
-				
+
 				// Erstellung von neuem roten Error-Label
 				Label errorLabel = new Label();
 				errorLabel.setTextFill(Color.web("#ff0000"));
 
 				if (gueltigeEinngaben == true) {
-					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(), tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(), tfBankverbindung.getText());
+					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(),
+							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
+							tfBankverbindung.getText());
 					errorLabel.setText("");
 				} else {
 					errorLabel.setText("Keine leere Angaben erlaubt");
 				}
-				
+
 				gridPane.add(errorLabel, 1, 5);
 			});
-			
+
 			gridPane.setHgap(10);
 			gridPane.setVgap(10);
 
 		}
-		
+
 		return this.gridPane;
 	}
 }

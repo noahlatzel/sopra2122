@@ -18,12 +18,24 @@ import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
 public class Lager implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Pfad zum Speichern des Lagers
+	 */
 	private static final String path_set = "lager_set.ser";
+	/**
+	 * Pfad zum Speichern des Lagerbestands
+	 */
 	private static final String path_map = "lager_map.ser";
+	/**
+	 * Liste der Produkte im Lager
+	 */
 	private static HashSet<Produkt> lager = new HashSet<Produkt>();
+	/**
+	 * HashMap fuer den Lagerbestand
+	 */
 	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
 
 	/**

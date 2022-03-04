@@ -25,6 +25,9 @@ import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
  *
  */
 public class Lageristensteuerung {
+	/**
+	 * Lagerist, der die Lageristensteuerung bedient
+	 */
 	Lagerist lagerist;
 
 	/**

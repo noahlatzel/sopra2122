@@ -15,11 +15,20 @@ import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 public class Kunde extends Benutzer {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Rolle des Kunden
+	 */
 	private final Rolle rolle = Rolle.KUNDE;
+	/**
+	 * Liste der Bestellungen des Kunden
+	 */
 	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
+	/**
+	 * Warenkorb des Kunden
+	 */
 	private Warenkorb warenkorb;
 
 	/**

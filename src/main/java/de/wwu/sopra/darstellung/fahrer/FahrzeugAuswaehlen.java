@@ -24,20 +24,23 @@ import javafx.stage.Stage;
 public class FahrzeugAuswaehlen extends OverviewFahrer {
 
 	/**
-	 * Konstruktor
+	 * Erzeugt FahrzeugAuswaehlen
 	 * 
-	 * @param steuerung    uebgeabe der Fahrersteuerung
-	 * @param primaryStage uebergabe der stage
-	 * @param width        breite des Fensters
-	 * @param height       hoehe des Fensters
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
 	 */
-
 	public FahrzeugAuswaehlen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		root.setCenter(setScrollPane());
 	}
 
-	// erstellen der Oberflacueh
+	/**
+	 * Erstellt Oberflaeche
+	 * 
+	 * @return ScrollPane mit Oberflaeche
+	 */
 	private ScrollPane setScrollPane() {
 
 		// Pane wird erstellt

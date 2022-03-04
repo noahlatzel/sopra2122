@@ -4,8 +4,6 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -19,15 +17,28 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  */
 public class Fahrzeug implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final Set<Integer> fahrzeugNummern = new HashSet<Integer>();
-
+	/**
+	 * Fahrzeugnummer fuer das Fahrzeug
+	 */
 	private int fahrzeugNummer;
+	/**
+	 * Kapazitaet des Fahrzeugs
+	 */
 	private float kapazitaet;
+	/**
+	 * Status des Fahrzeugs
+	 */
 	private FahrzeugStatus status;
+	/**
+	 * Route des Fahrzeugs (kann null sein)
+	 */
 	private Route route;
+	/**
+	 * Fahrer des Fahrzeugs (kann null sein)
+	 */
 	private Fahrer fahrer;
 
 	/**

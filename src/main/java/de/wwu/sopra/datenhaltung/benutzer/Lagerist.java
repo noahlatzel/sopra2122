@@ -9,10 +9,16 @@ package de.wwu.sopra.datenhaltung.benutzer;
 public class Lagerist extends Benutzer {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Rolle des Lageristen
+	 */
 	private final Rolle rolle = Rolle.LAGERIST;
+	/**
+	 * Chef des Lageristen
+	 */
 	private Inhaber chef;
 
 	/**

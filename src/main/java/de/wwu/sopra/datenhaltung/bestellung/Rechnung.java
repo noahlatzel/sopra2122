@@ -14,20 +14,32 @@ import de.wwu.sopra.datenhaltung.management.Statistiken;
 public class Rechnung implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Rechnungsnummer der Rechnung
+	 */
 	private final int rechnungsnummer;
+	/**
+	 * Endbetrag der Rechnung
+	 */
 	private final double endbetrag;
+	/**
+	 * Datum der Rechnung
+	 */
 	private final LocalDateTime datum;
+	/**
+	 * Bestellung, die der Rechnung zugeordnet ist
+	 */
 	private final Bestellung bestellung;
 
 	/**
 	 * Konstruktor der Klasse Rechnung
 	 * 
-	 * @param endbetrag Endbetrag der Bestellung
-	 * @param datum     Datum der Bestellung
+	 * @param endbetrag  Endbetrag der Bestellung
+	 * @param datum      Datum der Bestellung
+	 * @param bestellung Bestellung fuer die Rechnung ist
 	 * @post Die Einnahmen steigen um den Endbetrag der Rechnung
 	 */
 	public Rechnung(double endbetrag, LocalDateTime datum, Bestellung bestellung) {

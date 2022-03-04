@@ -10,7 +10,13 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * @author Noah Latzel
  */
 public class NachbestellungTupel {
+	/**
+	 * Produkt, das nachbestellt werden soll
+	 */
 	private final Produkt produkt;
+	/**
+	 * Menge des Produkts
+	 */
 	private final int menge;
 
 	/**
