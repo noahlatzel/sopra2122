@@ -89,8 +89,8 @@ public class Anmeldung extends Scene {
 			vbox.getStyleClass().add("anmeldung-wrapper");
 			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
 			labelPasswort.getStyleClass().add("anmeldung-registrierung-label");
-			textFeldBenutzername.getStyleClass().add("anmeldung-textfield");
-			textFeldPasswort.getStyleClass().add("anmeldung-textfield");
+			textFeldBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
 			buttonAnmelden.getStyleClass().add("anmeldung-button");
 			buttonAnmelden.setPrefHeight(40);
 			buttonAnmelden.setPrefWidth(120);
