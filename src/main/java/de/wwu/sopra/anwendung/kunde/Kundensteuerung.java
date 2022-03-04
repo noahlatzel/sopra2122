@@ -222,7 +222,7 @@ public class Kundensteuerung {
 	/**
 	 * Gibt den Produktbestand des uebergebenen Produkts zurueck.
 	 * 
-	 * @param Produkt dessen Bestand abgefragt wird.
+	 * @param p Produkt dessen Bestand abgefragt wird.
 	 * @return Produktbestand des uebergebenen Produktes.
 	 */
 	public int getProduktBestand(Produkt p) {

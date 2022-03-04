@@ -84,8 +84,7 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * <<<<<<< HEAD Gibt den Warenkorb aus ======= Gibt den Warenkorb zurueck
-	 * >>>>>>> 3c2912881e35c2a2a3bedf74d766fbab0240e668
+	 * Gibt den Warenkorb zurueck
 	 * 
 	 * @return warenkorb
 	 */
@@ -110,8 +109,7 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * <<<<<<< HEAD Gibt die Rolle aus ======= Gibt die Rolle zurueck >>>>>>>
-	 * 3c2912881e35c2a2a3bedf74d766fbab0240e668
+	 * Gibt die Rolle zurueck
 	 * 
 	 * @return rolle Kunde
 	 */
