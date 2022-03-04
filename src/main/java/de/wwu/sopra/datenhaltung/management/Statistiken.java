@@ -145,7 +145,7 @@ public class Statistiken implements Serializable {
 	 */
 	public static void addAusgaben(double ausgaben) {
 		// Vorbedingung pruefen
-		assert ausgaben > 0 : "Vorbedingung von Ausgaben verletzt: die zu addierenden Ausgaben sind negativ";
+		assert ausgaben >= 0 : "Vorbedingung von Ausgaben verletzt: die zu addierenden Ausgaben sind negativ";
 
 		Statistiken.ausgaben += ausgaben;
 

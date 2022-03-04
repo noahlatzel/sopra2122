@@ -41,7 +41,7 @@ class StatistikenTest {
 		System.out.println(Statistiken.getAusgaben());
 		assertTrue(Statistiken.getAusgaben() == 3);
 		assertThrows(AssertionError.class, () -> {
-			Statistiken.addAusgaben(0);
+			Statistiken.addAusgaben(-1);
 		});
 	}
 

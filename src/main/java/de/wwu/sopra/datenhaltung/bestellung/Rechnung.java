@@ -47,7 +47,7 @@ public class Rechnung implements Serializable {
 		this.datum = datum;
 		this.bestellung = bestellung;
 		this.endbetrag = bestellung.calcBetrag();
-		double umsatz_neu = Statistiken.getEinnahmen() + this.endbetrag;
+		double umsatz_neu = Statistiken.getUmsatz() + this.endbetrag;
 		Statistiken.setUmsatz(umsatz_neu);
 
 		// Nachbedingung pruefen
