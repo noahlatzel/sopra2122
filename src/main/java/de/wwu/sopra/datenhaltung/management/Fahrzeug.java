@@ -15,7 +15,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 /**
  * Erstellung der Fahrzeug-Klasse
  * 
- * @author Valeria Vassalo
+ * @author Valeria Vassallo
  */
 public class Fahrzeug implements Serializable {
 	/**

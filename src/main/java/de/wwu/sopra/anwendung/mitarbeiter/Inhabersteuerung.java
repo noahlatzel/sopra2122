@@ -23,7 +23,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 /**
  * Steuert die Aufgaben des Inhabers
  * 
- * @author Valeria Vassalo
+ * @author Valeria Vassallo
  *
  */
 public class Inhabersteuerung {

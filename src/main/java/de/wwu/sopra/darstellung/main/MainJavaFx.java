@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * Main-Klasse
  * 
- * @author Johannes
+ * @author Johannes Thiel
  *
  */
 public class MainJavaFx extends Application {

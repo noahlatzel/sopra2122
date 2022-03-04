@@ -14,7 +14,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 /**
  * Erstellung der Route-Klasse
  * 
- * @author Valeria Vassalo
+ * @author Valeria Vassallo
  */
 public class Route implements Serializable {
 	/**

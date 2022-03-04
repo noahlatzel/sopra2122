@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author jasmin
+ * @author Jasmin Horstknepper
  *
  */
 public class KundeOverview extends Scene {
