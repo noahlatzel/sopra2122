@@ -135,7 +135,7 @@ public class Fahrersteuerung {
 	public void bestellungAusliefern() throws NullPointerException {
 		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {
 			Bestellung inbearbeitung = this.routeAusgeben().getBestellungen().get(aktuelleBestellung);
-			inbearbeitung.setRechnung(new Rechnung(inbearbeitung.getBetrag(), LocalDateTime.now(), inbearbeitung));
+			inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
 			inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 			aktuelleBestellung++;
 		} else

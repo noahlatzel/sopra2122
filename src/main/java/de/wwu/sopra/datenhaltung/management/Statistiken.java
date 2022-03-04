@@ -111,12 +111,6 @@ public class Statistiken implements Serializable {
 	 */
 	public static void setEinnahmen(double einnahmen) {
 		Statistiken.einnahmen = einnahmen;
-
-		// Klasseninvariante pruefen
-		assert Statistiken.getAusgaben() >= 0 : "Klasseninvariante von Statistiken verletzt: Ausgaben sind negativ";
-		assert Statistiken.getUmsatz() >= 0 : "Klasseninvariante von Statistiken verletzt: Umsatz ist negativ";
-		assert Statistiken.getArbeitszeit() >= 0
-				: "Klasseninvariante von Statistiken verletzt: Arbeitszeit ist negativ";
 	}
 
 	/**

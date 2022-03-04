@@ -37,24 +37,21 @@ public class Rechnung implements Serializable {
 	/**
 	 * Konstruktor der Klasse Rechnung
 	 * 
-	 * @param endbetrag  Endbetrag der Bestellung
 	 * @param datum      Datum der Bestellung
 	 * @param bestellung Bestellung fuer die Rechnung ist
 	 * @post Die Einnahmen steigen um den Endbetrag der Rechnung
 	 */
-	public Rechnung(double endbetrag, LocalDateTime datum, Bestellung bestellung) {
-		// Vorzustand zur Ueberpruefung der Nachbedingung retten
-		double einnahmen = Statistiken.getEinnahmen();
+	public Rechnung(LocalDateTime datum, Bestellung bestellung) {
 
 		this.rechnungsnummer = bestellung.getBestellnummer();
 		this.datum = datum;
 		this.bestellung = bestellung;
 		this.endbetrag = bestellung.calcBetrag();
-
-		Statistiken.setEinnahmen(Statistiken.getEinnahmen() + endbetrag);
+		double umsatz_neu = Statistiken.getEinnahmen() + this.endbetrag;
+		Statistiken.setUmsatz(umsatz_neu);
 
 		// Nachbedingung pruefen
-		assert Statistiken.getEinnahmen() == einnahmen + endbetrag
+		assert Statistiken.getUmsatz() == umsatz_neu
 				: "Nachbedingung des Konstruktors der Rechnung verletzt: der Betrag der Rechnung wurde nicht den Einnahmen hinzugefuegt";
 	}
 

@@ -13,6 +13,9 @@ class StatistikenTest {
 	void reset() {
 		Lager.reset();
 		FahrzeugRegister.reset();
+		Statistiken.setAusgaben(1);
+		Statistiken.setEinnahmen(0);
+		Statistiken.setUmsatz(1);
 	}
 
 	/**
@@ -20,14 +23,11 @@ class StatistikenTest {
 	 */
 	@Test
 	void test() {
-		Statistiken.setArbeitszeit(0);
-		Statistiken.setAusgaben(0);
-		Statistiken.setEinnahmen(0);
-		Statistiken.setUmsatz(0);
-		assertTrue(Statistiken.getArbeitszeit() == 0);
-		assertTrue(Statistiken.getAusgaben() == 0);
+		Statistiken.setArbeitszeit(10);
+		assertTrue(Statistiken.getArbeitszeit() == 10);
+		assertTrue(Statistiken.getAusgaben() == 1);
 		assertTrue(Statistiken.getEinnahmen() == 0);
-		assertTrue(Statistiken.getUmsatz() == 0);
+		assertTrue(Statistiken.getUmsatz() == 1);
 	}
 
 	/**
@@ -35,11 +35,11 @@ class StatistikenTest {
 	 */
 	@Test
 	void testAddAusgaben() {
-		Statistiken.setAusgaben(0);
+		Statistiken.setAusgaben(1);
 		Statistiken.addAusgaben(1);
 		Statistiken.addAusgaben(1);
 		System.out.println(Statistiken.getAusgaben());
-		assertTrue(Statistiken.getAusgaben() == 2);
+		assertTrue(Statistiken.getAusgaben() == 3);
 		assertThrows(AssertionError.class, () -> {
 			Statistiken.addAusgaben(0);
 		});

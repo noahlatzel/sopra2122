@@ -26,10 +26,11 @@ class RechnungTest {
 	void testKonstruktor() {
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Lager.getLagerbestand().put("Cola", 10);
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 		Bestellung bestellung = new Bestellung(null, produkte, kunde);
-		Rechnung rechnung = new Rechnung(0.99, null, bestellung);
+		Rechnung rechnung = new Rechnung(null, bestellung);
 		int nummer = rechnung.getRechnungsnummer();
 		assertTrue(rechnung.getBestellung().equals(bestellung));
 		assertTrue(rechnung.getDatum() == null);

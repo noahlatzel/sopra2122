@@ -34,7 +34,7 @@ class BestellungTest {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.getLagerbestand().put("Coca Cola", 20);
 		bestellung = new Bestellung(null, produkte, kunde);
 	}
 
@@ -61,7 +61,8 @@ class BestellungTest {
 	 */
 	@Test
 	void testSetGetRechnung() {
-		Rechnung rechnung = new Rechnung(0.99, null, bestellung);
+		Lager.getLagerbestand().put("Coca Cola", 20);
+		Rechnung rechnung = new Rechnung(null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));
 	}
