@@ -243,6 +243,7 @@ public class Anmeldung extends Scene {
 		});
 
 		changeButtonStyleOnHover(buttonZurueck);
+		buttonZurueck.setAlignment(Pos.CENTER);
 		return buttonZurueck;
 	}
 }
