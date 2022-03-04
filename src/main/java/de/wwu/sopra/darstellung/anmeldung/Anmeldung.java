@@ -7,7 +7,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.fahrer.OverviewFahrer;
 import de.wwu.sopra.darstellung.inhaber.InhaberOverview;
-import de.wwu.sopra.darstellung.kunde.KundeOverview;
+import de.wwu.sopra.darstellung.kunde.StartseiteKunde;
 import de.wwu.sopra.darstellung.lagerist.LageristOverview;
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -191,8 +191,8 @@ public class Anmeldung extends Scene {
 		switch (benutzer.getRolle()) {
 		case KUNDE:
 			Kundensteuerung ks = new Kundensteuerung((Kunde) benutzer);
-			KundeOverview ko = new KundeOverview(primaryStage, getWidth(), getHeight(), ks);
-			primaryStage.setScene(ko);
+			StartseiteKunde sk = new StartseiteKunde(primaryStage, getWidth(), getHeight(), ks, ks.getLager());
+			primaryStage.setScene(sk);
 			System.out.println("Kunde angemeldet!");
 			break;
 		case FAHRER:

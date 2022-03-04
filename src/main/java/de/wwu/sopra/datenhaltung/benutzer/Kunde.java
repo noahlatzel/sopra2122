@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * Implementiert die Klasse Kunde.
@@ -29,7 +30,7 @@ public class Kunde extends Benutzer {
 	/**
 	 * Warenkorb des Kunden
 	 */
-	private Warenkorb warenkorb;
+	private Warenkorb warenkorb = new Warenkorb(new ArrayList<Produkt>(), this);
 
 	/**
 	 * Erstellt einen neuen Kunden mit den uebergebenen Eigenschaften.
@@ -116,4 +117,10 @@ public class Kunde extends Benutzer {
 		return rolle;
 	}
 
+	/**
+	 * Setzt die Liste der Bestellungen auf null;
+	 */
+	public void kundeEntfernen() {
+		this.bestellungen = null;
+	}
 }

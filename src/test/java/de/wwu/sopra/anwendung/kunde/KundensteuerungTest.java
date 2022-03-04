@@ -1,11 +1,14 @@
 package de.wwu.sopra.anwendung.kunde;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +18,10 @@ import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class KundensteuerungTest {
@@ -223,10 +228,9 @@ public class KundensteuerungTest {
 		Lager.addProdukt(test);
 		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));
 		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));
-		System.out.println(Lager.getProduktBestand("asd"));
+
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
-		System.out.println(bestellung1.getProduktAnzahl(test));
-		System.out.println(Lager.getProduktBestand("asd"));
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			kundensteuerung.nachbestellen(bestellung1);
 		});
@@ -247,6 +251,26 @@ public class KundensteuerungTest {
 	}
 
 	/**
+	 * Testet getKategorien
+	 */
+	@Test
+	void getKategorienTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
+
+		Iterator<Produkt> iterator = Lager.getLager().iterator();
+		while (iterator.hasNext()) {
+			Produkt p = iterator.next();
+			if (p.getKategorie() != null) {
+				kategorien.add(p.getKategorie());
+			}
+		}
+
+		assertTrue(kundensteuerung.getKategorien().equals(kategorien));
+
+	}
+
+	/**
 	 * Testet suchenThrows
 	 */
 	@Test
@@ -261,5 +285,52 @@ public class KundensteuerungTest {
 			Lager.removeProdukt(test);
 			kundensteuerung.suchen("asd");
 		});
+	}
+
+	/**
+	 * Testet produktZuWarenkorbHinzufuegen
+	 */
+	@Test
+	void produktZuWarenkorbHinzufuegenTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		BenutzerRegister.benutzerHinzufuegen(kunde);
+
+		while (BenutzerRegister.getWarenkorb(kunde).getProdukte().size() > 0) {
+			BenutzerRegister.getWarenkorb(kunde).getProdukte().remove(0);
+		}
+
+		Lager.getLagerbestand().put("Fanta-stisch", 0);
+
+		Produkt produkt = new Produkt("Fanta-stisch", "Beschreibung", 1, 2.99);
+		Lager.reset();
+		Lager.addProdukt(produkt);
+
+		kundensteuerung.produktZuWarenkorbHinzufuegen(produkt, 1);
+
+		assertTrue(kundensteuerung.warenkorbAnsicht().getProdukte().get(0).getName().equals(produkt.getName()));
+	}
+
+	/**
+	 * Testet getLager
+	 */
+	@Test
+	void getLagerTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+
+		assertEquals(kundensteuerung.getLager(), Lager.getLager());
+	}
+
+	/**
+	 * Testet getProduktBestand
+	 */
+	@Test
+	void getProduktBestandTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+
+		Produkt produkt = new Produkt("Name", "Beschreibung", 1, 2);
+		Lager.getLagerbestand().put("Name", 0);
+		Lager.addProdukt(produkt);
+
+		assertEquals(kundensteuerung.getProduktBestand(produkt), Lager.getProduktBestand(produkt));
 	}
 }

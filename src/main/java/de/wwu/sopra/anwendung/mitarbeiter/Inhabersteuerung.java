@@ -110,7 +110,7 @@ public class Inhabersteuerung {
 	 * 
 	 * @return lagerProdukte HashSet mit allen Produkten im Lager
 	 */
-	public HashSet<Produkt> sortimentAnzeigen() {
+	public HashSet<Produkt> sortimentAnzeigen() { // TODO
 		return Lager.getLager();
 	}
 
