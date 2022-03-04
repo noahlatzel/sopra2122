@@ -40,6 +40,7 @@ public class BenutzerRegisterTest {
 	void reset() {
 		Lager.reset();
 		FahrzeugRegister.reset();
+		BenutzerRegister.reset();
 	}
 
 	@BeforeEach
@@ -130,6 +131,9 @@ public class BenutzerRegisterTest {
 		// Registrieren eines Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
 
+		Lager.getLagerbestand().put("Cola", 0);
+		Lager.getLagerbestand().put("Fanta", 0);
+
 		// Hinzufuegen der neuen Bestellung zur Liste der Bestellungen des Kunden
 		bestellung = new Bestellung(LocalDateTime.now(), warenkorbTester, benutzer1);
 		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, bestellung);
@@ -147,7 +151,7 @@ public class BenutzerRegisterTest {
 	 * Testet die Abfrage eines Benutzers anhand des Banutzernamens.
 	 */
 	@Test
-	void getBenutzerZuBenuttzername() {
+	void getBenutzerZuBenutzername() {
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
 
 		assertEquals(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"), benutzer1);

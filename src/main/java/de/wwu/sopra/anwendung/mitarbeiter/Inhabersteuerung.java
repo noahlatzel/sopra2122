@@ -93,9 +93,13 @@ public class Inhabersteuerung {
 	 */
 	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
-			Lager.addProdukte(produkte);
+			for (Produkt produkt : produkte) {
+				Lager.getLagerbestand().put(produkt.getName(), 0);
+			}
 		} else if (action == "loeschen") {
-			Lager.removeProdukte(produkte);
+			for (Produkt produkt : produkte) {
+				Lager.getLagerbestand().remove(produkt.getName());
+			}
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -106,7 +110,7 @@ public class Inhabersteuerung {
 	 * 
 	 * @return lagerProdukte HashSet mit allen Produkten im Lager
 	 */
-	public HashSet<Produkt> sortimentAnzeigen() {
+	public HashSet<Produkt> sortimentAnzeigen() { // TODO
 		return Lager.getLager();
 	}
 

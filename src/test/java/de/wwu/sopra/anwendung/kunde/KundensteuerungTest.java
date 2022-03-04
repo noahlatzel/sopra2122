@@ -299,6 +299,8 @@ public class KundensteuerungTest {
 			BenutzerRegister.getWarenkorb(kunde).getProdukte().remove(0);
 		}
 
+		Lager.getLagerbestand().put("Fanta-stisch", 0);
+
 		Produkt produkt = new Produkt("Fanta-stisch", "Beschreibung", 1, 2.99);
 		Lager.reset();
 		Lager.addProdukt(produkt);
@@ -324,7 +326,9 @@ public class KundensteuerungTest {
 	@Test
 	void getProduktBestandTest() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+
 		Produkt produkt = new Produkt("Name", "Beschreibung", 1, 2);
+		Lager.getLagerbestand().put("Name", 0);
 		Lager.addProdukt(produkt);
 
 		assertEquals(kundensteuerung.getProduktBestand(produkt), Lager.getProduktBestand(produkt));

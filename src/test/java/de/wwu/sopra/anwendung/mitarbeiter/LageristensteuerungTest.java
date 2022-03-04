@@ -193,9 +193,9 @@ public class LageristensteuerungTest {
 		testbestellung2.setStatus(BestellStatus.OFFEN);
 
 		BenutzerRegister.benutzerHinzufuegen(kunde2);
-		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung2);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde2, testbestellung1);
 		BenutzerRegister.benutzerHinzufuegen(kunde1);
-		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung1);
+		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(kunde1, testbestellung2);
 
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().contains(testbestellung2));
 		assertTrue(lageristenSteuerung.zeigeOffeneBestellungen().size() == 1);

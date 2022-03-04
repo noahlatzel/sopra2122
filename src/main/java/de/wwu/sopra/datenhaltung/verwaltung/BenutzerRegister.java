@@ -243,4 +243,11 @@ public class BenutzerRegister implements Serializable {
 		return ++zaehlerBestellung;
 	}
 
+	/**
+	 * Resetted die Benutzerliste
+	 */
+	public static void reset() {
+		benutzerListe.clear();
+	}
+
 }
