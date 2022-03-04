@@ -29,7 +29,7 @@ public class BestelleNach extends LageristOverview {
 	 */
 	public BestelleNach(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
-		produktGUI = new NachbestellungProduktGUI(primaryStage, height, height, lageristenSteuerung);
+		produktGUI = new NachbestellungProduktGUI(primaryStage, width, height, lageristenSteuerung);
 		root.setCenter(new Label("Nachbestellen..."));
 		tilePane = new TilePane();
 		tilePane.setPadding(new Insets(20));

@@ -148,6 +148,7 @@ public class Fahrersteuerung {
 	 * 
 	 * @throws IllegalArgumentException wennn die Route noch nicht abgearbeitet ist
 	 * @pre die Route muss abgeschollen sein
+	 * @pre es muss eine Route vorhanden sein
 	 */
 
 	public void routeAbschliesen() throws IllegalArgumentException {

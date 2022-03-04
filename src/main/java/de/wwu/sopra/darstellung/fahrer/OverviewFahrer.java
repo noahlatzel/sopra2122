@@ -24,6 +24,8 @@ public class OverviewFahrer extends Scene {
 	Button btRouteAnzeigen;
 	Button btFahrzeugpositionAnzeigen;
 	Button btKundeNichtDa;
+	Button btBestellungAbgeben1;
+	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
 	Button btAbmelden;
@@ -59,6 +61,8 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBtRouteAnzeigen());
 			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
 			vbox.getChildren().add(setBtKundeNichtDa());
+			vbox.getChildren().add(setBestellungAbgeben1());
+			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(setBtAbmelden());
@@ -130,6 +134,28 @@ public class OverviewFahrer extends Scene {
 			});
 		}
 		return btKundeNichtDa;
+	}
+
+	private Button setBestellungAbgeben1() {
+		if (btBestellungAbgeben1 == null) {
+			btBestellungAbgeben1 = new Button("Bestellung abgeben");
+			btBestellungAbgeben1.setMinWidth(200);
+			btBestellungAbgeben1.setOnAction(e -> {
+				primaryStage.setScene(new BestellungAbgeben(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btBestellungAbgeben1;
+	}
+
+	private Button setLieferungabschielsen() {
+		if (btLieferungabschliesen == null) {
+			btLieferungabschliesen = new Button("Lieferung abschliesen");
+			btLieferungabschliesen.setMinWidth(200);
+			btLieferungabschliesen.setOnAction(e -> {
+				primaryStage.setScene(new LieferungAbschlisen(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btLieferungabschliesen;
 	}
 
 	/**
