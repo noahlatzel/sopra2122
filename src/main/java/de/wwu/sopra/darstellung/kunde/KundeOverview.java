@@ -61,7 +61,7 @@ public class KundeOverview extends Scene {
 			flowpane.getChildren().add(setBtLogo());
 			flowpane.getChildren().add(setBtWarenkorb());
 			flowpane.getChildren().add(setChoiceBox());
-			flowpane.setHgap(20);
+			flowpane.setHgap(50);
 			flowpane.setVgap(20);
 		}
 		return this.flowpane;
@@ -94,7 +94,8 @@ public class KundeOverview extends Scene {
 			btLogo = new Button("Logo");
 			btLogo.setMinWidth(250);
 			btLogo.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager()));
 			});
 		}
 
@@ -112,7 +113,8 @@ public class KundeOverview extends Scene {
 			btProfil = new Button("Profil");
 			btProfil.setMinWidth(250);
 			btProfil.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager()));
 			});
 		}
 
@@ -130,7 +132,8 @@ public class KundeOverview extends Scene {
 			btAbmelden = new Button("Abmelden");
 			btAbmelden.setMinWidth(250);
 			btAbmelden.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager()));
 			});
 		}
 
@@ -148,7 +151,8 @@ public class KundeOverview extends Scene {
 			btBestellungen = new Button("Bestellungen");
 			btBestellungen.setMinWidth(250);
 			btBestellungen.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager()));
 			});
 		}
 

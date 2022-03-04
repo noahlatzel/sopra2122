@@ -17,6 +17,7 @@ import javafx.stage.Stage;
  *
  */
 public class MainJavaFx extends Application {
+
 	/**
 	 * Breite des Fensters
 	 */
@@ -25,6 +26,7 @@ public class MainJavaFx extends Application {
 	 * Hoehe des Fensters
 	 */
 	public static final int HEIGHT = 720;
+
 	/**
 	 * Basislayout
 	 */

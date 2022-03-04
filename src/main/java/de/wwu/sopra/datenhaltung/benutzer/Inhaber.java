@@ -3,7 +3,6 @@ package de.wwu.sopra.datenhaltung.benutzer;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
@@ -47,22 +46,24 @@ public class Inhaber extends Benutzer {
 	public Inhaber(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung) {
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
-		for (BenutzerDatenTripel benutzerDatenTripel : BenutzerRegister.getBenutzerListe()) {
-			if (benutzerDatenTripel.getBenutzer().getRolle() == Rolle.FAHRER) {
-				fahrer.add((Fahrer) benutzerDatenTripel.getBenutzer());
-			} else if (benutzerDatenTripel.getBenutzer().getRolle() == Rolle.LAGERIST) {
-				lageristen.add((Lagerist) benutzerDatenTripel.getBenutzer());
+
+		for (Benutzer i : BenutzerRegister.getBenutzerListe()) {
+			if (i.getRolle() == Rolle.FAHRER) {
+				fahrer.add((Fahrer) i);
+			} else if (i.getRolle() == Rolle.LAGERIST) {
+				lageristen.add((Lagerist) i);
 			}
 		}
 
 		// Nachbedingung pruefen
-		for (BenutzerDatenTripel benutzerDatenTripel : BenutzerRegister.getBenutzerListe()) {
-			if (benutzerDatenTripel.getBenutzer().getRolle() == Rolle.FAHRER) {
-				assert fahrer.contains(benutzerDatenTripel.getBenutzer())
+		for (Benutzer benutzerDaten : BenutzerRegister.getBenutzerListe()) {
+			if (benutzerDaten.getRolle() == Rolle.FAHRER) {
+				assert fahrer.contains(benutzerDaten)
 						: "Nachbedingung des Konstruktors von Inhaber verletzt: nicht alle Fahrer sind auch in der Fahrerliste des Inhabers gespeichert";
-			} else if (benutzerDatenTripel.getBenutzer().getRolle() == Rolle.LAGERIST) {
-				assert lageristen.contains(benutzerDatenTripel.getBenutzer())
+			} else if (benutzerDaten.getRolle() == Rolle.LAGERIST) {
+				assert lageristen.contains(benutzerDaten)
 						: "Nachbedingung des Konstruktors von Inhaber verletzt: nicht alle Lageristen sind auch in der Fahrerliste des Inhabers gespeichert";
+
 			}
 		}
 	}
