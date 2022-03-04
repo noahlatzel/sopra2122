@@ -18,22 +18,24 @@ public class Lagerist extends Benutzer {
 	/**
 	 * Erstellt einen neuen Lageristen mit den uebergebenen Eigenschaften.
 	 * 
-	 * @param benutzername   benutzername
-	 * @param passwort       passwort
-	 * @param email          email
-	 * @param adresse        adresse
-	 * @param vorname        vorname
-	 * @param name           name
-	 * @param bankverbindung bankverbindung
+	 * @param benutzername   Benutzername
+	 * @param passwort       Passwort
+	 * @param email          Email
+	 * @param adresse        Adresse
+	 * @param vorname        Vorname
+	 * @param name           Name
+	 * @param bankverbindung Bankverbindung
+	 * @param chef           Der Chef des Lageristen
 	 */
 	public Lagerist(String benutzername, String passwort, String email, String adresse, String vorname, String name,
 			String bankverbindung, Inhaber chef) {
 		super(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
 		this.setChef(chef);
+
 	}
 
 	/**
-	 * gibt Chef aus
+	 * Gibt den Chef des Lageristen zurueck.
 	 * 
 	 * @return Inhaber
 	 */
@@ -42,16 +44,17 @@ public class Lagerist extends Benutzer {
 	}
 
 	/**
-	 * setzt den Chef
+	 * Setzt den Chef fuer den Lageristen.
 	 * 
 	 * @param chef Inhaber
 	 */
 	public void setChef(Inhaber chef) {
 		this.chef = chef;
+
 	}
 
 	/**
-	 * gibt die Rolle aus
+	 * Gibt die Rolle des Lageristen zurueck.
 	 * 
 	 * @return rolle.Lagerist
 	 */

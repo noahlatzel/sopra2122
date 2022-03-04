@@ -38,10 +38,20 @@ public class Lager implements Serializable {
 	 * Lagerbestand eines Produktes orientiert sich am Namen des Produktes.
 	 * 
 	 * @param p Das neue Produkt.
+	 *
+	 * @post Der Bestand des Produkts muss um eins erhoeht werden.
 	 */
 	public static void addProdukt(Produkt p) {
+		// Vorzustand zur Ueberpruefung der Nachbedingung retten
+		int bestand_p = Lager.getProduktBestand(p);
+
 		lager.add(p);
 		Lager.addBestand(p);
+
+		// Nachbedingung pruefen
+		bestand_p += 1;
+		assert Lager.getProduktBestand(p) == bestand_p
+				: "Nachbedingung von addProdukt() verletzt: der Lagerbestand wurde nicht angepasst";
 	}
 
 	/**
@@ -52,9 +62,8 @@ public class Lager implements Serializable {
 	 * @param p Die neuen Produkte.
 	 */
 	public static void addProdukte(Collection<Produkt> p) {
-		lager.addAll(p);
 		for (Produkt produkt : p) {
-			addBestand(produkt);
+			addProdukt(produkt);
 		}
 
 	}
@@ -64,10 +73,20 @@ public class Lager implements Serializable {
 	 * entfernt und der Lagerbestand des Produkts um 1 verringert.
 	 * 
 	 * @param p Das zu entfernende Produkt.
+	 * 
+	 * @post Der Bestand des Produkts muss um eins verringert werden.
 	 */
 	public static void removeProdukt(Produkt p) {
+		// Vorzustand zur Ueberpruefung der Nachbedingung retten
+		int bestand_p = Lager.getProduktBestand(p);
+
 		lager.remove(p);
 		removeBestand(p);
+
+		// Nachbedingung pruefen
+		bestand_p -= 1;
+		assert Lager.getProduktBestand(p) == bestand_p
+				: "Nachbedingung von removeProdukt() verletzt: der Lagerbestand wurde nicht angepasst";
 	}
 
 	/**

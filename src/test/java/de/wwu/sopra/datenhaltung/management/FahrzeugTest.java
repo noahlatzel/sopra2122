@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
@@ -126,8 +127,9 @@ class FahrzeugTest {
 		bestellungen.add(bestellung);
 		Route route = new Route(fzeug);
 		route.setBestellungen(bestellungen);
+		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
 		Fahrer fahrer = new Fahrer("fahrer1", "sicheresPasswort", "thomas@uni-muenster.de", "Einsteinstra�e 64",
-				"Thomas", "Thomas", "DE291234", null);
+				"Thomas", "Thomas", "DE291234", inhaber);
 		fzeug.setFahrer(fahrer);
 		assertTrue(fzeug.getFahrer().equals(fahrer));
 	}

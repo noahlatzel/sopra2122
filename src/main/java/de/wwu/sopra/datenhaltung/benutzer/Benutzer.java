@@ -21,7 +21,6 @@ public abstract class Benutzer implements Serializable {
 	private String vorname;
 	private String name;
 	private String bankverbindung;
-	private Rolle rolle;
 
 	/**
 	 * Erstellt einen neuen Benutzer mit den uebergebenen Eigenschaften.

@@ -9,7 +9,7 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 /**
  * Klasse Rechung
  * 
- * @author Jasmin
+ * @author Jasmin Horstknepper
  *
  */
 public class Warenkorb implements Serializable {
@@ -27,12 +27,17 @@ public class Warenkorb implements Serializable {
 	 * Konstruktor der Klasse Warenkorb
 	 * 
 	 * @param produkte Liste an Produkten
+	 * @inv Ein Warenkorb gehoert immer zu einem Kunden
 	 */
 	public Warenkorb(List<Produkt> produkte, Kunde kunde) {
 		this.produkte = produkte;
 		this.kunde = kunde;
 		this.setBetrag();
 		kunde.setWarenkorb(this);
+
+		// Klasseninvariante pruefen
+		assert this.getKunde() != null
+				: "Klasseninvariante von Warenkorb verletzt: der Warenkorb gehoert zu keinem Kunden mehr";
 	}
 
 	/**

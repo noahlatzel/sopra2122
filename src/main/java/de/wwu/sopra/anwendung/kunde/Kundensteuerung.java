@@ -18,6 +18,7 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  * PersoenlicheDatenAnzeigen, Suchen, Bestellen, Rechnung, WarenkorbAnsicht,
  * BestellungVerwalten und BestellungenAnzeigen.
  * 
+ * @author Jasmin Horstknepper
  *
  */
 public class Kundensteuerung {
@@ -36,7 +37,7 @@ public class Kundensteuerung {
 	/**
 	 * Methode zum Anzeigen der persoenlichen Daten
 	 * 
-	 * @return
+	 * @return Die persoenlichen Daten separiert durch ;
 	 */
 	public String persoenlicheDatenAnzeigen() {
 		String returnstring = kunde.getBenutzername() + ";" + kunde.getPasswort() + ";" + kunde.getEmail() + ";"
@@ -47,9 +48,10 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Mehode zum aendern der persoenlichen Daten
+	 * Methode zum aendern der persoenlichen Daten
 	 * 
 	 * @param benutzername   Benutzername
+	 * @param passwort       Passwort
 	 * @param email          Email-Adresse
 	 * @param adresse        Adresse
 	 * @param vorname        Vorname
@@ -74,7 +76,7 @@ public class Kundensteuerung {
 	 * 
 	 * @param gesuchtesObjekt gesuchtes Produkt
 	 * @return Liste mit allen Produkten die der Eingabe entsprechen
-	 * @throws NullPointerException
+	 * @throws NullPointerException Ein Null-Objekt wurde uebergeben.
 	 */
 	public List<Produkt> suchen(String gesuchtesObjekt) throws NullPointerException {
 
@@ -87,7 +89,7 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Methode zum abgeben einer Bestellung
+	 * Methode zum Abgeben einer Bestellung
 	 */
 	public void bestellen() {
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -102,7 +104,9 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Methode zur Ansicht seines Warenkorbs
+	 * Methode zur Ansicht des Warenkorbs des Kunden
+	 * 
+	 * @return Gibt den Warenkorb des Kunden zurueck
 	 */
 	public Warenkorb warenkorbAnsicht() {
 
@@ -110,7 +114,9 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Methode zur Ansicht seiner Bestellungen
+	 * Methode zur Ansicht der Bestellungen des Kunden
+	 * 
+	 * @return Gibt die Bestellungen des Kunden zurueck.
 	 */
 	public List<Bestellung> bestellungenAnzeigen() {
 
@@ -118,10 +124,10 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Methide zum stornieren seiner Bestellung
+	 * Methode zum stornieren seiner Bestellung
 	 * 
 	 * @param bestellung Bestellung
-	 * @throws NullPointerException
+	 * @throws NullPointerException Ein Null-Objekt wurde uebergeben.
 	 */
 	public void stornieren(Bestellung bestellung) throws NullPointerException {
 
@@ -144,7 +150,7 @@ public class Kundensteuerung {
 	 * Methode zum Nachbestellen einer Bestellung
 	 * 
 	 * @param bestellung Bestellung
-	 * @throws NullPointerException
+	 * @throws NullPointerException Ein Null-Objekt wurde uebergeben.
 	 */
 	public void nachbestellen(Bestellung bestellung) throws NullPointerException {
 

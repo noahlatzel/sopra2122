@@ -35,6 +35,7 @@ public class FahrersteuerungTest {
 	Bestellung testbestellung;
 	Bestellung testbestellung1;
 	List<Produkt> produkte;
+	List<Produkt> produkte1;
 
 	@BeforeEach
 	void reset() {
@@ -51,8 +52,11 @@ public class FahrersteuerungTest {
 		kunde = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		produkte1 = new ArrayList<Produkt>();
+		produkte1.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.getLagerbestand().put("Coca Cola", 0);
 		testbestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
-		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde);
+		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde);
 		bestellungen.add(testbestellung);
 		bestellungen.add(testbestellung1);
 

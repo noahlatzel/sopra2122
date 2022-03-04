@@ -3,10 +3,12 @@ package de.wwu.sopra.datenhaltung.bestellung;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import de.wwu.sopra.datenhaltung.management.Statistiken;
+
 /**
  * Die Klasse Rechnug
  * 
- * @author Jasmin
+ * @author Jasmin Horstknepper
  *
  */
 public class Rechnung implements Serializable {
@@ -20,21 +22,28 @@ public class Rechnung implements Serializable {
 	private final double endbetrag;
 	private final LocalDateTime datum;
 	private final Bestellung bestellung;
-	private static int zaehler = 0;
 
 	/**
 	 * Konstruktor der Klasse Rechnung
 	 * 
 	 * @param endbetrag Endbetrag der Bestellung
 	 * @param datum     Datum der Bestellung
+	 * @post Die Einnahmen steigen um den Endbetrag der Rechnung
 	 */
 	public Rechnung(double endbetrag, LocalDateTime datum, Bestellung bestellung) {
+		// Vorzustand zur Ueberpruefung der Nachbedingung retten
+		double einnahmen = Statistiken.getEinnahmen();
 
-		this.rechnungsnummer = zaehler;
-		zaehler++;
-		this.endbetrag = endbetrag;
+		this.rechnungsnummer = bestellung.getBestellnummer();
 		this.datum = datum;
 		this.bestellung = bestellung;
+		this.endbetrag = bestellung.calcBetrag();
+
+		Statistiken.setEinnahmen(Statistiken.getEinnahmen() + endbetrag);
+
+		// Nachbedingung pruefen
+		assert Statistiken.getEinnahmen() == einnahmen + endbetrag
+				: "Nachbedingung des Konstruktors der Rechnung verletzt: der Betrag der Rechnung wurde nicht den Einnahmen hinzugefuegt";
 	}
 
 	/**

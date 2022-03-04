@@ -33,7 +33,7 @@ class RechnungTest {
 		int nummer = rechnung.getRechnungsnummer();
 		assertTrue(rechnung.getBestellung().equals(bestellung));
 		assertTrue(rechnung.getDatum() == null);
-		assertTrue(rechnung.getEndbetrag() == 0.99);
+		assertTrue(rechnung.getEndbetrag() == 1.29);
 		assertTrue(rechnung.getRechnungsnummer() == nummer);
 	}
 

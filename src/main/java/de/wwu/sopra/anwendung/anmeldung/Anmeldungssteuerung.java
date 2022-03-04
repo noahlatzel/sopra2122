@@ -19,12 +19,11 @@ public class Anmeldungssteuerung {
 	}
 
 	/**
-	 * Bearbeitet den Anmeldevorgang zu den eingegebenen Daten(Benutzername,
-	 * Passwort) und leitet im Falle einer erfolgreichen Anmeldung an die der Rolle
-	 * des Benutzers entsprechende Steuerungsklasse weiter
 	 * 
 	 * @param benutzername Zu ueberpruefender Benutzername
 	 * @param passwort     Zu ueberpruefendes Passwort.
+	 * @return Der Benutzer, der angemeldet wurde.
+	 * @throws NullPointerException Es wurde eine leere Eingabe uebergeben.
 	 */
 	public Benutzer anmelden(String benutzername, String passwort) throws NullPointerException {
 
@@ -56,7 +55,6 @@ public class Anmeldungssteuerung {
 	}
 
 	/**
-	 * Registriert bei korrekten Eingaben einen neuen Kunden im System
 	 * 
 	 * @param benutzername   Benutzername des neuen Kunden. Darf noch nicht vergeben
 	 *                       sein.
@@ -65,7 +63,8 @@ public class Anmeldungssteuerung {
 	 * @param adresse        Adresse des neuen Kunden.
 	 * @param vorname        Vorname des neuen Kunden.
 	 * @param name           Name des neuen Kunden.
-	 * @param bankverbindung Bankverbindung des neuen Kunden.
+	 * @param bankverbindung Bankverbindung des neuen Kunden
+	 * @throws NullPointerException Ein Null-Objekt wurde uebergeben
 	 */
 	public void registrieren(String benutzername, String passwort, String email, String adresse, String vorname,
 			String name, String bankverbindung) throws NullPointerException {

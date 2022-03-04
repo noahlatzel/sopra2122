@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +22,28 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
  *
  */
 class RouteTest {
+	ArrayList<Bestellung> testbestellungen;
+
 	@BeforeEach
 	void reset() {
 		Lager.reset();
 		FahrzeugRegister.reset();
+
+		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
+		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Produkt bier = new Produkt("Krombacher Pils", "Eine Perle der Natur", 0.99, 1.96);
+		Produkt korn = new Produkt("Sasse Korn", "LEEEECKER", 4.20, 6.66);
+		List<Produkt> produkte = new ArrayList<Produkt>();
+		produkte.add(bier);
+		produkte.add(cola);
+		produkte.add(korn);
+		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.getLagerbestand().put("Krombacher Pils", 0);
+		Lager.getLagerbestand().put("Sasse Korn", 0);
+		testbestellungen = new ArrayList<Bestellung>();
+		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
+		testbestellungen.add(testbestellung1);
+
 	}
 
 	/**

@@ -39,7 +39,7 @@ public class Fahrersteuerung {
 	 * Der Fahrer ordnet sich einem fahrzeug zu
 	 * 
 	 * @param fahrzeug fahrzeug seiner wahl
-	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nichtlerr sind
+	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nicht leer sind
 	 * @pre fahrer und Fahrzeug haben keinen fahrer und Fahrzeug und das Fahrzeug
 	 *      hat eine Route
 	 */
@@ -64,6 +64,9 @@ public class Fahrersteuerung {
 
 	/**
 	 * der Fahrer storniert die Bestellung an seiner aktuellen position
+	 * 
+	 * @throws NullPointerException Eine Bestellung auf dem Weg wurde nicht
+	 *                              ausgeliefert.
 	 */
 	public void kundeNichtDa() throws NullPointerException {
 		if (aktuelleBestellung < (this.routeAusgeben().getBestellungen().size())) {

@@ -227,7 +227,8 @@ public class InhabersteuerungTest {
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(producto);
 		productsToAdd.add(product);
-
+		Lager.getLagerbestand().put("Chicha", 0);
+		Lager.getLagerbestand().put("Cola", 0);
 		ihs.lagerVerwalten(productsToAdd, "hinzufuegen");
 
 		assertThrows(IllegalArgumentException.class, () -> {
