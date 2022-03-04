@@ -46,7 +46,7 @@ public class Registrierung extends Scene {
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
 	 * 
-	 * @param primaryStage
+	 * @param primaryStage PrimaryStage
 	 * @param width        Breite des Fensters.
 	 * @param height       Hoehe des Fensters.
 	 */
@@ -65,7 +65,7 @@ public class Registrierung extends Scene {
 			gridpane = new GridPane();
 			
 			title = new Text("Registrierung");
-			
+
 			// Styling von Komponenten
 			GridPane.setMargin(title, new Insets(0, 0, 30, 0));
 			GridPane.setMargin(setButtonRegistrieren(), new Insets(40, 10, 0, 0));
@@ -124,7 +124,7 @@ public class Registrierung extends Scene {
 					textFeldBankverbindung.getText());
 			primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight())); // TODO
 		});
-
+		
 		return buttonRegistrieren;
 	}
 }

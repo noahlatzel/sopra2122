@@ -83,7 +83,10 @@ public class InhaberTest {
 	@Test
 	public void fahrerEntfernenTest() {
 		// Fahrer wird entfernt, obwohl er nicht in der Liste war
-		inhaber.fahrerEntfernen(fahrer);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			inhaber.fahrerEntfernen(fahrer);
+		});
 		assertFalse(inhaber.getFahrer().contains(fahrer));
 
 		inhaber.getFahrer().add(fahrer);
@@ -129,13 +132,16 @@ public class InhaberTest {
 	@Test
 	public void lageristEntfernenTest() {
 		// Lagerist wird entfernt, obwohl er nicht in der Liste war
-		inhaber.lageristEntfernen(lagerist);
+		assertThrows(IllegalArgumentException.class, () -> {
+			inhaber.lageristEntfernen(lagerist);
+		});
 		assertFalse(inhaber.getLageristen().contains(lagerist));
 
 		inhaber.getLageristen().add(lagerist);
 		int i = inhaber.getLageristen().size();
 
 		// Lagerist wird entfernt
+		inhaber.lageristHinzufuegen(lagerist);
 		inhaber.lageristEntfernen(lagerist);
 		assertFalse(inhaber.getLageristen().contains(lagerist));
 		assertTrue(inhaber.getLageristen().size() == i - 1);

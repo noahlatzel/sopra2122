@@ -24,10 +24,20 @@ public class OverviewFahrer extends Scene {
 	Button btRouteAnzeigen;
 	Button btFahrzeugpositionAnzeigen;
 	Button btKundeNichtDa;
+	Button btBestellungAbgeben1;
+	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
 	Button btAbmelden;
 
+	/**
+	 * Erzeugt OverviewFahrer
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public OverviewFahrer(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(new BorderPane(), width, height);
 		this.primaryStage = primaryStage;
@@ -36,7 +46,11 @@ public class OverviewFahrer extends Scene {
 		root.setLeft(this.setGridPane());
 	}
 
-	// gridpane ist links gestezt
+	/**
+	 * Erzeugt VBox
+	 * 
+	 * @return VBox
+	 */
 	private VBox setGridPane() {
 		if (vbox == null) {
 			vbox = new VBox();
@@ -47,6 +61,8 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBtRouteAnzeigen());
 			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
 			vbox.getChildren().add(setBtKundeNichtDa());
+			vbox.getChildren().add(setBestellungAbgeben1());
+			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(setBtAbmelden());
@@ -54,8 +70,11 @@ public class OverviewFahrer extends Scene {
 		return vbox;
 	}
 
-	// buttons und actions erstellen
-	// bt zum Fahrzeugwaehlen
+	/**
+	 * Erzeugt Button zum Fahrzeugwaehlen
+	 * 
+	 * @return Button zum Fahrzeugwaehlen
+	 */
 	private Button setBtFahrzeugwahlen() {
 		if (btFahrzeugwahlen == null) {
 			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
@@ -67,7 +86,11 @@ public class OverviewFahrer extends Scene {
 		return btFahrzeugwahlen;
 	}
 
-	// bt zum Route Anzeigen
+	/**
+	 * Erzeugt Button zum RouteAnzeigen
+	 * 
+	 * @return Button zum RouteAnzeigen
+	 */
 	private Button setBtRouteAnzeigen() {
 		if (btRouteAnzeigen == null) {
 			btRouteAnzeigen = new Button("Route Anzeigen");
@@ -80,7 +103,11 @@ public class OverviewFahrer extends Scene {
 		return btRouteAnzeigen;
 	}
 
-	// bt zum Fahrzeuganzeigen
+	/**
+	 * Erzeugt Button fuer FahrzeugpositionAnzeigen
+	 * 
+	 * @return Button fuer FahrzeugpositionAnzeigen
+	 */
 	private Button setBtFahrzeugpositionAnzeigen() {
 		if (btFahrzeugpositionAnzeigen == null) {
 			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
@@ -93,7 +120,11 @@ public class OverviewFahrer extends Scene {
 		return btFahrzeugpositionAnzeigen;
 	}
 
-	// bt zu kunde ist nicht da
+	/**
+	 * Erzeugt Button fuer KundeNichtDa
+	 * 
+	 * @return Button fuer KundeNichtDa
+	 */
 	private Button setBtKundeNichtDa() {
 		if (btKundeNichtDa == null) {
 			btKundeNichtDa = new Button("Kunde nicht da");
@@ -105,7 +136,33 @@ public class OverviewFahrer extends Scene {
 		return btKundeNichtDa;
 	}
 
-	// bt persoenliche Daten Anzeigen
+	private Button setBestellungAbgeben1() {
+		if (btBestellungAbgeben1 == null) {
+			btBestellungAbgeben1 = new Button("Bestellung abgeben");
+			btBestellungAbgeben1.setMinWidth(200);
+			btBestellungAbgeben1.setOnAction(e -> {
+				primaryStage.setScene(new BestellungAbgeben(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btBestellungAbgeben1;
+	}
+
+	private Button setLieferungabschielsen() {
+		if (btLieferungabschliesen == null) {
+			btLieferungabschliesen = new Button("Lieferung abschliesen");
+			btLieferungabschliesen.setMinWidth(200);
+			btLieferungabschliesen.setOnAction(e -> {
+				primaryStage.setScene(new LieferungAbschlisen(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btLieferungabschliesen;
+	}
+
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenAnzeigen
+	 * 
+	 * @return Button fuer PersoenlicheDatenAnzeigen
+	 */
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (btPersoenlicheDatenAnzeigen == null) {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
@@ -117,7 +174,11 @@ public class OverviewFahrer extends Scene {
 		return btPersoenlicheDatenAnzeigen;
 	}
 
-	// bt Persoenliche Daten Bearbeiten
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
+	 * 
+	 * @return Button fuer PersoenlicheDatenBearbeiten
+	 */
 	private Button setBtPersoenlicheDatenBearbeiten() {
 		if (btPersoenlicheDatenBearbeiten == null) {
 			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
@@ -130,6 +191,11 @@ public class OverviewFahrer extends Scene {
 		return btPersoenlicheDatenBearbeiten;
 	}
 
+	/**
+	 * Erzeugt Button fuer Abmelden
+	 * 
+	 * @return Button fuer Abmelden
+	 */
 	private Button setBtAbmelden() {
 		if (btAbmelden == null) {
 			btAbmelden = new Button("Abmelden");

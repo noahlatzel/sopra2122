@@ -39,11 +39,24 @@ public class SortimentBearbeiten extends InhaberOverview {
 	BorderPane contentWrapper;
 	TilePane content;
 
+	/**
+	 * Zeigt das Sortiment
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
 	public SortimentBearbeiten(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(primaryStage, width, height, inhaberSteuerung);
 		root.setCenter(this.setContentWrapper());
 	}
-	
+
+	/**
+	 * Gibt den ContentWrapper fuer Titel zurueck
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
 	private BorderPane setContentWrapper() {
 		// ContentWrapper, um den Titel einzuschliessen
 		if (this.contentWrapper == null) {
@@ -57,17 +70,22 @@ public class SortimentBearbeiten extends InhaberOverview {
 			scrollPane.setContent(this.setContent());
 			contentWrapper.setCenter(scrollPane);
 		}
-		
+
 		return this.contentWrapper;
 	}
-	
+
+	/**
+	 * Setzt den Inhalt
+	 * 
+	 * @return TilePane mit Inhalt
+	 */
 	private TilePane setContent() {
 		// TilePane als Main Component
 		if (this.content == null) {
 			content = new TilePane();
 			// Get Produkte Im Lager
 			HashSet<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
-			
+
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
 				Text keineProdukte = new Text("Keine Produkte Im Lager");
@@ -75,78 +93,89 @@ public class SortimentBearbeiten extends InhaberOverview {
 				keineProdukte.setFont(new Font("Arial", 32));
 				content.getChildren().add(keineProdukte);
 			}
-			
+
 			// Erstellung von ProduktKomponente
 			for (Produkt p : produkteImLager) {
 				content.getChildren().add(this.setProduktKomponente(p));
 			}
-			
+
 			content.setHgap(40);
 			content.setVgap(40);
 		}
-		
+
 		return this.content;
 	}
-	
+
+	/**
+	 * Erzeugt Produktkomponente
+	 * 
+	 * @param produkt Produkt
+	 * @return Produktkomponente
+	 */
 	private GridPane setProduktKomponente(Produkt produkt) {
 		GridPane produktGP = new GridPane();
-		
+
 		// Temporary product image
-		Rectangle produktImg = new Rectangle (140, 140, 140, 140);
+		Rectangle produktImg = new Rectangle(140, 140, 140, 140);
 		produktImg.setArcHeight(4);
 		produktImg.setArcWidth(4);
 		produktImg.setFill(Color.web("#ed4b00"));
-	    
+
 		// Erstellung von TextFields und Buttons
-	    TextField tfName = new TextField();
-	    TextField tfBeschreibung = new TextField();
-	    TextField tfPreis = new TextField();
-	    TextField tfKategorie = new TextField();
-	    
-	    Button btnAktualisieren = new Button("Speichern");
-	    Button btnLoeschen = new Button("Loeschen");
-	    
-	    tfName.setText(produkt.getName());
-	    tfBeschreibung.setText(produkt.getBeschreibung());
-	    tfPreis.setText(String.valueOf(produkt.getVerkaufspreis()));
-	    tfKategorie.setText(String.valueOf(produkt.getKategorie()));
-	    
-	    // Auf Grid setzen
-	    produktGP.add(produktImg, 0, 0, 2, 1);
-	    produktGP.add(tfName, 0, 1, 2, 1);
-	    produktGP.add(tfBeschreibung, 0, 2, 2, 1);
-	    produktGP.add(tfPreis, 0, 3, 2, 1);
-	    produktGP.add(tfKategorie, 0, 4, 2, 1);
-	    produktGP.add(btnAktualisieren, 0, 5);
-	    produktGP.add(btnLoeschen, 1, 5);
-	    
-	    // Center Elemente
-	    produktGP.setAlignment(Pos.CENTER);
-	    produktGP.setHgap(10);
-	    produktGP.setVgap(10);
-	    ColumnConstraints col = new ColumnConstraints();
-	    col.setHalignment(HPos.CENTER);
-	    produktGP.getColumnConstraints().add(col);
-	    
-	    // es wie eine Komponente aussehen lassen
-	    produktGP.setPadding(new Insets(16, 16, 16, 16));
-	    produktGP.setBackground(new Background(new BackgroundFill(Color.web("#c4c4c4"), CornerRadii.EMPTY, Insets.EMPTY)));
-	    
-	    // Funktionalitaet von Buttons
-	    btnAktualisieren.setOnAction(e -> {
-	    	
-	    	// Ueberprueft, dass alle Eingaben nicht leer sing
+		TextField tfName = new TextField();
+		TextField tfBeschreibung = new TextField();
+		TextField tfPreis = new TextField();
+		TextField tfKategorie = new TextField();
+
+		Button btnAktualisieren = new Button("Speichern");
+		Button btnLoeschen = new Button("Loeschen");
+
+		tfName.setText(produkt.getName());
+		tfBeschreibung.setText(produkt.getBeschreibung());
+		tfPreis.setText(String.valueOf(produkt.getVerkaufspreis()));
+		try {
+
+			tfKategorie.setText(String.valueOf(produkt.getKategorie().getName()));
+		} catch (NullPointerException l) {
+			tfKategorie.setText(String.valueOf(produkt.getKategorie()));
+		}
+		// Auf Grid setzen
+		produktGP.add(produktImg, 0, 0, 2, 1);
+		produktGP.add(tfName, 0, 1, 2, 1);
+		produktGP.add(tfBeschreibung, 0, 2, 2, 1);
+		produktGP.add(tfPreis, 0, 3, 2, 1);
+		produktGP.add(tfKategorie, 0, 4, 2, 1);
+		produktGP.add(btnAktualisieren, 0, 5);
+		produktGP.add(btnLoeschen, 1, 5);
+
+		// Center Elemente
+		produktGP.setAlignment(Pos.CENTER);
+		produktGP.setHgap(10);
+		produktGP.setVgap(10);
+		ColumnConstraints col = new ColumnConstraints();
+		col.setHalignment(HPos.CENTER);
+		produktGP.getColumnConstraints().add(col);
+
+		// es wie eine Komponente aussehen lassen
+		produktGP.setPadding(new Insets(16, 16, 16, 16));
+		produktGP.setBackground(
+				new Background(new BackgroundFill(Color.web("#c4c4c4"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+		// Funktionalitaet von Buttons
+		btnAktualisieren.setOnAction(e -> {
+
+			// Ueberprueft, dass alle Eingaben nicht leer sing
 			boolean gueltigeEinngaben = true;
 			List<TextField> felder = new ArrayList<TextField>();
 			felder.add(tfName);
 			felder.add(tfBeschreibung);
 			felder.add(tfPreis);
-			
+
 			for (TextField feld : felder) {
 				if (feld.getText().isBlank())
 					gueltigeEinngaben = false;
 			}
-			
+
 			// Erstellung von neuem roten Error-Label
 			Label errorLabel = new Label();
 			errorLabel.setTextFill(Color.web("#ff0000"));
@@ -155,8 +184,9 @@ public class SortimentBearbeiten extends InhaberOverview {
 				Double preisDbl = Double.parseDouble(tfPreis.getText());
 				inhaberSteuerung.produktBearbeiten(produkt, tfName.getText(), tfBeschreibung.getText(), preisDbl);
 				List<Produkt> produkteZurKategorie = new ArrayList<Produkt>();
-				
-				if (!tfKategorie.getText().isBlank()) {					
+				produkteZurKategorie.add(produkt);
+
+				if (!tfKategorie.getText().isBlank()) {
 					Kategorie kategorie = new Kategorie(tfKategorie.getText());
 					inhaberSteuerung.kategorieProdukteVerwalten(kategorie, produkteZurKategorie, "hinzufuegen");
 				}
@@ -164,9 +194,17 @@ public class SortimentBearbeiten extends InhaberOverview {
 				errorLabel.setText("Keine leere Angaben erlaubt");
 				produktGP.add(errorLabel, 0, 6);
 			}
-			
-	    });
-	    
+
+		});
+
+		btnLoeschen.setOnAction(e -> {
+			List<Produkt> produkte = new ArrayList<>();
+			produkte.add(produkt);
+			inhaberSteuerung.lagerVerwalten(produkte, "loeschen");
+			primaryStage.setScene(new SortimentBearbeiten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+		});
+
 		return produktGP;
 	}
+
 }

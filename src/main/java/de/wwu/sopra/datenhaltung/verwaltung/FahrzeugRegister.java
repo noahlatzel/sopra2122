@@ -14,12 +14,24 @@ import de.wwu.sopra.datenhaltung.management.Fahrzeug;
  */
 public class FahrzeugRegister implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Menge der Fahrzeuge
+	 */
 	private static HashSet<Fahrzeug> fahrzeuge = new HashSet<Fahrzeug>();
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "fahrzeugReg.ser";
+	/**
+	 * Zaehler fuer Fahrzeugnummer
+	 */
 	private static int zaehler = 0;
+	/**
+	 * Zaehler fuer Routennummer
+	 */
 	private static int zaehlerRoute = 0;
 
 	/**
@@ -76,9 +88,6 @@ public class FahrzeugRegister implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<HashSet<Fahrzeug>> sp = new SerialisierungPipeline<HashSet<Fahrzeug>>();
 		FahrzeugRegister.fahrzeuge = sp.deserialisieren(path);
-		if (FahrzeugRegister.fahrzeuge == null) {
-			FahrzeugRegister.fahrzeuge = new HashSet<Fahrzeug>();
-		}
 	}
 
 	/**

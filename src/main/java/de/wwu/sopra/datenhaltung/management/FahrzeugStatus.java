@@ -4,10 +4,21 @@
 package de.wwu.sopra.datenhaltung.management;
 
 /**
- * Die zustaende des Fahrzeugs
+ * Die Zustaende des Fahrzeugs
  * 
- * @author Valeria
+ * @author Valeria Vassallo
  */
 public enum FahrzeugStatus {
-	BELEGT, IN_ZUSTELLUNG, FREI
+	/**
+	 * Fahrzeug ist mit einer Route belegt
+	 */
+	BELEGT,
+	/**
+	 * Fahrzeug hat Route und Fahrer
+	 */
+	IN_ZUSTELLUNG,
+	/**
+	 * Fahrzeug hat weder Route noch Fahrer
+	 */
+	FREI
 }

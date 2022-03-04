@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
+import de.wwu.sopra.datenhaltung.benutzer.Inhaber;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
@@ -38,8 +39,11 @@ class FahrzeugTest {
 	@Test
 	void testFahrzeug() throws IllegalArgumentException {
 		Fahrzeug fzeug = new Fahrzeug(100);
-
+		assertTrue(fzeug.toString().equals("" + fzeug.getFahrzeugNummer()));
 		assertTrue(fzeug instanceof Fahrzeug);
+		assertThrows(AssertionError.class, () -> {
+			new Fahrzeug(-1);
+		});
 	}
 
 	/**
@@ -94,6 +98,9 @@ class FahrzeugTest {
 		fzeug.setKapazitaet(200);
 
 		assertEquals(fzeug.getKapazitaet(), 200);
+		assertThrows(AssertionError.class, () -> {
+			new Fahrzeug(5).setKapazitaet(-1);
+		});
 	}
 
 	/**
@@ -118,6 +125,7 @@ class FahrzeugTest {
 	void testFahrer() {
 		Fahrzeug fzeug = new Fahrzeug(100);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Lager.getLagerbestand().put("Coca Cola", 4);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
 		Bestellung bestellung = new Bestellung(null, produkte,
@@ -126,8 +134,9 @@ class FahrzeugTest {
 		bestellungen.add(bestellung);
 		Route route = new Route(fzeug);
 		route.setBestellungen(bestellungen);
+		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
 		Fahrer fahrer = new Fahrer("fahrer1", "sicheresPasswort", "thomas@uni-muenster.de", "Einsteinstra�e 64",
-				"Thomas", "Thomas", "DE291234", null);
+				"Thomas", "Thomas", "DE291234", inhaber);
 		fzeug.setFahrer(fahrer);
 		assertTrue(fzeug.getFahrer().equals(fahrer));
 	}

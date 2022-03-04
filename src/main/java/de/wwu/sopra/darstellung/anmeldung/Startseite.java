@@ -27,7 +27,7 @@ public class Startseite extends Scene {
 	/**
 	 * Erzeugt eine neue Startseite.
 	 * 
-	 * @param primaryStage
+	 * @param primaryStage PrimaryStage
 	 * @param width        Breite des Fensters.
 	 * @param height       Hoehe des Fensters.
 	 */

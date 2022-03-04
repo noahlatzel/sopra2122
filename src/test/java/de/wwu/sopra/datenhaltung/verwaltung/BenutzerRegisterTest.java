@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
@@ -41,6 +40,7 @@ public class BenutzerRegisterTest {
 	void reset() {
 		Lager.reset();
 		FahrzeugRegister.reset();
+		BenutzerRegister.reset();
 	}
 
 	@BeforeEach
@@ -62,7 +62,6 @@ public class BenutzerRegisterTest {
 	 * Testet die Funktionalitaet des Hinzufuegen eines neuen Benutzers ins System.
 	 */
 	@Test
-	@Order(2)
 	public void benutzerHinzufuegenTest() {
 
 		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
@@ -72,16 +71,6 @@ public class BenutzerRegisterTest {
 		assertTrue(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1").getBenutzername()
 				.equals(benutzer1.getBenutzername()));
 
-		// Testet, ob Exception geworfen wird wenn null uebergeben wird.
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.benutzerHinzufuegen(null);
-		});
-
-		// Benutzerabfrage eines null-Benutzernamens
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getBenutzerZuBenutzername(null);
-		});
-
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
@@ -89,7 +78,6 @@ public class BenutzerRegisterTest {
 	 * Testet die Funktionalitaet des Entfernens eines Benutzers aus dem System.
 	 */
 	@Test
-	@Order(1)
 	public void benutzerEntfernenTest() {
 		// Registriert Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
@@ -101,16 +89,12 @@ public class BenutzerRegisterTest {
 		// nicht gefunden
 		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
 
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.benutzerEntfernen(null);
-		});
 	}
 
 	/**
 	 * Testet die verschiedenen Funktionalitaeten des Warenkorbs
 	 */
 	@Test
-	@Order(3)
 	public void warenkorbFunktionalitaetTest() {
 
 		// Registriert neuen Benutzer
@@ -118,16 +102,16 @@ public class BenutzerRegisterTest {
 
 		// Fuegt produkt 1 zum Warenkorb des benutzer1 hinzu
 		BenutzerRegister.produktZuWarenkorbHinzufuegen(benutzer1, produkt1);
-		assertTrue(BenutzerRegister.getWarenkorb(benutzer1).contains(produkt1));
+		assertTrue(BenutzerRegister.getWarenkorb(benutzer1).getProdukte().contains(produkt1));
 
 		// Vergleicht die Test Liste mit dem Warenkorb
 		for (int i = 0; i < warenkorbTester.size(); i++) {
-			assertEquals(warenkorbTester.get(i), BenutzerRegister.getWarenkorb(benutzer1).get(i));
+			assertEquals(warenkorbTester.get(i), BenutzerRegister.getWarenkorb(benutzer1).getProdukte().get(i));
 		}
 
 		// Enttfernt produkt 1 aus Warenkorb des benutzer1
 		BenutzerRegister.produktAusWarenkorbEntfernen(benutzer1, produkt1);
-		assertFalse(BenutzerRegister.getWarenkorb(benutzer1).contains(produkt1));
+		assertFalse(BenutzerRegister.getWarenkorb(benutzer1).getProdukte().contains(produkt1));
 
 		// --------------------
 		// Registriert Inhaber
@@ -136,71 +120,25 @@ public class BenutzerRegisterTest {
 
 		// Ein Inhaber (und auch andere Mitarbeiter) haben keinen Warenkorb
 		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getWarenkorb(benutzer3).get(0);
-		});
-
-		// ---------------------
-		// Bei leerem Benutzer und/oder leerem Produkt soll Exception geworfen werden
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(null, produkt1);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(null, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(null, produkt1);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(null, null);
-		});
-
-		// Warenkorbabfrage eines null-Benutzers
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getWarenkorb(null);
+			BenutzerRegister.getWarenkorb(benutzer3).getProdukte().get(0);
 		});
 
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
 	@Test
-	@Order(4)
 	public void bestellungenFunktionalitaetTest() {
 		// Registrieren eines Kunden
 		BenutzerRegister.benutzerHinzufuegen(benutzer1);
+
+		Lager.getLagerbestand().put("Cola", 0);
+		Lager.getLagerbestand().put("Fanta", 0);
 
 		// Hinzufuegen der neuen Bestellung zur Liste der Bestellungen des Kunden
 		bestellung = new Bestellung(LocalDateTime.now(), warenkorbTester, benutzer1);
 		BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, bestellung);
 
 		assertTrue(BenutzerRegister.getBestellungen(benutzer1).get(0).equals(bestellung));
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, bestellung);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, null);
-		});
-
-		// Bestellungslistenabfrage eines null-Benutzers
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getBestellungen(null);
-		});
 
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 
@@ -209,16 +147,27 @@ public class BenutzerRegisterTest {
 	}
 
 	/**
+	 * Testet die Abfrage eines Benutzers anhand des Banutzernamens.
+	 */
+	@Test
+	void getBenutzerZuBenutzername() {
+		BenutzerRegister.benutzerHinzufuegen(benutzer1);
+
+		assertEquals(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"), benutzer1);
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("KeinBenutzername"));
+
+		BenutzerRegister.benutzerEntfernen(benutzer1);
+	}
+
+	/**
 	 * Testet load und save.
 	 */
 	@Test
 	void testLoad() {
-		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
-		System.out.println(temp.toString());
+		List<Benutzer> temp = BenutzerRegister.getBenutzerListe();
 		BenutzerRegister.save();
 		BenutzerRegister.load();
 		String temp_1 = BenutzerRegister.getBenutzerListe().toString();
-		System.out.println(temp_1.toString());
 		assertTrue(temp.toString().equals(temp_1));
 	}
 

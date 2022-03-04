@@ -7,22 +7,36 @@ import java.util.HashSet;
 /**
  * Klasse der Kategorien
  * 
- * @author Noah
+ * @author Noah Latzel
  */
 public class Kategorie implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Name der Kategorie
+	 */
 	private String name;
+	/**
+	 * Liste der Produkte in der Kategorie
+	 */
 	private HashSet<Produkt> produkte;
+	/**
+	 * Liste der Unterkategorien
+	 */
 	private HashSet<Kategorie> unterkategorien;
+	/**
+	 * Oberkategorie
+	 */
 	private Kategorie oberkategorie;
 
 	/**
-	 * konstruktor
+	 * Konstruktor
 	 * 
-	 * @param name name
+	 * @param name Name
+	 * @inv Eine Kategorie darf nicht Ober- oder Unterkategorie von sich selbst
+	 *      sein.
 	 */
 	public Kategorie(String name) {
 		if (name == "") {
@@ -31,6 +45,16 @@ public class Kategorie implements Serializable {
 		this.setName(name);
 		this.produkte = new HashSet<Produkt>();
 		this.unterkategorien = new HashSet<Kategorie>();
+
+		// Klasseninvariante pruefen
+		if (this.getOberkategorie() != null) {
+			assert !this.getOberkategorie().equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Oberkategorie von sich selbst";
+		}
+		for (Kategorie unterkategorie : this.getUnterkategorien()) {
+			assert !unterkategorie.equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Unterkategorie von sich selbst";
+		}
 	}
 
 	/**
@@ -141,6 +165,16 @@ public class Kategorie implements Serializable {
 				k.addUnterkategorie(this);
 			}
 		}
+
+		// Klasseninvariante pruefen
+		if (this.getOberkategorie() != null) {
+			assert !this.getOberkategorie().equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Oberkategorie von sich selbst";
+		}
+		for (Kategorie unterkategorie : this.getUnterkategorien()) {
+			assert !unterkategorie.equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Unterkategorie von sich selbst";
+		}
 	}
 
 	/**
@@ -166,6 +200,16 @@ public class Kategorie implements Serializable {
 		if (k.getOberkategorie() != this) {
 			k.setOberkategorie(this);
 		}
+
+		// Klasseninvariante pruefen
+		if (this.getOberkategorie() != null) {
+			assert !this.getOberkategorie().equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Oberkategorie von sich selbst";
+		}
+		for (Kategorie unterkategorie : this.getUnterkategorien()) {
+			assert !unterkategorie.equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Unterkategorie von sich selbst";
+		}
 	}
 
 	/**
@@ -183,6 +227,16 @@ public class Kategorie implements Serializable {
 			if (kategorie.getOberkategorie() != this) {
 				kategorie.setOberkategorie(this);
 			}
+		}
+
+		// Klasseninvariante pruefen
+		if (this.getOberkategorie() != null) {
+			assert !this.getOberkategorie().equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Oberkategorie von sich selbst";
+		}
+		for (Kategorie unterkategorie : this.getUnterkategorien()) {
+			assert !unterkategorie.equals(this)
+					: "Klasseninvariante von Kategorie verletzt: die Kategorie ist Unterkategorie von sich selbst";
 		}
 	}
 

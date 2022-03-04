@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
+import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Rolle;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
@@ -20,11 +22,20 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
 public class BenutzerRegister implements Serializable {
 
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
-	private static List<BenutzerDatenTripel> benutzerListe = new ArrayList<BenutzerDatenTripel>();
+	/**
+	 * Liste der Benutzerdaten
+	 */
+	private static List<Benutzer> benutzerListe = new ArrayList<Benutzer>();
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "benutzerReg.ser";
+	/**
+	 * Zaehler fuer die Bestellungen
+	 */
 	private static int zaehlerBestellung = 0;
 
 	/**
@@ -37,31 +48,32 @@ public class BenutzerRegister implements Serializable {
 	/**
 	 * Fuegt einen neuen Benutzer der Liste der Benutzer hinzu
 	 * 
-	 * @param benutzer benutzer
+	 * @param benutzer Hinzuzufuegender Benutzer.
+	 * @pre Uebergebener Benutzer nicht null.
 	 */
-	public static void benutzerHinzufuegen(Benutzer benutzer) throws NullPointerException {
-		if (!(benutzer == null)) {
-			benutzerListe.add(new BenutzerDatenTripel(benutzer));
-		} else {
-			throw new NullPointerException("Leerer Benutzer uebergeben!");
-		}
+	public static void benutzerHinzufuegen(Benutzer benutzer) {
+		assert benutzer != null : "Vorbedingung nicht erfuellt: Benutzer ist null";
+
+		benutzerListe.add(benutzer);
 	}
 
 	/**
 	 * Entfernt den uebergebenen Benutzer aus der Liste der Benutzer.
 	 * 
 	 * @param benutzer wird entfernt
+	 * @pre Uebergebener Benutzer nicht null.
 	 */
-	public static void benutzerEntfernen(Benutzer benutzer) throws NullPointerException {
-		if (!(benutzer == null)) {
+	public static void benutzerEntfernen(Benutzer benutzer) {
+		assert benutzer != null : "Vorbedingung nicht erfuellt: Benutzer ist null";
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht registriert.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0) {
-				benutzerListe.remove(i);
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht registriert.
+		if (benutzerListe.contains(benutzer)) {
+			benutzerListe.remove(benutzer);
+			if (benutzer.getRolle() == Rolle.KUNDE) {
+				Kunde kunde = (Kunde) benutzer;
+				kunde.kundeEntfernen();
 			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer uebergeben!");
+			benutzer = null;
 		}
 	}
 
@@ -71,21 +83,19 @@ public class BenutzerRegister implements Serializable {
 	 * 
 	 * @param benutzername benutzername
 	 * @return Benutzer Benutzer
+	 * @pre Uebergebener Benutzername nicht null.
 	 */
-	public static Benutzer getBenutzerZuBenutzername(String benutzername) throws NullPointerException {
+	public static Benutzer getBenutzerZuBenutzername(String benutzername) {
+		assert benutzername != null : "Vorbedingung nicht erfuellt: Benutzername ist null";
+
 		Benutzer gesuchterBenutzer = null;
 
-		if (!(benutzername == null)) {
-
-			// Lineare Suche durch die Liste der Benutzer nach einem Benutzer mit dem
-			// uebergebenen Benutzernamen.
-			for (int i = 0; i < benutzerListe.size(); i++) {
-				if (benutzerListe.get(i).getBenutzer().getBenutzername().equals(benutzername)) {
-					gesuchterBenutzer = benutzerListe.get(i).getBenutzer();
-				}
+		// Lineare Suche durch die Liste der Benutzer nach einem Benutzer mit dem
+		// uebergebenen Benutzernamen.
+		for (int i = 0; i < benutzerListe.size(); i++) {
+			if (benutzerListe.get(i).getBenutzername().equals(benutzername)) {
+				gesuchterBenutzer = benutzerListe.get(i);
 			}
-		} else {
-			throw new NullPointerException("Leerer Benutzername uebergeben!");
 		}
 
 		return gesuchterBenutzer;
@@ -99,21 +109,17 @@ public class BenutzerRegister implements Serializable {
 	 *                   dieses Benutzers hinzugefuegt.
 	 * @param bestellung Bestellung wird der Liste der Bestellungen des uebergebenen
 	 *                   Benutzers hinzugefuegt.
-	 * @throws NullPointerException Falls leerer Benutzer oder leere Bestellung
-	 *                              uebergeben wird.
+	 * @pre Uebergebene Parameter nicht null.
 	 */
-	public static void bestellungZuBestellungslisteHinzufuegen(Benutzer benutzer, Bestellung bestellung)
-			throws NullPointerException {
-		if (!(benutzer == null) && !(bestellung == null)) {
+	public static void bestellungZuBestellungslisteHinzufuegen(Benutzer benutzer, Bestellung bestellung) {
+		assert (benutzer != null) && (bestellung != null)
+				: "Vorbedingung nicht erfuellt: Benutzer ist null oder Bestellung ist null";
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als Kunde
-			// registriert.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				benutzerListe.get(i).getBestellungen().add(bestellung);
-			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer und/oder leere Bestellung uebergeben!");
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als Kunde
+		// registriert.
+		if (benutzer.getRolle() == Rolle.KUNDE) {
+			Kunde kunde = (Kunde) benutzer;
+			kunde.bestellungHinzufuegen(bestellung);
 		}
 	}
 
@@ -124,19 +130,17 @@ public class BenutzerRegister implements Serializable {
 	 * @param benutzer Uebergebenes Produkt wird zum Warenkorb des Benutzers
 	 *                 hinzugefuegt.
 	 * @param produkt  Wird zum Warenkorb des uebergebenden Benutzers hinzugefuegt.
-	 * @throws NullPointerException Wenn
+	 * @pre Uebergebene Parameter nicht null.
 	 */
-	public static void produktZuWarenkorbHinzufuegen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
-		if (!(benutzer == null) && !(produkt == null)) {
+	public static void produktZuWarenkorbHinzufuegen(Benutzer benutzer, Produkt produkt) {
+		assert (benutzer != null) && (produkt != null)
+				: "Vorbedingung nicht erfuellt: Benutzer ist null oder Produkt ist null";
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als
-			// Kunderegistriert.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				benutzerListe.get(i).getWarenkorb().add(produkt);
-			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer und/oder leeres Produkt uebergeben!");
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als
+		// Kunderegistriert.
+		if (benutzer.getRolle() == Rolle.KUNDE) {
+			Kunde kunde = (Kunde) benutzer;
+			kunde.getWarenkorb().produktHinzufuegen(produkt);
 		}
 	}
 
@@ -147,20 +151,17 @@ public class BenutzerRegister implements Serializable {
 	 * @param benutzer Uebergebenes Produkt wird aus dem Warenkorb des Benutzers
 	 *                 enttfernt.
 	 * @param produkt  Wird aus dem Warenkorb des uebergebenen Benutzers entfernt.
-	 * @throws NullPointerException Wenn leerer Benutzers und/oder leeres Produkt
-	 *                              uebergeben wird.
+	 * @pre Uebergebene Parameter nicht null.
 	 */
-	public static void produktAusWarenkorbEntfernen(Benutzer benutzer, Produkt produkt) throws NullPointerException {
-		if (!(benutzer == null) && !(produkt == null)) {
+	public static void produktAusWarenkorbEntfernen(Benutzer benutzer, Produkt produkt) {
+		assert (benutzer != null) && (produkt != null)
+				: "Vorbedingung nicht erfuellt: Benutzer ist null oder Produkt ist null";
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als Kunde
-			// registriert.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				benutzerListe.get(i).getWarenkorb().remove(produkt);
-			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer und/oder leeres Produkt uebergeben!");
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer nicht als Kunde
+		// registriert.
+		if (benutzer.getRolle() == Rolle.KUNDE) {
+			Kunde kunde = (Kunde) benutzer;
+			kunde.getWarenkorb().produktEntfernen(produkt);
 		}
 	}
 
@@ -171,19 +172,17 @@ public class BenutzerRegister implements Serializable {
 	 * @return Warenkorb des uebergebenen Benutzers, null falls der Benutzer nicht
 	 *         als Kunde registriert ist.
 	 */
-	public static List<Produkt> getWarenkorb(Benutzer benutzer) throws NullPointerException {
-		List<Produkt> warenkorb = null;
+	public static Warenkorb getWarenkorb(Benutzer benutzer) {
+		assert benutzer != null : "Vorbedingung nicht erfuellt: Benutzer ist null";
 
-		if (!(benutzer == null)) {
+		Warenkorb warenkorb = null;
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer kein registrierter Kunde.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				warenkorb = benutzerListe.get(i).getWarenkorb();
-			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer uebergeben!");
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer kein registrierter Kunde.
+		if (benutzer.getRolle() == Rolle.KUNDE) {
+			Kunde kunde = (Kunde) benutzer;
+			warenkorb = kunde.getWarenkorb();
 		}
+
 		return warenkorb;
 	}
 
@@ -193,44 +192,21 @@ public class BenutzerRegister implements Serializable {
 	 * @param benutzer Liste der Bestellungen des Benutzers wird zurueckgegeben.
 	 * @return Liste der Bestellungen des uebergebenen Benutzers, null falls der
 	 *         Benutzer nicht als Kunde registriert ist.
+	 * @pre Uebergebene Parameter nicht null
 	 */
-	public static List<Bestellung> getBestellungen(Benutzer benutzer) throws NullPointerException {
+	public static List<Bestellung> getBestellungen(Benutzer benutzer) {
+		assert benutzer != null : "Vorbedingung nicht erfuellt: Benutzer ist null";
+
 		List<Bestellung> bestellungen = null;
 
-		if (!(benutzer == null)) {
+		// Wenn Bedingung nicht erfuellt ist, ist der Benutzer kein registrierter Kunde.
 
-			// Wenn Bedingung nicht erfuellt ist, ist der Benutzer kein registrierter Kunde.
-			int i = getBenutzerId(benutzer);
-			if (i >= 0 && benutzer.getRolle() == Rolle.KUNDE) {
-				bestellungen = benutzerListe.get(i).getBestellungen();
-			}
-		} else {
-			throw new NullPointerException("Leerer Benutzer uebergeben!");
+		if (benutzer.getRolle() == Rolle.KUNDE) {
+			Kunde kunde = (Kunde) benutzer;
+			bestellungen = kunde.getBestellungen();
 		}
+
 		return bestellungen;
-	}
-
-	/**
-	 * Gibt den Index der benutzerListe zurueck an welcher der uebergebene Benutzer
-	 * steht. Wenn der Benutzer nicht in der Liste der Benutzer ist, wird -1
-	 * zurueckgegeben.
-	 * 
-	 * @param benutzer Zu suchender Benutzer im System.
-	 * @return -1, wenn Benutzer nicht registriert, sonst Index des Benutzers in der
-	 *         Liste
-	 * @pre benutzer ist nicht null
-	 */
-	private static int getBenutzerId(Benutzer benutzer) {
-		int n = -1;
-
-		assert benutzer != null : "Benutzer ist null!";
-		// Sucht in der TripelListe nach dem Benutzer
-		for (int i = 0; i < benutzerListe.size(); i++) {
-			if (benutzerListe.get(i).getBenutzer().getBenutzername().equals(benutzer.getBenutzername())) {
-				return i;
-			}
-		}
-		return n;
 	}
 
 	/**
@@ -238,7 +214,7 @@ public class BenutzerRegister implements Serializable {
 	 * 
 	 * @return Die Benutzerliste
 	 */
-	public static List<BenutzerDatenTripel> getBenutzerListe() {
+	public static List<Benutzer> getBenutzerListe() {
 		return benutzerListe;
 	}
 
@@ -246,18 +222,15 @@ public class BenutzerRegister implements Serializable {
 	 * Deserialisiert das BenutzerRegister.
 	 */
 	public static void load() {
-		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
+		SerialisierungPipeline<List<Benutzer>> sp = new SerialisierungPipeline<List<Benutzer>>();
 		BenutzerRegister.benutzerListe = sp.deserialisieren(path);
-		if (BenutzerRegister.getBenutzerListe() == null) {
-			BenutzerRegister.benutzerListe = new ArrayList<BenutzerDatenTripel>();
-		}
 	}
 
 	/**
 	 * Serialisiert das BenutzerRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline<List<BenutzerDatenTripel>> sp = new SerialisierungPipeline<List<BenutzerDatenTripel>>();
+		SerialisierungPipeline<List<Benutzer>> sp = new SerialisierungPipeline<List<Benutzer>>();
 		sp.serialisieren(BenutzerRegister.getBenutzerListe(), path);
 	}
 
@@ -268,6 +241,13 @@ public class BenutzerRegister implements Serializable {
 	 */
 	public static int getZaehlerBestellung() {
 		return ++zaehlerBestellung;
+	}
+
+	/**
+	 * Resetted die Benutzerliste
+	 */
+	public static void reset() {
+		benutzerListe.clear();
 	}
 
 }

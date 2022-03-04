@@ -1,6 +1,7 @@
 package de.wwu.sopra.datenhaltung.bestellung;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -43,6 +44,12 @@ class WarenkorbTest {
 		assertTrue(warenkorb.getBetrag() == 2.58);
 		assertTrue(warenkorb.getKunde().equals(kunde));
 		assertTrue(warenkorb.getProdukte().equals(produkte));
+		assertThrows(AssertionError.class, () -> {
+			new Warenkorb(produkte, null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			new Warenkorb(null, kunde);
+		});
 	}
 
 	/**

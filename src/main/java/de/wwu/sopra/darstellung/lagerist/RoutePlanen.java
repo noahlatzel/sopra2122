@@ -31,6 +31,14 @@ public class RoutePlanen extends LageristOverview {
 	ObservableList<Bestellung> bestellungen;
 	Button btRouteAbschicken;
 
+	/**
+	 * Erzeugt das Fenster, um eine Route zu planen
+	 * 
+	 * @param primaryStage        PrimaryStage
+	 * @param width               Breite des Fensters
+	 * @param height              Hoehe des Fensters
+	 * @param lageristenSteuerung LageristenSteuerung
+	 */
 	public RoutePlanen(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
 		root.setCenter(new Label("Route planen..."));
@@ -42,6 +50,11 @@ public class RoutePlanen extends LageristOverview {
 		root.setCenter(tilePane);
 	}
 
+	/**
+	 * Erzeugt die Ansicht fuer die Fahrzeuge
+	 * 
+	 * @return ScrollPane fuer Fahrzeuge
+	 */
 	private ScrollPane setScrollPaneFahrzeug() {
 		fahrzeuge = FXCollections.observableArrayList();
 		if (scrollPaneFahrzeug == null) {
@@ -62,6 +75,11 @@ public class RoutePlanen extends LageristOverview {
 		return scrollPaneFahrzeug;
 	}
 
+	/**
+	 * Erzeugt die Ansicht fuer die Produkte
+	 * 
+	 * @return ScrollPane fuer Produkte
+	 */
 	private ScrollPane setScrollPaneProdukt() {
 		bestellungen = FXCollections.observableArrayList();
 		if (scrollPaneProdukt == null) {
@@ -84,6 +102,11 @@ public class RoutePlanen extends LageristOverview {
 		return scrollPaneProdukt;
 	}
 
+	/**
+	 * Erzeugt Button, um Route abzuschicken
+	 * 
+	 * @return Button, um Route abzuschicken
+	 */
 	private Button setBtRouteAbschicken() {
 		if (this.btRouteAbschicken == null) {
 			btRouteAbschicken = new Button("Route planen");

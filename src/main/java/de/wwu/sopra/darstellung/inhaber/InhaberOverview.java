@@ -35,9 +35,18 @@ public class InhaberOverview extends Scene {
 	Button btFahrzeugdatenAendern;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
+	Button btProduktKategorieHinzu;
 	Inhabersteuerung inhaberSteuerung;
 	Button btAbmelden;
 
+	/**
+	 * Zeigt die Overview fuer den Inhaber
+	 * 
+	 * @param primaryStage     PrimaryStage
+	 * @param width            Breite des Fensters
+	 * @param height           Hoehe des Fensters
+	 * @param inhaberSteuerung InhaberSteuerung
+	 */
 	public InhaberOverview(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(new BorderPane(), width, height);
 		
@@ -52,6 +61,11 @@ public class InhaberOverview extends Scene {
 		root.setCenter(new Label("INHABER STARTSEITE"));
 	}
 
+	/**
+	 * Erzeugt VBox mit allen Buttons
+	 * 
+	 * @return VBox mit allen Buttons
+	 */
 	private VBox setVBox() {
 		// Erstellung von SideBar mit allen Buttons
 		if (this.vbox == null) {
@@ -60,6 +74,7 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtMitarbeiterRegistrieren());
 			vbox.getChildren().add(this.setBtMitarbeiterVerwalten());
 			vbox.getChildren().add(this.setBtSortimentBearbeiten());
+			vbox.getChildren().add(this.setBtProduktKategorieHinzu());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
@@ -69,6 +84,11 @@ public class InhaberOverview extends Scene {
 		return this.vbox;
 	}
 
+	/**
+	 * Erzeugt Header
+	 * 
+	 * @return Header
+	 */
 	private BorderPane setHeader() {
 		// Main Header, konstant
 		if (this.header == null) {
@@ -99,6 +119,11 @@ public class InhaberOverview extends Scene {
 	}
 
 	// Erstellungen von Buttons, die auf andere Websites weiterleiten
+	/**
+	 * Erzeugt Button fuer Statistiken
+	 * 
+	 * @return Button fuer Statistiken
+	 */
 	private Button setBtStatistiken() {
 		if (this.btStatistiken == null) {
 			btStatistiken = new Button("Statistiken");
@@ -111,6 +136,11 @@ public class InhaberOverview extends Scene {
 		return this.btStatistiken;
 	}
 
+	/**
+	 * Erzeugt Button fuer MitarbeiterRegistrieren
+	 * 
+	 * @return Button fuer MitarbeiterRegistrieren
+	 */
 	private Button setBtMitarbeiterRegistrieren() {
 		if (this.btMitarbeiterRegistrieren == null) {
 			btMitarbeiterRegistrieren = new Button("Mitarbeiter Registrieren");
@@ -124,6 +154,11 @@ public class InhaberOverview extends Scene {
 		return this.btMitarbeiterRegistrieren;
 	}
 
+	/**
+	 * Erzeugt Button fuer MitarbeiterVerwalten
+	 * 
+	 * @return Button fuer MitarbeiterVerwalten
+	 */
 	private Button setBtMitarbeiterVerwalten() {
 		if (this.btMitarbeiterVerwalten == null) {
 			btMitarbeiterVerwalten = new Button("Mitarbeiter Verwalten");
@@ -137,6 +172,11 @@ public class InhaberOverview extends Scene {
 		return this.btMitarbeiterVerwalten;
 	}
 
+	/**
+	 * Erzeugt Button fuer SortimentBearbeiten
+	 * 
+	 * @return Button fuer SortimentBearbeiten
+	 */
 	private Button setBtSortimentBearbeiten() {
 		if (this.btSortimentBearbeiten == null) {
 			btSortimentBearbeiten = new Button("Sortiment Bearbeiten");
@@ -149,6 +189,11 @@ public class InhaberOverview extends Scene {
 		return this.btSortimentBearbeiten;
 	}
 
+	/**
+	 * Erzeugt Button fuer FahrzeugdatenAendern
+	 * 
+	 * @return Button fuer FahrzeugdatenAendern
+	 */
 	private Button setBtFahrzeugdatenAendern() {
 		if (this.btFahrzeugdatenAendern == null) {
 			btFahrzeugdatenAendern = new Button("Fahrzeugdaten Aendern");
@@ -162,6 +207,11 @@ public class InhaberOverview extends Scene {
 		return this.btFahrzeugdatenAendern;
 	}
 
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
+	 * 
+	 * @return Button fuer PersoenlicheDatenBearbeiten
+	 */
 	private Button setBtPersoenlicheDatenBearbeiten() {
 		if (this.btPersoenlicheDatenBearbeiten == null) {
 			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
@@ -175,6 +225,11 @@ public class InhaberOverview extends Scene {
 		return this.btPersoenlicheDatenBearbeiten;
 	}
 
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenAnzeigen
+	 * 
+	 * @return Button fuer PersoenlicheDatenAnzeigen
+	 */
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (this.btPersoenlicheDatenAnzeigen == null) {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
@@ -186,5 +241,22 @@ public class InhaberOverview extends Scene {
 		}
 
 		return this.btPersoenlicheDatenAnzeigen;
+	}
+
+	/**
+	 * Erzeugt Button fuer ProduktKategorieHinzu
+	 * 
+	 * @return Button fuer ProduktKategorieHinzu
+	 */
+	private Button setBtProduktKategorieHinzu() {
+		if (this.btProduktKategorieHinzu == null) {
+			btProduktKategorieHinzu = new Button("Produkt/Kategorie Hinzu");
+			btProduktKategorieHinzu.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btProduktKategorieHinzu.setOnAction(e -> {
+				primaryStage
+						.setScene(new ProduktKategorieHinzu(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+			});
+		}
+		return this.btProduktKategorieHinzu;
 	}
 }

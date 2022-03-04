@@ -1,20 +1,27 @@
 package de.wwu.sopra.anwendung.kunde;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class KundensteuerungTest {
@@ -36,6 +43,8 @@ public class KundensteuerungTest {
 		Produkt cola2 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola3 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		Produkt cola4 = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Lager.getLagerbestand().put("Cola", 0);
+		Lager.getLagerbestand().put("Coca Cola", 0);
 		Lager.getLager().clear();
 		Lager.addProdukt(cola);
 		Lager.addProdukt(cola2);
@@ -106,6 +115,7 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		Produkt fanta = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
 		liste.add(fanta);
+		Lager.getLagerbestand().put("Fanta", 0);
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -118,7 +128,7 @@ public class KundensteuerungTest {
 
 		kundensteuerung.bestellen();
 
-		for (int i = 0; i < kunde.getBestellungen().size(); i++) {
+		for (int i = 0; i < kunde.getBestellungen().size() - 1; i++) {
 			for (int j = 0; j < kunde.getBestellungen().get(i).getProdukte().size(); j++) {
 
 				assertTrue(bestellungen.get(i).getProdukte().get(j)
@@ -167,6 +177,13 @@ public class KundensteuerungTest {
 		for (int i = 0; i < bestellungen.size(); i++) {
 			assertTrue(bestellungen.get(i).getBestellnummer() == kunde.getBestellungen().get(i).getBestellnummer());
 		}
+		assertThrows(NullPointerException.class, () -> {
+			kundensteuerung.stornieren(null);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			bestellung1.setStatus(BestellStatus.ABGESCHLOSSEN);
+			kundensteuerung.stornieren(bestellung1);
+		});
 
 	}
 
@@ -178,12 +195,15 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 		Bestellung bestellung2 = new Bestellung(LocalDateTime.now(), liste2, kunde);
-		Bestellung bestellung3 = new Bestellung(LocalDateTime.now(), liste2, kunde);
 		bestellungen.add(bestellung1);
 		bestellungen.add(bestellung2);
-		bestellungen.add(bestellung3);
 		kunde.bestellungHinzufuegen(bestellung1);
 		kunde.bestellungHinzufuegen(bestellung2);
+
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.addProdukt(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kundensteuerung.nachbestellen(bestellung2);
 
 		List<String> namen1 = new ArrayList<String>();
@@ -194,7 +214,26 @@ public class KundensteuerungTest {
 		}
 
 		assertTrue(namen1.containsAll(namen2));
+		assertThrows(NullPointerException.class, () -> {
+			kundensteuerung.nachbestellen(null);
+		});
 
+	}
+
+	@Test
+	void testeNachbestellenThrows() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Lager.getLagerbestand().put("asd", 0);
+		Produkt test = new Produkt("asd", "Toller Geschmack", 0.99, 1.29);
+		Lager.addProdukt(test);
+		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));
+		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));
+
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			kundensteuerung.nachbestellen(bestellung1);
+		});
 	}
 
 	/**
@@ -209,5 +248,89 @@ public class KundensteuerungTest {
 		for (int i = 0; i < liste2.size(); i++) {
 			assertTrue(liste2.get(i).getName().equals(neueListe.get(i).getName()));
 		}
+	}
+
+	/**
+	 * Testet getKategorien
+	 */
+	@Test
+	void getKategorienTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
+
+		Iterator<Produkt> iterator = Lager.getLager().iterator();
+		while (iterator.hasNext()) {
+			Produkt p = iterator.next();
+			if (p.getKategorie() != null) {
+				kategorien.add(p.getKategorie());
+			}
+		}
+
+		assertTrue(kundensteuerung.getKategorien().equals(kategorien));
+
+	}
+
+	/**
+	 * Testet suchenThrows
+	 */
+	@Test
+	void testSuchenThrows() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		assertThrows(NullPointerException.class, () -> {
+			kundensteuerung.suchen(null);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			Produkt test = new Produkt("asd", "Toller Geschmack", 0.99, 1.29);
+			Lager.addProdukt(test);
+			Lager.removeProdukt(test);
+			kundensteuerung.suchen("asd");
+		});
+	}
+
+	/**
+	 * Testet produktZuWarenkorbHinzufuegen
+	 */
+	@Test
+	void produktZuWarenkorbHinzufuegenTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		BenutzerRegister.benutzerHinzufuegen(kunde);
+
+		while (BenutzerRegister.getWarenkorb(kunde).getProdukte().size() > 0) {
+			BenutzerRegister.getWarenkorb(kunde).getProdukte().remove(0);
+		}
+
+		Lager.getLagerbestand().put("Fanta-stisch", 0);
+
+		Produkt produkt = new Produkt("Fanta-stisch", "Beschreibung", 1, 2.99);
+		Lager.reset();
+		Lager.addProdukt(produkt);
+
+		kundensteuerung.produktZuWarenkorbHinzufuegen(produkt, 1);
+
+		assertTrue(kundensteuerung.warenkorbAnsicht().getProdukte().get(0).getName().equals(produkt.getName()));
+	}
+
+	/**
+	 * Testet getLager
+	 */
+	@Test
+	void getLagerTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+
+		assertEquals(kundensteuerung.getLager(), Lager.getLager());
+	}
+
+	/**
+	 * Testet getProduktBestand
+	 */
+	@Test
+	void getProduktBestandTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+
+		Produkt produkt = new Produkt("Name", "Beschreibung", 1, 2);
+		Lager.getLagerbestand().put("Name", 0);
+		Lager.addProdukt(produkt);
+
+		assertEquals(kundensteuerung.getProduktBestand(produkt), Lager.getProduktBestand(produkt));
 	}
 }

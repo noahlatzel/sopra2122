@@ -13,23 +13,24 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 public class GrosshaendlerRegister implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Liste der Einkaufspreise
+	 */
 	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();
+	/**
+	 * Pfad zur Serialisierung
+	 */
 	private static String path = "grosshaendlerReg.ser";
 
 	/**
 	 * Singleton Konstruktor
 	 */
 	private GrosshaendlerRegister() {
-		GrosshaendlerRegister.setEinkaufspreis("Coca Cola", 0.49);
-		GrosshaendlerRegister.setEinkaufspreis("Fanta", 0.49);
-		GrosshaendlerRegister.setEinkaufspreis("Sprite", 0.49);
-		GrosshaendlerRegister.setEinkaufspreis("Orangensaft", 0.49);
-		GrosshaendlerRegister.setEinkaufspreis("Milch", 0.49);
 	}
 
 	/**
@@ -91,9 +92,6 @@ public class GrosshaendlerRegister implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
 		preisListeIn = sp.deserialisieren(path);
-		if (preisListeIn == null) {
-			preisListeIn = new HashMap<String, Double>();
-		}
 	}
 
 	/**

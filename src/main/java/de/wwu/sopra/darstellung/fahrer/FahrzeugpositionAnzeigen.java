@@ -11,13 +11,22 @@ import javafx.stage.Stage;
  *
  */
 public class FahrzeugpositionAnzeigen extends OverviewFahrer {
-
+	/**
+	 * Erzeugt FahrzeugpositionAnzeigen
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public FahrzeugpositionAnzeigen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		this.zeigePosition();
 	}
 
-	// poition wird auf einem Label angezeigt
+	/**
+	 * Position anzeigen auf Label
+	 */
 	private void zeigePosition() {
 		try {
 			root.setCenter(new Label(steuerung.positionDesFahrzeugs()));
