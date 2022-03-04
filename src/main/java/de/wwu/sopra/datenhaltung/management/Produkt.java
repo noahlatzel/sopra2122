@@ -2,6 +2,8 @@ package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
 
+import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
+
 /**
  * Klasse der Produkte
  * 
@@ -49,7 +51,8 @@ public class Produkt implements Serializable {
 		this.setName(name);
 		this.setBeschreibung(beschreibung);
 		this.setVerkaufspreis(verkaufspreis);
-		this.einkaufspreis = einkaufspreis;
+		// this.einkaufspreis = einkaufspreis;
+		this.einkaufspreis = GrosshaendlerRegister.getEinkaufspreis(name);
 	}
 
 	/**

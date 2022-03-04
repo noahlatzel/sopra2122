@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.SerialisierungPipeline;
 
 /**
@@ -37,6 +38,11 @@ public class Lager implements Serializable {
 	 * HashMap fuer den Lagerbestand
 	 */
 	private static HashMap<String, Integer> lagerbestand = new HashMap<String, Integer>();
+
+	/**
+	 * TODO Alternative fuer den Lagerbestand
+	 */
+	private static HashMap<Produkt, Integer> lagerBestand = new HashMap<Produkt, Integer>();
 
 	/**
 	 * Singleton Konstruktor
@@ -210,6 +216,56 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		lagerbestand = sp.deserialisieren(path_map);
 		lager = sp1.deserialisieren(path_set);
+	}
+
+	/**
+	 * Gibt das Sortiment zurueck
+	 * 
+	 * @return Sortiment
+	 */
+	public static ArrayList<Produkt> sortimentAnzeigen() {
+		return (ArrayList<Produkt>) Lager.lagerBestand.keySet();
+	}
+
+	/**
+	 * Fuegt ein Produkt zum Sortiment hinzu.
+	 * 
+	 * @param produkt Produkt, das hinzugefuegt werden soll
+	 */
+	public static void produktZumSortimentHinzufuegen(Produkt produkt) {
+		// Prueft, ob Produkt bereits im Sortiment
+		boolean bereitsVorhanden = false;
+		for (Produkt prod : Lager.lagerBestand.keySet()) {
+			if (prod.getName().equals(produkt.getName())) {
+				bereitsVorhanden = true;
+			}
+		}
+		// Wenn nicht im Sortiment, dann wird es ins Sortiment hinzugefuegt
+		if (!bereitsVorhanden) {
+			Lager.lagerBestand.put(produkt, 0);
+			GrosshaendlerRegister.getPreislisteIn().put(produkt.getName(), produkt.getEinkaufspreis());
+		}
+	}
+
+	/**
+	 * Entfernt ein Produkt aus dem Sortiment.
+	 * 
+	 * @param produkt Produkt, das entfernt werden soll
+	 */
+	public static void produktAusDemSortimentEntfernen(Produkt produkt) {
+		// Entfernt das Produkt aus dem Sortiment
+		for (Produkt prod : Lager.lagerBestand.keySet()) {
+			if (prod.getName().equals(produkt.getName())) {
+				Lager.lagerBestand.remove(prod);
+			}
+		}
+		HashSet<Produkt> old_lager = (HashSet<Produkt>) Lager.getLager().clone();
+		// Entfernt die restlichen Produkte des Sortiments aus dem Lager
+		for (Produkt prod : old_lager) {
+			if (prod.getName().equals(produkt.getName())) {
+				Lager.removeProdukt(prod);
+			}
+		}
 	}
 
 	/**
