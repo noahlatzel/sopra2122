@@ -25,11 +25,11 @@ public class MainJavaFx extends Application {
 	/**
 	 * Breite des Fensters
 	 */
-	public static final int WIDTH = gd.getDisplayMode().getWidth() / 4 * 3;
+	private final int WIDTH = gd.getDisplayMode().getWidth() / 2;
 	/**
 	 * Hoehe des Fensters
 	 */
-	public static final int HEIGHT = gd.getDisplayMode().getHeight() / 4 * 3;
+	private final int HEIGHT = gd.getDisplayMode().getHeight() / 2;
 
 	/**
 	 * Basislayout
@@ -50,7 +50,8 @@ public class MainJavaFx extends Application {
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
 		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
-
+		primaryStage.setResizable(false);
+		primaryStage.sizeToScene();
 		primaryStage.show();
 
 	}

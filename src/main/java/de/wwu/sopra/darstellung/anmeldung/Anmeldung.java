@@ -48,6 +48,7 @@ public class Anmeldung extends Scene {
 	Label labelPasswort;
 	VBox vbox;
 	Text title;
+	Button buttonZurueck;
 
 	// Color constants fuer Buttons-Background
 	private static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
@@ -85,6 +86,7 @@ public class Anmeldung extends Scene {
 			textFeldBenutzername = new TextField();
 			textFeldPasswort = new PasswordField();
 			buttonAnmelden = new Button("Anmelden");
+			buttonZurueck = new Button("Zurueck");
 
 			// Set und Style Titel der Seite
 			title = new Text("Anmeldung");
@@ -123,6 +125,7 @@ public class Anmeldung extends Scene {
 			vbox.getChildren().add(labelPasswort);
 			vbox.getChildren().add(textFeldPasswort);
 			vbox.getChildren().add(buttonAnmelden);
+			vbox.getChildren().add(setButtonZurueck());
 
 			// MaxWidth fuer TextFields
 			textFeldBenutzername.setMaxWidth(240);
@@ -214,5 +217,32 @@ public class Anmeldung extends Scene {
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}
+	}
+
+	/**
+	 * Erzeugt den Zurueck-Button
+	 * 
+	 * @return Zurueck-Button
+	 */
+	private Button setButtonZurueck() {
+		buttonZurueck.setAlignment(Pos.TOP_CENTER);
+		buttonZurueck.setPadding(new Insets(10));
+
+		// Erstellung von DropShadows fuer Button
+		DropShadow dropShadowButton = new DropShadow();
+		dropShadowButton.setRadius(5.0);
+		dropShadowButton.setOffsetX(4.0);
+		dropShadowButton.setOffsetY(4.0);
+		dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
+
+		buttonZurueck.setEffect(dropShadowButton);
+
+		// Knopfdruckfunktionalitaet
+		buttonZurueck.setOnAction(e -> {
+			primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+		});
+
+		changeButtonStyleOnHover(buttonZurueck);
+		return buttonZurueck;
 	}
 }

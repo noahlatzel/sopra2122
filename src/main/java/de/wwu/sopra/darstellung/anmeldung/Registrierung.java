@@ -30,6 +30,7 @@ public class Registrierung extends Scene {
 	FlowPane flowpane;
 
 	Button buttonRegistrieren = new Button("Registrieren");
+	Button buttonZurueck = new Button("Zurueck");
 	TextField textFeldBenutzername = new TextField();;
 	TextField textFeldPasswort = new TextField();;
 	TextField textFeldEmail = new TextField();;
@@ -128,6 +129,7 @@ public class Registrierung extends Scene {
 			gridpane.add(labelBankverbindung, 1, 10);
 			gridpane.add(textFeldBankverbindung, 1, 11);
 			gridpane.add(setButtonRegistrieren(), 1, 12, 2, 1);
+			gridpane.add(setButtonZurueck(), 2, 12, 4, 5);
 			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
@@ -158,12 +160,39 @@ public class Registrierung extends Scene {
 			anSt.registrieren(textFeldBenutzername.getText(), textFeldPasswort.getText(), textFeldEmail.getText(),
 					textFeldAdresse.getText(), textFeldVorname.getText(), textFeldName.getText(),
 					textFeldBankverbindung.getText());
-			primaryStage.setScene(new Anmeldung(primaryStage, 800, 600)); // TODO
+			primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight()));
 		});
 
 		changeButtonStyleOnHover(buttonRegistrieren);
 
 		return buttonRegistrieren;
+	}
+
+	/**
+	 * Erzeugt den Zurueck-Button
+	 * 
+	 * @return Zurueck-Button
+	 */
+	private Button setButtonZurueck() {
+		buttonZurueck.setAlignment(Pos.TOP_CENTER);
+		buttonZurueck.setPadding(new Insets(10));
+
+		// Erstellung von DropShadows fuer Button
+		DropShadow dropShadowButton = new DropShadow();
+		dropShadowButton.setRadius(5.0);
+		dropShadowButton.setOffsetX(4.0);
+		dropShadowButton.setOffsetY(4.0);
+		dropShadowButton.setColor(Color.color(0.4, 0.5, 0.5));
+
+		buttonZurueck.setEffect(dropShadowButton);
+
+		// Knopfdruckfunktionalitaet
+		buttonZurueck.setOnAction(e -> {
+			primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+		});
+
+		changeButtonStyleOnHover(buttonZurueck);
+		return buttonZurueck;
 	}
 
 	/**

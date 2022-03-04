@@ -175,7 +175,7 @@ public class OverviewFahrer extends Scene {
 			btAbmelden = new Button("Abmelden");
 			btAbmelden.setMinWidth(200);
 			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, 800, 600));
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 			});
 		}
 		return this.btAbmelden;
