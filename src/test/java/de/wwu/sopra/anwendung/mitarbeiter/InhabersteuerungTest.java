@@ -243,7 +243,7 @@ public class InhabersteuerungTest {
 		HashSet<Produkt> lagerProdukte = ihs.sortimentAnzeigen();
 
 		System.out.println(Lager.getLagerbestand().keySet().size());
-		assertTrue(Lager.getLagerbestand().keySet().size() == 2);
+		assertTrue(Lager.getLagerbestand().keySet().size() == sortimentGroessePre + 2);
 
 		// Erstellung von Produkte-um-loeschen Liste
 		List<Produkt> productsToRemove = new ArrayList<Produkt>();
