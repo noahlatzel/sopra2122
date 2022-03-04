@@ -4,7 +4,6 @@ import java.io.File;
 
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -85,9 +84,7 @@ public class Registrierung extends Scene {
 			labelVorname.getStyleClass().add("anmeldung-registrierung-label");
 			labelName.getStyleClass().add("anmeldung-registrierung-label");
 			labelBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
-
-			gridpane.setHgap(20);
-			gridpane.setVgap(10);
+			gridpane.getStyleClass().add("registrierung-wrapper");
 
 			// Auf GridPane setzen
 			gridpane.add(title, 1, 0, 2, 1);
@@ -106,7 +103,6 @@ public class Registrierung extends Scene {
 			gridpane.add(labelBankverbindung, 1, 10);
 			gridpane.add(textFeldBankverbindung, 1, 11);
 			gridpane.add(setButtonRegistrieren(), 1, 12, 2, 1);
-			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
 	}

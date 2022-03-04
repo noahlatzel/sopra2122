@@ -63,12 +63,7 @@ public class Startseite extends Scene {
 			// Styling
 			title.getStyleClass().add("welcome-title");
 			vbox.getStyleClass().add("startseite-wrapper");
-			vbox.setMaxSize(340, 380);
-			buttonAnmelden.setPrefHeight(50);
-			buttonAnmelden.setPrefWidth(170);
 			buttonAnmelden.getStyleClass().add("startpage-button");
-			buttonRegistrieren.setPrefHeight(50);
-			buttonRegistrieren.setPrefWidth(170);
 			buttonRegistrieren.getStyleClass().add("startpage-button");
 
 			// Button-Funktionen
