@@ -296,10 +296,10 @@ public class StartseiteKunde extends KundeOverview {
 		if (btSuche == null) {
 			btSuche = new Button();
 
-			ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
-			view.setFitWidth(30);
-			view.setFitHeight(30);
-			btSuche.setGraphic(view);
+			//ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
+			//view.setFitWidth(30);
+			//view.setFitHeight(30);
+			//btSuche.setGraphic(view);
 
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);
