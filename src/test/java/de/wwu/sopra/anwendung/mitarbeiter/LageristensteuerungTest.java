@@ -33,17 +33,15 @@ public class LageristensteuerungTest {
 	HashSet<NachbestellungTupel> nachbestellungen;
 
 	@BeforeEach
-	void reset() {
+	void init() {
 		Lager.reset();
 		FahrzeugRegister.reset();
-	}
-
-	@BeforeEach
-	void init() {
 		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
 				"Muenster", "Noah", "Latzel", "GuteBank", null));
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.99, 1.29));
+		Lager.getLagerbestand().put("Coca Cola", 10);
+		Lager.getLagerbestand().put("Fanta", 10);
 		produkt1 = new Produkt("Coca Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);

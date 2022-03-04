@@ -94,11 +94,13 @@ public class Inhabersteuerung {
 	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
 			for (Produkt produkt : produkte) {
-				Lager.produktZumSortimentHinzufuegen(produkt);
+				Lager.getLagerbestand().put(produkt.getName(), 0);
+				// Lager.produktZumSortimentHinzufuegen(produkt);
 			}
 		} else if (action == "loeschen") {
 			for (Produkt produkt : produkte) {
-				Lager.produktAusDemSortimentEntfernen(produkt);
+				// Lager.produktAusDemSortimentEntfernen(produkt);
+				Lager.getLagerbestand().remove(produkt.getName());
 			}
 		} else {
 			throw new IllegalArgumentException();

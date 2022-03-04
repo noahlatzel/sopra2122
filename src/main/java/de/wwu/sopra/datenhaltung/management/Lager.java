@@ -242,6 +242,7 @@ public class Lager implements Serializable {
 		}
 		// Wenn nicht im Sortiment, dann wird es ins Sortiment hinzugefuegt
 		if (!bereitsVorhanden) {
+			System.out.println("ADDED!");
 			Lager.lagerBestand.put(produkt, 0);
 			GrosshaendlerRegister.getPreislisteIn().put(produkt.getName(), produkt.getEinkaufspreis());
 		}
