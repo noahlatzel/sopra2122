@@ -3,7 +3,10 @@ package de.wwu.sopra.anwendung.mitarbeiter;
 import java.util.HashSet;
 import java.util.List;
 
+import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
+import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.benutzer.Lagerist;
+import de.wwu.sopra.datenhaltung.benutzer.Rolle;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -11,7 +14,6 @@ import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Route;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
-import de.wwu.sopra.datenhaltung.verwaltung.BenutzerDatenTripel;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
@@ -151,17 +153,24 @@ public class Lageristensteuerung {
 	 */
 	private HashSet<Bestellung> extractOffeneBestellungenRegister() {
 		HashSet<Bestellung> bestellungen = new HashSet<Bestellung>();
-		for (BenutzerDatenTripel benutzerDaten : BenutzerRegister.getBenutzerListe()) {
+		for (Benutzer benutzerDaten : BenutzerRegister.getBenutzerListe()) {
 
-			if (benutzerDaten.getBestellungen() != null) {
-				List<Bestellung> tempBestellungen = benutzerDaten.getBestellungen();
+			// Falls der Benutzer ein Kunde ist:
+			if (benutzerDaten.getRolle() == Rolle.KUNDE) {
+				Kunde kunde = (Kunde) benutzerDaten;
 
-				for (int i = 0; i < tempBestellungen.size(); i++) {
-					if (tempBestellungen.get(i).getStatus().equals(BestellStatus.OFFEN)) {
-						bestellungen.add(tempBestellungen.get(i));
+				// Falls der Kunde Bestellungen hat:
+				if (kunde.getBestellungen() != null) {
+					List<Bestellung> tempBestellungen = kunde.getBestellungen();
+
+					for (int i = 0; i < tempBestellungen.size(); i++) {
+						if (tempBestellungen.get(i).getStatus().equals(BestellStatus.OFFEN)) {
+							bestellungen.add(tempBestellungen.get(i));
+						}
 					}
 				}
 			}
+
 		}
 		return bestellungen;
 	}

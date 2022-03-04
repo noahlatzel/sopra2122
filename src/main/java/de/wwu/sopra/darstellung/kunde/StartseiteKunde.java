@@ -15,6 +15,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -89,7 +91,8 @@ public class StartseiteKunde extends KundeOverview {
 			menuButton = new MenuButton("Kategorien");
 
 			menuButton.setMinHeight(30);
-			menuButton.setStyle("-fx-background-color: #FF6868; -fx-font-weight: bold");
+			menuButton.setStyle(
+					"-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868");
 
 			Iterator<Kategorie> iterator = kundensteuerung.getKategorien().iterator();
 			while (iterator.hasNext()) {
@@ -102,7 +105,8 @@ public class StartseiteKunde extends KundeOverview {
 					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
 							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie)));
 				});
-				temp.setStyle("-fx-background-color: #FF6868; -fx-font-weight: bold");
+				temp.setStyle(
+						"-fx-background-color: white; -fx-font-weight: bold; -fx-focus-color: transparent; -fx-font-size: 15");
 			}
 		}
 
@@ -120,7 +124,7 @@ public class StartseiteKunde extends KundeOverview {
 
 			textFeldSuche = new TextField();
 
-			textFeldSuche.setMinHeight(35);
+			textFeldSuche.setMinHeight(40);
 			textFeldSuche.setPromptText("Suche...");
 			textFeldSuche.setStyle("-fx-border-color: #C14343; -fx-border: gone; -fx-focus-color: white");
 			textFeldSuche.setAlignment(Pos.CENTER);
@@ -176,9 +180,9 @@ public class StartseiteKunde extends KundeOverview {
 				Produkt prod = iterator.next();
 				gridpane.add(setProduktPanel(prod), b, a);
 				b++;
-				if (b % 5 == 0) {
+				if (b % 6 == 0) {
 					a++;
-					b = b % 5;
+					b = b % 6;
 				}
 			}
 		}
@@ -216,6 +220,15 @@ public class StartseiteKunde extends KundeOverview {
 		produktPanel.setMinWidth(100);
 
 		produktPanel.setStyle(STANDARD_PRODUKT_PANEL);
+
+		// Erstellung von DropShadows fuer Komponenten
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setRadius(3.0);
+		dropShadow.setOffsetX(3.0);
+		dropShadow.setOffsetY(3.0);
+		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
+
+		produktPanel.setEffect(dropShadow);
 
 		return produktPanel;
 	}
@@ -267,17 +280,17 @@ public class StartseiteKunde extends KundeOverview {
 	 */
 	public Button setButtonSuche() {
 		if (btSuche == null) {
-			btSuche = new Button("Go!");
+			btSuche = new Button();
 
-			// Image img = new Image("images/lupe.png");
-			// ImageView view = new
-			// ImageView(getClass().getResource("/resource/lupe.png").toExternalForm());
-			// btSuche.setGraphic(view);
+			ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
+			view.setFitWidth(30);
+			view.setFitHeight(30);
+			btSuche.setGraphic(view);
 
-			btSuche.setMinWidth(35);
-			btSuche.setMinHeight(35);
+			btSuche.setMinWidth(40);
+			btSuche.setMinHeight(40);
 
-			btSuche.setStyle("-fx-background-color: #C14343; -fx-font-weight: bold; -fx-border: none");
+			btSuche.setStyle("-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none");
 			btSuche.setAlignment(Pos.CENTER);
 
 			btSuche.setOnAction(e -> {

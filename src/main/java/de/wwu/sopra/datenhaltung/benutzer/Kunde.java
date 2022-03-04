@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 
 /**
  * Implementiert die Klasse Kunde.
@@ -14,13 +15,10 @@ import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
  */
 public class Kunde extends Benutzer {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final Rolle rolle = Rolle.KUNDE;
 	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
-	private Warenkorb warenkorb;
+	private Warenkorb warenkorb = new Warenkorb(new ArrayList<Produkt>(), this);
 
 	/**
 	 * Erstellt einen neuen Kunden mit den uebergebenen Eigenschaften.
@@ -61,7 +59,7 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * gibt den Warenkorb aus
+	 * Gibt den Warenkorb aus
 	 * 
 	 * @return warenkorb
 	 */
@@ -70,7 +68,7 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * setzt den Warenkorb
+	 * Setzt den Warenkorb
 	 * 
 	 * @param warenkorb warenkorb
 	 */
@@ -79,7 +77,7 @@ public class Kunde extends Benutzer {
 	}
 
 	/**
-	 * gibt die Rolle aus
+	 * Gibt die Rolle aus
 	 * 
 	 * @return rolle.Kunde
 	 */
@@ -87,4 +85,10 @@ public class Kunde extends Benutzer {
 		return rolle;
 	}
 
+	/**
+	 * Setzt die Liste der Bestellungen auf null;
+	 */
+	public void kundeEntfernen() {
+		this.bestellungen = null;
+	}
 }

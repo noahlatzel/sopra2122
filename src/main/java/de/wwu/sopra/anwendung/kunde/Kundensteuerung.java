@@ -230,9 +230,20 @@ public class Kundensteuerung {
 	 *               werden.
 	 */
 	public void produktZuWarenkorbHinzufuegen(Produkt p, int anzahl) {
-		while (anzahl > 0) {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(kunde, p);
-			anzahl--;
+		List<Produkt> gleicheProdukte = new ArrayList<Produkt>();
+
+		// Erstellt eine Liste der Laenge der uebergebenen Anzahl mit Produkten die
+		// gleich dem uebergebenen Produkt sind
+		for (Produkt produkt : Lager.getLager()) {
+			if (anzahl > 0 && produkt.getName().equals(p.getName())) {
+				gleicheProdukte.add(produkt);
+				anzahl--;
+			}
+		}
+
+		while (gleicheProdukte.size() > 0) {
+			BenutzerRegister.produktZuWarenkorbHinzufuegen(kunde, gleicheProdukte.get(0));
+			gleicheProdukte.remove(0);
 		}
 	}
 

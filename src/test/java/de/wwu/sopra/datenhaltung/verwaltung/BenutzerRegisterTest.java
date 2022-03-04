@@ -70,16 +70,6 @@ public class BenutzerRegisterTest {
 		assertTrue(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1").getBenutzername()
 				.equals(benutzer1.getBenutzername()));
 
-		// Testet, ob Exception geworfen wird wenn null uebergeben wird.
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.benutzerHinzufuegen(null);
-		});
-
-		// Benutzerabfrage eines null-Benutzernamens
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getBenutzerZuBenutzername(null);
-		});
-
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
@@ -98,9 +88,6 @@ public class BenutzerRegisterTest {
 		// nicht gefunden
 		assertNull(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"));
 
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.benutzerEntfernen(null);
-		});
 	}
 
 	/**
@@ -114,16 +101,16 @@ public class BenutzerRegisterTest {
 
 		// Fuegt produkt 1 zum Warenkorb des benutzer1 hinzu
 		BenutzerRegister.produktZuWarenkorbHinzufuegen(benutzer1, produkt1);
-		assertTrue(BenutzerRegister.getWarenkorb(benutzer1).contains(produkt1));
+		assertTrue(BenutzerRegister.getWarenkorb(benutzer1).getProdukte().contains(produkt1));
 
 		// Vergleicht die Test Liste mit dem Warenkorb
 		for (int i = 0; i < warenkorbTester.size(); i++) {
-			assertEquals(warenkorbTester.get(i), BenutzerRegister.getWarenkorb(benutzer1).get(i));
+			assertEquals(warenkorbTester.get(i), BenutzerRegister.getWarenkorb(benutzer1).getProdukte().get(i));
 		}
 
 		// Enttfernt produkt 1 aus Warenkorb des benutzer1
 		BenutzerRegister.produktAusWarenkorbEntfernen(benutzer1, produkt1);
-		assertFalse(BenutzerRegister.getWarenkorb(benutzer1).contains(produkt1));
+		assertFalse(BenutzerRegister.getWarenkorb(benutzer1).getProdukte().contains(produkt1));
 
 		// --------------------
 		// Registriert Inhaber
@@ -132,38 +119,7 @@ public class BenutzerRegisterTest {
 
 		// Ein Inhaber (und auch andere Mitarbeiter) haben keinen Warenkorb
 		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getWarenkorb(benutzer3).get(0);
-		});
-
-		// ---------------------
-		// Bei leerem Benutzer und/oder leerem Produkt soll Exception geworfen werden
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(null, produkt1);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktZuWarenkorbHinzufuegen(null, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(null, produkt1);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.produktAusWarenkorbEntfernen(null, null);
-		});
-
-		// Warenkorbabfrage eines null-Benutzers
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getWarenkorb(null);
+			BenutzerRegister.getWarenkorb(benutzer3).getProdukte().get(0);
 		});
 
 		BenutzerRegister.benutzerEntfernen(benutzer1);
@@ -180,27 +136,24 @@ public class BenutzerRegisterTest {
 
 		assertTrue(BenutzerRegister.getBestellungen(benutzer1).get(0).equals(bestellung));
 
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(benutzer1, null);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, bestellung);
-		});
-
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, null);
-		});
-
-		// Bestellungslistenabfrage eines null-Benutzers
-		assertThrows(NullPointerException.class, () -> {
-			BenutzerRegister.getBestellungen(null);
-		});
-
 		BenutzerRegister.benutzerEntfernen(benutzer1);
 
 		// Ein nicht registrierter Benutzer sollte keine Liste mit Bestellungen haben.
+		System.out.println(BenutzerRegister.getBestellungen(benutzer1));
 		assertNull(BenutzerRegister.getBestellungen(benutzer1));
+	}
+
+	/**
+	 * Testet die Abfrage eines Benutzers anhand des Banutzernamens.
+	 */
+	@Test
+	void getBenutzerZuBenuttzername() {
+		BenutzerRegister.benutzerHinzufuegen(benutzer1);
+
+		assertEquals(BenutzerRegister.getBenutzerZuBenutzername("Benutzername1"), benutzer1);
+		assertNull(BenutzerRegister.getBenutzerZuBenutzername("KeinBenutzername"));
+
+		BenutzerRegister.benutzerEntfernen(benutzer1);
 	}
 
 	/**
@@ -208,7 +161,7 @@ public class BenutzerRegisterTest {
 	 */
 	@Test
 	void testLoad() {
-		List<BenutzerDatenTripel> temp = BenutzerRegister.getBenutzerListe();
+		List<Benutzer> temp = BenutzerRegister.getBenutzerListe();
 		System.out.println(temp.toString());
 		BenutzerRegister.save();
 		BenutzerRegister.load();
