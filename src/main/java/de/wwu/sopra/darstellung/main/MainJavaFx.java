@@ -25,11 +25,11 @@ public class MainJavaFx extends Application {
 	/**
 	 * Breite des Fensters
 	 */
-	public static final int WIDTH = gd.getDisplayMode().getWidth() / 2;
+	public static final int WIDTH = gd.getDisplayMode().getWidth() / 4 * 3;
 	/**
 	 * Hoehe des Fensters
 	 */
-	public static final int HEIGHT = gd.getDisplayMode().getHeight() / 2;
+	public static final int HEIGHT = gd.getDisplayMode().getHeight() / 4 * 3;
 
 	/**
 	 * Basislayout
