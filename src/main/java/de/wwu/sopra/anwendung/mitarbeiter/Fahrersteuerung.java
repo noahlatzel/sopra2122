@@ -40,7 +40,7 @@ public class Fahrersteuerung {
 	 * 
 	 * @param fahrzeug fahrzeug seiner wahl
 	 * @throws IllegalArgumentException wenn fahrer oder Fahrzeug nicht leer sind
-	 * @pre fahrer und Fahrzeug haben keinen fahrer und Fahrzeug und das Fahrzeug
+	 * @pre fahrer und Fahrzeug haben keinen Fahrer und Fahrzeug und das Fahrzeug
 	 *      hat eine Route
 	 */
 	public void fahrzeugZuordnen(Fahrzeug fahrzeug) throws NullPointerException {

@@ -85,7 +85,8 @@ public class Route implements Serializable {
 	 * 
 	 * @param bestellungen Bestellungen
 	 * @pre Die Liste der Bestellungen darf nicht leer sein
-	 * @post Die Bestellungen muessen IN_BEARBEITUNG sein
+	 * @post Die Bestellungen muessen IN_BEARBEITUNG sein. Die Bestellung darf nicht
+	 *       zu gross fuer das Fahrzeug sein.
 	 */
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		// Vorbedingung pruefen
@@ -98,9 +99,15 @@ public class Route implements Serializable {
 		}
 
 		// Nachbedingung pruefen
-		for (Bestellung b : bestellungen) {
-			assert b.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
-					: "Nachbedingung von setBestellungen() verletzt: die Bestellungen der Route sind nicht IN_BEARBEITUNG";
+		int routeBelegung = 0;
+		for (Bestellung bestellung : bestellungen) {
+			routeBelegung += bestellung.getKapazitaet();
+			// Nachbedingung pruefen
+			assert bestellung.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
+					: "Nachbedingung von setRoute() verletzt: die Bestellungen der Route sind nicht zu IN_BEARBEITUNG geaendert";
 		}
+		assert this.getFahrzeug().getKapazitaet() - routeBelegung > 0
+				: "Nachbedingung von setRoute() verletzt: die freie Kapazitaet ist nicht positiv, da die Bestellungen auf der Route zu viel Platz belegen";
+
 	}
 }

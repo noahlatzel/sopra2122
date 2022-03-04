@@ -31,13 +31,10 @@ public class Lageristensteuerung {
 	 * Der Konstruktor initialisiert die LageristenSteuerung mit einem Lageristen.
 	 * 
 	 * @param lagerist Der eingeloggte Lagerist.
-	 * @post die LageristenSteuerung ist mit dem Lageristen erstellt worden
 	 */
 	public Lageristensteuerung(Lagerist lagerist) {
 		this.lagerist = lagerist;
 
-		// Nachbedingung pruefen
-		assert this.lagerist == lagerist : "Nachbedingung verletzt beim Konstruktor";
 	}
 
 	/**

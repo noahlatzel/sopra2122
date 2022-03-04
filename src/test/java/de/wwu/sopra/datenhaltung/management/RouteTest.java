@@ -155,11 +155,17 @@ class RouteTest {
 		Kunde kunde1 = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Lager.getLagerbestand().put("Cola", 10);
 		Fahrzeug fzeug3 = new Fahrzeug(200);
 		Bestellung bestellung = new Bestellung(null, produkte, kunde1);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
-		Fahrzeug fzeug = new Fahrzeug(100);
+		assertThrows(AssertionError.class, () -> {
+			Fahrzeug fzeug = new Fahrzeug(1);
+			Route routeSecond = new Route(fzeug);
+			routeSecond.setBestellungen(bestellungen);
+		});
 		Route routeFirst = new Route(fzeug3);
 		routeFirst.setBestellungen(bestellungen);
 		assertTrue(routeFirst.getBestellungen().contains(bestellung));

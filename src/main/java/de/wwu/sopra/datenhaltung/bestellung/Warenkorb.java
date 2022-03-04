@@ -30,14 +30,15 @@ public class Warenkorb implements Serializable {
 	 * @inv Ein Warenkorb gehoert immer zu einem Kunden
 	 */
 	public Warenkorb(List<Produkt> produkte, Kunde kunde) {
+		// Klasseninvariante pruefen
+		assert kunde != null : "Klasseninvariante von Warenkorb verletzt: der Warenkorb gehoert zu keinem Kunden mehr";
+		assert produkte != null : "Klasseninvariante von Warenkorb verletzt: die Liste der Produkte ist null";
+
 		this.produkte = produkte;
 		this.kunde = kunde;
 		this.setBetrag();
 		kunde.setWarenkorb(this);
 
-		// Klasseninvariante pruefen
-		assert this.getKunde() != null
-				: "Klasseninvariante von Warenkorb verletzt: der Warenkorb gehoert zu keinem Kunden mehr";
 	}
 
 	/**

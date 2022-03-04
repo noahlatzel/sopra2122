@@ -44,12 +44,14 @@ public class Bestellung implements Serializable {
 	 *       werden. Die Produkte der Bestellung sind nicht mehr im Lager.
 	 */
 	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
+		// Klasseninvariante pruefen
+		assert kunde != null
+				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Bestellung gehoert zu keinem Kunden mehr";
+		assert !produkte.isEmpty()
+				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Liste der Bestellungen ist leer";
 
 		this.bestellnummer = BenutzerRegister.getZaehlerBestellung();
 		this.setStatus(BestellStatus.OFFEN);
-		if (produkte.isEmpty()) {
-			throw new IllegalArgumentException("Eine Bestellung kann nicht leer sein.");
-		}
 		this.produkte = produkte;
 		this.betrag = calcBetrag();
 		this.kunde = kunde;
@@ -60,12 +62,6 @@ public class Bestellung implements Serializable {
 		for (Produkt produkt : produkte) {
 			Lager.removeProdukt(produkt);
 		}
-
-		// Klasseninvariante pruefen
-		assert this.getKunde() != null
-				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Bestellung gehoert zu keinem Kunden mehr";
-		assert !produkte.isEmpty()
-				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Liste der Bestellungen ist leer";
 
 		// Nachbedingung pruefen
 		assert this.getKunde().getBestellungen().contains(this)

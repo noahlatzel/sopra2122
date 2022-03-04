@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.management;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,9 @@ class StatistikenTest {
 		Statistiken.addAusgaben(1);
 		System.out.println(Statistiken.getAusgaben());
 		assertTrue(Statistiken.getAusgaben() == 2);
+		assertThrows(AssertionError.class, () -> {
+			Statistiken.addAusgaben(0);
+		});
 	}
 
 	/**

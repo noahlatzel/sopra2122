@@ -221,9 +221,11 @@ public class BenutzerRegister implements Serializable {
 	 * @pre benutzer ist nicht null
 	 */
 	private static int getBenutzerId(Benutzer benutzer) {
+		// Vorbedingung pruefen
+		assert benutzer != null : "Benutzer ist null!";
+
 		int n = -1;
 
-		assert benutzer != null : "Benutzer ist null!";
 		// Sucht in der TripelListe nach dem Benutzer
 		for (int i = 0; i < benutzerListe.size(); i++) {
 			if (benutzerListe.get(i).getBenutzer().getBenutzername().equals(benutzer.getBenutzername())) {

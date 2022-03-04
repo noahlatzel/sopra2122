@@ -41,6 +41,9 @@ class FahrzeugTest {
 		Fahrzeug fzeug = new Fahrzeug(100);
 		assertTrue(fzeug.toString().equals("" + fzeug.getFahrzeugNummer()));
 		assertTrue(fzeug instanceof Fahrzeug);
+		assertThrows(AssertionError.class, () -> {
+			new Fahrzeug(-1);
+		});
 	}
 
 	/**
@@ -95,6 +98,9 @@ class FahrzeugTest {
 		fzeug.setKapazitaet(200);
 
 		assertEquals(fzeug.getKapazitaet(), 200);
+		assertThrows(AssertionError.class, () -> {
+			new Fahrzeug(5).setKapazitaet(-1);
+		});
 	}
 
 	/**
@@ -119,6 +125,7 @@ class FahrzeugTest {
 	void testFahrer() {
 		Fahrzeug fzeug = new Fahrzeug(100);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
+		Lager.getLagerbestand().put("Coca Cola", 4);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
 		Bestellung bestellung = new Bestellung(null, produkte,
