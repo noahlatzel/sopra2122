@@ -10,8 +10,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Darstellungsklasse fuer PersoenlicheDatenAnzeigen
+ * 
+ * @author Jasmin Horstknepper
+ *
+ */
 public class PersoenlicheDatenAnzeigen extends KundeOverview {
-
+	/**
+	 * Konstruktor fuer die persoenlichen Daten
+	 * 
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung KundenSteuerung
+	 */
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 		super(primaryStage, width, height, kundensteuerung);
 		root.setCenter(setPersoenlicheDatenAnzeigen());

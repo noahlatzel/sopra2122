@@ -4,6 +4,7 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -13,22 +14,31 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 /**
  * Erstellung der Route-Klasse
  * 
- * @author valeria
+ * @author Valeria Vassallo
  */
 public class Route implements Serializable {
 	/**
-	 * 
+	 * SerialisierungsID
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Routennummer der Route
+	 */
 	private int routenNummer;
+	/**
+	 * Fahrzeug, das der Route zugeordnet ist
+	 */
 	private Fahrzeug fahrzeug;
-	private List<Bestellung> bestellungen;
+	/**
+	 * Liste der Bestellungen in der Route
+	 */
+	private List<Bestellung> bestellungen = new ArrayList<Bestellung>();
 
 	/**
 	 * Neues Route-Objekt erstellen nur wenn angegebene routenNummer nicht auf der
 	 * Liste existiert
 	 * 
-	 * @param fahrzeug fahrzeug
+	 * @param fahrzeug Fahrzeug
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 */
 	public Route(Fahrzeug fahrzeug) throws IllegalArgumentException {
@@ -50,7 +60,7 @@ public class Route implements Serializable {
 	 * Routennummer der Route aendern/setzen, nur wenn die neue routenNummer nicht
 	 * in der Liste ist
 	 * 
-	 * @param routenNummer zu setzen
+	 * @param routenNummer Neue Routennummer
 	 */
 	public void setRoutenNummer(int routenNummer) throws IllegalArgumentException {
 		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
@@ -62,9 +72,9 @@ public class Route implements Serializable {
 	}
 
 	/**
-	 * Fahrzeug zugeordnet zu dieser Route
+	 * Gibt das Fahrzeug zurueck, dass zu dieser Route zugeordnet ist
 	 * 
-	 * @return zugeordnete fahrzeug
+	 * @return das zugeordnete Fahrzeug
 	 */
 	public Fahrzeug getFahrzeug() {
 		return fahrzeug;
@@ -73,7 +83,7 @@ public class Route implements Serializable {
 	/**
 	 * Bestellungen der Route
 	 * 
-	 * @return die Lsite der Bestellungen
+	 * @return die Liste der Bestellungen
 	 */
 	public List<Bestellung> getBestellungen() {
 		return bestellungen;
@@ -82,15 +92,31 @@ public class Route implements Serializable {
 	/**
 	 * Bestellungen der Route setzen
 	 * 
-	 * @param bestellungen bestellungen
+	 * @param bestellungen Bestellungen
+	 * @pre Die Liste der Bestellungen darf nicht leer sein
+	 * @post Die Bestellungen muessen IN_BEARBEITUNG sein. Die Bestellung darf nicht
+	 *       zu gross fuer das Fahrzeug sein.
 	 */
 	public void setBestellungen(List<Bestellung> bestellungen) {
-		for (Bestellung b : bestellungen) {
-			b.setStatus(BestellStatus.IN_BEARBEITUNG);
-		}
+		// Vorbedingung pruefen
+		assert !bestellungen.isEmpty()
+				: "Vorbedingung von setBestellungen() verletzt: die Liste der Bestellungen ist leer";
+
 		this.bestellungen = bestellungen;
 		for (Bestellung b : bestellungen) {
 			b.setStatus(BestellStatus.IN_BEARBEITUNG);
 		}
+
+		// Nachbedingung pruefen
+		int routeBelegung = 0;
+		for (Bestellung bestellung : bestellungen) {
+			routeBelegung += bestellung.getKapazitaet();
+			// Nachbedingung pruefen
+			assert bestellung.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
+					: "Nachbedingung von setRoute() verletzt: die Bestellungen der Route sind nicht zu IN_BEARBEITUNG geaendert";
+		}
+		assert this.getFahrzeug().getKapazitaet() - routeBelegung > 0
+				: "Nachbedingung von setRoute() verletzt: die freie Kapazitaet ist nicht positiv, da die Bestellungen auf der Route zu viel Platz belegen";
+
 	}
 }

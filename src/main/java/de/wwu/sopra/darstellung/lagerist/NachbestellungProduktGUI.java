@@ -27,12 +27,26 @@ import javafx.stage.Stage;
  * @author Noah Latzel
  */
 public class NachbestellungProduktGUI extends LageristOverview {
-
+	/**
+	 * Erzeugt das Objekt, das Produkt anzeigt
+	 * 
+	 * @param primaryStage        PrimaryStage
+	 * @param width               Breite des Fensters
+	 * @param height              Hoehe des Fensters
+	 * @param lageristenSteuerung LageristenSteuerung
+	 */
 	public NachbestellungProduktGUI(Stage primaryStage, double width, double height,
 			Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
 	}
 
+	/**
+	 * Erzeugt eine Produktansicht
+	 * 
+	 * @param nameProdukt Name des Produkts
+	 * @param anzahl      Anzahl des Produkts im Bestand
+	 * @return Erzeugt die Produktansicht
+	 */
 	public GridPane setProduktAnsicht(String nameProdukt, Integer anzahl) {
 		ObservableList<Integer> options = FXCollections.observableArrayList();
 		Tooltip t = new Tooltip("Waehle eine Menge aus.");

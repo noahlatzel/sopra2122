@@ -7,5 +7,20 @@ package de.wwu.sopra.datenhaltung.benutzer;
  *
  */
 public enum Rolle {
-	INHABER, LAGERIST, KUNDE, FAHRER
+	/**
+	 * Inhaberrolle
+	 */
+	INHABER,
+	/**
+	 * Lageristenrolle
+	 */
+	LAGERIST,
+	/**
+	 * Kundenrolle
+	 */
+	KUNDE,
+	/**
+	 * Fahrerrolle
+	 */
+	FAHRER
 }

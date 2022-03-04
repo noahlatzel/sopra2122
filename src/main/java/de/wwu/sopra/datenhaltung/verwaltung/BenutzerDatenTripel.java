@@ -17,9 +17,17 @@ import de.wwu.sopra.datenhaltung.management.Produkt;
  */
 @SuppressWarnings("serial")
 public class BenutzerDatenTripel implements Serializable {
-
+	/**
+	 * Benutzer, der gespeichert werden soll
+	 */
 	private Benutzer benutzer;
+	/**
+	 * Bestellungen, die gespeichert werden sollen
+	 */
 	private List<Bestellung> bestellungen;
+	/**
+	 * Produkte, die gespeichert werden sollen
+	 */
 	private List<Produkt> warenkorb;
 
 	/**

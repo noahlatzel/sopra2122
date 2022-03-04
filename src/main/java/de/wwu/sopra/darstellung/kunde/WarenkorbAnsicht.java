@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
-import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,13 +13,28 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+/**
+ * Darstellungsklasse fuer WarenkorbAnsicht
+ * 
+ * @author Jasmin Horstknepper
+ *
+ */
 public class WarenkorbAnsicht extends KundeOverview {
+
 
 	FlowPane flowpane;
 	TableView<Produkt> tableView;
 	Button btBestellen;
 	TextField textfield;
 	
+	/**
+	 * Konstruktor fuer die Warenkorbansicht
+	 * 
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung KundenSteuerung
+	 */
 	public WarenkorbAnsicht(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 		
 		super(primaryStage, width, height, kundensteuerung);

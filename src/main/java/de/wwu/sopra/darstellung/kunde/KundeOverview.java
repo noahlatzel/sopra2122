@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author jasmin
+ * @author Jasmin Horstknepper
  *
  */
 public class KundeOverview extends Scene {
@@ -33,6 +33,14 @@ public class KundeOverview extends Scene {
 	Button btWarenkorb;
 	Kundensteuerung kundensteuerung;
 
+	/**
+	 * Konstruktor fuer die Uebersicht des Kunden
+	 * 
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung KundenSteuerung
+	 */
 	public KundeOverview(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 
 		super(new BorderPane(), width, height);
@@ -43,6 +51,11 @@ public class KundeOverview extends Scene {
 		root.setCenter(new Label("KUNDE OVERVIEW"));
 	}
 
+	/**
+	 * Erzeugt das FlowPane fuer den Header
+	 * 
+	 * @return FlowPane
+	 */
 	public FlowPane setFlowpane() {
 
 		if (this.flowpane == null) {
@@ -56,6 +69,11 @@ public class KundeOverview extends Scene {
 		return this.flowpane;
 	}
 
+	/**
+	 * Gibt die Ansicht fuer den Warenkorb zurueck
+	 * 
+	 * @return Ansicht fuer Warenkorb
+	 */
 	private Button setBtWarenkorb() {
 		if (this.btWarenkorb == null) {
 			btWarenkorb = new Button("Warenkorb");
@@ -68,12 +86,18 @@ public class KundeOverview extends Scene {
 		return this.btWarenkorb;
 	}
 
+	/**
+	 * Setzt das Logo als Button
+	 * 
+	 * @return Logo
+	 */
 	private Button setBtLogo() {
 		if (this.btLogo == null) {
 			btLogo = new Button("Logo");
 			btLogo.setMinWidth(250);
 			btLogo.setOnAction(action -> {
-				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung));
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager()));
 			});
 		}
 
@@ -82,10 +106,12 @@ public class KundeOverview extends Scene {
 	}
 
 	private MenuItem setBtProfil() {
+
 		if (this.btProfil == null) {
 			btProfil = new MenuItem("Profil");
 			btProfil.setOnAction(action -> {
 				primaryStage.setScene(new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), kundensteuerung));
+
 			});
 		}
 
@@ -93,11 +119,14 @@ public class KundeOverview extends Scene {
 
 	}
 
+
 	private MenuItem setBtAbmelden() {
+
 		if (this.btAbmelden == null) {
 			btAbmelden = new MenuItem("Abmelden");
 			btAbmelden.setOnAction(action -> {
 				primaryStage.setScene(new Startseite(primaryStage , getWidth(), getHeight()));
+
 			});
 		}
 
@@ -105,11 +134,14 @@ public class KundeOverview extends Scene {
 
 	}
 
+
 	private MenuItem setBtBestellungen() {
+
 		if (this.btBestellungen == null) {
 			btBestellungen = new MenuItem("Bestellungen");
 			btBestellungen.setOnAction(action -> {
 				primaryStage.setScene(new UebersichtBestellungen(primaryStage, getWidth(), getHeight(), kundensteuerung));
+
 			});
 		}
 
@@ -117,9 +149,16 @@ public class KundeOverview extends Scene {
 
 	}
 
+
+  /**
+   * Setzt die Auswahlbox fuer die verschiedenen Buttons
+   * 
+   * @return Auswahlbox
+   */
 	private MenuButton setMenuButton() {
 		if (menubutton == null) {
 			menubutton = new MenuButton("Konto" ,null ,setBtProfil() ,setBtBestellungen() ,setBtAbmelden());
+
 		}
 		return this.menubutton;
 	}

@@ -12,14 +12,23 @@ import javafx.stage.Stage;
  *
  */
 public class KundeNichtDa extends OverviewFahrer {
-
+	/**
+	 * Erzeugt KundeNichtDa
+	 * 
+	 * @param steuerung    FahrerSteuerung
+	 * @param primaryStage PrimaryStage
+	 * @param width        Breite des Fensters
+	 * @param height       Hoehe des Fensters
+	 */
 	public KundeNichtDa(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		root.setCenter(new Label("this is Route"));
 		this.nichtDA();
 	}
 
-	// button mit action stornieren
+	/**
+	 * Button fuer Stornieren
+	 */
 	private void nichtDA() {
 		Button btStorniern = new Button("Stornieren");
 		btStorniern.setOnAction(e -> {

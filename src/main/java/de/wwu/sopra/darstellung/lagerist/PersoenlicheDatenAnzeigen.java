@@ -17,7 +17,14 @@ import javafx.stage.Stage;
  * @author Noah Latzel
  */
 public class PersoenlicheDatenAnzeigen extends LageristOverview {
-
+	/**
+	 * Erzeugt das Fenster, um persoenliche Daten anzuzeigen und zu bearbeiten
+	 * 
+	 * @param primaryStage        PrimaryStage
+	 * @param width               Breite des Fensters
+	 * @param height              Hoehe des Fensters
+	 * @param lageristenSteuerung LageristenSteuerung
+	 */
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height,
 			Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
@@ -25,7 +32,11 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 	}
 
-	// Daten zeigen
+	/**
+	 * Erzeugt Ansicht fuer persoenliche Daten
+	 * 
+	 * @return GridPane fuer persoenliche Daten
+	 */
 	private GridPane setPersoenlicheDatenAnzeigen() {
 
 		// GridPane erstellen

@@ -65,9 +65,9 @@ public class TestKoepfeAllgemein {
 		Warenkorb warenkorb1 = new Warenkorb(produkte, kunde1);
 
 		// Rechnug
-		Rechnung rechnung1 = new Rechnung(testbestellung1.getBetrag(), LocalDateTime.now(), testbestellung1);
-		Rechnung rechnung2 = new Rechnung(testbestellung2.getBetrag(), LocalDateTime.now(), testbestellung2);
-		Rechnung rechnung3 = new Rechnung(testbestellung3.getBetrag(), LocalDateTime.now(), testbestellung3);
+		Rechnung rechnung1 = new Rechnung(LocalDateTime.now(), testbestellung1);
+		Rechnung rechnung2 = new Rechnung(LocalDateTime.now(), testbestellung2);
+		Rechnung rechnung3 = new Rechnung(LocalDateTime.now(), testbestellung3);
 
 	}
 
