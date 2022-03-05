@@ -102,13 +102,18 @@ public class StartseiteKunde extends KundeOverview {
 		return searchBarBP;
 	}
 
+	/**
+	 * Konfiguriert den MenuButton mit den Kategorien
+	 * 
+	 * @return MenuButton zur Auswahl von Kategorien
+	 */
 	public MenuButton setMenuButton() {
 		if (menuButton == null) {
 			menuButton = new MenuButton("Kategorien");
 
 			menuButton.setMinHeight(30);
-			menuButton.setStyle(
-					"-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868");
+			String css = "-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868";
+			menuButton.setStyle(css);
 
 			Iterator<Kategorie> iterator = kundensteuerung.getKategorien().iterator();
 			while (iterator.hasNext()) {
@@ -122,7 +127,16 @@ public class StartseiteKunde extends KundeOverview {
 							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie)));
 				});
 				temp.setStyle(" -fx-font-weight: bold; -fx-focus-color: transparent; -fx-font-size: 15");
+
 			}
+
+			menuButton.setOnMouseEntered(e -> {
+				menuButton.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			menuButton.setOnMouseExited(e -> {
+				menuButton.setStyle(" -fx-cursor: default;" + css);
+			});
 		}
 
 		return menuButton;
@@ -167,7 +181,8 @@ public class StartseiteKunde extends KundeOverview {
 
 			scrollpane = new ScrollPane();
 			scrollpane.setContent(setGridPane(produkte));
-			scrollpane.setStyle("-fx-border-color: white; -fx-border: none; -fx-focus-color: white");
+			scrollpane.setStyle(
+					"-fx-border-color: white; -fx-border: none; -fx-focus-color: white; -fx-background-color: white");
 			scrollpane.setPadding(new Insets(50, 50, 50, 50));
 		}
 
@@ -203,6 +218,8 @@ public class StartseiteKunde extends KundeOverview {
 				}
 
 			}
+
+			gridpane.setStyle(" -fx-background-color: white");
 		}
 		return gridpane;
 	}
@@ -289,6 +306,22 @@ public class StartseiteKunde extends KundeOverview {
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
 		});
 
+		choicebox.setOnMouseEntered(e -> {
+			choicebox.setStyle(" -fx-cursor: hand;");
+		});
+
+		choicebox.setOnMouseExited(e -> {
+			choicebox.setStyle(" -fx-cursor: default;");
+		});
+
+		addProdukt.setOnMouseEntered(e -> {
+			addProdukt.setStyle(" -fx-cursor: hand;");
+		});
+
+		addProdukt.setOnMouseExited(e -> {
+			addProdukt.setStyle(" -fx-cursor: default;");
+		});
+
 		hbox.getChildren().add(choicebox);
 		hbox.getChildren().add(addProdukt);
 
@@ -316,20 +349,31 @@ public class StartseiteKunde extends KundeOverview {
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);
 
-			btSuche.setStyle("-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none");
+			String css = "-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none";
+			btSuche.setStyle(css);
 			btSuche.setAlignment(Pos.CENTER);
 
 			btSuche.setOnAction(e -> {
-				HashSet<Produkt> produkte = new HashSet<Produkt>();
-				HashSet<String> produktnamen = new HashSet<String>();
-				for (Produkt produkt : kundensteuerung.suchen(textFeldSuche.getText())) {
-					if (!(produktnamen.contains(produkt.getName()))) {
-						produktnamen.add(produkt.getName());
-						produkte.add(produkt);
+				if (textFeldSuche.getText() != null && !(textFeldSuche.getText().isBlank())) {
+					HashSet<Produkt> produkte = new HashSet<Produkt>();
+					HashSet<String> produktnamen = new HashSet<String>();
+					for (Produkt produkt : kundensteuerung.suchen(textFeldSuche.getText())) {
+						if (!(produktnamen.contains(produkt.getName()))) {
+							produktnamen.add(produkt.getName());
+							produkte.add(produkt);
+						}
 					}
+					primaryStage.setScene(
+							new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
 				}
-				primaryStage.setScene(
-						new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
+			});
+
+			btSuche.setOnMouseEntered(e -> {
+				btSuche.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			btSuche.setOnMouseExited(e -> {
+				btSuche.setStyle(" -fx-cursor: default;" + css);
 			});
 		}
 		return btSuche;

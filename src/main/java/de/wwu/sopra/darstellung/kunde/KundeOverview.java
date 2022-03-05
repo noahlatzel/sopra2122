@@ -52,6 +52,7 @@ public class KundeOverview extends Scene {
 		this.kundensteuerung = kundensteuerung;
 		root.setTop(this.setHeaderBorderPane());
 		root.setCenter(new Label("KUNDE OVERVIEW"));
+		root.setStyle(" -fx-background-color: white");
 	}
 
 	/**
@@ -106,6 +107,14 @@ public class KundeOverview extends Scene {
 
 			btWarenkorb.setStyle(" -fx-color: #dadada; -fx-background-color: #dadada");
 
+			btWarenkorb.setOnMouseEntered(e -> {
+				btWarenkorb.setStyle(" -fx-cursor: hand;  -fx-color: #dadada; -fx-background-color: #dadada");
+			});
+
+			btWarenkorb.setOnMouseExited(e -> {
+				btWarenkorb.setStyle(" -fx-cursor: default;  -fx-color: #dadada; -fx-background-color: #dadada");
+			});
+
 			btWarenkorb.setOnAction(action -> {
 				primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
 			});
@@ -127,8 +136,16 @@ public class KundeOverview extends Scene {
 			btLogo.setAlignment(Pos.CENTER_LEFT);
 			btLogo.setPadding(new Insets(15, 0, 15, 30));
 
-			btLogo.setStyle(
-					"-fx-background-color: #dadada; -fx-font-weight: bold; -fx-mark-color: #dadada; -fx-font-size: 15; -fx-focus-color: #dadada; -fx-border-color: #dadada");
+			String css = "-fx-background-color: #dadada; -fx-font-weight: bold; -fx-mark-color: #dadada; -fx-font-size: 15; -fx-focus-color: #dadada; -fx-border-color: #dadada";
+			btLogo.setStyle(css);
+
+			btLogo.setOnMouseEntered(e -> {
+				btLogo.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			btLogo.setOnMouseExited(e -> {
+				btLogo.setStyle(" -fx-cursor: default;" + css);
+			});
 
 			btLogo.setOnAction(action -> {
 				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
@@ -199,8 +216,16 @@ public class KundeOverview extends Scene {
 			view.setFitHeight(40);
 			menubutton.setGraphic(view);
 
-			menubutton.setStyle(
-					" -fx-color: #dadada; -fx-background-color: #dadada; -fx-mark-color: #dadada; -fx-font-size: 15;");
+			String css = " -fx-color: #dadada; -fx-background-color: #dadada; -fx-mark-color: #dadada; -fx-font-size: 15;";
+			menubutton.setStyle(css);
+
+			menubutton.setOnMouseEntered(e -> {
+				menubutton.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			menubutton.setOnMouseExited(e -> {
+				menubutton.setStyle(" -fx-cursor: default;" + css);
+			});
 		}
 		return this.menubutton;
 	}
