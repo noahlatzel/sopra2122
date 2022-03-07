@@ -281,10 +281,6 @@ public class InhabersteuerungTest {
 		assertTrue(softDrinks.getUnterkategorien().contains(sauer));
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			ihs.kategorieBearbeiten(softDrinks, sauer, "aaaaaa", null);
-		});
-
-		assertThrows(IllegalArgumentException.class, () -> {
 			ihs.kategorieBearbeiten(null, null, "aaaaaa", "Soft Drinks");
 		});
 
@@ -312,6 +308,29 @@ public class InhabersteuerungTest {
 
 		ihs.kategorieProdukteVerwalten(sauer, productsToRemove, "loeschen");
 		assertFalse(sauer.getProdukte().contains(product2));
+	}
+
+	/**
+	 * test ob die kategorie richtig gesloescht wird
+	 * 
+	 */
+	@Test
+	void testKategorieLoeschen() {
+		Kategorie kategorie = new Kategorie("cola");
+		Lager.kategorieHinzufuegen(kategorie);
+		kategorie.addUnterkategorie(new Kategorie("sprite"));
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieLoeschen(kategorie);
+		});
+		kategorie.removeUnterkategorien(kategorie.getUnterkategorien());
+		kategorie.addProdukt(new Produkt("calo", "lecker", 12, 12));
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieLoeschen(kategorie);
+		});
+		kategorie.removeProdukte(kategorie.getProdukte());
+		ihs.kategorieLoeschen(kategorie);
+		assertTrue(Lager.getKategorien().contains(kategorie) == false);
+
 	}
 
 	/**

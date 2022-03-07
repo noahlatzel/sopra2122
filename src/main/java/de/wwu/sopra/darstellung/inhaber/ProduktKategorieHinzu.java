@@ -70,6 +70,8 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 	private GridPane getContent() {
 		// grundstrucktur
 		content = new GridPane();
+		content.setHgap(10);
+		content.setVgap(5);
 
 		// labels und tf und button felder fuer Produkt
 		Label lbName = new Label("Name:");
@@ -89,11 +91,16 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 		TextField tfNamekat = new TextField();
 		Label lbOberunter = new Label("Ober/Unterkategie(Optional)");
 		ComboBox<String> chOberUNter = new ComboBox<>();
-		Label lbOberunterwahl = new Label("Ober/Unterkategorie (pflicht wenn Kathegorie gewahlt)");
+		Label lbOberunterwahl = new Label("Ober/Unterkategorie (pflicht wenn Kategorie gewahlt)");
 		ComboBox<String> chOberUNterwahl = new ComboBox<>();
 
 		Button btKategorie = new Button("kategorie Hinzufuegen");
 		Label fehler1 = new Label("");
+
+		// combobox und button zum Loeschen
+		Button btkategorieLoeschen = new Button("loeschen");
+		ComboBox<String> cbLoeschen = new ComboBox<String>();
+		Label fehler2 = new Label();
 
 		// setzen auf Grid produkt
 		content.add(lbName, 0, 0);
@@ -117,28 +124,28 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 		content.add(btKategorie, 1, 8);
 		content.add(fehler1, 1, 9);
 
+		// setzen von Loeschen
+		content.add(cbLoeschen, 2, 0);
+		content.add(btkategorieLoeschen, 2, 1);
+		content.add(fehler2, 2, 9);
+
 		// Comboboxen fuellen
 		try {
 			kategorien = new ArrayList<Kategorie>();
-			for (Produkt i : Lager.getLager()) {
-				if (!kategorien.contains(i.getKategorie())) {
-					kategorien.add(i.getKategorie());
-					Kategorie n = i.getKategorie();
-					while (n.getOberkategorie() != null) {
-						if (!kategorien.contains(n.getOberkategorie())) {
-							kategorien.add(n.getOberkategorie());
-							n = n.getOberkategorie();
-						}
-					}
-				}
+
+			for (Kategorie i : Lager.getKategorien()) {
+
+				kategorien.add(i);
+
 			}
 
 			for (Kategorie i : kategorien) {
 				chOberUNter.getItems().add(i.getName());
+				cbLoeschen.getItems().add(i.getName());
 			}
 
 		} catch (NullPointerException j) {
-			fehler1.setText("Die Produkte haben keine Kategorie");
+			fehler1.setText("Es existieren keine Kategorien");
 
 		}
 
@@ -204,6 +211,19 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 					}
 				}
 
+			}
+		});
+
+		btkategorieLoeschen.setOnAction(e -> {
+			Kategorie kat = null;
+			for (Kategorie m : kategorien) {
+				if (cbLoeschen.getValue().equals(m.getName()))
+					kat = m;
+			}
+			try {
+				inhaberSteuerung.kategorieLoeschen(kat);
+			} catch (IllegalArgumentException k) {
+				fehler2.setText("Es existieren noch unterkategorien \n oder Produkte aus dieser kategorie");
 			}
 		});
 		return this.content;
