@@ -95,7 +95,7 @@ public class Anmeldung extends Scene {
 			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
 			buttonAnmelden.getStyleClass().add("anmeldung-button");
 			VBox.setMargin(title, new Insets(0, 0, 30, 0));
-			VBox.setMargin(buttonAnmelden, new Insets(40, 10, 0, 0));
+			VBox.setMargin(buttonAnmelden, new Insets(40, 0, 0, 0));
 
 			// Hinzufuegen der Buttons und Label
 			vbox.getChildren().add(title);
@@ -173,7 +173,7 @@ public class Anmeldung extends Scene {
 	 * @return Zurueck-Button
 	 */
 	private Button setButtonZurueck() {
-		buttonZurueck.getStyleClass().add("registrierung-button");
+		buttonZurueck.getStyleClass().add("anmeldung-zurueck-button");
 
 		// Knopfdruckfunktionalitaet
 		buttonZurueck.setOnAction(e -> {

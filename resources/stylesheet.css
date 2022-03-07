@@ -29,6 +29,23 @@
     -fx-cursor: hand;
 }
 
+.anmeldung-zurueck-button {
+    -fx-background-color: #C14343;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-pref-height: 40;
+    -fx-pref-width: 120;
+    -fx-min-width: 176px;
+}
+
+.anmeldung-zurueck-button:hover {
+    -fx-background-color: #882e2e;
+    -fx-cursor: hand;
+}
+
 .anmeldung-button {
     -fx-background-color: #FF6868;
     -fx-background-radius: 16px;
@@ -38,6 +55,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
     -fx-pref-height: 40;
     -fx-pref-width: 120;
+    -fx-min-width: 176px;
 }
 
 .anmeldung-button:hover {
@@ -75,10 +93,28 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
     -fx-padding: 10px;
     -fx-alignment: center;
+    -fx-min-width: 176px;
 }
 
 .registrierung-button:hover {
     -fx-background-color: #C14343;
+    -fx-cursor: hand;
+}
+
+.registrierung-zurueck-button {
+    -fx-background-color: #C14343;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.registrierung-zurueck-button:hover {
+    -fx-background-color: #882e2e;
     -fx-cursor: hand;
 }
 

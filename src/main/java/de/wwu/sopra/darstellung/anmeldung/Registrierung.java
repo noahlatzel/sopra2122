@@ -104,8 +104,8 @@ public class Registrierung extends Scene {
 			gridpane.add(textFeldAdresse, 2, 8);
 			gridpane.add(labelBankverbindung, 1, 10);
 			gridpane.add(textFeldBankverbindung, 1, 11);
-			gridpane.add(setButtonRegistrieren(), 1, 12, 2, 1);
-			gridpane.add(setButtonZurueck(), 2, 12, 4, 5);
+			gridpane.add(setButtonRegistrieren(), 2, 12, 2, 1);
+			gridpane.add(setButtonZurueck(), 1, 12, 4, 5);
 			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
@@ -138,7 +138,7 @@ public class Registrierung extends Scene {
 	 * @return Zurueck-Button
 	 */
 	private Button setButtonZurueck() {
-		buttonZurueck.getStyleClass().add("registrierung-button");
+		buttonZurueck.getStyleClass().add("registrierung-zurueck-button");
 
 		// Knopfdruckfunktionalitaet
 		buttonZurueck.setOnAction(e -> {
