@@ -59,9 +59,12 @@ public class Fahrersteuerung {
 	 * die route des Fahrzugs wird ausgegben
 	 * 
 	 * @return route des Fahrzeugs
-	 * 
+	 * @pre Der fahrer hat eine Route
+	 * @pre das fahrzeug hat eine Route
 	 */
 	public Route routeAusgeben() {
+		assert fahrer.getFahrzeug() != null : "der Fahere hat kein Fahrzeug";
+		assert fahrer.getFahrzeug().getRoute() != null : "das fahrzeug hat keine route";
 		return fahrer.getFahrzeug().getRoute();
 	}
 
@@ -156,10 +159,10 @@ public class Fahrersteuerung {
 	 */
 
 	public void routeAbschliesen() {
-		assert this.aktuelleBestellung == this.routeAusgeben().getBestellungen().size()
-				: "Die route wurde nch nicht abgearbeitet";
 		assert this.routeAusgeben() != null : "keine Route vorhanden";
 		assert this.fahrer.getFahrzeug() != null : "der Fahrer hat kein Auto";
+		assert this.aktuelleBestellung == this.routeAusgeben().getBestellungen().size()
+				: "Die route wurde nch nicht abgearbeitet";
 
 		this.fahrer.getFahrzeug().entferneRoute();
 		this.fahrer.getFahrzeug().setFahrer(null);

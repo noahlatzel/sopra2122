@@ -109,6 +109,7 @@ public class FahrersteuerungTest {
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Fahrzeug fahrzeug1 = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -118,7 +119,17 @@ public class FahrersteuerungTest {
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		route.setBestellungen(bestellungen);
+		// kein Fahrzeug
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAusgeben();
+		});
 
+		// keine Route
+		this.fahrer.setFahrzeug(fahrzeug1);
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAusgeben();
+		});
+		this.fahrer.setFahrzeug(null);
 		// test der korrektheit der ausggebenen Route
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.routeAusgeben().equals(route));
@@ -209,15 +220,16 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
+		route.setBestellungen(bestellungen);
+
 		fahrer.setFahrzeug(null);
 		assertThrows(AssertionError.class, () -> {
 			steuerung.routeAbschliesen();
 		});
-		Fahrzeug fahrzeug = new Fahrzeug(100);
-		Route route = new Route(fahrzeug);
-		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
-
 		// route abschliesen wenn noch nicht zu ende
 		assertThrows(AssertionError.class, () -> {
 			steuerung.routeAbschliesen();
