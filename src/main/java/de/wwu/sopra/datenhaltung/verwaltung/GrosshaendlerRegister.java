@@ -91,7 +91,7 @@ public class GrosshaendlerRegister implements Serializable {
 	 */
 	public static void load() {
 		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
-		preisListeIn = sp.deserialisieren(path);
+		preisListeIn = sp.deserialisieren(path, new HashMap<String, Double>());
 	}
 
 	/**

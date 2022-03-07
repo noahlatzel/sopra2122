@@ -306,7 +306,6 @@ public class StartseiteKunde extends KundeOverview {
 		addProdukt.setOnAction(e -> {
 			if (combobox.getValue() > 0) {
 				kundensteuerung.produktZuWarenkorbHinzufuegen(p, combobox.getSelectionModel().getSelectedItem());
-				System.out.println(combobox.getSelectionModel().getSelectedItem());
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
 		});

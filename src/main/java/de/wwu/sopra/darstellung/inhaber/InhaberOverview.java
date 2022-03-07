@@ -78,7 +78,6 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(this.setAbmelden());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 
@@ -242,22 +241,6 @@ public class InhaberOverview extends Scene {
 		}
 
 		return this.btPersoenlicheDatenAnzeigen;
-	}
-
-	/**
-	 * Erzeugt Button fuer Abmelden
-	 * 
-	 * @return Button fuer Abmelden
-	 */
-	private Button setAbmelden() {
-		if (btAbmelden == null) {
-			btAbmelden = new Button("Abmelden");
-			btAbmelden.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return this.btAbmelden;
 	}
 
 	/**

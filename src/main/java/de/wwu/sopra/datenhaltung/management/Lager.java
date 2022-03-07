@@ -75,6 +75,7 @@ public class Lager implements Serializable {
 		lager.add(p);
 
 		Lager.addBestand(p);
+
 		// Nachbedingung pruefen
 		bestand_p += 1;
 		assert Lager.getProduktBestand(p) == bestand_p
@@ -231,9 +232,10 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
 		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
-		lagerBestand = sp.deserialisieren(path_map);
-		kategorieListe = sp2.deserialisieren(path_kat);
-		lager = sp1.deserialisieren(path_set);
+		lagerBestand = sp.deserialisieren(path_map, new HashMap<Produkt, Integer>());
+		kategorieListe = sp2.deserialisieren(path_kat, new HashSet<Kategorie>());
+		lager = sp1.deserialisieren(path_set, new ArrayList<Produkt>());
+
 	}
 
 	/**
@@ -295,6 +297,7 @@ public class Lager implements Serializable {
 		Lager.getLager().clear();
 		Lager.getLagerbestand().clear();
 		Lager.getKategorien().clear();
+		System.out.println(lagerBestand.values());
 	}
 
 	/**

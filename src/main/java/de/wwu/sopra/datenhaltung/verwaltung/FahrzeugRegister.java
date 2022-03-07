@@ -87,7 +87,7 @@ public class FahrzeugRegister implements Serializable {
 	 */
 	public static void load() {
 		SerialisierungPipeline<HashSet<Fahrzeug>> sp = new SerialisierungPipeline<HashSet<Fahrzeug>>();
-		FahrzeugRegister.fahrzeuge = sp.deserialisieren(path);
+		FahrzeugRegister.fahrzeuge = sp.deserialisieren(path, new HashSet<Fahrzeug>());
 	}
 
 	/**

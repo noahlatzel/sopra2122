@@ -1,7 +1,6 @@
 package de.wwu.sopra.darstellung.fahrer;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
-import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -28,7 +27,6 @@ public class OverviewFahrer extends Scene {
 	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
-	Button btAbmelden;
 
 	/**
 	 * Erzeugt OverviewFahrer
@@ -65,7 +63,6 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
-			vbox.getChildren().add(setBtAbmelden());
 		}
 		return vbox;
 	}
@@ -189,22 +186,6 @@ public class OverviewFahrer extends Scene {
 			});
 		}
 		return btPersoenlicheDatenBearbeiten;
-	}
-
-	/**
-	 * Erzeugt Button fuer Abmelden
-	 * 
-	 * @return Button fuer Abmelden
-	 */
-	private Button setBtAbmelden() {
-		if (btAbmelden == null) {
-			btAbmelden = new Button("Abmelden");
-			btAbmelden.setMinWidth(200);
-			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return this.btAbmelden;
 	}
 
 }

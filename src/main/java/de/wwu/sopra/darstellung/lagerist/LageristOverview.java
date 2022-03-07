@@ -68,7 +68,7 @@ public class LageristOverview extends Scene {
 	 */
 	private VBox setVBox() {
 		if (this.vbox == null) {
-			vbox = new VBox(5);
+			vbox = new VBox();
 			vbox.getChildren().add(this.setBtRoutePlanen());
 			vbox.getChildren().add(this.setBtBestelleNach());
 			vbox.getChildren().add(this.setBtPersDatenAnzeigen());

@@ -118,7 +118,6 @@ public class WarenkorbAnsicht extends KundeOverview {
 		VBox vbox = new VBox();
 
 		Warenkorb warenkorb = kundensteuerung.warenkorbAnsicht();
-		System.out.println("TestWarenkorb: " + warenkorb.getProdukte().size());
 
 		if (!(warenkorb.getProdukte().isEmpty())) {
 
