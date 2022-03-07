@@ -11,12 +11,9 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
-@TestInstance(Lifecycle.PER_CLASS)
 public class LagerTest {
 	ArrayList<Produkt> produkte;
 	Produkt temp;
