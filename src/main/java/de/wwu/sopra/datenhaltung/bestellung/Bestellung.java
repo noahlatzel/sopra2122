@@ -94,10 +94,6 @@ public class Bestellung implements Serializable {
 				: "Nachbedingung des Konstruktors der Bestellung verletzt: die Bestellung ist nicht im Kunden festgehalten";
 		assert this.getKunde() == kunde
 				: "Nachbedingung des Konstruktors der Bestellung verletzt: der Bestellung wurde ein falscher Kunde zugewiesen";
-		for (Produkt produkt : produkte) {
-			assert !Lager.getLager().contains(produkt)
-					: "Nachbedingung des Konstruktors der Bestellung verletzt: die Produkte aus der Bestellung sind noch im Lager";
-		}
 	}
 
 	/**
