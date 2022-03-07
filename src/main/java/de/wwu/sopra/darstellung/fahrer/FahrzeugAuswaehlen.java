@@ -52,10 +52,11 @@ public class FahrzeugAuswaehlen extends OverviewFahrer {
 
 		// fuellen der Listen
 		// belegte Fahrzeuge
-		for (Fahrzeug i : fahrzeug) {
-			if (i.getStatus() == FahrzeugStatus.BELEGT)
-				fahrzeugebeleget.add(i);
-		}
+		for (Fahrzeug fzeug : fahrzeug) {
+			if (fzeug != null) {
+			if (fzeug.getStatus() == FahrzeugStatus.BELEGT)
+				fahrzeugebeleget.add(fzeug);
+		}}
 
 		// id der belegten Fahrzeuge
 		List<Integer> fahrzeugeid = new ArrayList<Integer>();
