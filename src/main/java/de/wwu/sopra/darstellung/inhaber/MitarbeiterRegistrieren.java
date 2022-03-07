@@ -169,8 +169,9 @@ public class MitarbeiterRegistrieren extends InhaberOverview {
 
 				} else {
 					Label errorLeerLabel = new Label("Es gibt noch leere Angaben");
-					errorLeerLabel.setTextFill(Color.web("#ff0000"));
-					grid.add(errorLeerLabel, 1, 5);
+					errorLeerLabel.getStyleClass().add("registrierung-error-label");
+//					errorLeerLabel.setTextFill(Color.web("#ff0000"));
+					grid.add(errorLeerLabel, 2, 13);
 				}
 
 			});

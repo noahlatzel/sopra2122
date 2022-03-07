@@ -180,3 +180,7 @@
     -fx-text-fill: #ffffff;
     -fx-cursor: hand;
 }
+
+.registrierung-error-label {
+    -fx-text-fill: #ff0000;
+}
