@@ -148,3 +148,35 @@
 .mitarbeiter-menu-item:focused .label, .mitarbeiter-menu-item:hovered .label {
     -fx-text-fill: #000000;
 }
+
+.mitarbeiter-registrierung-wrapper {
+    -fx-hgap: 30;
+    -fx-vgap: 10;
+    -fx-padding: 16;
+}
+
+.mitarbeiter-registrierung-combobox {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 12px;
+    -fx-max-width: 240px;
+}
+
+.mitarbeiter-registrierung-button {
+    -fx-background-color: #a0c5ac;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-min-width: 186px;
+}
+
+.mitarbeiter-registrierung-button:hover {
+    -fx-background-color: #799c84;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
