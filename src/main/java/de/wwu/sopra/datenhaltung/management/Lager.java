@@ -32,6 +32,10 @@ public class Lager implements Serializable {
 	 */
 	private static final String path_map = "lager_map.ser";
 	/**
+	 * Pfad zum Speichern der Kategorien
+	 */
+	private static final String path_kat = "lager_kat.ser";
+	/**
 	 * Liste der Produkte im Lager
 	 */
 	private static HashSet<Produkt> lager = new HashSet<Produkt>();
@@ -39,7 +43,10 @@ public class Lager implements Serializable {
 	 * Alternative fuer den Lagerbestand
 	 */
 	private static HashMap<Produkt, Integer> lagerBestand = new HashMap<Produkt, Integer>();
-
+	/**
+	 * Liste fuer Kategorien
+	 */
+	private static HashSet<Kategorie> kategorieListe = new HashSet<Kategorie>();
 	/**
 	 * Liste der Produktnamen
 	 */
@@ -222,6 +229,8 @@ public class Lager implements Serializable {
 	public static void load() {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
+		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
+		kategorieListe = sp2.deserialisieren(path_kat);
 		lagerBestand = sp.deserialisieren(path_map);
 		lager = sp1.deserialisieren(path_set);
 	}
@@ -271,8 +280,10 @@ public class Lager implements Serializable {
 	public static void save() {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
+		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
+		sp2.serialisieren(Lager.getKategorien(), path_kat);
 	}
 
 	/**
@@ -281,6 +292,7 @@ public class Lager implements Serializable {
 	public static void reset() {
 		Lager.getLager().clear();
 		Lager.getLagerbestand().clear();
+		Lager.getKategorien().clear();
 	}
 
 	/**
@@ -306,5 +318,40 @@ public class Lager implements Serializable {
 			produktNamenListe.add(name);
 		}
 		return produktNamenListe.indexOf(name);
+	}
+
+	/**
+	 * Fuegt eine Kategorie hinzu.
+	 * 
+	 * @param kategorie Kategorie
+	 */
+	public static void kategorieHinzufuegen(Kategorie kategorie) {
+		boolean vorhanden = false;
+		for (Kategorie kategorie_temp : Lager.kategorieListe) {
+			if (kategorie_temp.getName() == kategorie.getName()) {
+				vorhanden = true;
+			}
+		}
+		if (!vorhanden) {
+			Lager.kategorieListe.add(kategorie);
+		}
+	}
+
+	/**
+	 * Entfernt eine Kategorie.
+	 * 
+	 * @param kategorie Kategorie
+	 */
+	public static void kategorieEntfernen(Kategorie kategorie) {
+		Lager.kategorieListe.remove(kategorie);
+	}
+
+	/**
+	 * Gibt die Liste der Kategorien zurueck.
+	 * 
+	 * @return die Liste der Kategorien
+	 */
+	public static HashSet<Kategorie> getKategorien() {
+		return Lager.kategorieListe;
 	}
 }
