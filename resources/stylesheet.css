@@ -133,5 +133,28 @@
 }
 
 .mitarbeiter-menu {
-    -fx-background: #C4C4C4;
+    -fx-color: #C4C4C4;
+    -fx-background-color: #C4C4C4;
+    -fx-mark-color: #C4C4C4;
+    -fx-font-size: 15;
+}
+
+.mitarbeiter-menu > .arrow-button {
+    -fx-padding: 0;
+}
+
+.mitarbeiter-menu > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.mitarbeiter-menu:hover {
+    -fx-cursor: hand;
+}
+
+.mitarbeiter-menu-item:focused, .mitarbeiter-menu-item:hovered {
+    -fx-background-color: #e7e7e7; 
+}
+
+.mitarbeiter-menu-item:focused .label, .mitarbeiter-menu-item:hovered .label {
+    -fx-text-fill: #000000;
 }
