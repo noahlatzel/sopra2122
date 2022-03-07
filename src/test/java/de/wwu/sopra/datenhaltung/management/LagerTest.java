@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -121,7 +121,7 @@ public class LagerTest {
 	 */
 	@Test
 	void testLoad() {
-		HashSet<Produkt> temp_1 = Lager.getLager();
+		List<Produkt> temp_1 = Lager.getLager();
 		Lager.save();
 		Lager.load();
 		assertTrue(temp_1.equals(Lager.getLager()));

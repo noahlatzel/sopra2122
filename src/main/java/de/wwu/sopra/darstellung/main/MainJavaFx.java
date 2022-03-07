@@ -53,7 +53,7 @@ public class MainJavaFx extends Application {
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
 		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 		primaryStage.sizeToScene();
 		primaryStage.show();
 

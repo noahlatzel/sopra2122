@@ -220,7 +220,7 @@ public class InhabersteuerungTest {
 	 */
 	@Test
 	void testLagerVerwalten() throws IllegalArgumentException {
-		HashSet<Produkt> produkteLager = (HashSet<Produkt>) Lager.getLager().clone();
+		List<Produkt> produkteLager = (List<Produkt>) Lager.getLager();
 
 		System.out.println(Lager.getLagerbestand().keySet().size());
 

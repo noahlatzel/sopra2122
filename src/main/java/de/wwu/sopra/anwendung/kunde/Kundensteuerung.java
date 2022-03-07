@@ -198,7 +198,7 @@ public class Kundensteuerung {
 	public HashSet<Kategorie> getKategorien() {
 		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
 
-		HashSet<Produkt> produkteUnique = Lager.getLager();
+		List<Produkt> produkteUnique = Lager.getLager();
 
 		Iterator<Produkt> iterator = produkteUnique.iterator();
 		while (iterator.hasNext()) {
@@ -240,6 +240,8 @@ public class Kundensteuerung {
 	 */
 	public void produktZuWarenkorbHinzufuegen(Produkt p, int anzahl) {
 		List<Produkt> gleicheProdukte = new ArrayList<Produkt>();
+
+		System.out.println("LagerTest: " + Lager.getLager().size());
 
 		// Erstellt eine Liste der Laenge der uebergebenen Anzahl mit Produkten die
 		// gleich dem uebergebenen Produkt sind
