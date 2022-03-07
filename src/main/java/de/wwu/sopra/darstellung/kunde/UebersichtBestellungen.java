@@ -1,5 +1,6 @@
 package de.wwu.sopra.darstellung.kunde;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 
@@ -146,7 +147,8 @@ public class UebersichtBestellungen extends KundeOverview {
 		String status = convertEnumToString(bestellung.getStatus());
 		double preis = bestellung.getBetrag();
 		preis = (Math.floor(preis * 100)) / 100;
-		Label ueberschriftLabel = new Label(bestellung.getDatum() + " - " + preis + " EUR - " + status);
+		Label ueberschriftLabel = new Label(
+				bestellung.getDatum().format(DateTimeFormatter.BASIC_ISO_DATE) + " - " + preis + " EUR - " + status);
 
 		hbox.getChildren().add(ueberschriftLabel);
 

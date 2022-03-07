@@ -227,7 +227,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 	/**
 	 * Erstellt ein Produktpanel fuer das uebergebene Produkt.
 	 * 
-	 * @param produkt Methode erstellt Produktpanel fuer dieses Produkt.
+	 * @param produkte Methode erstellt Produktpanel fuer dieses Produkt.
 	 * @return Gibt konfiguriertes Produktpanel zurueck.
 	 */
 	public HBox setProduktPanel(List<Produkt> produkte) {

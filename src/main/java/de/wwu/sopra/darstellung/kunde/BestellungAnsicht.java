@@ -1,5 +1,6 @@
 package de.wwu.sopra.darstellung.kunde;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,20 +66,24 @@ public class BestellungAnsicht extends KundeOverview {
 	}
 
 	/**
-	 * Erstellt eine HBox mit dem Titel "Warenkorb"
+	 * Erstellt eine VBox mit dem Titel "Warenkorb"
 	 * 
-	 * @return HBox mit Label "Warenkorb"
+	 * @return VBox mit Label "Warenkorb"
 	 */
-	public HBox setTitle() {
-		HBox hbox = new HBox();
+	public VBox setTitle() {
+		VBox vbox = new VBox();
 
-		Label warenkorb = new Label("Warenkorb");
-		warenkorb.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		hbox.getChildren().add(warenkorb);
+		Label bestellung = new Label("Warenkorb");
+		bestellung.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
 
-		hbox.setPadding(new Insets(10));
+		Label datum = new Label("Bestellt am " + this.bestellung.getDatum().format(DateTimeFormatter.BASIC_ISO_DATE));
 
-		return hbox;
+		vbox.getChildren().add(bestellung);
+		vbox.getChildren().add(datum);
+
+		vbox.setPadding(new Insets(10));
+
+		return vbox;
 	}
 
 	/**
@@ -228,7 +233,7 @@ public class BestellungAnsicht extends KundeOverview {
 	/**
 	 * Erstellt ein Produktpanel fuer das uebergebene Produkt.
 	 * 
-	 * @param produkt Methode erstellt Produktpanel fuer dieses Produkt.
+	 * @param produkte Methode erstellt Produktpanel fuer dieses Produkt.
 	 * @return Gibt konfiguriertes Produktpanel zurueck.
 	 */
 	public HBox setProduktPanel(List<Produkt> produkte) {
