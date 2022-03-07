@@ -101,6 +101,9 @@ public class Inhabersteuerung {
 		} else if (action == "loeschen") {
 			for (Produkt produkt : produkte) {
 				Lager.produktAusDemSortimentEntfernen(produkt);
+				if (produkt.getKategorie() != null) {
+					produkt.getKategorie().removeProdukt(produkt);
+				}
 
 			}
 		} else {
@@ -155,19 +158,36 @@ public class Inhabersteuerung {
 	 */
 	public void kategorieBearbeiten(Kategorie kategorie1, Kategorie kategorie2, String aenderung, String name)
 			throws IllegalArgumentException {
-		if (kategorie1 == null || kategorie2 == null)
+		if (kategorie1 == null)
 			throw new IllegalArgumentException();
 		if (name != null) {
 			kategorie1.setName(name);
 		}
 
-		if (aenderung == "ober") {
+		if (aenderung == "ober" && kategorie2 != null) {
 			kategorie1.setOberkategorie(kategorie2);
-		} else if (aenderung == "unter") {
+		} else if (aenderung == "unter" && kategorie2 != null) {
 			kategorie1.addUnterkategorie(kategorie2);
-		} else {
+		} else if ((aenderung != null && kategorie2 == null) || (aenderung == null && kategorie2 != null)) {
 			throw new IllegalArgumentException();
 		}
+	}
+
+	/**
+	 * loesen eine Kategorie
+	 * 
+	 * @param kategorie
+	 * @pre die Kategorie hat keine Unterkategorien
+	 * @pre die Kategorie hat keine prdoukte
+	 */
+	public void kategorieLoeschen(Kategorie kategorie) throws IllegalArgumentException {
+		if (kategorie.getProdukte().isEmpty() != true || kategorie.getUnterkategorien().isEmpty() != true) {
+			throw new IllegalArgumentException();
+		}
+		if (kategorie.getOberkategorie() != null) {
+			kategorie.getOberkategorie().removeUnterkategorie(kategorie);
+		}
+		Lager.kategorieEntfernen(kategorie);
 	}
 
 	/**
