@@ -7,6 +7,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
@@ -51,7 +52,9 @@ public class RouteAnzeigen extends OverviewFahrer {
 				ausgabeListe.add("Adresse: " + i.getKunde().getAdresse() + " Bestellnummer: " + i.getBestellnummer());
 			}
 		} catch (NullPointerException k) {
-			System.out.println("Keine Route im Fahrzeug oder kein Fahrzeug");
+
+			root.setBottom(new Label("Es Existiert aktuell keine Route"));
+			tabelle.setVisible(false);
 		}
 
 		// Liste wird angeszeigt
@@ -59,5 +62,6 @@ public class RouteAnzeigen extends OverviewFahrer {
 		ListView<String> listView = new ListView<String>(stopps);
 		tabelle.setContent(listView);
 		listView.setMinWidth(600);
+
 	}
 }

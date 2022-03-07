@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 
 public class FahrzeugAuswaehlen extends OverviewFahrer {
 
+	Label error = new Label();
+
 	/**
 	 * Erzeugt FahrzeugAuswaehlen
 	 * 
@@ -34,6 +36,8 @@ public class FahrzeugAuswaehlen extends OverviewFahrer {
 	public FahrzeugAuswaehlen(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		root.setCenter(setScrollPane());
+
+		root.setBottom(error);
 	}
 
 	/**
@@ -52,11 +56,21 @@ public class FahrzeugAuswaehlen extends OverviewFahrer {
 
 		// fuellen der Listen
 		// belegte Fahrzeuge
-		for (Fahrzeug fzeug : fahrzeug) {
-			if (fzeug != null) {
-			if (fzeug.getStatus() == FahrzeugStatus.BELEGT)
-				fahrzeugebeleget.add(fzeug);
-		}}
+		try {
+			for (Fahrzeug i : fahrzeug) {
+				if (i.getStatus() == FahrzeugStatus.BELEGT)
+					fahrzeugebeleget.add(i);
+			}
+		} catch (NullPointerException l) {
+			error.setText("Es existieren keine Fahrzeuge im System");
+			scrollPane.setVisible(false);
+		}
+
+		if (fahrzeugebeleget.isEmpty()) {
+			scrollPane.setVisible(false);
+			error.setText("Es stehen keine Fahrzeuge zur auswahl");
+
+		}
 
 		// id der belegten Fahrzeuge
 		List<Integer> fahrzeugeid = new ArrayList<Integer>();
@@ -77,9 +91,10 @@ public class FahrzeugAuswaehlen extends OverviewFahrer {
 			try {
 				int index = listView.getSelectionModel().getSelectedIndex();
 				steuerung.fahrzeugZuordnen(fahrzeugebeleget.get(index));
-				root.setRight(new Label("wagen :" + fahrzeugeid.get(index) + "ist jetzt belegt"));
+
+				error.setText("fahrzeug gewaehlt");
 			} catch (IndexOutOfBoundsException k) {
-				System.out.println("kein objekt an dieser Stelle, bitte waehle ein Rezept");
+
 			}
 
 		});

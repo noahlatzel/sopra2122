@@ -56,15 +56,25 @@ public class Fahrersteuerung {
 	}
 
 	/**
+	 * gibt den gerade angemeldeten fahrer aus
+	 * 
+	 * @return aktuell angemeldeter faherer
+	 */
+	public Fahrer getFahrer() {
+		return this.fahrer;
+	}
+
+	/**
 	 * die route des Fahrzugs wird ausgegben
 	 * 
 	 * @return route des Fahrzeugs
 	 * @pre Der fahrer hat eine Route
 	 * @pre das fahrzeug hat eine Route
 	 */
-	public Route routeAusgeben() {
-		assert fahrer.getFahrzeug() != null : "der Fahere hat kein Fahrzeug";
-		assert fahrer.getFahrzeug().getRoute() != null : "das fahrzeug hat keine route";
+	public Route routeAusgeben() throws NullPointerException {
+		if (fahrer.getFahrzeug().getRoute() == null) {
+			throw new NullPointerException();
+		}
 		return fahrer.getFahrzeug().getRoute();
 	}
 
@@ -154,12 +164,12 @@ public class Fahrersteuerung {
 	 * 
 	 * @throws IllegalArgumentException wennn die Route noch nicht abgearbeitet ist
 	 * @pre die Route muss abgeschollen sein
-	 * @pre es muss eine Route vorhanden sein
+	 * 
 	 * @pre der fahrer hat ein auto
 	 */
 
 	public void routeAbschliesen() {
-		assert this.routeAusgeben() != null : "keine Route vorhanden";
+
 		assert this.fahrer.getFahrzeug() != null : "der Fahrer hat kein Auto";
 		assert this.aktuelleBestellung == this.routeAusgeben().getBestellungen().size()
 				: "Die route wurde nch nicht abgearbeitet";

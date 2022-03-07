@@ -58,6 +58,7 @@ public class OverviewFahrer extends Scene {
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("Startseite..."));
+
 	}
 
 	/**
