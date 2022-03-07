@@ -37,6 +37,7 @@ public class FahrersteuerungTest {
 	Bestellung testbestellung1;
 	List<Produkt> produkte;
 	List<Produkt> produkte1;
+	Bestellung bestellung;
 
 	@AfterEach
 	void cleanAfter() {
@@ -44,24 +45,31 @@ public class FahrersteuerungTest {
 		FahrzeugRegister.reset();
 	}
 
-	@BeforeEach
-	void reset() {
-		Lager.reset();
-		FahrzeugRegister.reset();
-	}
-
 	// vor jedem Test
 	@BeforeEach
 	public void init() {
+		Lager.reset();
+		FahrzeugRegister.reset();
 		fahrer = new Fahrer("killerman", "passwort", "123@online.de", "ostbad 1", "Herbert", "schulze", "123", null);
 
 		bestellungen = new ArrayList<Bestellung>();
 		kunde = new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test");
+
+		Produkt produkt1 = new Produkt("Coca Cola", "Lecker", 0.49, 0.99);
+		Produkt produkt2 = new Produkt("Coca Cola", "Lecker", 0.49, 0.99);
+		Produkt produkt3 = new Produkt("Coca Cola", "Lecker", 0.49, 0.99);
 		produkte = new ArrayList<Produkt>();
-		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		produkte.add(produkt1);
 		produkte1 = new ArrayList<Produkt>();
-		produkte1.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		produkte1.add(produkt2);
+		produkte1.add(produkt3);
+		Lager.produktZumSortimentHinzufuegen(produkt1);
+		Lager.addProdukt(produkt1);
+		Lager.addProdukt(produkt2);
+		Lager.addProdukt(produkt3);
+		bestellung = new Bestellung(null, produkte,
+				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
+
 		testbestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde);
 		bestellungen.add(testbestellung);
@@ -77,12 +85,6 @@ public class FahrersteuerungTest {
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
-		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		List<Produkt> produkte = new ArrayList<Produkt>();
-		produkte.add(cola);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
-		Bestellung bestellung = new Bestellung(null, produkte,
-				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		route.setBestellungen(bestellungen);
@@ -119,12 +121,6 @@ public class FahrersteuerungTest {
 		Fahrzeug fahrzeug = new Fahrzeug(100);
 		Fahrzeug fahrzeug1 = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
-		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
-		List<Produkt> produkte = new ArrayList<Produkt>();
-		produkte.add(cola);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
-		Bestellung bestellung = new Bestellung(null, produkte,
-				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		route.setBestellungen(bestellungen);
@@ -154,7 +150,7 @@ public class FahrersteuerungTest {
 		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+
 		steuerung.kundeNichtDa();
 
 		// Normalfall

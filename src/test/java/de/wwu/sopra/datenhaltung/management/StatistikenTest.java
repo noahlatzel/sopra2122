@@ -14,9 +14,9 @@ class StatistikenTest {
 	void reset() {
 		Lager.reset();
 		FahrzeugRegister.reset();
-		Statistiken.setAusgaben(1);
+		Statistiken.setAusgaben(0);
 		Statistiken.setEinnahmen(0);
-		Statistiken.setUmsatz(1);
+		Statistiken.setUmsatz(0);
 	}
 
 	@AfterEach
@@ -36,9 +36,9 @@ class StatistikenTest {
 	void test() {
 		Statistiken.setArbeitszeit(10);
 		assertTrue(Statistiken.getArbeitszeit() == 10);
-		assertTrue(Statistiken.getAusgaben() == 1);
+		assertTrue(Statistiken.getAusgaben() == 0);
 		assertTrue(Statistiken.getEinnahmen() == 0);
-		assertTrue(Statistiken.getUmsatz() == 1);
+		assertTrue(Statistiken.getUmsatz() == 0);
 		assertThrows(AssertionError.class, () -> {
 			Statistiken.setArbeitszeit(-1);
 		});

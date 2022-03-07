@@ -68,7 +68,6 @@ class BestellungTest {
 	 */
 	@Test
 	void testSetGetRechnung() {
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Rechnung rechnung = new Rechnung(null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));
