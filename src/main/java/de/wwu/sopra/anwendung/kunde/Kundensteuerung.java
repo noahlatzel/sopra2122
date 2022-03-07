@@ -241,8 +241,6 @@ public class Kundensteuerung {
 	public void produktZuWarenkorbHinzufuegen(Produkt p, int anzahl) {
 		List<Produkt> gleicheProdukte = new ArrayList<Produkt>();
 
-		System.out.println("LagerTest: " + Lager.getLager().size());
-
 		// Erstellt eine Liste der Laenge der uebergebenen Anzahl mit Produkten die
 		// gleich dem uebergebenen Produkt sind
 		for (Produkt produkt : Lager.getLager()) {

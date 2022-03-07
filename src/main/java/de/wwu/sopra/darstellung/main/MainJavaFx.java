@@ -10,6 +10,7 @@ import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -48,7 +49,8 @@ public class MainJavaFx extends Application {
 		GrosshaendlerRegister.load();
 
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
-
+		Image img = new Image(getClass().getResource("logo3.png").toExternalForm());
+		primaryStage.getIcons().add(img);
 		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
 		primaryStage.setResizable(true);
 		primaryStage.sizeToScene();

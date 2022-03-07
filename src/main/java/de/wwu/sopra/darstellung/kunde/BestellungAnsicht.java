@@ -1,10 +1,10 @@
 package de.wwu.sopra.darstellung.kunde;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
+import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
@@ -30,7 +30,9 @@ import javafx.stage.Stage;
 public class BestellungAnsicht extends KundeOverview {
 
 	Bestellung bestellung;
-	Button btBestellen;
+	Button btStornieren;
+	Button btNachbestellen;
+	Button btRechnung;
 
 	/**
 	 * Konstruktor fuer die Bestellansicht
@@ -73,10 +75,10 @@ public class BestellungAnsicht extends KundeOverview {
 	public VBox setTitle() {
 		VBox vbox = new VBox();
 
-		Label bestellung = new Label("Warenkorb");
+		Label bestellung = new Label("Bestellung Nr." + this.bestellung.getBestellnummer());
 		bestellung.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
 
-		Label datum = new Label("Bestellt am " + this.bestellung.getDatum().format(DateTimeFormatter.BASIC_ISO_DATE));
+		Label datum = new Label("Bestellt am " + this.bestellung.getDatum());
 
 		vbox.getChildren().add(bestellung);
 		vbox.getChildren().add(datum);
@@ -98,7 +100,7 @@ public class BestellungAnsicht extends KundeOverview {
 		Line line = new Line(50, 0, 50, getHeight() / 1.3);
 		line.setStroke(Color.GRAY);
 
-		borderpane.setRight(setVBoxBestellen());
+		borderpane.setRight(setVBoxRechts());
 		borderpane.setCenter(line);
 		borderpane.setLeft(setScrollPane());
 
@@ -163,17 +165,69 @@ public class BestellungAnsicht extends KundeOverview {
 		return vbox;
 	}
 
-	public VBox setVBoxBestellen() {
+	public VBox setVBoxRechts() {
 		VBox vbox = new VBox();
 
 		VBox summeVbox = setSummeVBox();
+		VBox statusVBox = setStatusVBox();
 		vbox.getChildren().add(summeVbox);
-		vbox.getChildren().add(setBtBestellen());
+		vbox.getChildren().add(statusVBox);
+		if (this.bestellung.getStatus() == BestellStatus.OFFEN) {
+			vbox.getChildren().add(setBtStornieren());
+			VBox.setMargin(btStornieren, new Insets(0, 40, 10, 40));
+		}
+		vbox.getChildren().add(setBtNachbestellen());
+		if (this.bestellung.getStatus() == BestellStatus.ABGESCHLOSSEN) {
+			vbox.getChildren().add(setBtRechnung());
+			VBox.setMargin(btRechnung, new Insets(10, 40, 10, 40));
+		}
 
 		vbox.setPadding(new Insets(10));
 		vbox.setMinWidth(getWidth() / 4);
-		VBox.setMargin(btBestellen, new Insets(0, 40, 40, 40));
-		VBox.setMargin(summeVbox, new Insets(40, 40, 0, 40));
+
+		VBox.setMargin(btNachbestellen, new Insets(0, 40, 0, 40));
+		VBox.setMargin(summeVbox, new Insets(25, 40, 0, 40));
+		VBox.setMargin(statusVBox, new Insets(0, 40, 0, 40));
+
+		return vbox;
+	}
+
+	/**
+	 * Rechnungsbuttonkonfiguration
+	 * 
+	 * @return Rechnungsbutton
+	 */
+	public Button setBtRechnung() {
+		if (btRechnung == null) {
+			btRechnung = new Button("Rechnung");
+
+			btRechnung.getStyleClass().add("startpage-button");
+
+			btRechnung.setOnAction(e -> {
+				RechnungAnsicht.display(bestellung.getRechnung(), getWidth(), getHeight());
+			});
+
+			btRechnung.setPadding(new Insets(15, 20, 15, 20));
+		}
+
+		return btRechnung;
+	}
+
+	public VBox setStatusVBox() {
+		VBox vbox = new VBox();
+
+		Label statusLabel = new Label("Status");
+		Label status = new Label();
+
+		status.setText(convertEnumToString(this.bestellung.getStatus()));
+
+		vbox.getChildren().add(statusLabel);
+		vbox.getChildren().add(status);
+
+		statusLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		status.setStyle(" -fx-font-size: 16");
+
+		vbox.setPadding(new Insets(0, 40, 20, 5));
 
 		return vbox;
 	}
@@ -193,41 +247,54 @@ public class BestellungAnsicht extends KundeOverview {
 		vbox.getChildren().add(subtotal);
 		vbox.getChildren().add(preis);
 
-		subtotal.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
-		preis.setStyle(" -fx-font-size: 20");
+		subtotal.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		preis.setStyle(" -fx-font-size: 16");
 
-		vbox.setPadding(new Insets(100, 40, 160, 5));
+		vbox.setPadding(new Insets(30, 40, 20, 5));
 
 		return vbox;
 	}
 
 	/**
-	 * Bestellbuttonkonfiguration
+	 * Stornierbuttonkonfiguration
 	 * 
-	 * @return Bestellbutton
+	 * @return Stornierbutton
 	 */
-	public Button setBtBestellen() {
-		if (btBestellen == null) {
-			btBestellen = new Button("Bestellen");
+	public Button setBtNachbestellen() {
+		if (btNachbestellen == null) {
+			btNachbestellen = new Button("Nachbestellen");
 
-			String css = "-fx-background-color: #dadada; -fx-font-weight: bold; -fx-font-size: 30px; -fx-focus-color: #dadada; -fx-border-color: #dadada";
+			btNachbestellen.getStyleClass().add("startpage-button");
 
-			btBestellen.setOnAction(e -> {
-				// TODO
+			btNachbestellen.setOnAction(e -> {
+				kundensteuerung.nachbestellen(this.bestellung);
 			});
 
-			btBestellen.setOnMouseEntered(e -> {
-				btBestellen.setStyle(" -fx-cursor: hand;" + css);
-			});
-
-			btBestellen.setOnMouseExited(e -> {
-				btBestellen.setStyle(" -fx-cursor: default;" + css);
-			});
-
-			btBestellen.setStyle(css);
-			btBestellen.setPadding(new Insets(20, 40, 20, 40));
+			btNachbestellen.setPadding(new Insets(15, 20, 15, 20));
 		}
-		return btBestellen;
+
+		return btNachbestellen;
+	}
+
+	/**
+	 * Stornierbuttonkonfiguration
+	 * 
+	 * @return Stornierbutton
+	 */
+	public Button setBtStornieren() {
+		if (btStornieren == null) {
+			btStornieren = new Button("Stornieren");
+
+			btStornieren.getStyleClass().add("startpage-button");
+
+			btStornieren.setOnAction(e -> {
+				this.bestellung.setStatus(BestellStatus.STORNIERT);
+			});
+
+			btStornieren.setPadding(new Insets(15, 30, 15, 30));
+		}
+
+		return btStornieren;
 	}
 
 	/**
@@ -297,6 +364,28 @@ public class BestellungAnsicht extends KundeOverview {
 		vbox.setSpacing(2);
 
 		return vbox;
+	}
+
+	/**
+	 * Verarbeitet einen Bestellstatus in einen String.
+	 * 
+	 * @param status Wird in String umgewandelt.
+	 * @return String, welcher Bestellstatus repraesentiert.
+	 */
+	private String convertEnumToString(BestellStatus status) {
+		switch (status) {
+		case OFFEN:
+			return "Offen";
+		case STORNIERT:
+			return "Storniert";
+		case IN_ZUSTELLUNG:
+			return "In Zustellung";
+		case ABGESCHLOSSEN:
+			return "Abgeschlossen";
+		case IN_BEARBEITUNG:
+			return "In Bearbeitung";
+		}
+		return null;
 	}
 
 }
