@@ -36,10 +36,10 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 	/**
 	 * Erzeugt das Fenster, um persoenliche Daten anzuzeigen und zu bearbeiten
 	 * 
-	 * @param primaryStage        PrimaryStage
-	 * @param width               Breite des Fensters
-	 * @param height              Hoehe des Fensters
-	 * @param lageristenSteuerung LageristenSteuerung
+	 * @param primaryStage    PrimaryStage
+	 * @param width           Breite des Fensters
+	 * @param height          Hoehe des Fensters
+	 * @param kundensteuerung Kundensteuerung
 	 */
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 		super(primaryStage, width, height, kundensteuerung);

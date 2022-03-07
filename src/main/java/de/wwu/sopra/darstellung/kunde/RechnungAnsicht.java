@@ -28,6 +28,13 @@ public class RechnungAnsicht {
 	private static double WIDTH;
 	private static double HEIGHT;
 
+	/**
+	 * Erzeugt ein Fenster mit der uebergebenen Rechnung
+	 * 
+	 * @param rechnung Rechnung wird im Fenster angezeigt.
+	 * @param width    Breite des Fensters.
+	 * @param height   Hoehe des Fensters.
+	 */
 	public static void display(Rechnung rechnung, double width, double height) {
 		primaryStage = new Stage();
 		RechnungAnsicht.rechnung = rechnung;
@@ -102,6 +109,11 @@ public class RechnungAnsicht {
 		return borderpane;
 	}
 
+	/**
+	 * Erzeugt Scrollpane mit den Produkten der Bestellung der Rechnung.
+	 * 
+	 * @return Scrollpane mit den Produkten der Bestellung der Rechnung
+	 */
 	public static ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
 		ScrollPane scrollpane = new ScrollPane(vbox);
@@ -118,6 +130,11 @@ public class RechnungAnsicht {
 		return scrollpane;
 	}
 
+	/**
+	 * Erzeugt VBox mit den Produkten der Bestellung der Rechnung
+	 * 
+	 * @return VBox mit den Produkten der Bestellung der Rechnung
+	 */
 	public static VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
 
@@ -158,6 +175,11 @@ public class RechnungAnsicht {
 		return vbox;
 	}
 
+	/**
+	 * Erzeugt VBox mit dem Gesamtbetrag der Rechnung
+	 * 
+	 * @return VBox mit dem Gesamtbetrag der Rechnung in einer VBox
+	 */
 	public static VBox setVBoxRechts() {
 		VBox vbox = new VBox();
 
@@ -172,6 +194,11 @@ public class RechnungAnsicht {
 		return vbox;
 	}
 
+	/**
+	 * Erzeugt VBox mit dem Gesamtbetrag der Rechnung
+	 * 
+	 * @return VBox mit dem Gesamtbetrag der Rechnung als Label
+	 */
 	public static VBox setSummeVBox() {
 		VBox vbox = new VBox();
 
@@ -228,6 +255,13 @@ public class RechnungAnsicht {
 		return borderpane;
 	}
 
+	/**
+	 * Erzeugt VBox mit einem Label fuer den Namen des Produkts und einem Label fuer
+	 * die Anzahl des Produkts in der Bestellung der Rechnung
+	 * 
+	 * @param produkte Liste mit Produkten einer Art
+	 * @return VBox mit Label fuer Namen und Anzahl des uebergebenen Produkts
+	 */
 	public static VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
@@ -247,6 +281,13 @@ public class RechnungAnsicht {
 		return vbox;
 	}
 
+	/**
+	 * Erzeugt VBox mit einem Label fuer den Preis des Produkts in der Bestellung
+	 * der Rechnung
+	 * 
+	 * @param produkte Liste mit Produkten einer Art
+	 * @return VBox mit Label fuer summierten Preis des uebergebenen Produkts
+	 */
 	public static VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 		Label preisLabel = new Label("Preis");
