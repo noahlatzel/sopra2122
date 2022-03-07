@@ -55,10 +55,7 @@ public class NachbestellungProduktGUI extends LageristOverview {
 			options.add(i);
 		}
 		final ComboBox<Integer> comboBox = new ComboBox<Integer>(options);
-		comboBox.setEffect(dropShadow);
 		Button nachbestellen = new Button("Nachbestellen");
-		nachbestellen.setEffect(dropShadow);
-		changeButtonStyleOnHover(nachbestellen);
 		nachbestellen.setOnAction(a -> {
 			if (comboBox.getSelectionModel().getSelectedItem() != null) {
 				HashSet<NachbestellungTupel> neueNachbestellung = new HashSet<NachbestellungTupel>();

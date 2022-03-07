@@ -13,7 +13,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +32,7 @@ public class RoutePlanen extends LageristOverview {
 	ObservableList<Fahrzeug> fahrzeuge;
 	ObservableList<Bestellung> bestellungen;
 	Button btRouteAbschicken;
+	BorderPane contentWrapper;
 
 	/**
 	 * Erzeugt das Fenster, um eine Route zu planen
@@ -41,13 +44,38 @@ public class RoutePlanen extends LageristOverview {
 	 */
 	public RoutePlanen(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
-		root.setCenter(new Label("Route planen..."));
-		tilePane = new TilePane();
-		tilePane.setPadding(new Insets(20));
-		tilePane.getChildren().add(this.setScrollPaneFahrzeug());
-		tilePane.getChildren().add(this.setScrollPaneProdukt());
-		tilePane.getChildren().add(this.setBtRouteAbschicken());
-		root.setCenter(tilePane);
+		root.setCenter(this.setContentWrapper());
+	}
+
+	/**
+	 * Erzeugt ContentWrapper fuer Titel
+	 * 
+	 * @return ContentWrapper fuer Titel
+	 */
+	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
+		if (this.contentWrapper == null) {
+			contentWrapper = new BorderPane();
+			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
+			Label title = new Label("Routen planen");
+			title.setStyle("-fx-font-weight: bold");
+			title.setFont(new Font("Arial", 32));
+			contentWrapper.setTop(title);
+			contentWrapper.setCenter(this.setContent());
+		}
+
+		return this.contentWrapper;
+	}
+
+	private TilePane setContent() {
+		if (tilePane == null) {
+			tilePane = new TilePane();
+			tilePane.setPadding(new Insets(20));
+			tilePane.getChildren().add(this.setScrollPaneFahrzeug());
+			tilePane.getChildren().add(this.setScrollPaneProdukt());
+			tilePane.getChildren().add(this.setBtRouteAbschicken());
+		}
+		return tilePane;
 	}
 
 	/**
@@ -111,8 +139,6 @@ public class RoutePlanen extends LageristOverview {
 		if (this.btRouteAbschicken == null) {
 			btRouteAbschicken = new Button("Route planen");
 			btRouteAbschicken.setMinWidth(200);
-			btRouteAbschicken.setEffect(dropShadow);
-			changeButtonStyleOnHover(btRouteAbschicken);
 			btRouteAbschicken.setOnAction(a -> {
 				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
