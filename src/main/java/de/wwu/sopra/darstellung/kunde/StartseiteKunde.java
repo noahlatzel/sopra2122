@@ -2,6 +2,7 @@ package de.wwu.sopra.darstellung.kunde;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
@@ -10,7 +11,7 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -44,8 +45,10 @@ public class StartseiteKunde extends KundeOverview {
 	Button btSuche;
 	MenuButton menuButton;
 	HBox hbox;
-	HashSet<Produkt> produkte;
-
+	Set<Produkt> produkte;
+	/**
+	 * CSS fuer Produkt Panel
+	 */
 	private static final String STANDARD_PRODUKT_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
 	/**
@@ -55,9 +58,10 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
-			HashSet<Produkt> produkte) {
+			Set<Produkt> produkte) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
@@ -70,9 +74,10 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
+	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
-	public BorderPane setBorderPane(HashSet<Produkt> produkte) {
+	public BorderPane setBorderPane(Set<Produkt> produkte) {
 		if (borderpane == null) {
 			borderpane = new BorderPane();
 
@@ -176,7 +181,7 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param produkte Alle in dem Set enthaltenen Produkte werden angezeigt.
 	 * @return Gibt fertig konfigurierte ScrollPane zurueck.
 	 */
-	public ScrollPane setScrollPane(HashSet<Produkt> produkte) {
+	public ScrollPane setScrollPane(Set<Produkt> produkte) {
 		if (scrollpane == null) {
 
 			scrollpane = new ScrollPane();
@@ -192,10 +197,10 @@ public class StartseiteKunde extends KundeOverview {
 	/**
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
-	 * @param produkte HashSet mit Produkten die dargestellt werden sollen.
-	 * @return
+	 * @param produkte Set mit Produkten die dargestellt werden sollen.
+	 * @return GridPane
 	 */
-	public GridPane setGridPane(HashSet<Produkt> produkte) {
+	public GridPane setGridPane(Set<Produkt> produkte) {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 
@@ -207,16 +212,15 @@ public class StartseiteKunde extends KundeOverview {
 			int a = 0;
 			int b = 0;
 
-			while (iterator.hasNext()) {
+			for (Produkt produkt : produkte) {
 
-				Produkt prod = iterator.next();
-				gridpane.add(setProduktPanel(prod), b, a);
+				// Produkt prod = iterator.next();
+				gridpane.add(setProduktPanel(produkt), b, a);
 				b++;
 				if (b % 6 == 0) {
 					a++;
 					b = b % 6;
 				}
-
 			}
 
 			gridpane.setStyle(" -fx-background-color: white");
@@ -287,31 +291,32 @@ public class StartseiteKunde extends KundeOverview {
 	public HBox setHBox(Produkt p) {
 		HBox hbox = new HBox();
 
-		ChoiceBox<Integer> choicebox = new ChoiceBox<Integer>();
+		ComboBox<Integer> combobox = new ComboBox<Integer>();
 		Button addProdukt = new Button("Add");
 		int n = kundensteuerung.getProduktBestand(p);
 		int i = 0;
 
 		while (n >= i) {
-			choicebox.getItems().add(i);
+			combobox.getItems().add(i);
 			i++;
 		}
 
-		choicebox.setValue(0);
+		combobox.setValue(0);
 
 		addProdukt.setOnAction(e -> {
-			if (choicebox.getValue() > 0) {
-				kundensteuerung.produktZuWarenkorbHinzufuegen(p, choicebox.getValue());
+			if (combobox.getValue() > 0) {
+				kundensteuerung.produktZuWarenkorbHinzufuegen(p, combobox.getSelectionModel().getSelectedItem());
+				System.out.println(combobox.getSelectionModel().getSelectedItem());
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
 		});
 
-		choicebox.setOnMouseEntered(e -> {
-			choicebox.setStyle(" -fx-cursor: hand;");
+		combobox.setOnMouseEntered(e -> {
+			combobox.setStyle(" -fx-cursor: hand;");
 		});
 
-		choicebox.setOnMouseExited(e -> {
-			choicebox.setStyle(" -fx-cursor: default;");
+		combobox.setOnMouseExited(e -> {
+			combobox.setStyle(" -fx-cursor: default;");
 		});
 
 		addProdukt.setOnMouseEntered(e -> {
@@ -322,7 +327,7 @@ public class StartseiteKunde extends KundeOverview {
 			addProdukt.setStyle(" -fx-cursor: default;");
 		});
 
-		hbox.getChildren().add(choicebox);
+		hbox.getChildren().add(combobox);
 		hbox.getChildren().add(addProdukt);
 
 		hbox.setSpacing(20);

@@ -21,9 +21,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- * Darstellungsklasse fuer BestellungenUebersicht
  * 
- * @author Jasmin Horstknepper
+ * @author Paul Dirksen
  *
  */
 public class UebersichtBestellungen extends KundeOverview {
@@ -32,7 +31,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	private static final String STANDARD_BESTELLUNG_PANEL = " -fx-border-color: grey;";
 
 	/**
-	 * Konstruktor fuer die Bestelluebersicht
+	 * Konstruktor fuer die Uebersicht der Bestellungen
 	 * 
 	 * @param primaryStage    PrimaryStage
 	 * @param width           Breite des Fensters
@@ -105,6 +104,7 @@ public class UebersichtBestellungen extends KundeOverview {
 		vbox.setAlignment(Pos.TOP_CENTER);
 
 		return vbox;
+
 	}
 
 	private BorderPane setBestellungPanel(Bestellung bestellung) {

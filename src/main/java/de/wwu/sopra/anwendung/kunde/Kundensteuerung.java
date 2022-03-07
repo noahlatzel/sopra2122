@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -197,7 +198,7 @@ public class Kundensteuerung {
 	public HashSet<Kategorie> getKategorien() {
 		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
 
-		HashSet<Produkt> produkteUnique = Lager.getLager();
+		List<Produkt> produkteUnique = Lager.getLager();
 
 		Iterator<Produkt> iterator = produkteUnique.iterator();
 		while (iterator.hasNext()) {
@@ -215,8 +216,8 @@ public class Kundensteuerung {
 	 * 
 	 * @return Produktliste aus dem Lager
 	 */
-	public HashSet<Produkt> getLager() {
-		return Lager.getLager();
+	public Set<Produkt> getLager() {
+		return Lager.sortimentAnzeigen();
 	}
 
 	/**
@@ -240,6 +241,8 @@ public class Kundensteuerung {
 	public void produktZuWarenkorbHinzufuegen(Produkt p, int anzahl) {
 		List<Produkt> gleicheProdukte = new ArrayList<Produkt>();
 
+		System.out.println("LagerTest: " + Lager.getLager().size());
+
 		// Erstellt eine Liste der Laenge der uebergebenen Anzahl mit Produkten die
 		// gleich dem uebergebenen Produkt sind
 		for (Produkt produkt : Lager.getLager()) {
@@ -262,8 +265,8 @@ public class Kundensteuerung {
 	 * @param kategorie Kategorie nach der das uebergebene Hashset gefiltert wird.
 	 * @return Gefiltertes HashSet.
 	 */
-	public HashSet<Produkt> filterProdukteNachKategorie(HashSet<Produkt> produkte, Kategorie kategorie) {
-		HashSet<Produkt> filteredProdukte = new HashSet<Produkt>();
+	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
+		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
 		for (Produkt produkt : produkte) {
 			if (produkt.getKategorie().equals(kategorie)) {
 				filteredProdukte.add(produkt);

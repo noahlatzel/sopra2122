@@ -33,6 +33,10 @@ public class Produkt implements Serializable {
 	 * Verkaufspreis des Produkts
 	 */
 	private double verkaufspreis;
+	/**
+	 * ProduktID
+	 */
+	private final int produktID;
 
 	/**
 	 * Konstruktor
@@ -50,6 +54,7 @@ public class Produkt implements Serializable {
 		this.setBeschreibung(beschreibung);
 		this.setVerkaufspreis(verkaufspreis);
 		this.einkaufspreis = einkaufspreis;
+		this.produktID = Lager.addProduktName(this.getName());
 	}
 
 	/**
@@ -84,7 +89,7 @@ public class Produkt implements Serializable {
 		if (name == "") {
 			throw new IllegalArgumentException("Der Name eines Produktes darf nicht leer sein.");
 		}
-		this.name = name;
+		this.name = name.strip();
 	}
 
 	/**
@@ -160,4 +165,35 @@ public class Produkt implements Serializable {
 		return temp;
 
 	}
+
+	/**
+	 * Gibt die ProduktID zurueck
+	 * 
+	 * @return die produktID
+	 */
+	public int getProduktID() {
+		return produktID;
+	}
+
+	/**
+	 * Gibt den HashCode zurueck.
+	 * 
+	 * @return hashCode
+	 */
+	@Override
+	public int hashCode() {
+		return this.getProduktID();
+	}
+
+	/**
+	 * Zwei Produkte sind gleich, wenn sie die gleiche ProduktID haben.
+	 * 
+	 * @param obj Das zu vergleichende Objekt
+	 * @return Ob die Produkte gleich sind
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Produkt && this.getProduktID() == ((Produkt) obj).getProduktID();
+	}
+
 }

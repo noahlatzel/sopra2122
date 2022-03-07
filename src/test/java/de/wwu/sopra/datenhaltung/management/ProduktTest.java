@@ -3,6 +3,7 @@ package de.wwu.sopra.datenhaltung.management;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,12 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 public class ProduktTest {
 	Produkt produkt_1;
 	Kategorie kategorie_1;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	void reset() {

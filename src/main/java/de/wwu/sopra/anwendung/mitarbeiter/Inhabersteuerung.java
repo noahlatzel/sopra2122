@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Benutzer;
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
@@ -94,11 +95,13 @@ public class Inhabersteuerung {
 	public void lagerVerwalten(Collection<Produkt> produkte, String action) throws IllegalArgumentException {
 		if (action == "hinzufuegen") {
 			for (Produkt produkt : produkte) {
-				Lager.getLagerbestand().put(produkt.getName(), 0);
+
+				Lager.produktZumSortimentHinzufuegen(produkt);
 			}
 		} else if (action == "loeschen") {
 			for (Produkt produkt : produkte) {
-				Lager.getLagerbestand().remove(produkt.getName());
+				Lager.produktAusDemSortimentEntfernen(produkt);
+
 			}
 		} else {
 			throw new IllegalArgumentException();
@@ -110,8 +113,8 @@ public class Inhabersteuerung {
 	 * 
 	 * @return lagerProdukte HashSet mit allen Produkten im Lager
 	 */
-	public HashSet<Produkt> sortimentAnzeigen() { // TODO
-		return Lager.getLager();
+	public Set<Produkt> sortimentAnzeigen() { // TODO
+		return Lager.getLagerbestand().keySet();
 	}
 
 	/**

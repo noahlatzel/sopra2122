@@ -194,7 +194,6 @@ public class KundeOverview extends Scene {
 			btBestellungen.setOnAction(action -> {
 				primaryStage
 						.setScene(new UebersichtBestellungen(primaryStage, getWidth(), getHeight(), kundensteuerung));
-
 			});
 		}
 

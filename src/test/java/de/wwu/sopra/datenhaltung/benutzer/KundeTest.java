@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Testklasse zur Klasse Kunde
@@ -29,13 +31,19 @@ public class KundeTest {
 	Bestellung bestellung;
 	LocalDateTime datum = null;
 
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeEach
 	public void setup() {
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Lager.getLagerbestand().put("Cola", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		bestellung = new Bestellung(datum, produkte, kunde);
 	}
 
@@ -130,7 +138,7 @@ public class KundeTest {
 		produkte.add(produkt1);
 		produkte.add(produkt2);
 		Warenkorb warenkorb = new Warenkorb(produkte, kunde);
-
+		kunde.setWarenkorb(warenkorb);
 		// Kundes Warenkorb leeren
 		kunde.getWarenkorb().warenkorbLeeren();
 

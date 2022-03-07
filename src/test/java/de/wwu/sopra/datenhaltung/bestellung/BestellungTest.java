@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,12 @@ class BestellungTest {
 	Kunde kunde;
 	Bestellung bestellung;
 
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeEach
 	void reset() {
 		Lager.reset();
@@ -34,7 +41,7 @@ class BestellungTest {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-		Lager.getLagerbestand().put("Coca Cola", 20);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		bestellung = new Bestellung(null, produkte, kunde);
 	}
 
@@ -61,7 +68,7 @@ class BestellungTest {
 	 */
 	@Test
 	void testSetGetRechnung() {
-		Lager.getLagerbestand().put("Coca Cola", 20);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Rechnung rechnung = new Rechnung(null, bestellung);
 		bestellung.setRechnung(rechnung);
 		assertTrue(bestellung.getRechnung().equals(rechnung));

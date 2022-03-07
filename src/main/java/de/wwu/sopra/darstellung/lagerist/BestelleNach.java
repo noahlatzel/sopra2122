@@ -2,7 +2,7 @@ package de.wwu.sopra.darstellung.lagerist;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.datenhaltung.management.Lager;
-import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
+import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
@@ -29,16 +29,17 @@ public class BestelleNach extends LageristOverview {
 	 */
 	public BestelleNach(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
-		produktGUI = new NachbestellungProduktGUI(primaryStage, height, height, lageristenSteuerung);
+		produktGUI = new NachbestellungProduktGUI(primaryStage, width, height, lageristenSteuerung);
 		root.setCenter(new Label("Nachbestellen..."));
 		tilePane = new TilePane();
 		tilePane.setPadding(new Insets(20));
 		tilePane.setHgap(5);
 		tilePane.setVgap(5);
 
-		for (String s : GrosshaendlerRegister.getPreislisteIn().keySet()) {
-			if (Lager.getLagerbestand().get(s) != null) {
-				tilePane.getChildren().add(produktGUI.setProduktAnsicht(s, Lager.getProduktBestand(s)));
+		for (Produkt produkt : lageristenSteuerung.getSortiment()) {
+			if (Lager.getLagerbestand().get(produkt) != null) {
+				tilePane.getChildren()
+						.add(produktGUI.setProduktAnsicht(produkt, Lager.getProduktBestand(produkt.getName())));
 			}
 		}
 		root.setCenter(tilePane);

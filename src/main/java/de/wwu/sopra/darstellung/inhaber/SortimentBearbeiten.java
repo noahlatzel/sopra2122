@@ -4,8 +4,8 @@
 package de.wwu.sopra.darstellung.inhaber;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -65,8 +66,9 @@ public class SortimentBearbeiten extends InhaberOverview {
 			title.setStyle("-fx-font-weight: bold");
 			title.setFont(new Font("Arial", 32));
 			contentWrapper.setTop(title);
-			contentWrapper.setCenter(this.setContent());
-
+			ScrollPane scrollPane = new ScrollPane();
+			scrollPane.setContent(this.setContent());
+			contentWrapper.setCenter(scrollPane);
 		}
 
 		return this.contentWrapper;
@@ -82,7 +84,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 		if (this.content == null) {
 			content = new TilePane();
 			// Get Produkte Im Lager
-			HashSet<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
+			Set<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
 
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
@@ -135,8 +137,9 @@ public class SortimentBearbeiten extends InhaberOverview {
 
 			tfKategorie.setText(String.valueOf(produkt.getKategorie().getName()));
 		} catch (NullPointerException l) {
-			tfKategorie.setText(String.valueOf(produkt.getKategorie()));
+			tfKategorie.setText(String.valueOf("Keine Kategorie"));
 		}
+
 		// Auf Grid setzen
 		produktGP.add(produktImg, 0, 0, 2, 1);
 		produktGP.add(tfName, 0, 1, 2, 1);

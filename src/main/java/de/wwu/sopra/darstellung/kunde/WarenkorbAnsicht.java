@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 /**
  * Darstellungsklasse fuer WarenkorbAnsicht
  * 
- * @author Jasmin Horstknepper
+ * @author Paul Dirksen
  *
  */
 public class WarenkorbAnsicht extends KundeOverview {
@@ -118,6 +118,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 		VBox vbox = new VBox();
 
 		Warenkorb warenkorb = kundensteuerung.warenkorbAnsicht();
+		System.out.println("TestWarenkorb: " + warenkorb.getProdukte().size());
 
 		if (!(warenkorb.getProdukte().isEmpty())) {
 
@@ -135,12 +136,14 @@ public class WarenkorbAnsicht extends KundeOverview {
 							produkte.add(prod);
 						}
 					}
+
 					vbox.getChildren().add(setProduktPanel(produkte));
 
 					strings.add(produkt.getName());
 				}
 
 			}
+
 			vbox.setSpacing(30);
 		} else {
 			Label warenkorbLeerLabel = new Label("Warenkorb leer!");
@@ -324,4 +327,5 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 		return loeschenBt;
 	}
+
 }
