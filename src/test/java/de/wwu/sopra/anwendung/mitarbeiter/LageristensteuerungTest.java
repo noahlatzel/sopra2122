@@ -76,7 +76,7 @@ public class LageristensteuerungTest {
 
 		// preisRegister.setPreis(produkt1, 0.99);
 		// preisRegister.setPreis(produkt2, 0.99);
-		HashSet<Produkt> temp = (HashSet<Produkt>) Lager.getLager().clone();
+		List<Produkt> temp = (List<Produkt>) Lager.getLager();
 		for (Produkt p : temp) {
 			Lager.removeProdukt(p);
 		}

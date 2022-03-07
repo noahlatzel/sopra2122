@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class Lager implements Serializable {
 	/**
 	 * Liste der Produkte im Lager
 	 */
-	private static HashSet<Produkt> lager = new HashSet<Produkt>();
+	private static List<Produkt> lager = new ArrayList<Produkt>();
 	/**
 	 * Alternative fuer den Lagerbestand
 	 */
@@ -166,7 +167,7 @@ public class Lager implements Serializable {
 	 * @return Liste mit allen Produkten aus dem Lager welche der uebergebenen Namen
 	 *         tragen
 	 */
-	public static List<Produkt> getProdukteAusLager(HashSet<Produkt> produkte, String suche) {
+	public static List<Produkt> getProdukteAusLager(List<Produkt> produkte, String suche) {
 		List<Produkt> liste = new ArrayList<Produkt>();
 		for (Produkt p : produkte) {
 			if (p.getName().equals(suche)) {
@@ -190,7 +191,7 @@ public class Lager implements Serializable {
 	 * 
 	 * @return Das Lager
 	 */
-	public static HashSet<Produkt> getLager() {
+	public static List<Produkt> getLager() {
 		return lager;
 	}
 
@@ -228,10 +229,10 @@ public class Lager implements Serializable {
 	 */
 	public static void load() {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
-		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
-		kategorieListe = sp2.deserialisieren(path_kat);
+		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
 		lagerBestand = sp.deserialisieren(path_map);
+		kategorieListe = sp2.deserialisieren(path_kat);
 		lager = sp1.deserialisieren(path_set);
 	}
 
@@ -262,11 +263,12 @@ public class Lager implements Serializable {
 	 * @param produkt Produkt, das entfernt werden soll
 	 */
 	public static void produktAusDemSortimentEntfernen(Produkt produkt) {
-		HashSet<Produkt> old_lager = (HashSet<Produkt>) Lager.getLager().clone();
+
 		// Entfernt die restlichen Produkte des Sortiments aus dem Lager
-		for (Produkt prod : old_lager) {
-			if (prod.equals(produkt)) {
-				Lager.removeProdukt(prod);
+		for (Iterator<Produkt> iterator = Lager.getLager().iterator(); iterator.hasNext();) {
+			Produkt next = iterator.next();
+			if (next.equals(produkt)) {
+				iterator.remove();
 			}
 		}
 
@@ -279,8 +281,8 @@ public class Lager implements Serializable {
 	 */
 	public static void save() {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
-		SerialisierungPipeline<HashSet<Produkt>> sp1 = new SerialisierungPipeline<HashSet<Produkt>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
+		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
 		sp2.serialisieren(Lager.getKategorien(), path_kat);

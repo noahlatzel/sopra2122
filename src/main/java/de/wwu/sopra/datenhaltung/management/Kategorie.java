@@ -45,6 +45,7 @@ public class Kategorie implements Serializable {
 		this.setName(name);
 		this.produkte = new HashSet<Produkt>();
 		this.unterkategorien = new HashSet<Kategorie>();
+		Lager.kategorieHinzufuegen(this);
 
 		// Klasseninvariante pruefen
 		if (this.getOberkategorie() != null) {
