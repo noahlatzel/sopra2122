@@ -110,6 +110,15 @@ public class FahrersteuerungTest {
 		assertTrue(fahrzeug.getStatus().equals(FahrzeugStatus.IN_ZUSTELLUNG));
 	}
 
+	/**
+	 * test von get faherer
+	 */
+	@Test
+	public void testGetFaherr() {
+		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+		assertTrue(steuerung.getFahrer() == fahrer);
+	}
+
 	// Test von Route Ausgeben
 	@Test
 	public void testRouteAusgeben() {
@@ -117,7 +126,6 @@ public class FahrersteuerungTest {
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(100);
-		Fahrzeug fahrzeug1 = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -127,18 +135,15 @@ public class FahrersteuerungTest {
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
-		route.setBestellungen(bestellungen);
-		// kein Fahrzeug
-		assertThrows(AssertionError.class, () -> {
-			steuerung.routeAusgeben();
-		});
 
-		// keine Route
-		this.fahrer.setFahrzeug(fahrzeug1);
-		assertThrows(AssertionError.class, () -> {
+		// kein Fahrzeug
+		fahrzeug.entferneRoute();
+		assertThrows(NullPointerException.class, () -> {
 			steuerung.routeAusgeben();
 		});
-		this.fahrer.setFahrzeug(null);
+		fahrzeug.setRoute(route);
+		route.setBestellungen(bestellungen);
+
 		// test der korrektheit der ausggebenen Route
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.routeAusgeben().equals(route));

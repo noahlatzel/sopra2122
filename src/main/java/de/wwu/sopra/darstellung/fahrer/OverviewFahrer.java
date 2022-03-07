@@ -2,6 +2,7 @@ package de.wwu.sopra.darstellung.fahrer;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -44,6 +45,7 @@ public class OverviewFahrer extends Scene {
 		this.setRoot(root);
 		this.steuerung = steuerung;
 		root.setLeft(this.setGridPane());
+		root.setPadding(new Insets(10, 30, 10, 30));
 	}
 
 	/**
