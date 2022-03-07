@@ -89,7 +89,7 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 		TextField tfNamekat = new TextField();
 		Label lbOberunter = new Label("Ober/Unterkategie(Optional)");
 		ComboBox<String> chOberUNter = new ComboBox<>();
-		Label lbOberunterwahl = new Label("Ober/Unterkategorie (pflicht wenn Kathegorie gewahlt)");
+		Label lbOberunterwahl = new Label("Ober/Unterkategorie (pflicht wenn Kategorie gewahlt)");
 		ComboBox<String> chOberUNterwahl = new ComboBox<>();
 
 		Button btKategorie = new Button("kategorie Hinzufuegen");
@@ -120,7 +120,7 @@ public class ProduktKategorieHinzu extends InhaberOverview {
 		// Comboboxen fuellen
 		try {
 			kategorien = new ArrayList<Kategorie>();
-			for (Produkt i : Lager.getLager()) {
+			for (Produkt i : Lager.sortimentAnzeigen()) {
 				if (!kategorien.contains(i.getKategorie())) {
 					kategorien.add(i.getKategorie());
 					Kategorie n = i.getKategorie();

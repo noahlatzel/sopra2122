@@ -47,6 +47,9 @@ public class MainJavaFx extends Application {
 		Statistiken.load();
 		GrosshaendlerRegister.load();
 
+		// BenutzerRegister.reset();
+		// FahrzeugRegister.reset();
+		// Lager.reset();
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
 		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
