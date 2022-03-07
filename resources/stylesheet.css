@@ -184,3 +184,61 @@
 .registrierung-error-label {
     -fx-text-fill: #ff0000;
 }
+
+.mitarbeiter-content-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.inhaber-mitarbeitern-tableview .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, rgba(83, 133, 165, 0.651), #93f9b896);
+}
+
+.inhaber-mitarbeitern-tableview .column-header {
+    -fx-background-color: transparent;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .track,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .track-background,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .track,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar .increment-button,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, rgba(35, 61, 77, 0.904), #93f9b944);
+}
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right, rgba(35, 61, 77, 0.904), #93f9b944);
+}
+
+.inhaber-mitarbeiter-tableview-wrapper {
+    -fx-padding: 24px;
+    -fx-vgap: 20;
+}
+
+.inhaber-mitarbeiter-verwaltung-button {
+    -fx-background-color: #a0c5ac;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 12px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.inhaber-mitarbeiter-verwaltung-button:hover {
+    -fx-background-color: #799c84;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}

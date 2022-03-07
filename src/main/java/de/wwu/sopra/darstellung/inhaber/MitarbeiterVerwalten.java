@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -59,8 +58,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Mitarbeiter Verwalten");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(setContent());
 		}
@@ -79,6 +77,8 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			gridPane = new GridPane();
 			gridPane.add(this.setMitarbeiternTableView(), 0, 0);
 			gridPane.add(this.setLoeschenButton(), 0, 1);
+			
+			gridPane.getStyleClass().add("inhaber-mitarbeiter-tableview-wrapper");
 		}
 
 		return this.gridPane;
@@ -102,6 +102,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			}
 
 			tableViewMitarbeitern = new TableView<Benutzer>();
+			tableViewMitarbeitern.getStyleClass().add("inhaber-mitarbeitern-tableview");
 			// Tabelle beartbeitbar zu machen
 			tableViewMitarbeitern.setEditable(true);
 
@@ -261,6 +262,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 		// Erstellung des Loeschen-Buttons
 		if (this.loeschenButton == null) {
 			loeschenButton = new Button("Benutzer Loeschen");
+			loeschenButton.getStyleClass().add("inhaber-mitarbeiter-verwaltung-button");
 			loeschenButton.setOnAction(e -> {
 				Benutzer mitarbeiterZuLoeschen = tableViewMitarbeitern.getSelectionModel().getSelectedItem();
 				inhaberSteuerung.mitarbeiterLoeschen(mitarbeiterZuLoeschen);
