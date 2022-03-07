@@ -145,4 +145,29 @@ public class LagerTest {
 		assertTrue(testMap.get(temp3) == null);
 	}
 
+	/**
+	 * Testet ProduktAusDemSortimentEntfernen
+	 */
+	@Test
+	void testProduktAusdemSortimentEntfernen() {
+		Lager.getLagerbestand().clear();
+		Produkt temp = new Produkt("Coca Cola", "Test", 0.49, 0.99);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Test", 0.49, 0.99));
+		Lager.addProdukt(temp);
+		Lager.produktAusDemSortimentEntfernen(new Produkt("Coca Cola", "Test", 0.49, 0.99));
+		assertTrue(Lager.sortimentAnzeigen().size() == 0);
+	}
+
+	/**
+	 * Testet die Produktnamenliste
+	 */
+	@Test
+	void testGetProduktNamenListe() {
+		Lager.getProduktNamenListe().clear();
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Test", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Test", 0.49, 0.99));
+		assertTrue(Lager.getProduktNamenListe().contains("Coca Cola"));
+		assertTrue(Lager.getProduktNamenListe().contains("Fanta"));
+	}
+
 }

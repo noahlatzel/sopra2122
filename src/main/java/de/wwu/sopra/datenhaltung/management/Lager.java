@@ -242,7 +242,6 @@ public class Lager implements Serializable {
 	 */
 	public static void produktZumSortimentHinzufuegen(Produkt produkt) {
 		if (lagerBestand.get(produkt) == null) {
-			System.out.println("ADDED!");
 			lagerBestand.put(produkt, 0);
 			GrosshaendlerRegister.getPreislisteIn().put(produkt.getName(), produkt.getEinkaufspreis());
 		}
@@ -254,8 +253,6 @@ public class Lager implements Serializable {
 	 * @param produkt Produkt, das entfernt werden soll
 	 */
 	public static void produktAusDemSortimentEntfernen(Produkt produkt) {
-		lagerBestand.remove(produkt);
-
 		HashSet<Produkt> old_lager = (HashSet<Produkt>) Lager.getLager().clone();
 		// Entfernt die restlichen Produkte des Sortiments aus dem Lager
 		for (Produkt prod : old_lager) {
@@ -263,6 +260,9 @@ public class Lager implements Serializable {
 				Lager.removeProdukt(prod);
 			}
 		}
+
+		lagerBestand.remove(produkt);
+
 	}
 
 	/**
