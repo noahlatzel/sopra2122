@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +38,12 @@ public class FahrersteuerungTest {
 	List<Produkt> produkte;
 	List<Produkt> produkte1;
 
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeEach
 	void reset() {
 		Lager.reset();
@@ -54,7 +61,7 @@ public class FahrersteuerungTest {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
 		produkte1 = new ArrayList<Produkt>();
 		produkte1.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-		Lager.getLagerbestand().put("Coca Cola", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		testbestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde);
 		bestellungen.add(testbestellung);
@@ -73,6 +80,7 @@ public class FahrersteuerungTest {
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -83,14 +91,14 @@ public class FahrersteuerungTest {
 		fahrzeug.setStatus(FahrzeugStatus.BELEGT);
 
 		// wenn der fahrer schon ein Fahrzeug hat
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.fahrzeugZuordnen(fahrzeug);
 		});
 
 		// wenn das Fahrzeug keine Route hat
 		fahrer.setFahrzeug(null);
 		fahrzeug.setStatus(FahrzeugStatus.FREI);
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.fahrzeugZuordnen(fahrzeug);
 		});
 
@@ -109,16 +117,28 @@ public class FahrersteuerungTest {
 		// Testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
 		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Fahrzeug fahrzeug1 = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
 		Produkt cola = new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29);
 		List<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(cola);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Bestellung bestellung = new Bestellung(null, produkte,
 				new Kunde("Beton", "1234", "hart@test.de", "Abstiege 1", "Zementa", "test", "test"));
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
 		route.setBestellungen(bestellungen);
+		// kein Fahrzeug
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAusgeben();
+		});
 
+		// keine Route
+		this.fahrer.setFahrzeug(fahrzeug1);
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAusgeben();
+		});
+		this.fahrer.setFahrzeug(null);
 		// test der korrektheit der ausggebenen Route
 		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.routeAusgeben().equals(route));
@@ -134,6 +154,7 @@ public class FahrersteuerungTest {
 		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
 		steuerung.fahrzeugZuordnen(fahrzeug);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		steuerung.kundeNichtDa();
 
 		// Normalfall
@@ -141,7 +162,7 @@ public class FahrersteuerungTest {
 		steuerung.kundeNichtDa();
 
 		// schon alle bestellungen ausgeliefert
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.kundeNichtDa();
 		});
 
@@ -197,7 +218,7 @@ public class FahrersteuerungTest {
 		steuerung.bestellungAusliefern();
 
 		// wenn alle bestellunfen schon asugeliefert sind
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.bestellungAusliefern();
 		});
 	}
@@ -209,13 +230,18 @@ public class FahrersteuerungTest {
 
 		// testobjekte
 		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+
 		Fahrzeug fahrzeug = new Fahrzeug(100);
 		Route route = new Route(fahrzeug);
 		route.setBestellungen(bestellungen);
-		steuerung.fahrzeugZuordnen(fahrzeug);
 
+		fahrer.setFahrzeug(null);
+		assertThrows(AssertionError.class, () -> {
+			steuerung.routeAbschliesen();
+		});
+		steuerung.fahrzeugZuordnen(fahrzeug);
 		// route abschliesen wenn noch nicht zu ende
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			steuerung.routeAbschliesen();
 		});
 		steuerung.bestellungAusliefern();

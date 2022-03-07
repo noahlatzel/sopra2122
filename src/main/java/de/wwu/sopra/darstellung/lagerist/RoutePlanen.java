@@ -118,7 +118,7 @@ public class RoutePlanen extends LageristOverview {
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
 					lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
 							tableViewFahrzeug.getSelectionModel().getSelectedItem());
-					primaryStage.setScene(new RoutePlanen(primaryStage, 1280, 720, lageristenSteuerung));
+					primaryStage.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 				}
 			});
 		}

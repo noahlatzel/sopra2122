@@ -4,11 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
+import de.wwu.sopra.datenhaltung.management.Lager;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 public class FahrerTest {
 
@@ -22,6 +25,12 @@ public class FahrerTest {
 	String name;
 	String bankverbindung;
 	Inhaber chef;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	// Beispielfahrer wird vor den Tests erstellt
 	@BeforeEach

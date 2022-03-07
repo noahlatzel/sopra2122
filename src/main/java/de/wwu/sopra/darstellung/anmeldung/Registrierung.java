@@ -4,6 +4,7 @@ import java.io.File;
 
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,6 +35,7 @@ public class Registrierung extends Scene {
 	TextField textFeldVorname = new TextField();
 	TextField textFeldName = new TextField();;
 	TextField textFeldBankverbindung = new TextField();
+	Button buttonZurueck = new Button("Zurueck");
 	Label labelBenutzername = new Label("Benutzername");
 	Label labelPasswort = new Label("Passwort");
 	Label labelEmail = new Label("Email");
@@ -55,7 +57,7 @@ public class Registrierung extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		root.setCenter(setGridPane());
-		
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
@@ -63,7 +65,7 @@ public class Registrierung extends Scene {
 	private GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
-			
+
 			title = new Text("Registrierung");
 
 			// Styling von Komponenten
@@ -103,6 +105,8 @@ public class Registrierung extends Scene {
 			gridpane.add(labelBankverbindung, 1, 10);
 			gridpane.add(textFeldBankverbindung, 1, 11);
 			gridpane.add(setButtonRegistrieren(), 1, 12, 2, 1);
+			gridpane.add(setButtonZurueck(), 2, 12, 4, 5);
+			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
 	}
@@ -122,9 +126,25 @@ public class Registrierung extends Scene {
 			anSt.registrieren(textFeldBenutzername.getText(), textFeldPasswort.getText(), textFeldEmail.getText(),
 					textFeldAdresse.getText(), textFeldVorname.getText(), textFeldName.getText(),
 					textFeldBankverbindung.getText());
-			primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight())); // TODO
+			primaryStage.setScene(new Anmeldung(primaryStage, getWidth(), getHeight()));
 		});
-		
+
 		return buttonRegistrieren;
+	}
+
+	/**
+	 * Erzeugt den Zurueck-Button
+	 * 
+	 * @return Zurueck-Button
+	 */
+	private Button setButtonZurueck() {
+		buttonZurueck.getStyleClass().add("registrierung-button");
+
+		// Knopfdruckfunktionalitaet
+		buttonZurueck.setOnAction(e -> {
+			primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+		});
+
+		return buttonZurueck;
 	}
 }

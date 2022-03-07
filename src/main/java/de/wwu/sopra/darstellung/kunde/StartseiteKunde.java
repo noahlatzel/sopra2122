@@ -2,14 +2,16 @@ package de.wwu.sopra.darstellung.kunde;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -24,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Darstellungsklasse fuer StartseiteKunde
@@ -42,8 +45,10 @@ public class StartseiteKunde extends KundeOverview {
 	Button btSuche;
 	MenuButton menuButton;
 	HBox hbox;
-	HashSet<Produkt> produkte;
-
+	Set<Produkt> produkte;
+	/**
+	 * CSS fuer Produkt Panel
+	 */
 	private static final String STANDARD_PRODUKT_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
 	/**
@@ -53,9 +58,10 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
-			HashSet<Produkt> produkte) {
+			Set<Produkt> produkte) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
@@ -68,12 +74,13 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
+	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
-	public BorderPane setBorderPane(HashSet<Produkt> produkte) {
+	public BorderPane setBorderPane(Set<Produkt> produkte) {
 		if (borderpane == null) {
 			borderpane = new BorderPane();
-			kundensteuerung.getKategorien();
+
 			borderpane.setTop(setSearchBarBP());
 			borderpane.setCenter(setScrollPane(produkte));
 		}
@@ -100,13 +107,18 @@ public class StartseiteKunde extends KundeOverview {
 		return searchBarBP;
 	}
 
+	/**
+	 * Konfiguriert den MenuButton mit den Kategorien
+	 * 
+	 * @return MenuButton zur Auswahl von Kategorien
+	 */
 	public MenuButton setMenuButton() {
 		if (menuButton == null) {
 			menuButton = new MenuButton("Kategorien");
 
 			menuButton.setMinHeight(30);
-			menuButton.setStyle(
-					"-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868");
+			String css = "-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868";
+			menuButton.setStyle(css);
 
 			Iterator<Kategorie> iterator = kundensteuerung.getKategorien().iterator();
 			while (iterator.hasNext()) {
@@ -119,9 +131,17 @@ public class StartseiteKunde extends KundeOverview {
 					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
 							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie)));
 				});
-				temp.setStyle(
-						"-fx-background-color: white; -fx-font-weight: bold; -fx-focus-color: transparent; -fx-font-size: 15");
+				temp.setStyle(" -fx-font-weight: bold; -fx-focus-color: transparent; -fx-font-size: 15");
+
 			}
+
+			menuButton.setOnMouseEntered(e -> {
+				menuButton.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			menuButton.setOnMouseExited(e -> {
+				menuButton.setStyle(" -fx-cursor: default;" + css);
+			});
 		}
 
 		return menuButton;
@@ -139,6 +159,8 @@ public class StartseiteKunde extends KundeOverview {
 			textFeldSuche = new TextField();
 
 			textFeldSuche.setMinHeight(40);
+			textFeldSuche.setMinWidth(250);
+
 			textFeldSuche.setPromptText("Suche...");
 			textFeldSuche.setStyle("-fx-border-color: #C14343; -fx-border: gone; -fx-focus-color: white");
 			textFeldSuche.setAlignment(Pos.CENTER);
@@ -159,13 +181,14 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param produkte Alle in dem Set enthaltenen Produkte werden angezeigt.
 	 * @return Gibt fertig konfigurierte ScrollPane zurueck.
 	 */
-	public ScrollPane setScrollPane(HashSet<Produkt> produkte) {
+	public ScrollPane setScrollPane(Set<Produkt> produkte) {
 		if (scrollpane == null) {
 
 			scrollpane = new ScrollPane();
 			scrollpane.setContent(setGridPane(produkte));
-			scrollpane.setStyle("-fx-border-color: white; -fx-border: gone; -fx-focus-color: white");
-			scrollpane.setPadding(new Insets(50));
+			scrollpane.setStyle(
+					"-fx-border-color: white; -fx-border: none; -fx-focus-color: white; -fx-background-color: white");
+			scrollpane.setPadding(new Insets(50, 50, 50, 50));
 		}
 
 		return scrollpane;
@@ -174,10 +197,10 @@ public class StartseiteKunde extends KundeOverview {
 	/**
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
-	 * @param produkte HashSet mit Produkten die dargestellt werden sollen.
-	 * @return
+	 * @param produkte Set mit Produkten die dargestellt werden sollen.
+	 * @return GridPane
 	 */
-	public GridPane setGridPane(HashSet<Produkt> produkte) {
+	public GridPane setGridPane(Set<Produkt> produkte) {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 
@@ -189,16 +212,18 @@ public class StartseiteKunde extends KundeOverview {
 			int a = 0;
 			int b = 0;
 
-			while (iterator.hasNext()) {
+			for (Produkt produkt : produkte) {
 
-				Produkt prod = iterator.next();
-				gridpane.add(setProduktPanel(prod), b, a);
+				// Produkt prod = iterator.next();
+				gridpane.add(setProduktPanel(produkt), b, a);
 				b++;
 				if (b % 6 == 0) {
 					a++;
 					b = b % 6;
 				}
 			}
+
+			gridpane.setStyle(" -fx-background-color: white");
 		}
 		return gridpane;
 	}
@@ -244,6 +269,14 @@ public class StartseiteKunde extends KundeOverview {
 
 		produktPanel.setEffect(dropShadow);
 
+		// Animation fuer Komponenten
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(produktPanel);
+		translate.setDuration(Duration.millis(1500));
+		translate.setFromY(10);
+		translate.setByY(-10);
+		translate.play();
+
 		return produktPanel;
 	}
 
@@ -258,26 +291,43 @@ public class StartseiteKunde extends KundeOverview {
 	public HBox setHBox(Produkt p) {
 		HBox hbox = new HBox();
 
-		ChoiceBox<Integer> choicebox = new ChoiceBox<Integer>();
+		ComboBox<Integer> combobox = new ComboBox<Integer>();
 		Button addProdukt = new Button("Add");
 		int n = kundensteuerung.getProduktBestand(p);
 		int i = 0;
 
 		while (n >= i) {
-			choicebox.getItems().add(i);
+			combobox.getItems().add(i);
 			i++;
 		}
 
-		choicebox.setValue(0);
+		combobox.setValue(0);
 
 		addProdukt.setOnAction(e -> {
-			if (choicebox.getValue() > 0) {
-				kundensteuerung.produktZuWarenkorbHinzufuegen(p, choicebox.getValue());
+			if (combobox.getValue() > 0) {
+				kundensteuerung.produktZuWarenkorbHinzufuegen(p, combobox.getSelectionModel().getSelectedItem());
+				System.out.println(combobox.getSelectionModel().getSelectedItem());
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
 		});
 
-		hbox.getChildren().add(choicebox);
+		combobox.setOnMouseEntered(e -> {
+			combobox.setStyle(" -fx-cursor: hand;");
+		});
+
+		combobox.setOnMouseExited(e -> {
+			combobox.setStyle(" -fx-cursor: default;");
+		});
+
+		addProdukt.setOnMouseEntered(e -> {
+			addProdukt.setStyle(" -fx-cursor: hand;");
+		});
+
+		addProdukt.setOnMouseExited(e -> {
+			addProdukt.setStyle(" -fx-cursor: default;");
+		});
+
+		hbox.getChildren().add(combobox);
 		hbox.getChildren().add(addProdukt);
 
 		hbox.setSpacing(20);
@@ -296,28 +346,39 @@ public class StartseiteKunde extends KundeOverview {
 		if (btSuche == null) {
 			btSuche = new Button();
 
-			//ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
-			//view.setFitWidth(30);
-			//view.setFitHeight(30);
-			//btSuche.setGraphic(view);
+			ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
+			view.setFitWidth(30);
+			view.setFitHeight(30);
+			btSuche.setGraphic(view);
 
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);
 
-			btSuche.setStyle("-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none");
+			String css = "-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none";
+			btSuche.setStyle(css);
 			btSuche.setAlignment(Pos.CENTER);
 
 			btSuche.setOnAction(e -> {
-				HashSet<Produkt> produkte = new HashSet<Produkt>();
-				HashSet<String> produktnamen = new HashSet<String>();
-				for (Produkt produkt : kundensteuerung.suchen(textFeldSuche.getText())) {
-					if (!(produktnamen.contains(produkt.getName()))) {
-						produktnamen.add(produkt.getName());
-						produkte.add(produkt);
+				if (textFeldSuche.getText() != null && !(textFeldSuche.getText().isBlank())) {
+					HashSet<Produkt> produkte = new HashSet<Produkt>();
+					HashSet<String> produktnamen = new HashSet<String>();
+					for (Produkt produkt : kundensteuerung.suchen(textFeldSuche.getText())) {
+						if (!(produktnamen.contains(produkt.getName()))) {
+							produktnamen.add(produkt.getName());
+							produkte.add(produkt);
+						}
 					}
+					primaryStage.setScene(
+							new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
 				}
-				primaryStage.setScene(
-						new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
+			});
+
+			btSuche.setOnMouseEntered(e -> {
+				btSuche.setStyle(" -fx-cursor: hand;" + css);
+			});
+
+			btSuche.setOnMouseExited(e -> {
+				btSuche.setStyle(" -fx-cursor: default;" + css);
 			});
 		}
 		return btSuche;

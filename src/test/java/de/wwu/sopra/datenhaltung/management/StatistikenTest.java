@@ -3,6 +3,7 @@ package de.wwu.sopra.datenhaltung.management;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,16 @@ class StatistikenTest {
 		Statistiken.setUmsatz(1);
 	}
 
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+		Statistiken.setAusgaben(0);
+		Statistiken.setEinnahmen(0);
+		Statistiken.setUmsatz(0);
+		Statistiken.setArbeitszeit(0);
+	}
+
 	/**
 	 * Testet den Kontruktor.
 	 */
@@ -28,6 +39,15 @@ class StatistikenTest {
 		assertTrue(Statistiken.getAusgaben() == 1);
 		assertTrue(Statistiken.getEinnahmen() == 0);
 		assertTrue(Statistiken.getUmsatz() == 1);
+		assertThrows(AssertionError.class, () -> {
+			Statistiken.setArbeitszeit(-1);
+		});
+		assertThrows(AssertionError.class, () -> {
+			Statistiken.setUmsatz(-1);
+		});
+		assertThrows(AssertionError.class, () -> {
+			Statistiken.setAusgaben(-1);
+		});
 	}
 
 	/**

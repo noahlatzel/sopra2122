@@ -51,10 +51,10 @@ public class InhaberOverview extends Scene {
 	 */
 	public InhaberOverview(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(new BorderPane(), width, height);
-		
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-		
+
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.inhaberSteuerung = inhaberSteuerung;
@@ -82,7 +82,7 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
-		
+
 		return this.vbox;
 	}
 
@@ -100,7 +100,7 @@ public class InhaberOverview extends Scene {
 			Label logoLabel = new Label("Logo");
 			logoLabel.setTextFill(Color.web("#000000"));
 			header.setLeft(logoLabel);
-			
+
 			// Right side
 			header.setRight(this.setMenuButton());
 		}
@@ -253,6 +253,7 @@ public class InhaberOverview extends Scene {
 	}
 
 	/**
+	 * 
 	 * Erzeugt Button fuer ProduktKategorieHinzu
 	 * 
 	 * @return Button fuer ProduktKategorieHinzu

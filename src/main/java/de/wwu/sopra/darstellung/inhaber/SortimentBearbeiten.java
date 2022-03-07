@@ -4,16 +4,18 @@
 package de.wwu.sopra.darstellung.inhaber;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -83,7 +85,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 		if (this.content == null) {
 			content = new TilePane();
 			// Get Produkte Im Lager
-			HashSet<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
+			Set<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
 
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
@@ -124,7 +126,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 		TextField tfName = new TextField();
 		TextField tfBeschreibung = new TextField();
 		TextField tfPreis = new TextField();
-		TextField tfKategorie = new TextField();
+		ComboBox<String> cbKategorie = new ComboBox<String>();
 
 		Button btnAktualisieren = new Button("Speichern");
 		Button btnLoeschen = new Button("Loeschen");
@@ -132,18 +134,37 @@ public class SortimentBearbeiten extends InhaberOverview {
 		tfName.setText(produkt.getName());
 		tfBeschreibung.setText(produkt.getBeschreibung());
 		tfPreis.setText(String.valueOf(produkt.getVerkaufspreis()));
-		try {
 
-			tfKategorie.setText(String.valueOf(produkt.getKategorie().getName()));
+		List<Kategorie> kategorien;
+		try {
+			int index;
+			kategorien = new ArrayList<Kategorie>();
+
+			for (Kategorie i : Lager.getKategorien()) {
+				kategorien.add(i);
+			}
+
+			for (Kategorie i : kategorien) {
+				cbKategorie.getItems().add(i.getName());
+			}
+			for (Kategorie i : kategorien) {
+				if (i.getName().equals(produkt.getKategorie().getName())) {
+
+					index = kategorien.indexOf(i);
+					cbKategorie.getSelectionModel().select(index);
+				}
+			}
+
 		} catch (NullPointerException l) {
-			tfKategorie.setText(String.valueOf(produkt.getKategorie()));
+			// cbKategorie.setText(String.valueOf("Keine Kategorie"));
 		}
+
 		// Auf Grid setzen
 		produktGP.add(produktImg, 0, 0, 2, 1);
 		produktGP.add(tfName, 0, 1, 2, 1);
 		produktGP.add(tfBeschreibung, 0, 2, 2, 1);
 		produktGP.add(tfPreis, 0, 3, 2, 1);
-		produktGP.add(tfKategorie, 0, 4, 2, 1);
+		produktGP.add(cbKategorie, 0, 4, 2, 1);
 		produktGP.add(btnAktualisieren, 0, 5);
 		produktGP.add(btnLoeschen, 1, 5);
 
@@ -184,11 +205,31 @@ public class SortimentBearbeiten extends InhaberOverview {
 				inhaberSteuerung.produktBearbeiten(produkt, tfName.getText(), tfBeschreibung.getText(), preisDbl);
 				List<Produkt> produkteZurKategorie = new ArrayList<Produkt>();
 				produkteZurKategorie.add(produkt);
+				Kategorie kat = produkt.getKategorie();
+				try {
+					for (Kategorie i : Lager.getKategorien()) {
+						if (cbKategorie.getValue().equals(i.getName()))
+							kat = i;
+					}
 
-				if (!tfKategorie.getText().isBlank()) {
-					Kategorie kategorie = new Kategorie(tfKategorie.getText());
-					inhaberSteuerung.kategorieProdukteVerwalten(kategorie, produkteZurKategorie, "hinzufuegen");
+					if (produkt.getKategorie() == null) {
+						produkt.setKategorie(kat);
+						kat.addProdukt(produkt);
+					} else {
+						produkt.getKategorie().removeProdukt(produkt);
+						produkt.setKategorie(kat);
+						kat.addProdukt(produkt);
+					}
+				} catch (NullPointerException l) {
+
 				}
+				/*
+				 * if (!tfKategorie.getText().isBlank()) { Kategorie kategorie = new
+				 * Kategorie(tfKategorie.getText());
+				 * inhaberSteuerung.kategorieProdukteVerwalten(kategorie, produkteZurKategorie,
+				 * "hinzufuegen"); }
+				 */
+
 			} else {
 				errorLabel.setText("Keine leere Angaben erlaubt");
 				produktGP.add(errorLabel, 0, 6);

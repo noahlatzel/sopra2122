@@ -8,10 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Testklasse zur Klasse Inhaber
@@ -24,6 +27,12 @@ public class InhaberTest {
 	Inhaber inhaber;
 	Fahrer fahrer;
 	Lagerist lagerist;
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
 
 	@BeforeEach
 	public void setup() {
