@@ -102,7 +102,6 @@ public class InhaberOverview extends Scene {
 			header.setLeft(logoLabel);
 			
 			// Right side
-			
 			header.setRight(this.setMenuButton());
 		}
 

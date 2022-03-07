@@ -27,13 +27,13 @@ public class Registrierung extends Scene {
 	FlowPane flowpane;
 
 	Button buttonRegistrieren = new Button("Registrieren");
-	TextField textFeldBenutzername = new TextField();;
-	TextField textFeldPasswort = new TextField();;
-	TextField textFeldEmail = new TextField();;
-	TextField textFeldAdresse = new TextField();;
-	TextField textFeldVorname = new TextField();;
+	TextField textFeldBenutzername = new TextField();
+	TextField textFeldPasswort = new TextField();
+	TextField textFeldEmail = new TextField();
+	TextField textFeldAdresse = new TextField();
+	TextField textFeldVorname = new TextField();
 	TextField textFeldName = new TextField();;
-	TextField textFeldBankverbindung = new TextField();;
+	TextField textFeldBankverbindung = new TextField();
 	Label labelBenutzername = new Label("Benutzername");
 	Label labelPasswort = new Label("Passwort");
 	Label labelEmail = new Label("Email");
