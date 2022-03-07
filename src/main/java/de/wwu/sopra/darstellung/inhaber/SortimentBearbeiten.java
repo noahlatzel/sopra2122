@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -65,8 +66,9 @@ public class SortimentBearbeiten extends InhaberOverview {
 			title.setStyle("-fx-font-weight: bold");
 			title.setFont(new Font("Arial", 32));
 			contentWrapper.setTop(title);
-			contentWrapper.setCenter(this.setContent());
-
+			ScrollPane scrollPane = new ScrollPane();
+			scrollPane.setContent(this.setContent());
+			contentWrapper.setCenter(scrollPane);
 		}
 
 		return this.contentWrapper;
