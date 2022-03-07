@@ -1,5 +1,8 @@
 package de.wwu.sopra.darstellung.main;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
@@ -17,15 +20,16 @@ import javafx.stage.Stage;
  *
  */
 public class MainJavaFx extends Application {
+	private static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
 	/**
 	 * Breite des Fensters
 	 */
-	public static final int WIDTH = 1280;
+	private final int WIDTH = gd.getDisplayMode().getWidth() / 2;
 	/**
 	 * Hoehe des Fensters
 	 */
-	public static final int HEIGHT = 720;
+	private final int HEIGHT = gd.getDisplayMode().getHeight() / 2;
 
 	/**
 	 * Basislayout
@@ -46,7 +50,8 @@ public class MainJavaFx extends Application {
 		primaryStage.setTitle("Jasmins Epische Harry Potter Traenke");
 
 		primaryStage.setScene(new Startseite(primaryStage, WIDTH, HEIGHT));
-
+		primaryStage.setResizable(false);
+		primaryStage.sizeToScene();
 		primaryStage.show();
 
 	}

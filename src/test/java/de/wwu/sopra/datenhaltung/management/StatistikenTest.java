@@ -3,6 +3,7 @@ package de.wwu.sopra.datenhaltung.management;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,12 @@ class StatistikenTest {
 		Statistiken.setAusgaben(1);
 		Statistiken.setEinnahmen(0);
 		Statistiken.setUmsatz(1);
+	}
+
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,18 +33,21 @@ public class LageristensteuerungTest {
 	Produkt produkt2;
 	HashSet<NachbestellungTupel> nachbestellungen;
 
-	@BeforeEach
-	void reset() {
+	@AfterEach
+	void cleanAfter() {
 		Lager.reset();
 		FahrzeugRegister.reset();
 	}
 
 	@BeforeEach
 	void init() {
+		Lager.reset();
+		FahrzeugRegister.reset();
 		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
 				"Muenster", "Noah", "Latzel", "GuteBank", null));
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.99, 1.29));
+
 		produkt1 = new Produkt("Coca Cola", "Lecker", 0.99, 1.29);
 		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
@@ -102,6 +106,9 @@ public class LageristensteuerungTest {
 		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
 		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
 
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
+
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
@@ -120,6 +127,7 @@ public class LageristensteuerungTest {
 		assertThrows(AssertionError.class, () -> {
 			lageristenSteuerung.planeRoute(new ArrayList<Bestellung>(), new Fahrzeug(20));
 		});
+		assertTrue(lageristenSteuerung.getSortiment().equals(Lager.getLagerbestand().keySet()));
 	}
 
 	/**
@@ -140,8 +148,8 @@ public class LageristensteuerungTest {
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 
-		Lager.getLagerbestand().put("Cola", 0);
-		Lager.getLagerbestand().put("Fanta", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 
 		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
 		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
@@ -182,9 +190,9 @@ public class LageristensteuerungTest {
 		produkte.add(cola);
 		produkte.add(korn);
 
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Krombacher Pils", 0);
-		Lager.getLagerbestand().put("Sasse Korn", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Krombacher Pils", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Sasse Korn", "Lecker", 0.49, 0.99));
 
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
 		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);
@@ -231,6 +239,7 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();

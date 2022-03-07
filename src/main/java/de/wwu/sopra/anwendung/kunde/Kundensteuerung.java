@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -215,8 +216,8 @@ public class Kundensteuerung {
 	 * 
 	 * @return Produktliste aus dem Lager
 	 */
-	public HashSet<Produkt> getLager() {
-		return Lager.getLager();
+	public Set<Produkt> getLager() {
+		return Lager.sortimentAnzeigen();
 	}
 
 	/**
@@ -262,8 +263,8 @@ public class Kundensteuerung {
 	 * @param kategorie Kategorie nach der das uebergebene Hashset gefiltert wird.
 	 * @return Gefiltertes HashSet.
 	 */
-	public HashSet<Produkt> filterProdukteNachKategorie(HashSet<Produkt> produkte, Kategorie kategorie) {
-		HashSet<Produkt> filteredProdukte = new HashSet<Produkt>();
+	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
+		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
 		for (Produkt produkt : produkte) {
 			if (produkt.getKategorie().equals(kategorie)) {
 				filteredProdukte.add(produkt);

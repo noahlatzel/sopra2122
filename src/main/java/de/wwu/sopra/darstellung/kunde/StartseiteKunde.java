@@ -2,6 +2,7 @@ package de.wwu.sopra.darstellung.kunde;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
@@ -42,8 +43,10 @@ public class StartseiteKunde extends KundeOverview {
 	Button btSuche;
 	MenuButton menuButton;
 	HBox hbox;
-	HashSet<Produkt> produkte;
-
+	Set<Produkt> produkte;
+	/**
+	 * CSS fuer Produkt Panel
+	 */
 	private static final String STANDARD_PRODUKT_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
 	/**
@@ -53,9 +56,10 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
-			HashSet<Produkt> produkte) {
+			Set<Produkt> produkte) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
@@ -68,9 +72,10 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
+	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
-	public BorderPane setBorderPane(HashSet<Produkt> produkte) {
+	public BorderPane setBorderPane(Set<Produkt> produkte) {
 		if (borderpane == null) {
 			borderpane = new BorderPane();
 			kundensteuerung.getKategorien();
@@ -100,6 +105,11 @@ public class StartseiteKunde extends KundeOverview {
 		return searchBarBP;
 	}
 
+	/**
+	 * Erzeugt den MenuButton
+	 * 
+	 * @return MenuButton
+	 */
 	public MenuButton setMenuButton() {
 		if (menuButton == null) {
 			menuButton = new MenuButton("Kategorien");
@@ -159,7 +169,7 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param produkte Alle in dem Set enthaltenen Produkte werden angezeigt.
 	 * @return Gibt fertig konfigurierte ScrollPane zurueck.
 	 */
-	public ScrollPane setScrollPane(HashSet<Produkt> produkte) {
+	public ScrollPane setScrollPane(Set<Produkt> produkte) {
 		if (scrollpane == null) {
 
 			scrollpane = new ScrollPane();
@@ -175,9 +185,9 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
 	 * @param produkte HashSet mit Produkten die dargestellt werden sollen.
-	 * @return
+	 * @return GridPane
 	 */
-	public GridPane setGridPane(HashSet<Produkt> produkte) {
+	public GridPane setGridPane(Set<Produkt> produkte) {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 
@@ -296,10 +306,10 @@ public class StartseiteKunde extends KundeOverview {
 		if (btSuche == null) {
 			btSuche = new Button();
 
-			//ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
-			//view.setFitWidth(30);
-			//view.setFitHeight(30);
-			//btSuche.setGraphic(view);
+			ImageView view = new ImageView(getClass().getResource("lupe.png").toExternalForm());
+			view.setFitWidth(30);
+			view.setFitHeight(30);
+			btSuche.setGraphic(view);
 
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);

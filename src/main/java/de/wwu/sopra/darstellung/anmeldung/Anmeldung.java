@@ -45,6 +45,7 @@ public class Anmeldung extends Scene {
 	Label labelPasswort;
 	VBox vbox;
 	Text title;
+	Button buttonZurueck;
 
 	/**
 	 * Erzeugt eine neue Anmeldungsseite.
@@ -60,7 +61,7 @@ public class Anmeldung extends Scene {
 		root.setCenter(setVBox());
 		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
 		BenutzerRegister.benutzerHinzufuegen(inhaber);
-		
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
@@ -80,11 +81,12 @@ public class Anmeldung extends Scene {
 			textFeldBenutzername = new TextField();
 			textFeldPasswort = new PasswordField();
 			buttonAnmelden = new Button("Anmelden");
+			buttonZurueck = new Button("Zurueck");
 
 			// Set und Style Titel der Seite
 			title = new Text("Anmeldung");
 			title.getStyleClass().add("anmeldung-registrierung-title");
-			
+
 			// Styling von Komponenten
 			vbox.getStyleClass().add("anmeldung-wrapper");
 			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
@@ -102,6 +104,7 @@ public class Anmeldung extends Scene {
 			vbox.getChildren().add(labelPasswort);
 			vbox.getChildren().add(textFeldPasswort);
 			vbox.getChildren().add(buttonAnmelden);
+			vbox.getChildren().add(setButtonZurueck());
 
 			buttonAnmelden.setOnAction(e -> {
 				Benutzer benutzer = anmelden(textFeldBenutzername.getText(), textFeldPasswort.getText());
@@ -162,5 +165,21 @@ public class Anmeldung extends Scene {
 			System.out.println("Inhaber angemeldet!");
 			break;
 		}
+	}
+
+	/**
+	 * Erzeugt den Zurueck-Button
+	 * 
+	 * @return Zurueck-Button
+	 */
+	private Button setButtonZurueck() {
+		buttonZurueck.getStyleClass().add("registrierung-button");
+
+		// Knopfdruckfunktionalitaet
+		buttonZurueck.setOnAction(e -> {
+			primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+		});
+
+		return buttonZurueck;
 	}
 }

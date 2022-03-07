@@ -49,10 +49,10 @@ public class InhaberOverview extends Scene {
 	 */
 	public InhaberOverview(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(new BorderPane(), width, height);
-		
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-		
+
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.inhaberSteuerung = inhaberSteuerung;
@@ -78,9 +78,10 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(this.setAbmelden());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
-		
+
 		return this.vbox;
 	}
 
@@ -98,17 +99,17 @@ public class InhaberOverview extends Scene {
 			Label logoLabel = new Label("Logo");
 			logoLabel.setTextFill(Color.web("#000000"));
 			header.setLeft(logoLabel);
-			
+
 			// Right side
 			Menu userMenu = new Menu("User");
 			userMenu.getStyleClass().add("mitarbeiter-menu");
-			
+
 			MenuItem abmeldenOption = new MenuItem("Abmelden");
 			abmeldenOption.setOnAction(e -> {
 				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 			});
 			userMenu.getItems().add(abmeldenOption);
-			
+
 			MenuBar menuBar = new MenuBar();
 			menuBar.getStyleClass().add("mitarbeiter-menubar");
 			menuBar.getMenus().add(userMenu);
@@ -244,6 +245,23 @@ public class InhaberOverview extends Scene {
 	}
 
 	/**
+	 * Erzeugt Button fuer Abmelden
+	 * 
+	 * @return Button fuer Abmelden
+	 */
+	private Button setAbmelden() {
+		if (btAbmelden == null) {
+			btAbmelden = new Button("Abmelden");
+			btAbmelden.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btAbmelden.setOnAction(a -> {
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return this.btAbmelden;
+	}
+
+	/**
+	 * 
 	 * Erzeugt Button fuer ProduktKategorieHinzu
 	 * 
 	 * @return Button fuer ProduktKategorieHinzu

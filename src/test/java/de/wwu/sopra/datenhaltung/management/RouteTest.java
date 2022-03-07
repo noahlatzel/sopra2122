@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,12 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 class RouteTest {
 	ArrayList<Bestellung> testbestellungen;
 
+	@AfterEach
+	void cleanAfter() {
+		Lager.reset();
+		FahrzeugRegister.reset();
+	}
+
 	@BeforeEach
 	void reset() {
 		Lager.reset();
@@ -37,9 +44,9 @@ class RouteTest {
 		produkte.add(bier);
 		produkte.add(cola);
 		produkte.add(korn);
-		Lager.getLagerbestand().put("Coca Cola", 0);
-		Lager.getLagerbestand().put("Krombacher Pils", 0);
-		Lager.getLagerbestand().put("Sasse Korn", 0);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Krombacher Pils", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Sasse Korn", "Lecker", 0.49, 0.99));
 		testbestellungen = new ArrayList<Bestellung>();
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
 		testbestellungen.add(testbestellung1);
@@ -156,7 +163,7 @@ class RouteTest {
 		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Lager.getLagerbestand().put("Cola", 10);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Fahrzeug fzeug3 = new Fahrzeug(200);
 		Bestellung bestellung = new Bestellung(null, produkte, kunde1);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
