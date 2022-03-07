@@ -1,13 +1,15 @@
 package de.wwu.sopra.darstellung.lagerist;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,17 +31,17 @@ public class LageristOverview extends Scene {
 	Image image;
 	ImageView logo;
 	VBox vbox;
+	BorderPane header;
 	Button btRoutePlanen;
 	Button btBestelleNach;
 	Button btPersDatenAnzeigen;
 	Button btPersDatenBearbeiten;
 	Button btZeigeRouteVonFahrzeug;
-	Button btAbmelden;
 	Lageristensteuerung lageristenSteuerung;
-
-	// Erstellung von DropShadows fuer Komponenten
+	MenuButton userMenu;
+	MenuItem btAbmelden;
 	DropShadow dropShadow = new DropShadow();
-
+	
 	/**
 	 * Color constant fuer Button-Background
 	 */
@@ -48,6 +50,7 @@ public class LageristOverview extends Scene {
 	 * Color constant fuer Button-Background
 	 */
 	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
+
 
 	/**
 	 * Erzeugt das Fenster fuer den Lageristen
@@ -60,6 +63,9 @@ public class LageristOverview extends Scene {
 	public LageristOverview(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(new BorderPane(), width, height);
 
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(4.0);
 		dropShadow.setOffsetY(4.0);
@@ -68,6 +74,7 @@ public class LageristOverview extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.lageristenSteuerung = lageristenSteuerung;
+		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("Startseite..."));
 
@@ -80,20 +87,55 @@ public class LageristOverview extends Scene {
 	 */
 	private VBox setVBox() {
 		if (this.vbox == null) {
-			vbox = new VBox(5);
+			vbox = new VBox();
 			vbox.getChildren().add(this.setBtRoutePlanen());
 			vbox.getChildren().add(this.setBtBestelleNach());
 			vbox.getChildren().add(this.setBtPersDatenAnzeigen());
 			vbox.getChildren().add(this.setBtZeigeRouteVonFahrzeug());
-			vbox.getChildren().add(this.setAbmelden());
-			vbox.setEffect(dropShadow);
-			vbox.setAlignment(Pos.CENTER);
-
-			vbox.setSpacing(20);
-			vbox.setPadding(new Insets(10));
-			vbox.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 8px;");
+			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return this.vbox;
+	}
+	
+	/**
+	 * Erzeugt Header
+	 * 
+	 * @return Header
+	 */
+	private BorderPane setHeader() {
+		// Main Header, konstant
+		if (this.header == null) {
+			header = new BorderPane();
+			header.getStyleClass().add("mitarbeiter-header");
+			// Left side
+			Label logoLabel = new Label("Logo");
+			logoLabel.setTextFill(Color.web("#000000"));
+			header.setLeft(logoLabel);
+			
+			// Right side
+			
+			header.setRight(this.setMenuButton());
+		}
+
+		return this.header;
+	}
+	
+	private MenuButton setMenuButton() {
+		if (userMenu == null) {
+			MenuItem abmeldenOption = new MenuItem("Abmelden");
+			abmeldenOption.setOnAction(e -> {
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+			});
+			abmeldenOption.getStyleClass().add("mitarbeiter-menu-item");
+			userMenu = new MenuButton("", null, abmeldenOption);
+			userMenu.getStyleClass().add("mitarbeiter-menu");
+
+			ImageView view = new ImageView(getClass().getResource("user-icon.png").toExternalForm());
+			view.setFitWidth(35);
+			view.setFitHeight(35);
+			userMenu.setGraphic(view);
+		}
+		return this.userMenu;
 	}
 
 	/**
@@ -104,9 +146,7 @@ public class LageristOverview extends Scene {
 	private Button setBtRoutePlanen() {
 		if (this.btRoutePlanen == null) {
 			btRoutePlanen = new Button("Route planen");
-			btRoutePlanen.setMinWidth(200);
-			btRoutePlanen.setEffect(dropShadow);
-			changeButtonStyleOnHover(btRoutePlanen);
+			btRoutePlanen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btRoutePlanen.setOnAction(a -> {
 				primaryStage.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
@@ -122,9 +162,7 @@ public class LageristOverview extends Scene {
 	private Button setBtBestelleNach() {
 		if (this.btBestelleNach == null) {
 			btBestelleNach = new Button("Nachbestellen");
-			btBestelleNach.setMinWidth(200);
-			btBestelleNach.setEffect(dropShadow);
-			changeButtonStyleOnHover(btBestelleNach);
+			btBestelleNach.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btBestelleNach.setOnAction(a -> {
 				primaryStage.setScene(new BestelleNach(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
 			});
@@ -140,9 +178,7 @@ public class LageristOverview extends Scene {
 	private Button setBtPersDatenAnzeigen() {
 		if (this.btPersDatenAnzeigen == null) {
 			btPersDatenAnzeigen = new Button("Persoenliche Daten anzeigen");
-			btPersDatenAnzeigen.setMinWidth(200);
-			btPersDatenAnzeigen.setEffect(dropShadow);
-			changeButtonStyleOnHover(btPersDatenAnzeigen);
+			btPersDatenAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersDatenAnzeigen.setOnAction(a -> {
 				primaryStage.setScene(
 						new PersoenlicheDatenAnzeigen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
@@ -159,9 +195,7 @@ public class LageristOverview extends Scene {
 	private Button setBtZeigeRouteVonFahrzeug() {
 		if (this.btZeigeRouteVonFahrzeug == null) {
 			btZeigeRouteVonFahrzeug = new Button("Routen anzeigen");
-			btZeigeRouteVonFahrzeug.setMinWidth(200);
-			btZeigeRouteVonFahrzeug.setEffect(dropShadow);
-			changeButtonStyleOnHover(btZeigeRouteVonFahrzeug);
+			btZeigeRouteVonFahrzeug.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btZeigeRouteVonFahrzeug.setOnAction(a -> {
 				primaryStage.setScene(
 						new ZeigeRouteVonFahrzeug(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
@@ -169,30 +203,7 @@ public class LageristOverview extends Scene {
 		}
 		return this.btZeigeRouteVonFahrzeug;
 	}
-
-	/**
-	 * Erzeugt Button fuer Abmelden
-	 * 
-	 * @return Button fuer Abmelden
-	 */
-	private Button setAbmelden() {
-		if (btAbmelden == null) {
-			btAbmelden = new Button("Abmelden");
-			btAbmelden.setMinWidth(200);
-			btAbmelden.setEffect(dropShadow);
-			changeButtonStyleOnHover(btAbmelden);
-			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return this.btAbmelden;
-	}
-
-	/**
-	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * 
-	 * @param button Button, der gestylt wird
-	 */
+	
 	public void changeButtonStyleOnHover(final Button button) {
 		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
 		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
@@ -209,4 +220,6 @@ public class LageristOverview extends Scene {
 			}
 		});
 	}
+
+
 }

@@ -1,11 +1,18 @@
 package de.wwu.sopra.darstellung.fahrer;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Fahrersteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -19,6 +26,7 @@ public class OverviewFahrer extends Scene {
 	BorderPane root = new BorderPane();
 	Stage primaryStage;
 	VBox vbox;
+	BorderPane header;
 	Fahrersteuerung steuerung;
 	Button btFahrzeugwahlen;
 	Button btRouteAnzeigen;
@@ -28,7 +36,9 @@ public class OverviewFahrer extends Scene {
 	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
-	Button btAbmelden;
+	// Button btAbmelden;
+	MenuButton userMenu;
+	MenuItem btAbmelden;
 
 	/**
 	 * Erzeugt OverviewFahrer
@@ -43,7 +53,11 @@ public class OverviewFahrer extends Scene {
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.steuerung = steuerung;
+		root.setTop(this.setHeader());
 		root.setLeft(this.setGridPane());
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
 	/**
@@ -54,7 +68,6 @@ public class OverviewFahrer extends Scene {
 	private VBox setGridPane() {
 		if (vbox == null) {
 			vbox = new VBox();
-			vbox.setSpacing(5);
 
 			// buttons aufrufen
 			vbox.getChildren().add(setBtFahrzeugwahlen());
@@ -65,9 +78,49 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
-			vbox.getChildren().add(setBtAbmelden());
+			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
+	}
+	
+	/**
+	 * Erzeugt Header
+	 * 
+	 * @return Header
+	 */
+	private BorderPane setHeader() {
+		// Main Header, konstant
+		if (this.header == null) {
+			header = new BorderPane();
+			header.getStyleClass().add("mitarbeiter-header");
+			// Left side
+			Label logoLabel = new Label("Logo");
+			logoLabel.setTextFill(Color.web("#000000"));
+			header.setLeft(logoLabel);
+			
+			// Right side
+			header.setRight(this.setMenuButton());
+		}
+
+		return this.header;
+	}
+	
+	private MenuButton setMenuButton() {
+		if (userMenu == null) {
+			MenuItem abmeldenOption = new MenuItem("Abmelden");
+			abmeldenOption.setOnAction(e -> {
+				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
+			});
+			abmeldenOption.getStyleClass().add("mitarbeiter-menu-item");
+			userMenu = new MenuButton("", null, abmeldenOption);
+			userMenu.getStyleClass().add("mitarbeiter-menu");
+
+			ImageView view = new ImageView(getClass().getResource("user-icon.png").toExternalForm());
+			view.setFitWidth(35);
+			view.setFitHeight(35);
+			userMenu.setGraphic(view);
+		}
+		return this.userMenu;
 	}
 
 	/**
@@ -78,7 +131,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBtFahrzeugwahlen() {
 		if (btFahrzeugwahlen == null) {
 			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
-			btFahrzeugwahlen.setMinWidth(200);
+			btFahrzeugwahlen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btFahrzeugwahlen.setOnAction(e -> {
 				primaryStage.setScene(new FahrzeugAuswaehlen(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -94,7 +147,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBtRouteAnzeigen() {
 		if (btRouteAnzeigen == null) {
 			btRouteAnzeigen = new Button("Route Anzeigen");
-			btRouteAnzeigen.setMinWidth(200);
+			btRouteAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btRouteAnzeigen.setOnAction(e -> {
 				primaryStage.setScene(new RouteAnzeigen(steuerung, primaryStage, getWidth(), getHeight()));
 
@@ -111,7 +164,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBtFahrzeugpositionAnzeigen() {
 		if (btFahrzeugpositionAnzeigen == null) {
 			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
-			btFahrzeugpositionAnzeigen.setMinWidth(200);
+			btFahrzeugpositionAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btFahrzeugpositionAnzeigen.setOnAction(e -> {
 				primaryStage.setScene(new FahrzeugpositionAnzeigen(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -128,7 +181,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBtKundeNichtDa() {
 		if (btKundeNichtDa == null) {
 			btKundeNichtDa = new Button("Kunde nicht da");
-			btKundeNichtDa.setMinWidth(200);
+			btKundeNichtDa.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btKundeNichtDa.setOnAction(e -> {
 				primaryStage.setScene(new KundeNichtDa(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -139,7 +192,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBestellungAbgeben1() {
 		if (btBestellungAbgeben1 == null) {
 			btBestellungAbgeben1 = new Button("Bestellung abgeben");
-			btBestellungAbgeben1.setMinWidth(200);
+			btBestellungAbgeben1.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btBestellungAbgeben1.setOnAction(e -> {
 				primaryStage.setScene(new BestellungAbgeben(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -150,7 +203,7 @@ public class OverviewFahrer extends Scene {
 	private Button setLieferungabschielsen() {
 		if (btLieferungabschliesen == null) {
 			btLieferungabschliesen = new Button("Lieferung abschliesen");
-			btLieferungabschliesen.setMinWidth(200);
+			btLieferungabschliesen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btLieferungabschliesen.setOnAction(e -> {
 				primaryStage.setScene(new LieferungAbschlisen(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -166,7 +219,7 @@ public class OverviewFahrer extends Scene {
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (btPersoenlicheDatenAnzeigen == null) {
 			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
-			btPersoenlicheDatenAnzeigen.setMinWidth(200);
+			btPersoenlicheDatenAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersoenlicheDatenAnzeigen.setOnAction(e -> {
 				primaryStage.setScene(new PersoenlicheDatenAnzeigen(steuerung, primaryStage, getWidth(), getHeight()));
 			});
@@ -182,29 +235,13 @@ public class OverviewFahrer extends Scene {
 	private Button setBtPersoenlicheDatenBearbeiten() {
 		if (btPersoenlicheDatenBearbeiten == null) {
 			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.setMinWidth(200);
+			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
 				primaryStage
 						.setScene(new PersoenlicheDatenBearbeiten(steuerung, primaryStage, getWidth(), getHeight()));
 			});
 		}
 		return btPersoenlicheDatenBearbeiten;
-	}
-
-	/**
-	 * Erzeugt Button fuer Abmelden
-	 * 
-	 * @return Button fuer Abmelden
-	 */
-	private Button setBtAbmelden() {
-		if (btAbmelden == null) {
-			btAbmelden = new Button("Abmelden");
-			btAbmelden.setMinWidth(200);
-			btAbmelden.setOnAction(a -> {
-				primaryStage.setScene(new Startseite(primaryStage, 800, 600));
-			});
-		}
-		return this.btAbmelden;
 	}
 
 }
