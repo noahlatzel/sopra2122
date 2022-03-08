@@ -21,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -71,8 +70,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Fahrzeugdaten Aendern");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}

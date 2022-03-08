@@ -7,9 +7,9 @@ import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -36,6 +36,9 @@ public class OverviewFahrer extends Scene {
 	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
+	// Button btAbmelden;
+	MenuButton userMenu;
+	MenuItem btAbmelden;
 
 	/**
 	 * Erzeugt OverviewFahrer
@@ -53,12 +56,8 @@ public class OverviewFahrer extends Scene {
 
 		this.primaryStage = primaryStage;
 		this.steuerung = steuerung;
-
-		this.setRoot(root);
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
-		root.setCenter(new Label("Startseite..."));
-
 	}
 
 	/**
@@ -78,6 +77,7 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBestellungAbgeben1());
 			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
@@ -99,22 +99,33 @@ public class OverviewFahrer extends Scene {
 			header.setLeft(logoLabel);
 
 			// Right side
-			Menu userMenu = new Menu("User");
-			userMenu.getStyleClass().add("mitarbeiter-menu");
+			header.setRight(this.setMenuButton());
+		}
 
+		return this.header;
+	}
+
+	/**
+	 * Erstellung eines MenuButton fuer den Benutzer
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
+	 */
+	private MenuButton setMenuButton() {
+		if (userMenu == null) {
 			MenuItem abmeldenOption = new MenuItem("Abmelden");
 			abmeldenOption.setOnAction(e -> {
 				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 			});
-			userMenu.getItems().add(abmeldenOption);
+			abmeldenOption.getStyleClass().add("mitarbeiter-menu-item");
+			userMenu = new MenuButton("", null, abmeldenOption);
+			userMenu.getStyleClass().add("mitarbeiter-menu");
 
-			MenuBar menuBar = new MenuBar();
-			menuBar.getStyleClass().add("mitarbeiter-menubar");
-			menuBar.getMenus().add(userMenu);
-			header.setRight(menuBar);
+			ImageView view = new ImageView(getClass().getResource("user-icon.png").toExternalForm());
+			view.setFitWidth(35);
+			view.setFitHeight(35);
+			userMenu.setGraphic(view);
 		}
-
-		return this.header;
+		return this.userMenu;
 	}
 
 	/**
@@ -221,4 +232,20 @@ public class OverviewFahrer extends Scene {
 		return btPersoenlicheDatenAnzeigen;
 	}
 
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
+	 * 
+	 * @return Button fuer PersoenlicheDatenBearbeiten
+	 */
+	private Button setBtPersoenlicheDatenBearbeiten() {
+		if (btPersoenlicheDatenBearbeiten == null) {
+			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
+			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
+				primaryStage
+						.setScene(new PersoenlicheDatenBearbeiten(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btPersoenlicheDatenBearbeiten;
+	}
 }

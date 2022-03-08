@@ -29,6 +29,23 @@
     -fx-cursor: hand;
 }
 
+.anmeldung-zurueck-button {
+    -fx-background-color: #C14343;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-pref-height: 40;
+    -fx-pref-width: 120;
+    -fx-min-width: 176px;
+}
+
+.anmeldung-zurueck-button:hover {
+    -fx-background-color: #882e2e;
+    -fx-cursor: hand;
+}
+
 .anmeldung-button {
     -fx-background-color: #FF6868;
     -fx-background-radius: 16px;
@@ -38,6 +55,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
     -fx-pref-height: 40;
     -fx-pref-width: 120;
+    -fx-min-width: 176px;
 }
 
 .anmeldung-button:hover {
@@ -75,10 +93,28 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
     -fx-padding: 10px;
     -fx-alignment: center;
+    -fx-min-width: 176px;
 }
 
 .registrierung-button:hover {
     -fx-background-color: #C14343;
+    -fx-cursor: hand;
+}
+
+.registrierung-zurueck-button {
+    -fx-background-color: #C14343;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.registrierung-zurueck-button:hover {
+    -fx-background-color: #882e2e;
     -fx-cursor: hand;
 }
 
@@ -89,50 +125,157 @@
 }
 
 .mitarbeiter-sidemenu-wrapper {
-    -fx-background-color: #C4C4C4;
+    -fx-background-color: #B2DBBF;
 }
 
 .mitarbeiter-sidemenu-button {
-    -fx-background-color: #888888;
+    -fx-background-color: #a0c5ac;
     -fx-min-width: 300;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: rgb(35, 61, 77);
     -fx-font-size: 16;
     -fx-padding: 16 12 16 12;
     -fx-background-radius: 0;
-    -fx-border-color: #000000;
+    -fx-border-color: rgb(35, 61, 77);
     -fx-border-width: 0 0 1 0;
 }
 
 .mitarbeiter-sidemenu-button:focus {
-    -fx-background-color: #595959;
+    -fx-background-color: #799c84;
 }
 
-/* .mitarbeiter-sidemenu-button-active {
-    -fx-background-color: #595959;
-    -fx-min-width: 300;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 16;
-    -fx-padding: 16 12 16 12;
-    -fx-background-radius: 0;
-    -fx-border-color: #000000;
-    -fx-border-width: 0 0 1 0;
-} */
-
 .mitarbeiter-sidemenu-button:hover {
-    -fx-background-color: #595959;
+    -fx-background-color: #799c84;
     -fx-cursor: hand;
+    -fx-text-fill: #ffffff;
 }
 
 .mitarbeiter-header {
-    -fx-padding: 30px 40px 30px 40px;
-    -fx-background-color: #C4C4C4;
+    -fx-padding: 15px 40px 15px 40px;
+    -fx-background-color: #B2DBBF;
 }
 
 .mitarbeiter-menubar {
-    -fx-background: #C4C4C4;
+    -fx-background: #B2DBBF;
 }
 
 .mitarbeiter-menu {
+    -fx-color: #B2DBBF;
+    -fx-background-color: #B2DBBF;
+    -fx-mark-color: #B2DBBF;
+    -fx-font-size: 15;
+}
+
+.mitarbeiter-menu > .arrow-button {
+    -fx-padding: 0;
+}
+
+.mitarbeiter-menu > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.mitarbeiter-menu:hover {
+    -fx-cursor: hand;
+}
+
+.mitarbeiter-menu-item:focused, .mitarbeiter-menu-item:hovered {
+    -fx-background-color: #B2DBBF; 
+}
+
+.mitarbeiter-menu-item:focused .label, .mitarbeiter-menu-item:hovered .label {
+    -fx-text-fill: #000000;
+}
+
+.mitarbeiter-registrierung-wrapper {
+    -fx-hgap: 30;
+    -fx-vgap: 10;
+    -fx-padding: 16;
+}
+
+.mitarbeiter-registrierung-combobox {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 12px;
+    -fx-max-width: 240px;
+}
+
+.mitarbeiter-registrierung-button {
+    -fx-background-color: #a0c5ac;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.mitarbeiter-registrierung-button:hover {
+    -fx-background-color: #799c84;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+
+.registrierung-error-label {
+    -fx-text-fill: #ff0000;
+}
+
+.mitarbeiter-content-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.inhaber-mitarbeitern-tableview .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, rgba(83, 133, 165, 0.651), #93f9b896);
+}
+
+.inhaber-mitarbeitern-tableview .column-header {
+    -fx-background-color: transparent;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .track,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .track-background,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .track,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar .increment-button,
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, rgba(35, 61, 77, 0.904), #93f9b944);
+}
+.inhaber-mitarbeitern-tableview .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right, rgba(35, 61, 77, 0.904), #93f9b944);
+}
+
+.inhaber-mitarbeiter-tableview-wrapper {
+    -fx-padding: 24px;
+    -fx-vgap: 20;
+}
+
+.inhaber-mitarbeiter-verwaltung-button {
+    -fx-background-color: #a0c5ac;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 12px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.inhaber-mitarbeiter-verwaltung-button:hover {
+    -fx-background-color: #799c84;
+    -fx-text-fill: #ffffff;
     -fx-background: #C4C4C4;
 }
 

@@ -10,13 +10,9 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +23,21 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
+	
+	TextField textFeldBenutzername = new TextField();
+	TextField textFeldPasswort = new TextField();
+	TextField textFeldEmail = new TextField();
+	TextField textFeldAdresse = new TextField();
+	TextField textFeldVorname = new TextField();
+	TextField textFeldName = new TextField();;
+	TextField textFeldBankverbindung = new TextField();
+	Label labelBenutzername = new Label("Benutzername");
+	Label labelPasswort = new Label("Passwort");
+	Label labelEmail = new Label("Email");
+	Label labelAdresse = new Label("Adresse");
+	Label labelVorname = new Label("Vorname");
+	Label labelName = new Label("Name");
+	Label labelBankverbindung = new Label("Bankverbindung");
 
 	/**
 	 * Zeigt die persoenlichen Daten zum bearbeiten
@@ -53,8 +64,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Persoenliche Daten Bearbeiten");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}
@@ -72,110 +82,87 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			gridPane = new GridPane();
 			// Get alle Daten vom Inhaber als String
 			String alleDatenAlsString = inhaberSteuerung.persoenlicheDatenAnzeigen();
-
-			// Erstellung von Labeln und TextFields
-			Label lblBenutzername = new Label("Benutzername");
-			Label lblPasswort = new Label("Passwort");
-			Label lblEmail = new Label("Email");
-			Label lblAdresse = new Label("Adresse");
-			Label lblVorname = new Label("Vorname");
-			Label lblNachname = new Label("Nachname");
-			Label lblBankverbindung = new Label("Bankverbindung");
-
-			TextField tfBenutzername = new TextField();
-			PasswordField tfPasswort = new PasswordField();
-			TextField tfEmail = new TextField();
-			TextField tfAdresse = new TextField();
-			TextField tfVorname = new TextField();
-			TextField tfNachname = new TextField();
-			TextField tfBankverbindung = new TextField();
-
-			// in organisierten Komponenten zeigen
-			VBox vboxBenutzerName = new VBox(2);
-			vboxBenutzerName.getChildren().add(lblBenutzername);
-			vboxBenutzerName.getChildren().add(tfBenutzername);
-
-			VBox vboxPasswort = new VBox(2);
-			vboxPasswort.getChildren().add(lblPasswort);
-			vboxPasswort.getChildren().add(tfPasswort);
-
-			VBox vboxEmail = new VBox(2);
-			vboxEmail.getChildren().add(lblEmail);
-			vboxEmail.getChildren().add(tfEmail);
-
-			VBox vboxAdresse = new VBox(2);
-			vboxAdresse.getChildren().add(lblAdresse);
-			vboxAdresse.getChildren().add(tfAdresse);
-
-			VBox vboxVorname = new VBox(2);
-			vboxVorname.getChildren().add(lblVorname);
-			vboxVorname.getChildren().add(tfVorname);
-
-			VBox vboxNachname = new VBox(2);
-			vboxNachname.getChildren().add(lblNachname);
-			vboxNachname.getChildren().add(tfNachname);
-
-			VBox vboxBankverbindung = new VBox(2);
-			vboxBankverbindung.getChildren().add(lblBankverbindung);
-			vboxBankverbindung.getChildren().add(tfBankverbindung);
+			
+			// Styling TextFelder, Labeln, GridPane
+			textFeldBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldEmail.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldVorname.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldName.getStyleClass().add("anmeldung-registrierung-textfield");
+			textFeldBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
+			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
+			labelPasswort.getStyleClass().add("anmeldung-registrierung-label");
+			labelEmail.getStyleClass().add("anmeldung-registrierung-label");
+			labelAdresse.getStyleClass().add("anmeldung-registrierung-label");
+			labelVorname.getStyleClass().add("anmeldung-registrierung-label");
+			labelName.getStyleClass().add("anmeldung-registrierung-label");
+			labelBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
+			gridPane.getStyleClass().add("mitarbeiter-registrierung-wrapper");
 
 			// Alles auf Grid
-			gridPane.add(vboxBenutzerName, 0, 0);
-			gridPane.add(vboxVorname, 0, 1);
-			gridPane.add(vboxPasswort, 0, 2);
-			gridPane.add(vboxAdresse, 0, 3);
-			gridPane.add(vboxEmail, 1, 0);
-			gridPane.add(vboxNachname, 1, 1);
-			gridPane.add(vboxBankverbindung, 1, 2);
+			gridPane.add(labelVorname, 1, 1);
+			gridPane.add(textFeldVorname, 1, 2);
+			gridPane.add(labelName, 2, 1);
+			gridPane.add(textFeldName, 2, 2);
+			gridPane.add(labelBenutzername, 1, 4);
+			gridPane.add(textFeldBenutzername, 1, 5);
+			gridPane.add(labelPasswort, 2, 4);
+			gridPane.add(textFeldPasswort, 2, 5);
+			gridPane.add(labelEmail, 1, 7);
+			gridPane.add(textFeldEmail, 1, 8);
+			gridPane.add(labelAdresse, 2, 7);
+			gridPane.add(textFeldAdresse, 2, 8);
+			gridPane.add(labelBankverbindung, 1, 10);
+			gridPane.add(textFeldBankverbindung, 1, 11);
 
 			// Lange String durch ";" teilen und Daten einsetzen
 			String[] getrennteDatenString = alleDatenAlsString.split(";");
-			tfBenutzername.setText(getrennteDatenString[0]);
-			tfPasswort.setText(getrennteDatenString[1]);
-			tfEmail.setText(getrennteDatenString[2]);
-			tfAdresse.setText(getrennteDatenString[3]);
-			tfVorname.setText(getrennteDatenString[4]);
-			tfNachname.setText(getrennteDatenString[5]);
-			tfBankverbindung.setText(getrennteDatenString[6]);
+			textFeldBenutzername.setText(getrennteDatenString[0]);
+			textFeldPasswort.setText(getrennteDatenString[1]);
+			textFeldEmail.setText(getrennteDatenString[2]);
+			textFeldAdresse.setText(getrennteDatenString[3]);
+			textFeldVorname.setText(getrennteDatenString[4]);
+			textFeldName.setText(getrennteDatenString[5]);
+			textFeldBankverbindung.setText(getrennteDatenString[6]);
 
 			// Erstellung von Speicher-Button
 			Button btSpeichern = new Button("Speichern");
-			gridPane.add(btSpeichern, 1, 4);
+			btSpeichern.getStyleClass().add("mitarbeiter-registrierung-button");
+			gridPane.add(btSpeichern, 2, 12);
 			btSpeichern.setOnAction(e -> {
 
 				// Ueberprueft, dass alle Eingaben nicht leer sing
 				boolean gueltigeEinngaben = true;
-				List<TextField> felder = new ArrayList<TextField>();
-				felder.add(tfBankverbindung);
-				felder.add(tfNachname);
-				felder.add(tfVorname);
-				felder.add(tfAdresse);
-				felder.add(tfEmail);
-				felder.add(tfPasswort);
-				felder.add(tfBenutzername);
-				for (TextField feld : felder) {
-					if (feld.getText().isBlank())
+				List<TextField> inputs = new ArrayList<TextField>();
+				inputs.add(textFeldBankverbindung);
+				inputs.add(textFeldName);
+				inputs.add(textFeldVorname);
+				inputs.add(textFeldAdresse);
+				inputs.add(textFeldEmail);
+				inputs.add(textFeldPasswort);
+				inputs.add(textFeldBenutzername);
+
+				for (TextField i : inputs) {
+					if (i.getText().isBlank())
 						gueltigeEinngaben = false;
 				}
 
 				// Erstellung von neuem roten Error-Label
 				Label errorLabel = new Label();
-				errorLabel.setTextFill(Color.web("#ff0000"));
+				errorLabel.getStyleClass().add("registrierung-error-label");
 
 				if (gueltigeEinngaben == true) {
-					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(),
-							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
-							tfBankverbindung.getText());
+					inhaberSteuerung.persoenlicheDatenAendern(textFeldBenutzername.getText(), textFeldPasswort.getText(),
+							textFeldEmail.getText(), textFeldAdresse.getText(), textFeldVorname.getText(), textFeldName.getText(),
+							textFeldBankverbindung.getText());
 					errorLabel.setText("");
 				} else {
 					errorLabel.setText("Keine leere Angaben erlaubt");
 				}
 
-				gridPane.add(errorLabel, 1, 5);
+				gridPane.add(errorLabel, 2, 13);
 			});
-
-			gridPane.setHgap(10);
-			gridPane.setVgap(10);
 
 		}
 

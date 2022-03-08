@@ -7,8 +7,7 @@ import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,8 +34,18 @@ public class LageristOverview extends Scene {
 	Button btPersDatenAnzeigen;
 	Button btPersDatenBearbeiten;
 	Button btZeigeRouteVonFahrzeug;
-	Button btAbmelden;
 	Lageristensteuerung lageristenSteuerung;
+	MenuButton userMenu;
+	MenuItem btAbmelden;
+
+	/**
+	 * Color constant fuer Button-Background
+	 */
+	protected static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
+	/**
+	 * Color constant fuer Button-Background
+	 */
+	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt das Fenster fuer den Lageristen
@@ -48,6 +57,7 @@ public class LageristOverview extends Scene {
 	 */
 	public LageristOverview(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(new BorderPane(), width, height);
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
@@ -55,6 +65,7 @@ public class LageristOverview extends Scene {
 		this.lageristenSteuerung = lageristenSteuerung;
 
 		this.setRoot(root);
+
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("Startseite..."));
@@ -94,22 +105,34 @@ public class LageristOverview extends Scene {
 			header.setLeft(logoLabel);
 
 			// Right side
-			Menu userMenu = new Menu("User");
-			userMenu.getStyleClass().add("mitarbeiter-menu");
 
+			header.setRight(this.setMenuButton());
+		}
+
+		return this.header;
+	}
+
+	/**
+	 * Erstellung eines MenuButton fuer den Benutzer
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
+	 */
+	private MenuButton setMenuButton() {
+		if (userMenu == null) {
 			MenuItem abmeldenOption = new MenuItem("Abmelden");
 			abmeldenOption.setOnAction(e -> {
 				primaryStage.setScene(new Startseite(primaryStage, getWidth(), getHeight()));
 			});
-			userMenu.getItems().add(abmeldenOption);
+			abmeldenOption.getStyleClass().add("mitarbeiter-menu-item");
+			userMenu = new MenuButton("", null, abmeldenOption);
+			userMenu.getStyleClass().add("mitarbeiter-menu");
 
-			MenuBar menuBar = new MenuBar();
-			menuBar.getStyleClass().add("mitarbeiter-menubar");
-			menuBar.getMenus().add(userMenu);
-			header.setRight(menuBar);
+			ImageView view = new ImageView(getClass().getResource("user-icon.png").toExternalForm());
+			view.setFitWidth(35);
+			view.setFitHeight(35);
+			userMenu.setGraphic(view);
 		}
-
-		return this.header;
+		return this.userMenu;
 	}
 
 	/**

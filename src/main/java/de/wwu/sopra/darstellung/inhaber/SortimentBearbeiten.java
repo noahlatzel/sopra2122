@@ -65,8 +65,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Alle Produkte");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			ScrollPane scrollPane = new ScrollPane();
 			scrollPane.setContent(this.setContent());
