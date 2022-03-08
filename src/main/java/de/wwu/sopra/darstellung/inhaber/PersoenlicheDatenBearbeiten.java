@@ -83,6 +83,7 @@ public class PersoenlicheDatenBearbeiten extends InhaberOverview {
 			// Get alle Daten vom Inhaber als String
 			String alleDatenAlsString = inhaberSteuerung.persoenlicheDatenAnzeigen();
 			
+			// Styling TextFelder, Labeln, GridPane
 			textFeldBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
 			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
 			textFeldEmail.getStyleClass().add("anmeldung-registrierung-textfield");

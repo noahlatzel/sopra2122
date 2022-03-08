@@ -120,6 +120,10 @@ public class LageristOverview extends Scene {
 		return this.header;
 	}
 	
+	/**
+	 * Erstellung eines MenuButton fuer den Benutzer
+	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {
 			MenuItem abmeldenOption = new MenuItem("Abmelden");

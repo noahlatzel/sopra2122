@@ -62,6 +62,7 @@ public class Anmeldung extends Scene {
 		Inhaber inhaber = new Inhaber("admin", "admin", "123@onlin.de", "breul 23", "boss", "Baby", "hallo");
 		BenutzerRegister.benutzerHinzufuegen(inhaber);
 
+		// Stylesheet Import
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}

@@ -52,6 +52,7 @@ public class InhaberOverview extends Scene {
 	public InhaberOverview(Stage primaryStage, double width, double height, Inhabersteuerung inhaberSteuerung) {
 		super(new BorderPane(), width, height);
 
+		// Stylesheet Import
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
@@ -108,6 +109,10 @@ public class InhaberOverview extends Scene {
 		return this.header;
 	}
 	
+	/**
+	 * Erstellung eines MenuButton fuer den Benutzer
+	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {
 			MenuItem abmeldenOption = new MenuItem("Abmelden");

@@ -4,7 +4,6 @@ import java.io.File;
 
 import de.wwu.sopra.anwendung.anmeldung.Anmeldungssteuerung;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -58,10 +57,15 @@ public class Registrierung extends Scene {
 		this.setRoot(root);
 		root.setCenter(setGridPane());
 
+		// Stylesheet Import
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
+	/**
+	 * Erstellung und Styling aus der Hauptkomponente dieser Seite
+	 * @return gridpane		Hauptbestandteil dieser Seite
+	 */
 	private GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
@@ -106,7 +110,6 @@ public class Registrierung extends Scene {
 			gridpane.add(textFeldBankverbindung, 1, 11);
 			gridpane.add(setButtonRegistrieren(), 2, 12, 2, 1);
 			gridpane.add(setButtonZurueck(), 1, 12, 4, 5);
-			gridpane.setAlignment(Pos.CENTER);
 		}
 		return gridpane;
 	}
