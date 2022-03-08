@@ -188,7 +188,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 						korrekteEingabe = false;
 				}
 
-				// wen nicht blanc
+				// Wenn nicht leer
 				if (korrekteEingabe == true) {
 					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(),
 							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),

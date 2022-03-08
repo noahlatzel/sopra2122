@@ -171,7 +171,7 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 						korrekteEingabe = false;
 				}
 
-				// wen nicht blanc
+				// Wenn nicht leer
 				if (korrekteEingabe == true) {
 					lageristenSteuerung.persoenlicheDatenBearbeiten(tfBenutzername.getText(), tfPasswort.getText(),
 							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
