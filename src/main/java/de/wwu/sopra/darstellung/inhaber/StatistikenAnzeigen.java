@@ -4,15 +4,12 @@
 package de.wwu.sopra.darstellung.inhaber;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
