@@ -73,14 +73,14 @@ public class InhaberOverview extends Scene {
 		// Erstellung von SideBar mit allen Buttons
 		if (this.vbox == null) {
 			vbox = new VBox();
-			vbox.getChildren().add(this.setBtStatistiken());
+			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(this.setBtSortimentBearbeiten());
 			vbox.getChildren().add(this.setBtMitarbeiterRegistrieren());
 			vbox.getChildren().add(this.setBtMitarbeiterVerwalten());
-			vbox.getChildren().add(this.setBtSortimentBearbeiten());
 			vbox.getChildren().add(this.setBtProduktHinzufuegen());
 			vbox.getChildren().add(this.setBtKategorienVerwaltung());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
-			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(this.setBtStatistiken());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 
@@ -256,7 +256,7 @@ public class InhaberOverview extends Scene {
 		}
 		return this.btKategorienVerwaltung;
 	}
-	
+
 	/**
 	 * 
 	 * Erzeugt Button fuer ProduktHinzufuegen
@@ -268,8 +268,7 @@ public class InhaberOverview extends Scene {
 			btProduktHinzufuegen = new Button("Produkt Hinzufuegen");
 			btProduktHinzufuegen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btProduktHinzufuegen.setOnAction(e -> {
-				primaryStage
-						.setScene(new ProduktHinzufuegen(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+				primaryStage.setScene(new ProduktHinzufuegen(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
 		return this.btProduktHinzufuegen;

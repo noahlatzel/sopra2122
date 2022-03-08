@@ -71,13 +71,13 @@ public class OverviewFahrer extends Scene {
 			vbox = new VBox();
 
 			// buttons aufrufen
+			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getChildren().add(setBtFahrzeugwahlen());
 			vbox.getChildren().add(setBtRouteAnzeigen());
 			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
-			vbox.getChildren().add(setBtKundeNichtDa());
 			vbox.getChildren().add(setBestellungAbgeben1());
+			vbox.getChildren().add(setBtKundeNichtDa());
 			vbox.getChildren().add(setLieferungabschielsen());
-			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
