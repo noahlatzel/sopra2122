@@ -77,7 +77,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			gridPane = new GridPane();
 			gridPane.add(this.setMitarbeiternTableView(), 0, 0);
 			gridPane.add(this.setLoeschenButton(), 0, 1);
-			
+
 			gridPane.getStyleClass().add("inhaber-mitarbeiter-tableview-wrapper");
 		}
 
@@ -247,6 +247,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 			tableViewMitarbeitern.getColumns().add(benutzerAdresseSpalte);
 			tableViewMitarbeitern.getColumns().add(benutzerBankverbindungSpalte);
 			tableViewMitarbeitern.setItems(mitarbeitern);
+			tableViewMitarbeitern.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			spMitarbeitern.setContent(tableViewMitarbeitern);
 		}
 

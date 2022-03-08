@@ -17,7 +17,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -61,8 +60,7 @@ public class RoutePlanen extends LageristOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Routen planen");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}
@@ -78,6 +76,7 @@ public class RoutePlanen extends LageristOverview {
 			gridPane.add(setScrollPaneProdukt(), 1, 0);
 			gridPane.add(setBtRouteAbschicken(), 0, 1);
 			gridPane.add(setErrorLabel(""), 1, 1);
+			gridPane.getStyleClass().add("inhaber-mitarbeitern-tableview");
 		}
 		return gridPane;
 	}
@@ -110,6 +109,8 @@ public class RoutePlanen extends LageristOverview {
 			tableViewFahrzeug.getColumns().add(fahrzeugSpalte);
 			tableViewFahrzeug.getColumns().add(kapazitaetSpalte);
 			tableViewFahrzeug.setItems(fahrzeuge);
+			tableViewFahrzeug.getStyleClass().add("inhaber-mitarbeitern-tableview");
+			tableViewFahrzeug.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			scrollPaneFahrzeug.setContent(tableViewFahrzeug);
 		}
 		return scrollPaneFahrzeug;
@@ -136,8 +137,10 @@ public class RoutePlanen extends LageristOverview {
 			tableViewBestellung.getColumns().add(bestellNr);
 			tableViewBestellung.getColumns().add(kapazitaetSpalte);
 			tableViewBestellung.setItems(bestellungen);
+			tableViewBestellung.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			scrollPaneProdukt.setContent(tableViewBestellung);
 			tableViewBestellung.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			tableViewBestellung.getStyleClass().add("inhaber-mitarbeitern-tableview");
 		}
 		return scrollPaneProdukt;
 	}
@@ -151,6 +154,7 @@ public class RoutePlanen extends LageristOverview {
 		if (this.btRouteAbschicken == null) {
 			btRouteAbschicken = new Button("Route planen");
 			btRouteAbschicken.setMinWidth(200);
+			btRouteAbschicken.getStyleClass().add("inhaber-form-button");
 			btRouteAbschicken.setOnAction(a -> {
 				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {

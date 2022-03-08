@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -50,8 +49,7 @@ public class BestelleNach extends LageristOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Nachbestellungen");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setScrollPane());
 		}
