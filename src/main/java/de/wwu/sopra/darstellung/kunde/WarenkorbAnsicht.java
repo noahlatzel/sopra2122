@@ -232,13 +232,17 @@ public class WarenkorbAnsicht extends KundeOverview {
 		rect.setHeight(65);
 		rect.setWidth(90);
 
+		ImageView produktImg = new ImageView(produkte.get(0).loadBild());
+		produktImg.setFitHeight(65);
+		produktImg.setPreserveRatio(true);
+
 		VBox vbox = setProduktnameVBox(produkte);
 		HBox.setMargin(vbox, new Insets(5, 0, 0, 0));
 
 		Button button = setLoeschenButton(produkte);
 		HBox.setMargin(button, new Insets(8, 5, 22, 5));
 
-		hbox.getChildren().add(rect);
+		hbox.getChildren().add(produktImg);
 		hbox.getChildren().add(vbox);
 		hbox.getChildren().add(setPreisLabelVBox(produkte));
 		hbox.getChildren().add(button);

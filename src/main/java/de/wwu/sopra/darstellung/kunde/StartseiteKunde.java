@@ -245,12 +245,19 @@ public class StartseiteKunde extends KundeOverview {
 		rect.setWidth(130);
 		rect.setHeight(105);
 
+		ImageView produktBild = new ImageView(p.loadBild());
+		produktBild.setPreserveRatio(true);
+		produktBild.setFitHeight(105);
+
 		Label produktName = new Label(p.getName());
+		produktName.setMinWidth(110);
 		Label produktPreis = new Label("Preis: " + p.getVerkaufspreis() + "€");
+		produktPreis.setMinWidth(110);
 
 		produktName.setStyle("-fx-font-weight: bold");
 
-		produktPanel.getChildren().add(rect);
+		produktPanel.setAlignment(Pos.CENTER);
+		produktPanel.getChildren().add(produktBild);
 		produktPanel.getChildren().add(produktName);
 		produktPanel.getChildren().add(produktPreis);
 		produktPanel.getChildren().add(setHBox(p));

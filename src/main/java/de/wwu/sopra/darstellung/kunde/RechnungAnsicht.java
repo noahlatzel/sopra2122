@@ -13,12 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class RechnungAnsicht {
@@ -231,10 +231,10 @@ public class RechnungAnsicht {
 	public static BorderPane setProduktPanel(List<Produkt> produkte) {
 		BorderPane borderpane = new BorderPane();
 
-		Rectangle rect = new Rectangle();
-		rect.setFill(Color.LIGHTGRAY);
-		rect.setHeight(65);
-		rect.setWidth(90);
+		ImageView produktImg = new ImageView();
+		produktImg.setImage(produkte.get(0).loadBild());
+		produktImg.setPreserveRatio(true);
+		produktImg.setFitHeight(60);
 
 		VBox vbox1 = setProduktnameVBox(produkte);
 		HBox.setMargin(vbox1, new Insets(5, 0, 0, 0));
@@ -242,7 +242,7 @@ public class RechnungAnsicht {
 		VBox vbox2 = setPreisLabelVBox(produkte);
 		HBox.setMargin(vbox2, new Insets(5, 0, 0, 0));
 
-		borderpane.setLeft(rect);
+		borderpane.setLeft(produktImg);
 		borderpane.setCenter(vbox1);
 		borderpane.setRight(vbox2);
 

@@ -1,6 +1,9 @@
 package de.wwu.sopra.datenhaltung.management;
 
 import java.io.Serializable;
+import java.net.URL;
+
+import javafx.scene.image.Image;
 
 /**
  * Klasse der Produkte
@@ -37,6 +40,10 @@ public class Produkt implements Serializable {
 	 * ProduktID
 	 */
 	private final int produktID;
+	/**
+	 * Pfad zum Produktbild
+	 */
+	private String produktBild = "stock.jpg";
 
 	/**
 	 * Konstruktor
@@ -90,7 +97,6 @@ public class Produkt implements Serializable {
 			throw new IllegalArgumentException("Der Name eines Produktes darf nicht leer sein.");
 		}
 		int index = Lager.getProduktNamenListe().indexOf(this.getName());
-		System.out.println(index);
 		if (index != -1) {
 			Lager.getProduktNamenListe().set(index, name.strip());
 		}
@@ -167,6 +173,7 @@ public class Produkt implements Serializable {
 	public Produkt clone(double preis) {
 		Produkt temp = new Produkt(this.getName(), this.getBeschreibung(), preis, this.getEinkaufspreis());
 		temp.setKategorie(this.getKategorie());
+		temp.setProduktBild(this.getProduktBild());
 		return temp;
 
 	}
@@ -178,6 +185,43 @@ public class Produkt implements Serializable {
 	 */
 	public int getProduktID() {
 		return produktID;
+	}
+
+	/**
+	 * Laedt das Produktbild
+	 * 
+	 * @return das Produktbild
+	 */
+	public Image loadBild() {
+		Image bild = new Image(getClass().getResource(this.getProduktBild()).toExternalForm());
+		for (Produkt produkt : Lager.sortimentAnzeigen()) {
+			if (produkt.equals(this)) {
+				bild = new Image(getClass().getResource(produkt.getProduktBild()).toExternalForm());
+			}
+		}
+
+		return bild;
+	}
+
+	/**
+	 * Gibt den Pfad zum ProduktBild zurueck
+	 * 
+	 * @return den Pfad zum ProduktBild
+	 */
+	public String getProduktBild() {
+		return this.produktBild;
+	}
+
+	/**
+	 * Setzt einen neuen Bildpfad
+	 * 
+	 * @param bildPfad Pfad fuer das Bild
+	 */
+	public void setProduktBild(String bildPfad) {
+		URL test = getClass().getResource(bildPfad);
+		if (test != null) {
+			this.produktBild = bildPfad;
+		}
 	}
 
 	/**
