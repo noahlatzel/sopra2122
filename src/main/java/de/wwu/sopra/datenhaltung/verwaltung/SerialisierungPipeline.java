@@ -48,7 +48,7 @@ public class SerialisierungPipeline<T> {
 				ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);) {
 			obj = (T) objectInputStream.readObject();
 		} catch (IOException e) {
-			e.printStackTrace();
+			obj = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

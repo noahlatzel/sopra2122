@@ -160,7 +160,7 @@ public class Produkt implements Serializable {
 	 * @return Das neue Produkt.
 	 */
 	public Produkt clone(double preis) {
-		Produkt temp = new Produkt(this.getName(), this.getBeschreibung(), preis, preis + 0.2);
+		Produkt temp = new Produkt(this.getName(), this.getBeschreibung(), preis, this.getEinkaufspreis());
 		temp.setKategorie(this.getKategorie());
 		return temp;
 
