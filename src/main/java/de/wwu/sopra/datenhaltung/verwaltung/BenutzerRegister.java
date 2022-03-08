@@ -162,6 +162,7 @@ public class BenutzerRegister implements Serializable {
 		if (benutzer.getRolle() == Rolle.KUNDE) {
 			Kunde kunde = (Kunde) benutzer;
 			kunde.getWarenkorb().produktEntfernen(produkt);
+			kunde.getWarenkorb().setBetrag();
 		}
 	}
 

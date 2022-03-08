@@ -276,5 +276,20 @@
 .inhaber-mitarbeiter-verwaltung-button:hover {
     -fx-background-color: #799c84;
     -fx-text-fill: #ffffff;
+    -fx-background: #C4C4C4;
+}
+
+.add-button-kunde {
+    -fx-background-color: #FF6868;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 5px 8px 5px 8px;
+    -fx-alignment: center;
+}
+
+.add-button-kunde:hover {
+    -fx-background-color: #C14343;
     -fx-cursor: hand;
 }

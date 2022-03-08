@@ -1,5 +1,7 @@
 package de.wwu.sopra.darstellung.kunde;
 
+import java.io.File;
+
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
 import javafx.geometry.Insets;
@@ -35,6 +37,7 @@ public class KundeOverview extends Scene {
 	MenuButton menubutton;
 	Button btWarenkorb;
 	Kundensteuerung kundensteuerung;
+	File stylesheet;
 
 	/**
 	 * Konstruktor fuer die Uebersicht des Kunden
@@ -53,6 +56,9 @@ public class KundeOverview extends Scene {
 		root.setTop(this.setHeaderBorderPane());
 		root.setCenter(new Label("KUNDE OVERVIEW"));
 		root.setStyle(" -fx-background-color: white");
+
+		stylesheet = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + stylesheet.getAbsolutePath().replace("\\", "/"));
 	}
 
 	/**
@@ -68,7 +74,7 @@ public class KundeOverview extends Scene {
 
 		headerBP.setPadding(new Insets(0, 10, 0, 10));
 
-		headerBP.setStyle(" -fx-background-color: #dadada");
+		headerBP.setStyle(" -fx-background-color: #ffb6b6");
 
 		return headerBP;
 	}
@@ -105,14 +111,14 @@ public class KundeOverview extends Scene {
 			view.setFitHeight(35);
 			btWarenkorb.setGraphic(view);
 
-			btWarenkorb.setStyle(" -fx-color: #dadada; -fx-background-color: #dadada");
+			btWarenkorb.setStyle(" -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
 
 			btWarenkorb.setOnMouseEntered(e -> {
-				btWarenkorb.setStyle(" -fx-cursor: hand;  -fx-color: #dadada; -fx-background-color: #dadada");
+				btWarenkorb.setStyle(" -fx-cursor: hand;  -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
 			});
 
 			btWarenkorb.setOnMouseExited(e -> {
-				btWarenkorb.setStyle(" -fx-cursor: default;  -fx-color: #dadada; -fx-background-color: #dadada");
+				btWarenkorb.setStyle(" -fx-cursor: default;  -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
 			});
 
 			btWarenkorb.setOnAction(action -> {
@@ -130,13 +136,13 @@ public class KundeOverview extends Scene {
 	 */
 	private Button setBtLogo() {
 		if (this.btLogo == null) {
-			btLogo = new Button("Logo");
-			btLogo.setMinWidth(250);
+			btLogo = new Button();
+			btLogo.setMinWidth(50);
 
 			btLogo.setAlignment(Pos.CENTER_LEFT);
-			btLogo.setPadding(new Insets(15, 0, 15, 30));
+			btLogo.setPadding(new Insets(8, 0, 5, 10));
 
-			String css = "-fx-background-color: #dadada; -fx-font-weight: bold; -fx-mark-color: #dadada; -fx-font-size: 15; -fx-focus-color: #dadada; -fx-border-color: #dadada";
+			String css = "-fx-background-color: #ffb6b6; -fx-font-weight: bold; -fx-mark-color: #ffb6b6; -fx-font-size: 15; -fx-focus-color: #ffb6b6; -fx-border-color: #ffb6b6";
 			btLogo.setStyle(css);
 
 			btLogo.setOnMouseEntered(e -> {
@@ -151,6 +157,11 @@ public class KundeOverview extends Scene {
 				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
 						kundensteuerung.getLager()));
 			});
+
+			ImageView view = new ImageView(getClass().getResource("home-button.png").toExternalForm());
+			view.setFitWidth(35);
+			view.setFitHeight(35);
+			btLogo.setGraphic(view);
 		}
 
 		return this.btLogo;
@@ -215,7 +226,7 @@ public class KundeOverview extends Scene {
 			view.setFitHeight(40);
 			menubutton.setGraphic(view);
 
-			String css = " -fx-color: #dadada; -fx-background-color: #dadada; -fx-mark-color: #dadada; -fx-font-size: 15;";
+			String css = " -fx-color: #ffb6b6; -fx-background-color: #ffb6b6; -fx-mark-color: #ffb6b6; -fx-font-size: 15;";
 			menubutton.setStyle(css);
 
 			menubutton.setOnMouseEntered(e -> {
