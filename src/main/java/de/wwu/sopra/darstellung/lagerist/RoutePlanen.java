@@ -1,5 +1,7 @@
 package de.wwu.sopra.darstellung.lagerist;
 
+import java.util.List;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
@@ -14,7 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -24,13 +26,14 @@ import javafx.stage.Stage;
  * @author Noah Latzel
  */
 public class RoutePlanen extends LageristOverview {
-	TilePane tilePane;
+	GridPane gridPane;
 	ScrollPane scrollPaneFahrzeug;
 	TableView<Fahrzeug> tableViewFahrzeug;
 	ScrollPane scrollPaneProdukt;
 	TableView<Bestellung> tableViewBestellung;
 	ObservableList<Fahrzeug> fahrzeuge;
 	ObservableList<Bestellung> bestellungen;
+	Label errorLabel;
 	Button btRouteAbschicken;
 	BorderPane contentWrapper;
 
@@ -67,15 +70,24 @@ public class RoutePlanen extends LageristOverview {
 		return this.contentWrapper;
 	}
 
-	private TilePane setContent() {
-		if (tilePane == null) {
-			tilePane = new TilePane();
-			tilePane.setPadding(new Insets(20));
-			tilePane.getChildren().add(this.setScrollPaneFahrzeug());
-			tilePane.getChildren().add(this.setScrollPaneProdukt());
-			tilePane.getChildren().add(this.setBtRouteAbschicken());
+	private GridPane setContent() {
+		if (gridPane == null) {
+			gridPane = new GridPane();
+			gridPane.setPadding(new Insets(20));
+			gridPane.add(setScrollPaneFahrzeug(), 0, 0);
+			gridPane.add(setScrollPaneProdukt(), 1, 0);
+			gridPane.add(setBtRouteAbschicken(), 0, 1);
+			gridPane.add(setErrorLabel(""), 1, 1);
 		}
-		return tilePane;
+		return gridPane;
+	}
+
+	private Label setErrorLabel(String text) {
+		if (errorLabel == null) {
+			errorLabel = new Label();
+		}
+		errorLabel.setText(text);
+		return errorLabel;
 	}
 
 	/**
@@ -142,13 +154,40 @@ public class RoutePlanen extends LageristOverview {
 			btRouteAbschicken.setOnAction(a -> {
 				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
-					lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
-							tableViewFahrzeug.getSelectionModel().getSelectedItem());
-					primaryStage.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
+					if (!this.pruefeKapazitaet(tableViewFahrzeug.getSelectionModel().getSelectedItem(),
+							tableViewBestellung.getSelectionModel().getSelectedItems())) {
+						setErrorLabel("Die Bestellung passt nicht in das Fahrzeug.");
+					} else {
+						lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
+								tableViewFahrzeug.getSelectionModel().getSelectedItem());
+						primaryStage
+								.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
+					}
+				} else {
+					setErrorLabel("Ueberpruefe deine Eingaben!");
 				}
 			});
 		}
 		return this.btRouteAbschicken;
+	}
+
+	/**
+	 * Prueft, ob die Bestellungen in das Fahrzeug passen.
+	 * 
+	 * @param fahrzeug     Fahrzeug
+	 * @param bestellungen Liste der Bestellungen
+	 * @return ob die Route fuer das Fahrzeug passt
+	 */
+	private boolean pruefeKapazitaet(Fahrzeug fahrzeug, List<Bestellung> bestellungen) {
+		boolean gueltig = true;
+		int bestellungKapazitaet = 0;
+		for (Bestellung bestellung : bestellungen) {
+			bestellungKapazitaet += bestellung.getKapazitaet();
+		}
+		if (bestellungKapazitaet > fahrzeug.getKapazitaet()) {
+			gueltig = false;
+		}
+		return gueltig;
 	}
 
 }
