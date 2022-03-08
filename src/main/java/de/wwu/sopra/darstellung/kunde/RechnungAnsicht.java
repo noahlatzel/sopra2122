@@ -1,18 +1,18 @@
 package de.wwu.sopra.darstellung.kunde;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
-import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
+import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,28 +21,34 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/**
- * Darstellungsklasse fuer WarenkorbAnsicht
- * 
- * @author Paul Dirksen
- *
- */
-public class WarenkorbAnsicht extends KundeOverview {
+public class RechnungAnsicht {
 
-	Button btBestellen;
+	private static Rechnung rechnung;
+	private static Stage primaryStage;
+	private static double WIDTH;
+	private static double HEIGHT;
 
 	/**
-	 * Konstruktor fuer die Warenkorbansicht
+	 * Erzeugt ein Fenster mit der uebergebenen Rechnung
 	 * 
-	 * @param primaryStage    PrimaryStage
-	 * @param width           Breite des Fensters
-	 * @param height          Hoehe des Fensters
-	 * @param kundensteuerung KundenSteuerung
+	 * @param rechnung Rechnung wird im Fenster angezeigt.
+	 * @param width    Breite des Fensters.
+	 * @param height   Hoehe des Fensters.
 	 */
-	public WarenkorbAnsicht(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
+	public static void display(Rechnung rechnung, double width, double height) {
+		primaryStage = new Stage();
+		RechnungAnsicht.rechnung = rechnung;
+		WIDTH = width;
+		HEIGHT = height;
 
-		super(primaryStage, width, height, kundensteuerung);
-		root.setCenter(setOuterBorderPane());
+		primaryStage.setTitle("Rechnung Nr." + rechnung.getRechnungsnummer());
+
+		Scene scene = new Scene(setOuterBorderPane(), WIDTH, HEIGHT);
+
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(true);
+		primaryStage.sizeToScene();
+		primaryStage.show();
 	}
 
 	/**
@@ -51,7 +57,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 * 
 	 * @return Gibt Borderpane zurueck.
 	 */
-	public BorderPane setOuterBorderPane() {
+	public static BorderPane setOuterBorderPane() {
 		BorderPane borderpane = new BorderPane();
 
 		borderpane.setTop(setTitle());
@@ -61,20 +67,25 @@ public class WarenkorbAnsicht extends KundeOverview {
 	}
 
 	/**
-	 * Erstellt eine HBox mit dem Titel "Warenkorb"
+	 * Erstellt eine VBox mit dem Titel "Warenkorb"
 	 * 
-	 * @return HBox mit Label "Warenkorb"
+	 * @return VBox mit Label "Warenkorb"
 	 */
-	public HBox setTitle() {
-		HBox hbox = new HBox();
+	public static VBox setTitle() {
+		VBox vbox = new VBox();
 
-		Label warenkorb = new Label("Warenkorb");
-		warenkorb.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		hbox.getChildren().add(warenkorb);
+		Label bestellung = new Label("Rechnung-Nr." + RechnungAnsicht.rechnung.getRechnungsnummer());
+		bestellung.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
 
-		hbox.setPadding(new Insets(10));
+		Label datum = new Label("Bestellt am " + RechnungAnsicht.rechnung.getDatum()
+				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
 
-		return hbox;
+		vbox.getChildren().add(bestellung);
+		vbox.getChildren().add(datum);
+
+		vbox.setPadding(new Insets(10));
+
+		return vbox;
 	}
 
 	/**
@@ -83,13 +94,13 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 * 
 	 * @return Borderpane mit Warenkorbfunktionalitaeten
 	 */
-	public BorderPane setInnerBorderPane() {
+	public static BorderPane setInnerBorderPane() {
 		BorderPane borderpane = new BorderPane();
 
-		Line line = new Line(50, 0, 50, getHeight() / 1.3);
+		Line line = new Line(50, 0, 50, HEIGHT / 1.2);
 		line.setStroke(Color.GRAY);
 
-		borderpane.setRight(setVBoxBestellen());
+		borderpane.setRight(setVBoxRechts());
 		borderpane.setCenter(line);
 		borderpane.setLeft(setScrollPane());
 
@@ -98,12 +109,17 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return borderpane;
 	}
 
-	public ScrollPane setScrollPane() {
+	/**
+	 * Erzeugt Scrollpane mit den Produkten der Bestellung der Rechnung.
+	 * 
+	 * @return Scrollpane mit den Produkten der Bestellung der Rechnung
+	 */
+	public static ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
 		ScrollPane scrollpane = new ScrollPane(vbox);
 		vbox.setFillWidth(true);
 
-		scrollpane.setMinWidth(getWidth() / 1.4);
+		scrollpane.setMinWidth(WIDTH / 1.4);
 		scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
 		scrollpane.setStyle(
@@ -114,35 +130,38 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return scrollpane;
 	}
 
-	public VBox setVBoxProdukte() {
+	/**
+	 * Erzeugt VBox mit den Produkten der Bestellung der Rechnung
+	 * 
+	 * @return VBox mit den Produkten der Bestellung der Rechnung
+	 */
+	public static VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
 
-		Warenkorb warenkorb = kundensteuerung.warenkorbAnsicht();
+		List<Produkt> produkteBest = RechnungAnsicht.rechnung.getBestellung().getProdukte();
 
-		if (!(warenkorb.getProdukte().isEmpty())) {
+		if (!(produkteBest.isEmpty())) {
 
 			// Liste mit den Namen der verschiedenen Produkten
 			List<String> strings = new ArrayList<String>();
 
-			for (Produkt produkt : warenkorb.getProdukte()) {
+			for (Produkt produkt : produkteBest) {
 				List<Produkt> produkte = new ArrayList<Produkt>();
 
 				if (!(strings.contains(produkt.getName()))) {
 
 					String name = produkt.getName();
-					for (Produkt prod : warenkorb.getProdukte()) {
+					for (Produkt prod : produkteBest) {
 						if (prod.getName().equals(name)) {
 							produkte.add(prod);
 						}
 					}
-
 					vbox.getChildren().add(setProduktPanel(produkte));
 
 					strings.add(produkt.getName());
 				}
 
 			}
-
 			vbox.setSpacing(30);
 		} else {
 			Label warenkorbLeerLabel = new Label("Warenkorb leer!");
@@ -156,30 +175,38 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
-	public VBox setVBoxBestellen() {
+	/**
+	 * Erzeugt VBox mit dem Gesamtbetrag der Rechnung
+	 * 
+	 * @return VBox mit dem Gesamtbetrag der Rechnung in einer VBox
+	 */
+	public static VBox setVBoxRechts() {
 		VBox vbox = new VBox();
 
 		VBox summeVbox = setSummeVBox();
 		vbox.getChildren().add(summeVbox);
-		vbox.getChildren().add(setBtBestellen());
 
 		vbox.setPadding(new Insets(10));
-		vbox.setMinWidth(getWidth() / 4);
-		VBox.setMargin(btBestellen, new Insets(0, 40, 40, 40));
-		VBox.setMargin(summeVbox, new Insets(40, 40, 0, 40));
+		vbox.setMinWidth(WIDTH / 4);
+
+		VBox.setMargin(summeVbox, new Insets(25, 40, 0, 40));
 
 		return vbox;
 	}
 
-	public VBox setSummeVBox() {
+	/**
+	 * Erzeugt VBox mit dem Gesamtbetrag der Rechnung
+	 * 
+	 * @return VBox mit dem Gesamtbetrag der Rechnung als Label
+	 */
+	public static VBox setSummeVBox() {
 		VBox vbox = new VBox();
 
-		Label subtotal = new Label("Subtotal");
+		Label subtotal = new Label("Rechnungsbetrag");
 		Label preis = new Label();
 
 		double betrag = 0;
-		kundensteuerung.warenkorbAnsicht().setBetrag();
-		betrag = kundensteuerung.warenkorbAnsicht().getBetrag();
+		betrag = rechnung.getEndbetrag();
 		betrag = (Math.floor(betrag * 100)) / 100;
 
 		preis.setText(betrag + " EUR");
@@ -187,35 +214,12 @@ public class WarenkorbAnsicht extends KundeOverview {
 		vbox.getChildren().add(subtotal);
 		vbox.getChildren().add(preis);
 
-		subtotal.setStyle(" -fx-font-size: 19; -fx-font-weight: bold");
+		subtotal.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
 		preis.setStyle(" -fx-font-size: 16");
 
-		vbox.setPadding(new Insets(100, 40, 100, 5));
+		vbox.setPadding(new Insets(30, 40, 20, 5));
 
 		return vbox;
-	}
-
-	/**
-	 * Bestellbuttonkonfiguration
-	 * 
-	 * @return Bestellbutton
-	 */
-	public Button setBtBestellen() {
-		if (btBestellen == null) {
-			btBestellen = new Button("Bestellen");
-
-			btBestellen.setOnAction(e -> {
-				if (!(kundensteuerung.warenkorbAnsicht().getProdukte().isEmpty())) {
-					kundensteuerung.bestellen();
-					primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
-				}
-			});
-
-			btBestellen.getStyleClass().add("startpage-button");
-
-			btBestellen.setPadding(new Insets(20, 40, 20, 40));
-		}
-		return btBestellen;
 	}
 
 	/**
@@ -224,31 +228,41 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 * @param produkte Methode erstellt Produktpanel fuer dieses Produkt.
 	 * @return Gibt konfiguriertes Produktpanel zurueck.
 	 */
-	public HBox setProduktPanel(List<Produkt> produkte) {
-		HBox hbox = new HBox();
+	public static BorderPane setProduktPanel(List<Produkt> produkte) {
+		BorderPane borderpane = new BorderPane();
 
 		Rectangle rect = new Rectangle();
 		rect.setFill(Color.LIGHTGRAY);
 		rect.setHeight(65);
 		rect.setWidth(90);
 
-		VBox vbox = setProduktnameVBox(produkte);
-		HBox.setMargin(vbox, new Insets(5, 0, 0, 0));
+		VBox vbox1 = setProduktnameVBox(produkte);
+		HBox.setMargin(vbox1, new Insets(5, 0, 0, 0));
 
-		Button button = setLoeschenButton(produkte);
-		HBox.setMargin(button, new Insets(8, 5, 22, 5));
+		VBox vbox2 = setPreisLabelVBox(produkte);
+		HBox.setMargin(vbox2, new Insets(5, 0, 0, 0));
 
-		hbox.getChildren().add(rect);
-		hbox.getChildren().add(vbox);
-		hbox.getChildren().add(setPreisLabelVBox(produkte));
-		hbox.getChildren().add(button);
+		borderpane.setLeft(rect);
+		borderpane.setCenter(vbox1);
+		borderpane.setRight(vbox2);
 
-		hbox.setPadding(new Insets(0, 15, 0, 30));
+		vbox1.setMinWidth(WIDTH / 2);
 
-		return hbox;
+		vbox1.setAlignment(Pos.CENTER_LEFT);
+		vbox2.setAlignment(Pos.CENTER_RIGHT);
+		borderpane.setPadding(new Insets(0, 15, 0, 30));
+
+		return borderpane;
 	}
 
-	public VBox setProduktnameVBox(List<Produkt> produkte) {
+	/**
+	 * Erzeugt VBox mit einem Label fuer den Namen des Produkts und einem Label fuer
+	 * die Anzahl des Produkts in der Bestellung der Rechnung
+	 * 
+	 * @param produkte Liste mit Produkten einer Art
+	 * @return VBox mit Label fuer Namen und Anzahl des uebergebenen Produkts
+	 */
+	public static VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
 		Label nameLabel = new Label(produkte.get(0).getName());
@@ -260,14 +274,21 @@ public class WarenkorbAnsicht extends KundeOverview {
 		vbox.getChildren().add(nameLabel);
 		vbox.getChildren().add(anzahlLabel);
 
-		vbox.setPadding(new Insets(5, getWidth() / 3, 5, 15));
+		vbox.setPadding(new Insets(5, WIDTH / 3, 5, 15));
 		vbox.setSpacing(13);
 		vbox.setStyle(" -fx-background-color: white");
 
 		return vbox;
 	}
 
-	public VBox setPreisLabelVBox(List<Produkt> produkte) {
+	/**
+	 * Erzeugt VBox mit einem Label fuer den Preis des Produkts in der Bestellung
+	 * der Rechnung
+	 * 
+	 * @param produkte Liste mit Produkten einer Art
+	 * @return VBox mit Label fuer summierten Preis des uebergebenen Produkts
+	 */
+	public static VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 		Label preisLabel = new Label("Preis");
 
@@ -290,33 +311,4 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 		return vbox;
 	}
-
-	public Button setLoeschenButton(List<Produkt> produkte) {
-		Button loeschenBt = new Button();
-
-		ImageView view = new ImageView(getClass().getResource("cross.png").toExternalForm());
-		view.setFitWidth(10);
-		view.setFitHeight(10);
-		loeschenBt.setGraphic(view);
-
-		loeschenBt.setAlignment(Pos.CENTER);
-
-		loeschenBt.setStyle(" -fx-border: none; -fx-background-color: transparent");
-
-		loeschenBt.setOnMouseClicked(e -> {
-			kundensteuerung.warenkorbAnsicht().getProdukte().removeAll(produkte);
-			primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
-		});
-
-		loeschenBt.setOnMouseEntered(e -> {
-			loeschenBt.setStyle(" -fx-cursor: hand; -fx-border: none; -fx-background-color: transparent");
-		});
-
-		loeschenBt.setOnMouseExited(e -> {
-			loeschenBt.setStyle(" -fx-cursor: default; -fx-border: none; -fx-background-color: transparent");
-		});
-
-		return loeschenBt;
-	}
-
 }

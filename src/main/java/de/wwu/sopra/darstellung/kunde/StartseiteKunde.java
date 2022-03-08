@@ -163,7 +163,7 @@ public class StartseiteKunde extends KundeOverview {
 
 			textFeldSuche.setPromptText("Suche...");
 			textFeldSuche.setStyle("-fx-border-color: #C14343; -fx-border: gone; -fx-focus-color: white");
-			textFeldSuche.setAlignment(Pos.CENTER);
+			textFeldSuche.setAlignment(Pos.CENTER_LEFT);
 
 			hbox.getChildren().add(textFeldSuche);
 			hbox.getChildren().add(setButtonSuche());
@@ -191,6 +191,9 @@ public class StartseiteKunde extends KundeOverview {
 			scrollpane.setPadding(new Insets(50, 50, 50, 50));
 		}
 
+		scrollpane.setFitToWidth(true);
+		scrollpane.setFitToHeight(true);
+
 		return scrollpane;
 	}
 
@@ -206,8 +209,6 @@ public class StartseiteKunde extends KundeOverview {
 
 			gridpane.setHgap(50);
 			gridpane.setVgap(50);
-
-			Iterator<Produkt> iterator = produkte.iterator();
 
 			int a = 0;
 			int b = 0;
@@ -257,6 +258,7 @@ public class StartseiteKunde extends KundeOverview {
 		produktPanel.setPadding(new Insets(10));
 		produktPanel.setMinHeight(180);
 		produktPanel.setMinWidth(100);
+		VBox.setMargin(produktName, new Insets(2, 0, 0, 0));
 
 		produktPanel.setStyle(STANDARD_PRODUKT_PANEL);
 
@@ -301,11 +303,14 @@ public class StartseiteKunde extends KundeOverview {
 			i++;
 		}
 
+		addProdukt.getStyleClass().add("add-button-kunde");
+
 		combobox.setValue(0);
 
 		addProdukt.setOnAction(e -> {
 			if (combobox.getValue() > 0) {
 				kundensteuerung.produktZuWarenkorbHinzufuegen(p, combobox.getSelectionModel().getSelectedItem());
+				combobox.setPromptText("0");
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
 		});
@@ -353,7 +358,7 @@ public class StartseiteKunde extends KundeOverview {
 			btSuche.setMinWidth(40);
 			btSuche.setMinHeight(40);
 
-			String css = "-fx-background-color: #818083; -fx-font-weight: bold; -fx-border: none";
+			String css = "-fx-background-color: #bcbcbc; -fx-font-weight: bold; -fx-border: none";
 			btSuche.setStyle(css);
 			btSuche.setAlignment(Pos.CENTER);
 
