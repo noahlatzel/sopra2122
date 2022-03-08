@@ -70,6 +70,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	private TilePane setContent() {
 		if (tilePane == null) {
 			tilePane = new TilePane();
+			tilePane.setPadding(new Insets(20));
 			tilePane.getChildren().add(this.setScrollPaneFahrzeug());
 			tilePane.getChildren().add(this.setScrollPaneRoute());
 		}

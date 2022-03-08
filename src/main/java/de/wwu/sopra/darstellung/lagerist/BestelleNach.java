@@ -23,8 +23,7 @@ public class BestelleNach extends LageristOverview {
 	ScrollPane scrollPane;
 
 	/**
-	 * Diese Methode zeigt alle Produkte, die nachbestellbar sind, da der
-	 * Grosshaendler sie auf Lager hat, und im Sortiment sind.
+	 * Diese Methode zeigt alle Produkte, die im Sortiment sind.
 	 * 
 	 * @param primaryStage        primaryStage uebergeben aus LageristOverview
 	 * @param width               Breite des Fensters
