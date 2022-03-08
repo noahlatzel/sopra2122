@@ -40,7 +40,6 @@ public class InhaberOverview extends Scene {
 	MenuButton userMenu;
 	MenuItem btAbmelden;
 
-
 	/**
 	 * Zeigt die Overview fuer den Inhaber
 	 * 
@@ -79,7 +78,6 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtSortimentBearbeiten());
 			vbox.getChildren().add(this.setBtProduktKategorieHinzu());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
-			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
 			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
@@ -108,10 +106,11 @@ public class InhaberOverview extends Scene {
 
 		return this.header;
 	}
-	
+
 	/**
 	 * Erstellung eines MenuButton fuer den Benutzer
-	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
 	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {
@@ -130,7 +129,6 @@ public class InhaberOverview extends Scene {
 		}
 		return this.userMenu;
 	}
-
 
 	// Erstellungen von Buttons, die auf andere Websites weiterleiten
 	/**
@@ -222,31 +220,13 @@ public class InhaberOverview extends Scene {
 	}
 
 	/**
-	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
-	 * 
-	 * @return Button fuer PersoenlicheDatenBearbeiten
-	 */
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (this.btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btPersoenlicheDatenBearbeiten.setOnAction(action -> {
-				primaryStage.setScene(
-						new PersoenlicheDatenBearbeiten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
-			});
-		}
-
-		return this.btPersoenlicheDatenBearbeiten;
-	}
-
-	/**
 	 * Erzeugt Button fuer PersoenlicheDatenAnzeigen
 	 * 
 	 * @return Button fuer PersoenlicheDatenAnzeigen
 	 */
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (this.btPersoenlicheDatenAnzeigen == null) {
-			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
+			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten");
 			btPersoenlicheDatenAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersoenlicheDatenAnzeigen.setOnAction(action -> {
 				primaryStage.setScene(
