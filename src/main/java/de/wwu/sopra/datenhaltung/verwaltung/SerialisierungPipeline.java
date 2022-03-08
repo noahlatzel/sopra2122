@@ -24,7 +24,7 @@ public class SerialisierungPipeline<T> {
 	 */
 	public void serialisieren(T obj, String name) {
 		File f = new File("resources/" + name);
-
+		f.delete();
 		try (FileOutputStream outputStream = new FileOutputStream(f);
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);) {
 			objectOutputStream.writeObject(obj);
