@@ -128,10 +128,14 @@ public class FahrzeugRegister implements Serializable {
 	 * Setzt das FahrzeugRegister zurueck (fuer Tests).
 	 */
 	public static void reset() {
+		@SuppressWarnings("unchecked")
 		HashSet<Fahrzeug> register_old = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
 		for (Fahrzeug p : register_old) {
 			FahrzeugRegister.removeFahrzeug(p);
 		}
+		FahrzeugRegister.fahrzeugNummerListe.clear();
+		zaehler = 1;
+		zaehlerRoute = 1;
 	}
 
 	/**
