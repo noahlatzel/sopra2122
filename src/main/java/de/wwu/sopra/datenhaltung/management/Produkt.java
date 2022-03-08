@@ -89,6 +89,11 @@ public class Produkt implements Serializable {
 		if (name == "") {
 			throw new IllegalArgumentException("Der Name eines Produktes darf nicht leer sein.");
 		}
+		int index = Lager.getProduktNamenListe().indexOf(this.getName());
+		System.out.println(index);
+		if (index != -1) {
+			Lager.getProduktNamenListe().set(index, name.strip());
+		}
 		this.name = name.strip();
 	}
 

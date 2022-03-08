@@ -43,22 +43,11 @@ public class GrosshaendlerRegisterTest {
 	}
 
 	/**
-	 * Testet fuer addPreis fuer String.
-	 */
-	@Test
-	void testAddPreisString() {
-		GrosshaendlerRegister.setEinkaufspreis("Orangensaft", 0.89);
-		produkt1 = new Produkt("Orangensaft", "Aus frischen Orangen gepresst!", 0.99, 1.09);
-		assertTrue(GrosshaendlerRegister.getEinkaufspreis("Orangensaft") == 0.89);
-		assertTrue(GrosshaendlerRegister.getEinkaufspreis(produkt1) == 0.89);
-	}
-
-	/**
 	 * Testet load und save.
 	 */
 	@Test
 	void testLoad() {
-		HashMap<String, Double> temp = GrosshaendlerRegister.getPreislisteIn();
+		HashMap<Integer, Double> temp = GrosshaendlerRegister.getPreislisteIn();
 		GrosshaendlerRegister.save();
 		GrosshaendlerRegister.load();
 		assertTrue(temp.equals(GrosshaendlerRegister.getPreislisteIn()));
