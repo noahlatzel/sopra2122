@@ -41,9 +41,9 @@ public class LieferungAbschlisen extends OverviewFahrer {
 		if (btnAbgeben == null) {
 			btnAbgeben = new Button("Lieferung Abschliesen");
 			btnAbgeben.setOnAction(e -> {
-				try {
+				if (steuerung.getFahrer().getFahrzeug() != null) {
 					steuerung.routeAbschliesen();
-				} catch (IllegalArgumentException i) {
+				} else {
 					border.setBottom(new Label("es sind noch nicht alle lieferungen abgegeben worden"));
 				}
 			});
