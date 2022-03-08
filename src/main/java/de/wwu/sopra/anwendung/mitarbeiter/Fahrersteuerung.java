@@ -1,6 +1,8 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -9,6 +11,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Steuerung der Anwendungen des Fahrers
@@ -62,6 +65,21 @@ public class Fahrersteuerung {
 	 */
 	public Fahrer getFahrer() {
 		return this.fahrer;
+	}
+
+	/**
+	 * Gibt eine Liste aller belegten Fahrzeuge zurueck.
+	 * 
+	 * @return belegte Fahrzeuge
+	 */
+	public List<Fahrzeug> getBelegteFahrzeuge() {
+		ArrayList<Fahrzeug> temp = new ArrayList<Fahrzeug>();
+		for (Fahrzeug fahrzeug : FahrzeugRegister.getFahrzeuge()) {
+			if (fahrzeug.getStatus().equals(FahrzeugStatus.BELEGT)) {
+				temp.add(fahrzeug);
+			}
+		}
+		return temp;
 	}
 
 	/**

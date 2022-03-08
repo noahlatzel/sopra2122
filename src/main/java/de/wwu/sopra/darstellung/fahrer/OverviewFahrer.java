@@ -36,6 +36,7 @@ public class OverviewFahrer extends Scene {
 	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
+	Button btAlternative;
 	// Button btAbmelden;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
@@ -78,6 +79,7 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBestellungAbgeben1());
 			vbox.getChildren().add(setBtKundeNichtDa());
 			vbox.getChildren().add(setLieferungabschielsen());
+			vbox.getChildren().add(setBtAlternative());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
@@ -230,6 +232,22 @@ public class OverviewFahrer extends Scene {
 			});
 		}
 		return btPersoenlicheDatenAnzeigen;
+	}
+
+	/**
+	 * Erzeugt Button fuer PersoenlicheDatenAnzeigen
+	 * 
+	 * @return Button fuer PersoenlicheDatenAnzeigen
+	 */
+	private Button setBtAlternative() {
+		if (btAlternative == null) {
+			btAlternative = new Button("ALTERNATIVE WIP");
+			btAlternative.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btAlternative.setOnAction(e -> {
+				primaryStage.setScene(new FahrerInZustellung(steuerung, primaryStage, getWidth(), getHeight()));
+			});
+		}
+		return btAlternative;
 	}
 
 }

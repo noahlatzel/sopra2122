@@ -85,9 +85,14 @@ public class FahrzeugRegister implements Serializable {
 	 * @return Den Zaehler
 	 */
 	public static int getZaehler() {
+		for (Fahrzeug fahrzeug : fahrzeuge) {
+			fahrzeugNummerListe.add(fahrzeug.getFahrzeugNummer());
+		}
 		while (fahrzeugNummerListe.contains(zaehler)) {
 			zaehler++;
+			System.out.println(zaehler);
 		}
+		fahrzeugNummerListe.add(zaehler);
 		return FahrzeugRegister.zaehler;
 	}
 
@@ -135,11 +140,7 @@ public class FahrzeugRegister implements Serializable {
 	 * @return Den Zaehler fuer Route
 	 */
 	public static int getZaehlerRoute() {
-		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
-			if (f.getRoute() != null && f.getRoute().getRoutenNummer() == FahrzeugRegister.zaehlerRoute) {
-				FahrzeugRegister.zaehlerRoute++;
-			}
-		}
-		return ++zaehlerRoute;
+		zaehlerRoute = zaehlerRoute + 1;
+		return zaehlerRoute;
 	}
 }
