@@ -262,7 +262,7 @@ public class MitarbeiterVerwalten extends InhaberOverview {
 		// Erstellung des Loeschen-Buttons
 		if (this.loeschenButton == null) {
 			loeschenButton = new Button("Benutzer Loeschen");
-			loeschenButton.getStyleClass().add("inhaber-mitarbeiter-verwaltung-button");
+			loeschenButton.getStyleClass().add("inhaber-form-button");
 			loeschenButton.setOnAction(e -> {
 				Benutzer mitarbeiterZuLoeschen = tableViewMitarbeitern.getSelectionModel().getSelectedItem();
 				inhaberSteuerung.mitarbeiterLoeschen(mitarbeiterZuLoeschen);
