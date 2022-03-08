@@ -57,6 +57,10 @@ public class Bestellung implements Serializable {
 	 * Adresse des Kunden
 	 */
 	private String adresse;
+	/**
+	 * Rabatt der Bestellung
+	 */
+	private Rabatt rabatt;
 
 	/**
 	 * Konstruktor fuer die Klasse Bestellung
@@ -83,6 +87,46 @@ public class Bestellung implements Serializable {
 		this.kunde = kunde;
 		this.adresse = kunde.getAdresse();
 		this.kapazitaet = produkte.size();
+		kunde.bestellungHinzufuegen(this);
+
+		for (Produkt produkt : produkte) {
+			Lager.removeProdukt(produkt);
+		}
+
+		// Nachbedingung pruefen
+		assert this.getKunde().getBestellungen().contains(this)
+				: "Nachbedingung des Konstruktors der Bestellung verletzt: die Bestellung ist nicht im Kunden festgehalten";
+		assert this.getKunde() == kunde
+				: "Nachbedingung des Konstruktors der Bestellung verletzt: der Bestellung wurde ein falscher Kunde zugewiesen";
+	}
+
+	/**
+	 * Konstruktor fuer die Klasse Bestellung
+	 * 
+	 * @param datum    Datum
+	 * @param produkte Liste von Produkten
+	 * @param kunde    Kunde
+	 * @param rabatt   Rabatt
+	 * @inv Eine Bestellung muss immer Produkte enthalten und einem Kunden
+	 *      zugeordnet sein
+	 * @post Die Bestellung muss in der Liste der Bestellungen des Kunden gefuehrt
+	 *       werden. Die Produkte der Bestellung sind nicht mehr im Lager.
+	 */
+	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde, Rabatt rabatt) {
+		// Klasseninvariante pruefen
+		assert kunde != null
+				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Bestellung gehoert zu keinem Kunden mehr";
+		assert !produkte.isEmpty()
+				: "Klasseninvariante des Konstruktors der Bestellung verletzt: die Liste der Bestellungen ist leer";
+
+		this.bestellnummer = BenutzerRegister.getZaehlerBestellung();
+		this.setStatus(BestellStatus.OFFEN);
+		this.produkte = produkte;
+		this.kunde = kunde;
+		this.adresse = kunde.getAdresse();
+		this.kapazitaet = produkte.size();
+		this.rabatt = rabatt;
+		this.betrag = calcBetrag();
 		kunde.bestellungHinzufuegen(this);
 
 		for (Produkt produkt : produkte) {
@@ -140,6 +184,9 @@ public class Bestellung implements Serializable {
 		double temp = 0;
 		for (Produkt p : this.getProdukte()) {
 			temp += p.getVerkaufspreis();
+		}
+		if (rabatt != null) {
+			temp = temp * (1 - ((double) rabatt.getProzent() / 100));
 		}
 		return temp;
 	}
@@ -249,4 +296,21 @@ public class Bestellung implements Serializable {
 		return "Bestellung " + this.getBestellnummer();
 	}
 
+	/**
+	 * Fuegt der Bestellung einen Rabatt hinzu.
+	 * 
+	 * @param rabatt
+	 */
+	public void setRabatt(Rabatt rabatt) {
+		this.rabatt = rabatt;
+	}
+
+	/**
+	 * Gibt den Rabatt der Bestellung zurueck.
+	 * 
+	 * @return Gibt den Rabatt der Bestellung zurueck.
+	 */
+	public Rabatt getRabatt() {
+		return rabatt;
+	}
 }

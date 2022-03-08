@@ -1,6 +1,7 @@
 package de.wwu.sopra.datenhaltung.benutzer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -160,5 +161,29 @@ public class KundeTest {
 	void entferneKundeTest() {
 		kunde.kundeEntfernen();
 		assertNull(kunde.getBestellungen());
+	}
+
+	/**
+	 * Testet das hinzufuegen und einloesen von Rabatten.
+	 */
+	@Test
+	void addRemoveRabatt() {
+		assertTrue(kunde.getRabatte().isEmpty());
+		kunde.addRabatt("ABC", 50);
+		assertTrue(kunde.getRabattGueltig("ABC"));
+		kunde.rabattEinloesen("ABC");
+		assertFalse(kunde.getRabattGueltig("ABC"));
+	}
+
+	/**
+	 * Testet die Abfrage der Prozente eines Rabatts.
+	 */
+	@Test
+	void getRabattProzent() {
+		kunde.addRabatt("ABC", 50);
+		kunde.addRabatt("ABCD", 40);
+		assertEquals(kunde.getRabattProzent("ABC"), 50);
+		kunde.rabattEinloesen("ABC");
+		kunde.rabattEinloesen("ABCD");
 	}
 }

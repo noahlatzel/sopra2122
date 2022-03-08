@@ -68,6 +68,7 @@ public class StartseiteKunde extends KundeOverview {
 		this.kundensteuerung = kundensteuerung;
 		this.produkte = produkte;
 		root.setCenter(setBorderPane(produkte));
+
 	}
 
 	/**
@@ -256,8 +257,8 @@ public class StartseiteKunde extends KundeOverview {
 		produktPanel.getChildren().add(setHBox(p));
 
 		produktPanel.setPadding(new Insets(10));
-		produktPanel.setMinHeight(180);
-		produktPanel.setMinWidth(100);
+		produktPanel.setMinHeight(192);
+		produktPanel.setMinWidth(150);
 		VBox.setMargin(produktName, new Insets(2, 0, 0, 0));
 
 		produktPanel.setStyle(STANDARD_PRODUKT_PANEL);
@@ -303,7 +304,8 @@ public class StartseiteKunde extends KundeOverview {
 			i++;
 		}
 
-		addProdukt.getStyleClass().add("add-button-kunde");
+		addProdukt.getStyleClass().add("kunde-add-button");
+		combobox.getStyleClass().add("kunde-combobox");
 
 		combobox.setValue(0);
 
@@ -313,22 +315,6 @@ public class StartseiteKunde extends KundeOverview {
 				combobox.setPromptText("0");
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
-		});
-
-		combobox.setOnMouseEntered(e -> {
-			combobox.setStyle(" -fx-cursor: hand;");
-		});
-
-		combobox.setOnMouseExited(e -> {
-			combobox.setStyle(" -fx-cursor: default;");
-		});
-
-		addProdukt.setOnMouseEntered(e -> {
-			addProdukt.setStyle(" -fx-cursor: hand;");
-		});
-
-		addProdukt.setOnMouseExited(e -> {
-			addProdukt.setStyle(" -fx-cursor: default;");
 		});
 
 		hbox.getChildren().add(combobox);

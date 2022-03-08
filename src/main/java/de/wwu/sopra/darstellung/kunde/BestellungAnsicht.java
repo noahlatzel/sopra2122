@@ -33,6 +33,7 @@ public class BestellungAnsicht extends KundeOverview {
 	Button btStornieren;
 	Button btNachbestellen;
 	Button btRechnung;
+	Label fehlerLabel;
 
 	/**
 	 * Konstruktor fuer die Bestellansicht
@@ -76,7 +77,7 @@ public class BestellungAnsicht extends KundeOverview {
 		VBox vbox = new VBox();
 
 		Label bestellung = new Label("Bestellung Nr." + this.bestellung.getBestellnummer());
-		bestellung.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
 
 		Label datum = new Label("Bestellt am " + this.bestellung.getDatum());
 
@@ -170,6 +171,9 @@ public class BestellungAnsicht extends KundeOverview {
 
 		VBox summeVbox = setSummeVBox();
 		VBox statusVBox = setStatusVBox();
+		fehlerLabel = new Label();
+		fehlerLabel.setMaxWidth(180);
+
 		vbox.getChildren().add(summeVbox);
 		vbox.getChildren().add(statusVBox);
 		if (this.bestellung.getStatus() == BestellStatus.OFFEN) {
@@ -181,10 +185,12 @@ public class BestellungAnsicht extends KundeOverview {
 			vbox.getChildren().add(setBtRechnung());
 			VBox.setMargin(btRechnung, new Insets(10, 40, 10, 40));
 		}
+		vbox.getChildren().add(fehlerLabel);
 
 		vbox.setPadding(new Insets(10));
 		vbox.setMinWidth(getWidth() / 4);
 
+		VBox.setMargin(fehlerLabel, new Insets(20, 40, 10, 40));
 		VBox.setMargin(btNachbestellen, new Insets(0, 40, 0, 40));
 		VBox.setMargin(summeVbox, new Insets(25, 40, 0, 40));
 		VBox.setMargin(statusVBox, new Insets(0, 40, 0, 40));
@@ -267,7 +273,13 @@ public class BestellungAnsicht extends KundeOverview {
 			btNachbestellen.getStyleClass().add("startpage-button");
 
 			btNachbestellen.setOnAction(e -> {
-				kundensteuerung.nachbestellen(this.bestellung);
+				try {
+					kundensteuerung.nachbestellen(this.bestellung);
+				} catch (IllegalArgumentException e1) {
+					fehlerLabel.setText(
+							"Nachbestellung nicht moeglich: Mindestens eines der Produkte  nicht ausreichend verfuegbar im Sortiment!");
+					fehlerLabel.setWrapText(true);
+				}
 			});
 
 			btNachbestellen.setPadding(new Insets(15, 20, 15, 20));

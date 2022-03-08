@@ -3,13 +3,14 @@ package de.wwu.sopra.anwendung.kunde;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Rabatt;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
@@ -111,6 +112,21 @@ public class Kundensteuerung {
 	}
 
 	/**
+	 * Methode zum Abgeben einer Bestellung mit Rabatt
+	 */
+	public void bestellen(Rabatt rabatt) {
+		List<Produkt> produkte = new ArrayList<Produkt>();
+
+		for (Produkt p : kunde.getWarenkorb().getProdukte()) {
+			produkte.add(p);
+		}
+
+		Bestellung bestellung = new Bestellung(LocalDateTime.now(), produkte, kunde, rabatt);
+		kunde.bestellungHinzufuegen(bestellung);
+		kunde.getWarenkorb().warenkorbLeeren();
+	}
+
+	/**
 	 * Methode zur Ansicht des Warenkorbs des Kunden
 	 * 
 	 * @return Gibt den Warenkorb des Kunden zurueck
@@ -196,19 +212,7 @@ public class Kundensteuerung {
 	 * @return Liste mit allen Kategorien im Sortiment.
 	 */
 	public HashSet<Kategorie> getKategorien() {
-		HashSet<Kategorie> kategorien = new HashSet<Kategorie>();
-
-		List<Produkt> produkteUnique = Lager.getLager();
-
-		Iterator<Produkt> iterator = produkteUnique.iterator();
-		while (iterator.hasNext()) {
-			Produkt p = iterator.next();
-			if (p.getKategorie() != null) {
-				kategorien.add(p.getKategorie());
-			}
-		}
-
-		return kategorien;
+		return Lager.getKategorien();
 	}
 
 	/**
@@ -266,11 +270,84 @@ public class Kundensteuerung {
 	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
 		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
 		for (Produkt produkt : produkte) {
-			if (produkt.getKategorie().equals(kategorie)) {
+			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
 				filteredProdukte.add(produkt);
 			}
 		}
 
 		return filteredProdukte;
+	}
+
+	/**
+	 * Erzeugt einen neuen Rabattcode zwischen 5 und 20 Prozent.
+	 */
+	public String addRabatt() {
+		// Erzeugen eines neuen Codes aus dem Alphabet
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+
+		int laenge = 6;
+
+		for (int i = 0; i < laenge; i++) {
+
+			int index = random.nextInt(alphabet.length());
+
+			char randomChar = alphabet.charAt(index);
+
+			sb.append(randomChar);
+		}
+
+		String rabattcode = sb.toString();
+
+		// Erzeugt eine zufaellige Prozentzahl zwischen 5 und 20, gerundet auf 5er
+		// Schritte
+		int prozent = (int) (Math.random() * ((20 - 5) + 1)) + 5;
+		prozent = 5 * (Math.round(prozent / 5));
+
+		kunde.addRabatt(rabattcode, prozent);
+		return rabattcode;
+	}
+
+	/**
+	 * Ermittelt, ob der uebergebene Rabattcode ein gueltiger, einloesbarer
+	 * Rabattcode ist.
+	 * 
+	 * @param rabattcode Wird auf Gueltigkeit ueberprueft.
+	 * @return Gibt Wahrheitswert zurueck, ob der Rabattcode gueltig ist, true, wenn
+	 *         er gueltig ist.
+	 */
+	public boolean getRabattGueltig(String rabattcode) {
+		return kunde.getRabattGueltig(rabattcode);
+	}
+
+	/**
+	 * Gibt die Prozentzahl des Rabatts zum uebergebenen Rabattcodes zurueck.
+	 * 
+	 * @param rabattcode Prozentzahl des Rabatts wird zu diesem Rabattcode
+	 *                   ermittelt.
+	 * @return Prozentzahl des Rabatts zum uebergebenen Rabattcodes zurueck
+	 */
+	public int getRabattProzent(String rabattcode) {
+		return kunde.getRabattProzent(rabattcode);
+	}
+
+	/**
+	 * Entfernt den Rabatt aus den einloesbaren Rabatten.
+	 * 
+	 * @param rabattcode Einzuloesender Rabattcode.
+	 * @return Gibt einzuloesenden Rabatts zurueck.
+	 */
+	public Rabatt rabattEinloesen(String rabattcode) {
+		return kunde.rabattEinloesen(rabattcode);
+	}
+
+	/**
+	 * Gibt Liste der Rabatte des Kunden zurueck.
+	 * 
+	 * @return Liste der Rabatte des Kunden.
+	 */
+	public List<Rabatt> getRabatte() {
+		return kunde.getRabatte();
 	}
 }

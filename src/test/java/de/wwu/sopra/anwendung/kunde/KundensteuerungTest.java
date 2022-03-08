@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Rabatt;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
@@ -151,6 +152,39 @@ public class KundensteuerungTest {
 						.equals(kunde.getBestellungen().get(i).getProdukte().get(j)));
 			}
 		}
+	}
+
+	/**
+	 * Testet, ob die Methode bestellen funktioniert
+	 */
+	@Test
+	void testeBestellen2() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Produkt fanta = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);
+		liste.add(fanta);
+		Rabatt rabatt = new Rabatt("ABC", 50);
+
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde, rabatt);
+
+		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(bestellung1);
+
+		warenkorb.warenkorbLeeren();
+		for (int i = 0; i < liste.size(); i++) {
+			warenkorb.produktHinzufuegen(liste.get(i));
+		}
+
+		kundensteuerung.bestellen();
+
+		for (int i = 0; i < kunde.getBestellungen().size() - 1; i++) {
+			for (int j = 0; j < kunde.getBestellungen().get(i).getProdukte().size(); j++) {
+
+				assertTrue(bestellungen.get(i).getProdukte().get(j)
+						.equals(kunde.getBestellungen().get(i).getProdukte().get(j)));
+			}
+		}
+
+		assertTrue(bestellung1.getRabatt().equals(rabatt));
 	}
 
 	/**
@@ -346,4 +380,28 @@ public class KundensteuerungTest {
 
 		assertEquals(kundensteuerung.getProduktBestand(produkt), Lager.getProduktBestand(produkt));
 	}
+
+	@Test
+	void testAddRabatt() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		String rabattcode = kundensteuerung.addRabatt();
+
+		assertFalse(kunde.getRabatte().isEmpty());
+		assertTrue(kunde.getRabattGueltig(rabattcode));
+		assertTrue(kunde.getRabattProzent(rabattcode) <= 20);
+		assertTrue(kunde.getRabattProzent(rabattcode) >= 5);
+	}
+
+	@Test
+	void rabattFunktionenTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		String rabattcode = kundensteuerung.addRabatt();
+
+		Rabatt rabatt = kunde.getRabatte().get(0);
+
+		assertEquals(kundensteuerung.getRabattGueltig(rabattcode), kunde.getRabattGueltig(rabattcode));
+		assertEquals(kundensteuerung.getRabattProzent(rabattcode), kunde.getRabattProzent(rabattcode));
+		assertEquals(kundensteuerung.rabattEinloesen(rabattcode), rabatt);
+	}
+
 }

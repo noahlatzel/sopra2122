@@ -75,7 +75,7 @@ public class RechnungAnsicht {
 		VBox vbox = new VBox();
 
 		Label bestellung = new Label("Rechnung-Nr." + RechnungAnsicht.rechnung.getRechnungsnummer());
-		bestellung.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
 
 		Label datum = new Label("Bestellt am " + RechnungAnsicht.rechnung.getDatum()
 				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
