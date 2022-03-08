@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 public class OverviewFahrer extends Scene {
 
 	BorderPane root = new BorderPane();
+	BorderPane header;
 	Stage primaryStage;
 	VBox vbox;
-	BorderPane header;
 	Fahrersteuerung steuerung;
 	Button btFahrzeugwahlen;
 	Button btRouteAnzeigen;
@@ -50,14 +50,14 @@ public class OverviewFahrer extends Scene {
 	 */
 	public OverviewFahrer(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(new BorderPane(), width, height);
-		this.primaryStage = primaryStage;
-		this.setRoot(root);
-		this.steuerung = steuerung;
-		root.setTop(this.setHeader());
-		root.setLeft(this.setGridPane());
-		
+
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+
+		this.primaryStage = primaryStage;
+		this.steuerung = steuerung;
+		root.setTop(this.setHeader());
+		root.setLeft(this.setVBox());
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class OverviewFahrer extends Scene {
 	 * 
 	 * @return VBox
 	 */
-	private VBox setGridPane() {
+	private VBox setVBox() {
 		if (vbox == null) {
 			vbox = new VBox();
 
@@ -82,7 +82,7 @@ public class OverviewFahrer extends Scene {
 		}
 		return vbox;
 	}
-	
+
 	/**
 	 * Erzeugt Header
 	 * 
@@ -97,17 +97,18 @@ public class OverviewFahrer extends Scene {
 			Label logoLabel = new Label("Logo");
 			logoLabel.setTextFill(Color.web("#000000"));
 			header.setLeft(logoLabel);
-			
+
 			// Right side
 			header.setRight(this.setMenuButton());
 		}
 
 		return this.header;
 	}
-	
+
 	/**
 	 * Erstellung eines MenuButton fuer den Benutzer
-	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
 	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {

@@ -5,7 +5,9 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
  */
 public class BestelleNach extends LageristOverview {
 	TilePane tilePane;
+	BorderPane contentWrapper;
 	NachbestellungProduktGUI produktGUI;
 
 	/**
@@ -30,18 +33,44 @@ public class BestelleNach extends LageristOverview {
 	public BestelleNach(Stage primaryStage, double width, double height, Lageristensteuerung lageristenSteuerung) {
 		super(primaryStage, width, height, lageristenSteuerung);
 		produktGUI = new NachbestellungProduktGUI(primaryStage, width, height, lageristenSteuerung);
-		root.setCenter(new Label("Nachbestellen..."));
-		tilePane = new TilePane();
-		tilePane.setPadding(new Insets(20));
-		tilePane.setHgap(5);
-		tilePane.setVgap(5);
 
-		for (Produkt produkt : lageristenSteuerung.getSortiment()) {
-			if (Lager.getLagerbestand().get(produkt) != null) {
-				tilePane.getChildren()
-						.add(produktGUI.setProduktAnsicht(produkt, Lager.getProduktBestand(produkt.getName())));
+		root.setCenter(this.setContentWrapper());
+
+	}
+
+	/**
+	 * Erzeugt ContentWrapper
+	 * 
+	 * @return ContentWrapper
+	 */
+	private BorderPane setContentWrapper() {
+		// ContentWrapper, um den Titel einzuschliessen
+		if (this.contentWrapper == null) {
+			contentWrapper = new BorderPane();
+			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
+			Label title = new Label("Nachbestellungen");
+			title.setStyle("-fx-font-weight: bold");
+			title.setFont(new Font("Arial", 32));
+			contentWrapper.setTop(title);
+			contentWrapper.setCenter(this.setTilePane());
+		}
+
+		return this.contentWrapper;
+	}
+
+	private TilePane setTilePane() {
+		if (tilePane == null) {
+			tilePane = new TilePane();
+			tilePane.setPadding(new Insets(20));
+			tilePane.setHgap(10);
+			tilePane.setVgap(10);
+
+			for (Produkt produkt : lageristenSteuerung.getSortiment()) {
+				if (Lager.getLagerbestand().get(produkt) != null) {
+					tilePane.getChildren().add(produktGUI.setProduktAnsicht(produkt, Lager.getProduktBestand(produkt)));
+				}
 			}
 		}
-		root.setCenter(tilePane);
+		return tilePane;
 	}
 }

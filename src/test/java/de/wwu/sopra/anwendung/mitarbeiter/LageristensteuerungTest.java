@@ -46,10 +46,14 @@ public class LageristensteuerungTest {
 		lageristenSteuerung = new Lageristensteuerung(new Lagerist("noahlatzel", "123", "nlatzel@uni-muenster.de",
 				"Muenster", "Noah", "Latzel", "GuteBank", null));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.99, 1.29));
+		// Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49,
+		// 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Krombacher Pils", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Sasse Korn", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 
 		produkt1 = new Produkt("Coca Cola", "Lecker", 0.99, 1.29);
-		produkt2 = new Produkt("Fanta", "Lecker", 0.99, 1.29);
+		produkt2 = new Produkt("Cola", "Lecker", 0.99, 1.29);
 		GrosshaendlerRegister.setEinkaufspreis(produkt1, 0.99);
 		GrosshaendlerRegister.setEinkaufspreis(produkt2, 0.99);
 		nachbestellung1 = new NachbestellungTupel(produkt1, 5);
@@ -83,10 +87,10 @@ public class LageristensteuerungTest {
 		Lager.addProdukt(produkt2);
 		Lager.addProdukt(produkt1);
 		int anzahl_cola = Lager.getProduktBestand("Coca Cola");
-		int anzahl_fanta = Lager.getProduktBestand("Fanta");
+		int anzahl_fanta = Lager.getProduktBestand("Cola");
 		lageristenSteuerung.bestelleNach(nachbestellungen);
 		assertTrue(Lager.getProduktBestand("Coca Cola") == anzahl_cola + 5);
-		assertTrue(Lager.getProduktBestand("Fanta") == anzahl_fanta + 2);
+		assertTrue(Lager.getProduktBestand("Cola") == anzahl_fanta + 2);
 		assertThrows(AssertionError.class, () -> {
 			lageristenSteuerung.bestelleNach(new HashSet<NachbestellungTupel>());
 		});
@@ -103,11 +107,8 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		ArrayList<Produkt> produkte2 = new ArrayList<Produkt>();
-		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
-		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
-
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
+		produkte2.add(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
+		produkte2.add(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
@@ -142,14 +143,11 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		ArrayList<Produkt> produkte2 = new ArrayList<Produkt>();
-		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
-		produkte2.add(new Produkt("Fanta", "Lecker", 0.99, 1.29));
+		produkte2.add(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
+		produkte2.add(new Produkt("Coca Cola", "Lecker", 0.99, 1.29));
 
 		Kunde kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
-
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
 
 		Bestellung bestellung1 = new Bestellung(null, produkte1, kunde);
 		Bestellung bestellung2 = new Bestellung(null, produkte2, kunde);
@@ -189,10 +187,6 @@ public class LageristensteuerungTest {
 		produkte.add(bier);
 		produkte.add(cola);
 		produkte.add(korn);
-
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Krombacher Pils", "Lecker", 0.49, 0.99));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Sasse Korn", "Lecker", 0.49, 0.99));
 
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte, kunde2);
 		Bestellung testbestellung2 = new Bestellung(LocalDateTime.now(), produkte, kunde1);
@@ -239,7 +233,6 @@ public class LageristensteuerungTest {
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
 		produkte1.add(new Produkt("Cola", "Lecker", 0.99, 1.29));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Kunde kunde2 = new Kunde("Bierman", "1234", "hart@test.de", "Destille", "Maxi", "malvoll", "test");
 		Bestellung testbestellung1 = new Bestellung(LocalDateTime.now(), produkte1, kunde2);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();

@@ -148,12 +148,17 @@ public class Statistiken implements Serializable {
 	 */
 	public static void load() {
 		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
-		ArrayList<Double> raw_statistiken = sp.deserialisieren(path);
+		ArrayList<Double> raw_statistiken = sp.deserialisieren(path, null);
 		if (raw_statistiken != null) {
 			Statistiken.setUmsatz(raw_statistiken.get(0));
 			Statistiken.setAusgaben(raw_statistiken.get(1));
 			Statistiken.setEinnahmen(raw_statistiken.get(2));
 			Statistiken.setArbeitszeit(raw_statistiken.get(3));
+		} else {
+			Statistiken.setUmsatz(0);
+			Statistiken.setAusgaben(0);
+			Statistiken.setEinnahmen(0);
+			Statistiken.setArbeitszeit(0);
 		}
 	}
 

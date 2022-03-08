@@ -46,7 +46,7 @@ class WarenkorbTest {
 	@Test
 	void testKonstruktor() {
 		produkte.add(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
-		produkte.add(new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29));
+		produkte.add(new Produkt("Cola", "Toller Geschmack", 0.99, 1.29));
 		warenkorb = new Warenkorb(produkte, kunde);
 		assertTrue(warenkorb.getBetrag() == 2.58);
 		assertTrue(warenkorb.getKunde().equals(kunde));

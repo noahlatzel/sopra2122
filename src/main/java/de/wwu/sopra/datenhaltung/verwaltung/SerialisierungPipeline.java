@@ -41,7 +41,7 @@ public class SerialisierungPipeline<T> {
 	 * @return Das deserialisierte Objekt. null, wenn nicht vorhanden.
 	 */
 	@SuppressWarnings("unchecked")
-	public T deserialisieren(String name) {
+	public T deserialisieren(String name, T newObj) {
 		T obj = null;
 		File f = new File("resources/" + name);
 		try (FileInputStream inputStream = new FileInputStream(f);
@@ -51,6 +51,9 @@ public class SerialisierungPipeline<T> {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}
+		if (obj == null) {
+			return newObj;
 		}
 		return obj;
 	}

@@ -53,6 +53,11 @@ public class KundensteuerungTest {
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Test", "Lecker", 0.49, 0.99));
+		// Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49,
+		// 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("asd", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta-stisch", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Name", "Lecker", 0.49, 0.99));
 		Lager.getLager().clear();
 		Lager.addProdukt(cola);
 		Lager.addProdukt(cola2);
@@ -124,9 +129,9 @@ public class KundensteuerungTest {
 	@Test
 	void testeBestellen() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		Produkt fanta = new Produkt("Fanta", "Toller Geschmack", 0.99, 1.29);
+		Produkt fanta = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);
 		liste.add(fanta);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta", "Lecker", 0.49, 0.99));
+
 		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde);
 
 		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
@@ -234,7 +239,7 @@ public class KundensteuerungTest {
 	@Test
 	void testeNachbestellenThrows() {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("asd", "Lecker", 0.49, 0.99));
+
 		Produkt test = new Produkt("asd", "Toller Geschmack", 0.99, 1.29);
 		Lager.addProdukt(test);
 		liste.add(new Produkt("asd", "Toller Geschmack", 0.99, 1.29));
@@ -310,8 +315,6 @@ public class KundensteuerungTest {
 			BenutzerRegister.getWarenkorb(kunde).getProdukte().remove(0);
 		}
 
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Fanta-stisch", "Lecker", 0.49, 0.99));
-
 		Produkt produkt = new Produkt("Fanta-stisch", "Beschreibung", 1, 2.99);
 		Lager.addProdukt(produkt);
 
@@ -338,7 +341,6 @@ public class KundensteuerungTest {
 		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
 
 		Produkt produkt = new Produkt("Name", "Beschreibung", 1, 2);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Name", "Lecker", 0.49, 0.99));
 
 		Lager.addProdukt(produkt);
 

@@ -75,6 +75,7 @@ public class Lager implements Serializable {
 		lager.add(p);
 
 		Lager.addBestand(p);
+
 		// Nachbedingung pruefen
 		bestand_p += 1;
 		assert Lager.getProduktBestand(p) == bestand_p
@@ -215,13 +216,7 @@ public class Lager implements Serializable {
 	 * @param p Produkt, was entfernt wird.
 	 */
 	private static void removeBestand(Produkt p) {
-
-		HashMap<Produkt, Integer> lagerBestand_temp = (HashMap<Produkt, Integer>) lagerBestand.clone();
-		for (Produkt produkt : lagerBestand_temp.keySet()) {
-			if (produkt.getName().equals(p.getName())) {
-				lagerBestand.put(p, lagerBestand.get(produkt) - 1);
-			}
-		}
+		lagerBestand.put(p, lagerBestand.get(p) - 1);
 	}
 
 	/**
@@ -231,9 +226,14 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
 		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
-		lagerBestand = sp.deserialisieren(path_map);
-		kategorieListe = sp2.deserialisieren(path_kat);
-		lager = sp1.deserialisieren(path_set);
+		lagerBestand = sp.deserialisieren(path_map, new HashMap<Produkt, Integer>());
+		kategorieListe = sp2.deserialisieren(path_kat, new HashSet<Kategorie>());
+		lager = sp1.deserialisieren(path_set, new ArrayList<Produkt>());
+
+		// Bereinigung von Testobjekten, die scheinbar nicht geloescht werden koennen
+		Lager.produktAusDemSortimentEntfernen(new Produkt("Coca Cola", "Toll", 0.49, 0.99));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("Cola", "Toller G", 0.49, 0.99));
+
 	}
 
 	/**

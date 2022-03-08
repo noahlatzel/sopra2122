@@ -4,16 +4,13 @@ import java.io.File;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,11 +24,11 @@ import javafx.stage.Stage;
  */
 public class LageristOverview extends Scene {
 	BorderPane root = new BorderPane();
+	BorderPane header;
 	Stage primaryStage;
 	Image image;
 	ImageView logo;
 	VBox vbox;
-	BorderPane header;
 	Button btRoutePlanen;
 	Button btBestelleNach;
 	Button btPersDatenAnzeigen;
@@ -40,8 +37,7 @@ public class LageristOverview extends Scene {
 	Lageristensteuerung lageristenSteuerung;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
-	DropShadow dropShadow = new DropShadow();
-	
+
 	/**
 	 * Color constant fuer Button-Background
 	 */
@@ -50,7 +46,6 @@ public class LageristOverview extends Scene {
 	 * Color constant fuer Button-Background
 	 */
 	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
-
 
 	/**
 	 * Erzeugt das Fenster fuer den Lageristen
@@ -66,14 +61,11 @@ public class LageristOverview extends Scene {
 		File f = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(4.0);
-		dropShadow.setOffsetY(4.0);
-		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-
 		this.primaryStage = primaryStage;
-		this.setRoot(root);
 		this.lageristenSteuerung = lageristenSteuerung;
+
+		this.setRoot(root);
+
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		root.setCenter(new Label("Startseite..."));
@@ -96,7 +88,7 @@ public class LageristOverview extends Scene {
 		}
 		return this.vbox;
 	}
-	
+
 	/**
 	 * Erzeugt Header
 	 * 
@@ -111,18 +103,19 @@ public class LageristOverview extends Scene {
 			Label logoLabel = new Label("Logo");
 			logoLabel.setTextFill(Color.web("#000000"));
 			header.setLeft(logoLabel);
-			
+
 			// Right side
-			
+
 			header.setRight(this.setMenuButton());
 		}
 
 		return this.header;
 	}
-	
+
 	/**
 	 * Erstellung eines MenuButton fuer den Benutzer
-	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
 	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {
@@ -207,23 +200,5 @@ public class LageristOverview extends Scene {
 		}
 		return this.btZeigeRouteVonFahrzeug;
 	}
-	
-	public void changeButtonStyleOnHover(final Button button) {
-		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
-		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
-			}
-		});
-		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-			}
-		});
-	}
-
 
 }

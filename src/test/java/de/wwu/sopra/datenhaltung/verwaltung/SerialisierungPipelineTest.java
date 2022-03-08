@@ -29,7 +29,7 @@ public class SerialisierungPipelineTest {
 
 		SerialisierungPipeline<Integer> sp = new SerialisierungPipeline<Integer>();
 		sp.serialisieren(1, "produkt.ser");
-		Integer temp = sp.deserialisieren("produkt.ser");
+		Integer temp = sp.deserialisieren("produkt.ser", 0);
 		assertTrue(1 == temp);
 	}
 

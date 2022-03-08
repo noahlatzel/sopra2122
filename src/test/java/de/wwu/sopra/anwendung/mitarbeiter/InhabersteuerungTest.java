@@ -62,6 +62,8 @@ public class InhabersteuerungTest {
 		BenutzerRegister.getBenutzerListe().clear();
 		inhaber = new Inhaber(benutzername, passwort, email, adresse, vorname, name, bankverbindung);
 		ihs = new Inhabersteuerung(inhaber);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Chicha", "Lecker", 0.49, 0.99));
 	}
 
 	/**
@@ -236,8 +238,6 @@ public class InhabersteuerungTest {
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(producto);
 		productsToAdd.add(product);
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Cola", "Lecker", 0.49, 0.99));
-		Lager.produktZumSortimentHinzufuegen(new Produkt("Chicha", "Lecker", 0.49, 0.99));
 		ihs.lagerVerwalten(productsToAdd, "hinzufuegen");
 
 		assertThrows(IllegalArgumentException.class, () -> {

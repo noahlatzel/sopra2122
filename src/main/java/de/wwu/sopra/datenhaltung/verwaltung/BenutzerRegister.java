@@ -224,7 +224,7 @@ public class BenutzerRegister implements Serializable {
 	 */
 	public static void load() {
 		SerialisierungPipeline<List<Benutzer>> sp = new SerialisierungPipeline<List<Benutzer>>();
-		BenutzerRegister.benutzerListe = sp.deserialisieren(path);
+		BenutzerRegister.benutzerListe = sp.deserialisieren(path, new ArrayList<Benutzer>());
 	}
 
 	/**
