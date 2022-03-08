@@ -78,7 +78,6 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBestellungAbgeben1());
 			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
@@ -233,20 +232,4 @@ public class OverviewFahrer extends Scene {
 		return btPersoenlicheDatenAnzeigen;
 	}
 
-	/**
-	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
-	 * 
-	 * @return Button fuer PersoenlicheDatenBearbeiten
-	 */
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
-				primaryStage
-						.setScene(new PersoenlicheDatenBearbeiten(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenBearbeiten;
-	}
 }

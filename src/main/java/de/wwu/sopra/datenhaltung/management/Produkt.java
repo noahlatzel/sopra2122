@@ -171,7 +171,7 @@ public class Produkt implements Serializable {
 	 * @return Das neue Produkt.
 	 */
 	public Produkt clone(double preis) {
-		Produkt temp = new Produkt(this.getName(), this.getBeschreibung(), preis, this.getEinkaufspreis());
+		Produkt temp = new Produkt(this.getName(), this.getBeschreibung(), this.getEinkaufspreis(), preis);
 		temp.setKategorie(this.getKategorie());
 		temp.setProduktBild(this.getProduktBild());
 		return temp;

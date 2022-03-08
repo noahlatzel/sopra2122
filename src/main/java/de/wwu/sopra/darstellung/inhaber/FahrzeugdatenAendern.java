@@ -90,9 +90,8 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			gridPane.add(this.setFahrzeugListeScrollPane(), 0, 0);
 			gridPane.add(this.setLoeschenButton(), 0, 1);
 			gridPane.add(this.setForm(), 1, 0);
-
-			gridPane.setHgap(20);
-			gridPane.setVgap(20);
+			
+			gridPane.getStyleClass().add("inhaber-fahrzeugdaten-content-wrapper");
 		}
 
 		return this.gridPane;
@@ -108,7 +107,6 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		// Get Fahrzeugen Liste
 		for (Fahrzeug i : inhaberSteuerung.fahrzeugeAnzeigen()) {
 			fahrzeugeListe.add(i);
-			System.out.println(i);
 		}
 		// Neue Liste mit den IDs von den Fahrzeugen
 		fahrzeugeid = new ArrayList<Integer>();
@@ -119,6 +117,14 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		} catch (NullPointerException k) {
 			errorText.setText("es sind noch keine Fahrzeuge vorhanden");
 		}
+		
+		// Styling
+		lblFahrzeugnummer.getStyleClass().add("inhaber-hinzufuegen-form-label");
+		lblKapazitaet.getStyleClass().add("inhaber-hinzufuegen-form-label");
+		tfFahrzeugNummer.getStyleClass().add("inhaber-hinzufuegen-form-textfield");
+		tfKapazitaet.getStyleClass().add("inhaber-hinzufuegen-form-textfield");
+		btnBearbeiten.getStyleClass().add("inhaber-form-button");
+		btnFahrzeugHinzufuegen.getStyleClass().add("inhaber-form-button");
 
 		// Erstellung einer ListView, um Fahrzeugen zu zeigen
 		fahrzeuge = (ObservableList<Integer>) FXCollections.observableArrayList(fahrzeugeid);
@@ -174,7 +180,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	public VBox setForm() {
 		// Temp!!! TextFields, um Fahrzeug zu sehen und bearbeiten
 		if (this.form == null) {
-			form = new VBox(6);
+			form = new VBox();
 			form.getChildren().add(lblFahrzeugnummer);
 			form.getChildren().add(tfFahrzeugNummer);
 			form.getChildren().add(lblKapazitaet);
@@ -182,6 +188,8 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			form.getChildren().add(btnBearbeiten);
 			form.getChildren().add(btnFahrzeugHinzufuegen);
 			form.getChildren().add(errorText);
+			
+			form.getStyleClass().add("inhaber-fahrzeugdaten-form");
 
 			// speichern eines neuen Fahrzeugs
 			this.btnFahrzeugHinzufuegen.setOnAction(e -> {
@@ -213,6 +221,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		// Erstellung von Loeschen-Button, um ein Fahrzeug zu loeschen
 		if (this.loeschenButton == null) {
 			loeschenButton = new Button("Fahrzeug Loeschen");
+			loeschenButton.getStyleClass().add("inhaber-form-button");
 			loeschenButton.setOnAction(e -> {
 				int fzeugIdx = listView.getSelectionModel().getSelectedIndex();
 				inhaberSteuerung.fahrzeugLoeschen(fahrzeugeListe.get(fzeugIdx));

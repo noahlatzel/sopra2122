@@ -9,7 +9,7 @@ import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class StatistikenAnzeigen extends InhaberOverview {
 	// Erstellung von Variablen
 	BorderPane contentWrapper;
-	TilePane tilePane;
+	GridPane gridPane;
 	HashMap<String, Float> stats;
 
 	/**
@@ -64,15 +64,30 @@ public class StatistikenAnzeigen extends InhaberOverview {
 	 * 
 	 * @return StatistikenOverview
 	 */
-	private TilePane setStatistikenOverviews() {
-		// TilePane als Main Content Wrapper
-		if (this.tilePane == null) {
-			tilePane = new TilePane();
-			for (String key : stats.keySet()) {
-				tilePane.getChildren().add(this.setStatistikComponent(key, stats.get(key)));
-			}
+//	private TilePane setStatistikenOverviews() {
+//		// TilePane als Main Content Wrapper
+//		if (this.tilePane == null) {
+//			tilePane = new TilePane();
+//			for (String key : stats.keySet()) {
+//				tilePane.getChildren().add(this.setStatistikComponent(key, stats.get(key)));
+//			}
+//		}
+//		return this.tilePane;
+//	}
+	
+	private GridPane setStatistikenOverviews() {
+		// GridPane als Main Content Wrapper
+		if (this.gridPane == null) {
+			gridPane = new GridPane();
+			
+			gridPane.add(this.setStatistikComponent("umsatz", stats.get("umsatz")), 0, 0);
+			gridPane.add(this.setStatistikComponent("ausgaben", stats.get("ausgaben")), 1, 0);
+			gridPane.add(this.setStatistikComponent("einnahmen", stats.get("einnahmen")), 0, 1);
+			gridPane.add(this.setStatistikComponent("arbeitszeit", stats.get("arbeitszeit")), 1, 1);
+			
+			gridPane.getStyleClass().add("inhaber-statistiken-content-wrapper");
 		}
-		return this.tilePane;
+		return this.gridPane;
 	}
 
 	/**
@@ -88,6 +103,10 @@ public class StatistikenAnzeigen extends InhaberOverview {
 
 		Label titleLabel = new Label(titleCapitalized);
 		Text valueAsText = new Text(Float.toString(value));
+		
+		// Styling
+		titleLabel.getStyleClass().add("inhaber-statistiken-item-label");
+		valueAsText.getStyleClass().add("inhaber-statistiken-item-text");
 
 		wrapper.getChildren().add(titleLabel);
 		wrapper.getChildren().add(valueAsText);
