@@ -306,7 +306,7 @@ public class Inhabersteuerung {
 	 * @param fahrzeugNummer fahrzeugNummer
 	 * @param kapazitaet     kapazitaet
 	 */
-	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
+	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, int kapazitaet) {
 		if (fahrzeug != null) {
 			if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
 				fahrzeug.setFahrzeugNummer(fahrzeugNummer);
