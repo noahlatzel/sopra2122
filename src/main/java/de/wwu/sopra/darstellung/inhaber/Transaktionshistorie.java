@@ -1,5 +1,7 @@
 package de.wwu.sopra.darstellung.inhaber;
 
+import java.util.Collections;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import de.wwu.sopra.datenhaltung.management.Transaktion;
 import javafx.collections.FXCollections;
@@ -68,10 +70,11 @@ public class Transaktionshistorie extends InhaberOverview {
 
 	private TableView<Transaktion> setTransaktionshistorie() {
 		if (this.tableView == null) {
+			transaktionen = FXCollections.observableArrayList();
 			for (Transaktion transaktion : inhaberSteuerung.getTransaktionshistorie()) {
 				transaktionen.add(transaktion);
 			}
-			transaktionen = FXCollections.observableArrayList();
+			Collections.reverse(transaktionen);
 			TableColumn<Transaktion, String> datumSpalte = new TableColumn<>("Datum");
 			datumSpalte.setCellValueFactory(new PropertyValueFactory<>("datum"));
 			TableColumn<Transaktion, String> beschreibungSpalte = new TableColumn<>("Beschreibung");

@@ -1,5 +1,6 @@
 package de.wwu.sopra.datenhaltung.management;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -8,13 +9,17 @@ import java.time.LocalDateTime;
  * @author Noah Latzel
  *
  */
-public class Transaktion {
+public class Transaktion implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final LocalDateTime datum;
 	private final double betrag;
 	private final String beschreibung;
 
-	public Transaktion(LocalDateTime datum, String beschreibung, double betrag) {
-		this.datum = datum;
+	public Transaktion(String beschreibung, double betrag) {
+		this.datum = LocalDateTime.now();
 		this.beschreibung = beschreibung;
 		this.betrag = betrag;
 	}
