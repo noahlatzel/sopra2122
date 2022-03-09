@@ -22,6 +22,8 @@ class BestellungTest {
 	ArrayList<Produkt> produkte;
 	Kunde kunde;
 	Bestellung bestellung;
+	Bestellung bestellung2;
+	Rabatt rabatt;
 
 	@AfterEach
 	void cleanAfter() {
@@ -42,7 +44,9 @@ class BestellungTest {
 		kunde = new Kunde("kunde", "666", "email69", "Kassel", "UnfassbarerVorname", "EinwandfreierNachname",
 				"KapitalistenBankverbindung");
 		Lager.produktZumSortimentHinzufuegen(new Produkt("Coca Cola", "Lecker", 0.49, 0.99));
+		rabatt = new Rabatt("ABC", 50);
 		bestellung = new Bestellung(null, produkte, kunde);
+		bestellung2 = new Bestellung(null, produkte, kunde, rabatt);
 	}
 
 	/**
@@ -64,6 +68,25 @@ class BestellungTest {
 	}
 
 	/**
+	 * Testet, ob der Konstruktor 2 funktioniert.
+	 */
+	@Test
+	void testKonstruktor2() {
+		assertThrows(AssertionError.class, () -> {
+			new Bestellung(null, produkte, null, null);
+		});
+		assertTrue(bestellung2.getStatus().equals(BestellStatus.OFFEN));
+		assertTrue(bestellung2.getDatum() == null);
+		System.out.println(bestellung2.getBetrag());
+		assertTrue(bestellung2.getBetrag() == 1.29 * 0.5);
+		assertTrue(bestellung2.getProdukte() == produkte);
+		assertTrue(bestellung2.getKunde() == kunde);
+		assertTrue(bestellung2.toString().equals("Bestellung " + bestellung2.getBestellnummer()));
+		assertTrue(bestellung2.getAdresse().equals(bestellung.getKunde().getAdresse()));
+		assertTrue(bestellung2.getRabatt().equals(rabatt));
+	}
+
+	/**
 	 * Testet getter und setter fuer die Rechnung einer Bestellung.
 	 */
 	@Test
@@ -81,6 +104,19 @@ class BestellungTest {
 		assertThrows(AssertionError.class, () -> {
 			new Bestellung(null, new ArrayList<Produkt>(), kunde);
 		});
+	}
+
+	/**
+	 * Testet die Verwaltung des Rabatts
+	 */
+	@Test
+	void setRabattTest() {
+		double before = bestellung.getBetrag();
+		Rabatt rabatt = new Rabatt("ABC", 50);
+		bestellung.setRabatt(rabatt);
+		assertTrue(bestellung.getRabatt().equals(rabatt));
+		double after = bestellung.calcBetrag();
+		assertTrue(after == before * 0.5);
 	}
 
 }
