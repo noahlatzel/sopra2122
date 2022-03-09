@@ -37,6 +37,7 @@ public class InhaberOverview extends Scene {
 	Button btPersoenlicheDatenBearbeiten;
 	Button btProduktHinzufuegen;
 	Button btKategorienVerwaltung;
+	Button btTransaktionshistorie;
 	Inhabersteuerung inhaberSteuerung;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
@@ -81,6 +82,7 @@ public class InhaberOverview extends Scene {
 			vbox.getChildren().add(this.setBtKategorienVerwaltung());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
 			vbox.getChildren().add(this.setBtStatistiken());
+			vbox.getChildren().add(this.setBtTransaktionshistorie());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 
@@ -272,5 +274,23 @@ public class InhaberOverview extends Scene {
 			});
 		}
 		return this.btProduktHinzufuegen;
+	}
+
+	/**
+	 * Erzeugt Button fuer Transaktionshistorie
+	 * 
+	 * @return Button fuer Transaktionshistorie
+	 */
+	private Button setBtTransaktionshistorie() {
+		if (this.btTransaktionshistorie == null) {
+			btTransaktionshistorie = new Button("Transaktionshistorie");
+			btTransaktionshistorie.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btTransaktionshistorie.setOnAction(action -> {
+				primaryStage
+						.setScene(new Transaktionshistorie(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+			});
+		}
+
+		return this.btTransaktionshistorie;
 	}
 }
