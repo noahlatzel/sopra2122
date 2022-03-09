@@ -46,6 +46,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 		super(primaryStage, width, height, kundensteuerung);
 		root.setCenter(setOuterBorderPane());
+
+		double chance = Math.random() * 100;
+		if (chance < 3) {
+			kundensteuerung.addRabatt();
+		}
 	}
 
 	/**
@@ -166,7 +171,6 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 	public VBox setVBoxBestellen() {
 		VBox vbox = new VBox();
-		kundensteuerung.addRabatt();
 
 		if (kundensteuerung.getRabatte().size() > 0) {
 			VBox rabattVBox = setRabattcodeVBox();
@@ -242,6 +246,8 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 					if (comboboxRabatt.getValue() != null) {
 						kundensteuerung.bestellen(kundensteuerung.rabattEinloesen(comboboxRabatt.getValue()));
+					} else {
+						kundensteuerung.bestellen();
 					}
 
 					primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));

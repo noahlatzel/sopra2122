@@ -58,6 +58,7 @@ public class OverviewFahrer extends Scene {
 		this.steuerung = steuerung;
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
+		this.setRoot(root);
 	}
 
 	/**

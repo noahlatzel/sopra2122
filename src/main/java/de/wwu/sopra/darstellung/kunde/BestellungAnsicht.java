@@ -174,6 +174,11 @@ public class BestellungAnsicht extends KundeOverview {
 		fehlerLabel = new Label();
 		fehlerLabel.setMaxWidth(180);
 
+		if (bestellung.getRabatt() != null) {
+			VBox rabattVBox = setRabattcodeVBox();
+			vbox.getChildren().add(rabattVBox);
+			VBox.setMargin(rabattVBox, new Insets(0, 40, 0, 40));
+		}
 		vbox.getChildren().add(summeVbox);
 		vbox.getChildren().add(statusVBox);
 		if (this.bestellung.getStatus() == BestellStatus.OFFEN) {
@@ -192,8 +197,25 @@ public class BestellungAnsicht extends KundeOverview {
 
 		VBox.setMargin(fehlerLabel, new Insets(20, 40, 10, 40));
 		VBox.setMargin(btNachbestellen, new Insets(0, 40, 0, 40));
-		VBox.setMargin(summeVbox, new Insets(25, 40, 0, 40));
+		VBox.setMargin(summeVbox, new Insets(0, 40, 0, 40));
 		VBox.setMargin(statusVBox, new Insets(0, 40, 0, 40));
+
+		return vbox;
+	}
+
+	public VBox setRabattcodeVBox() {
+		VBox vbox = new VBox();
+
+		Label rabattLabel = new Label(" Rabattcode:");
+		Label rabatt = new Label(" " + bestellung.getRabatt().getRabattcode() + " - "
+				+ bestellung.getRabatt().getProzent() + "% Rabatt");
+		rabattLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		rabatt.setStyle(" -fx-font-size: 16;");
+
+		rabatt.setAlignment(Pos.CENTER_RIGHT);
+
+		vbox.getChildren().add(rabattLabel);
+		vbox.getChildren().add(rabatt);
 
 		return vbox;
 	}
@@ -256,7 +278,7 @@ public class BestellungAnsicht extends KundeOverview {
 		subtotal.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
 		preis.setStyle(" -fx-font-size: 16");
 
-		vbox.setPadding(new Insets(30, 40, 20, 5));
+		vbox.setPadding(new Insets(20, 40, 20, 5));
 
 		return vbox;
 	}

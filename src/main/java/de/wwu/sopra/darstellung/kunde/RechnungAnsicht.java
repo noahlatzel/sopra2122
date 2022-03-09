@@ -183,13 +183,42 @@ public class RechnungAnsicht {
 	public static VBox setVBoxRechts() {
 		VBox vbox = new VBox();
 
+		if (rechnung.getBestellung().getRabatt() != null) {
+			VBox rabattVBox = setRabattcodeVBox();
+			vbox.getChildren().add(rabattVBox);
+			VBox.setMargin(rabattVBox, new Insets(20, 40, 0, 40));
+		}
+
 		VBox summeVbox = setSummeVBox();
 		vbox.getChildren().add(summeVbox);
 
 		vbox.setPadding(new Insets(10));
 		vbox.setMinWidth(WIDTH / 4);
 
-		VBox.setMargin(summeVbox, new Insets(25, 40, 0, 40));
+		VBox.setMargin(summeVbox, new Insets(0, 40, 0, 40));
+
+		return vbox;
+	}
+
+	/**
+	 * Erzeugt, falls benoetigt, eine VBox zum Anzeigen des Rabatts auf die
+	 * Bestellung.
+	 * 
+	 * @return Gibt eine VBox zurueck, die den Rabatt anzeigt.
+	 */
+	public static VBox setRabattcodeVBox() {
+		VBox vbox = new VBox();
+
+		Label rabattLabel = new Label(" Rabattcode:");
+		Label rabatt = new Label(" " + rechnung.getBestellung().getRabatt().getRabattcode() + " - "
+				+ rechnung.getBestellung().getRabatt().getProzent() + "% Rabatt");
+		rabattLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		rabatt.setStyle(" -fx-font-size: 16;");
+
+		rabatt.setAlignment(Pos.CENTER_RIGHT);
+
+		vbox.getChildren().add(rabattLabel);
+		vbox.getChildren().add(rabatt);
 
 		return vbox;
 	}
