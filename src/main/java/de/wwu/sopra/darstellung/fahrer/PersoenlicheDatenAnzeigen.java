@@ -66,6 +66,7 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 	private GridPane setContent() {
 		if (grid == null) {
 			grid = new GridPane();
+			grid.getStyleClass().add("fahrer-persoenliche-daten-wrapper");
 			String gesamtString = steuerung.persoenlicheDatenAnzeigen();
 
 			// Label
@@ -116,14 +117,13 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			tfBankverbindung.setText(aufgeteilt[6]);
 
 			// Label Style
-			lbBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-
+			lbBenutzername.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbPasswort.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbEmail.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbAdresse.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbVorname.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbNachname.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbBankverbindung.getStyleClass().add("fahrer-persoenliche-daten-label");
 			// Textfeld nicht editierbar
 			tfBenutzername.setDisable(true);
 			tfPasswort.setDisable(true);
@@ -133,17 +133,19 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			tfNachname.setDisable(true);
 			tfBankverbindung.setDisable(true);
 
-			// Text Style
-			tfBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+			// Textfield Style
+			tfBenutzername.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfPasswort.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfEmail.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfAdresse.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfVorname.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfNachname.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfBankverbindung.getStyleClass().add("fahrer-persoenliche-daten-textfield");
 
 			// Buttons setzen
 			Button bearbeiten = new Button("Bearbeiten");
+			bearbeiten.getStyleClass().add("inhaber-form-button");
+			GridPane.setMargin(bearbeiten, new Insets(24, 0, 0, 0));
 			bearbeiten.setOnAction(a -> {
 				tfBenutzername.setDisable(false);
 				tfPasswort.setDisable(false);
@@ -154,6 +156,8 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 				tfBankverbindung.setDisable(false);
 			});
 			Button speichern = new Button("Speichern");
+			speichern.getStyleClass().add("inhaber-form-button");
+			GridPane.setMargin(speichern, new Insets(24, 0, 0, 0));
 			speichern.setOnAction(a -> {
 				// test auf blank stellen
 				boolean istallesvoll = true;
@@ -170,13 +174,13 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 						istallesvoll = false;
 				}
 
-				// wen nicht blanc
+				// wenn nicht blank
 				if (istallesvoll == true) {
 					steuerung.persoenlicheDatenBearbeiten(tfBenutzername.getText(), tfPasswort.getText(),
 							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
 							tfBankverbindung.getText());
 				} else {
-					grid.add(new Label("es gibt Leere Angaben"), 2, 7);
+					grid.add(new Label("Es gibt Leere Angaben"), 2, 7);
 				}
 				tfBenutzername.setDisable(true);
 				tfPasswort.setDisable(true);
@@ -190,10 +194,6 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			// Grid setzen
 			grid.add(bearbeiten, 0, 8);
 			grid.add(speichern, 1, 8);
-
-			// Abstand setzen
-			grid.setHgap(5);
-			grid.setVgap(5);
 		}
 		return grid;
 	}

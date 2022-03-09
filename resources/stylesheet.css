@@ -449,3 +449,22 @@
 .fahrer-fahrzeug-auswaehlen-scrollpane {
     -fx-background-color:transparent;
 }
+
+.fahrer-persoenliche-daten-label {
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+}
+
+.fahrer-persoenliche-daten-textfield {
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-padding: 8;
+}
+
+.fahrer-persoenliche-daten-wrapper {
+    -fx-vgap: 10;
+    -fx-hgap: 8;
+    -fx-padding: 24px;
+}
