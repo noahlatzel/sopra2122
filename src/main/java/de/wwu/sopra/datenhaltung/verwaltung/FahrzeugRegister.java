@@ -34,6 +34,10 @@ public class FahrzeugRegister implements Serializable {
 	 */
 	private static HashSet<Integer> fahrzeugNummerListe = new HashSet<Integer>();
 	/**
+	 * Liste fuer Fahrzeugnummer
+	 */
+	private static HashSet<Integer> routenNummerListe = new HashSet<Integer>();
+	/**
 	 * Zaehler fuer Routennummer
 	 */
 	private static int zaehlerRoute = 1;
@@ -85,9 +89,13 @@ public class FahrzeugRegister implements Serializable {
 	 * @return Den Zaehler
 	 */
 	public static int getZaehler() {
+		for (Fahrzeug fahrzeug : fahrzeuge) {
+			fahrzeugNummerListe.add(fahrzeug.getFahrzeugNummer());
+		}
 		while (fahrzeugNummerListe.contains(zaehler)) {
 			zaehler++;
 		}
+		fahrzeugNummerListe.add(zaehler);
 		return FahrzeugRegister.zaehler;
 	}
 
@@ -123,10 +131,14 @@ public class FahrzeugRegister implements Serializable {
 	 * Setzt das FahrzeugRegister zurueck (fuer Tests).
 	 */
 	public static void reset() {
+		@SuppressWarnings("unchecked")
 		HashSet<Fahrzeug> register_old = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
 		for (Fahrzeug p : register_old) {
 			FahrzeugRegister.removeFahrzeug(p);
 		}
+		FahrzeugRegister.fahrzeugNummerListe.clear();
+		zaehler = 1;
+		zaehlerRoute = 1;
 	}
 
 	/**
@@ -135,11 +147,15 @@ public class FahrzeugRegister implements Serializable {
 	 * @return Den Zaehler fuer Route
 	 */
 	public static int getZaehlerRoute() {
-		for (Fahrzeug f : FahrzeugRegister.getFahrzeuge()) {
-			if (f.getRoute() != null && f.getRoute().getRoutenNummer() == FahrzeugRegister.zaehlerRoute) {
-				FahrzeugRegister.zaehlerRoute++;
+		for (Fahrzeug fahrzeug : fahrzeuge) {
+			if (fahrzeug.getRoute() != null) {
+				routenNummerListe.add(fahrzeug.getFahrzeugNummer());
 			}
 		}
-		return ++zaehlerRoute;
+		while (routenNummerListe.contains(zaehlerRoute)) {
+			zaehlerRoute++;
+		}
+		routenNummerListe.add(zaehlerRoute);
+		return FahrzeugRegister.zaehlerRoute;
 	}
 }

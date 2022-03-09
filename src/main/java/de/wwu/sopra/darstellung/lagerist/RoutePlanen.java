@@ -1,5 +1,6 @@
 package de.wwu.sopra.darstellung.lagerist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.mitarbeiter.Lageristensteuerung;
@@ -162,7 +163,8 @@ public class RoutePlanen extends LageristOverview {
 							tableViewBestellung.getSelectionModel().getSelectedItems())) {
 						setErrorLabel("Die Bestellung passt nicht in das Fahrzeug.");
 					} else {
-						lageristenSteuerung.planeRoute(tableViewBestellung.getSelectionModel().getSelectedItems(),
+						lageristenSteuerung.planeRoute(
+								convertToList(tableViewBestellung.getSelectionModel().getSelectedItems()),
 								tableViewFahrzeug.getSelectionModel().getSelectedItem());
 						primaryStage
 								.setScene(new RoutePlanen(primaryStage, getWidth(), getHeight(), lageristenSteuerung));
@@ -192,6 +194,20 @@ public class RoutePlanen extends LageristOverview {
 			gueltig = false;
 		}
 		return gueltig;
+	}
+
+	/**
+	 * Wandelt eine ObservableList in eine ArrayList
+	 * 
+	 * @param raw ObservableList
+	 * @return ArrayList
+	 */
+	private ArrayList<Bestellung> convertToList(ObservableList<Bestellung> raw) {
+		ArrayList<Bestellung> temp = new ArrayList<Bestellung>();
+		for (Bestellung bestellung : raw) {
+			temp.add(bestellung);
+		}
+		return temp;
 	}
 
 }

@@ -1,6 +1,8 @@
 package de.wwu.sopra.anwendung.mitarbeiter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.wwu.sopra.datenhaltung.benutzer.Fahrer;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
@@ -9,6 +11,8 @@ import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
  * Steuerung der Anwendungen des Fahrers
@@ -65,6 +69,21 @@ public class Fahrersteuerung {
 	}
 
 	/**
+	 * Gibt eine Liste aller belegten Fahrzeuge zurueck.
+	 * 
+	 * @return belegte Fahrzeuge
+	 */
+	public List<Fahrzeug> getBelegteFahrzeuge() {
+		ArrayList<Fahrzeug> temp = new ArrayList<Fahrzeug>();
+		for (Fahrzeug fahrzeug : FahrzeugRegister.getFahrzeuge()) {
+			if (fahrzeug.getStatus().equals(FahrzeugStatus.BELEGT)) {
+				temp.add(fahrzeug);
+			}
+		}
+		return temp;
+	}
+
+	/**
 	 * die route des Fahrzugs wird ausgegben
 	 * 
 	 * @return route des Fahrzeugs
@@ -89,6 +108,7 @@ public class Fahrersteuerung {
 
 		this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
 		this.aktuelleBestellung++;
+		Statistiken.addArbeitszeit(0.3);
 
 	}
 
@@ -124,6 +144,7 @@ public class Fahrersteuerung {
 		this.fahrer.setVorname(vorname);
 		this.fahrer.setName(name);
 		this.fahrer.setBankverbindung(bankverbindung);
+		Statistiken.addArbeitszeit(0.2);
 	}
 
 	/**
@@ -156,6 +177,7 @@ public class Fahrersteuerung {
 		inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
 		inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 		aktuelleBestellung++;
+		Statistiken.addArbeitszeit(0.3);
 
 	}
 
@@ -177,6 +199,7 @@ public class Fahrersteuerung {
 		this.fahrer.getFahrzeug().entferneRoute();
 		this.fahrer.getFahrzeug().setFahrer(null);
 		this.fahrer.setFahrzeug(null);
+		Statistiken.addArbeitszeit(0.2);
 
 	}
 
