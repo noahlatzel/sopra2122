@@ -83,6 +83,7 @@ public class Bestellung implements Serializable {
 		this.kunde = kunde;
 		this.adresse = kunde.getAdresse();
 		this.kapazitaet = produkte.size();
+		this.datum = datum;
 		kunde.bestellungHinzufuegen(this);
 
 		for (Produkt produkt : produkte) {
