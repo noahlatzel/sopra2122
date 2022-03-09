@@ -237,8 +237,8 @@ public class Lager implements Serializable {
 		lager = sp1.deserialisieren(path_set, new ArrayList<Produkt>());
 
 		// Bereinigung von Testobjekten, die scheinbar nicht geloescht werden koennen
-		Lager.produktAusDemSortimentEntfernen(new Produkt("Coca Cola", "Toll", 0.49, 0.99));
-		Lager.produktAusDemSortimentEntfernen(new Produkt("Cola", "Toller G", 0.49, 0.99));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("asdasdasdasd", "Toll", 0.49, 0.99));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("bbbbb", "Toller G", 0.49, 0.99));
 
 	}
 
