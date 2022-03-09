@@ -15,11 +15,11 @@ public class RabattTest {
 		assertEquals(rabatt.getProzent(), 50);
 
 		assertThrows(AssertionError.class, () -> {
-			Rabatt rabatt1 = new Rabatt("ABCD", -1);
+			new Rabatt("ABCD", -1);
 		});
 
 		assertThrows(AssertionError.class, () -> {
-			Rabatt rabatt2 = new Rabatt("ABCD", 101);
+			new Rabatt("ABCD", 101);
 		});
 	}
 }

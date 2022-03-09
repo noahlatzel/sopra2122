@@ -207,6 +207,7 @@ public class LageristensteuerungTest {
 	/**
 	 * Testet zeigeFreieFahrzeuge
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	void testFreieFahrzeuge() {
 		HashSet<Fahrzeug> temp = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();

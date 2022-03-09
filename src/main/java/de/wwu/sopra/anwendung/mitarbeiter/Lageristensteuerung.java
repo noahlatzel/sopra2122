@@ -19,7 +19,6 @@ import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.management.Transaktion;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
-import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
 
 /**
  * Die LageristenSteuerung des Systems ist das Bindeglied zwischen
@@ -59,9 +58,6 @@ public class Lageristensteuerung {
 		// Vorbedingung pruefen
 		assert !(nachbestellungen.isEmpty()) : "Vorbedingung bei Aufruf von bestelleNach() verletzt";
 
-		// Vorzustand zur Ueberpruefung der Nachbedingung retten
-		double ausgaben = Statistiken.getAusgaben();
-
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
 				if (n.getProdukt() != null) {
@@ -75,15 +71,6 @@ public class Lageristensteuerung {
 		}
 		Statistiken.addArbeitszeit(0.5);
 
-		// Nachbedingung pruefen
-		double gesamtpreis = 0;
-		for (NachbestellungTupel n : nachbestellungen) {
-			for (int i = 0; i < n.getMenge(); i++) {
-				if (n.getProdukt() != null) {
-					gesamtpreis += GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
-				}
-			}
-		}
 	}
 
 	/**
