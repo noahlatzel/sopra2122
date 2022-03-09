@@ -79,12 +79,3 @@ crashlytics-build.properties
 fabric.properties
 
 # Project specific resources
-resources/benutzerReg.ser
-resources/fahrzeugReg.ser
-resources/grosshaendlerReg.ser
-resources/lager_kat.ser
-resources/lager_map.ser
-resources/lager_namen.ser
-resources/lager_set.ser
-resources/statistiken.ser
-resources/transaktionen.ser
