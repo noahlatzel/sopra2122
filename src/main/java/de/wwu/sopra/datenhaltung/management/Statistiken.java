@@ -144,10 +144,10 @@ public class Statistiken implements Serializable {
 	}
 
 	/**
-	 * Fuegt einen Betrag zu den Ausgaben hinzu.
+	 * Fuegt Zeit zu der Arbeitszeit hinzu.
 	 * 
-	 * @param ausgaben Die Ausgaben, die hinzugekommen sind.
-	 * @pre Der zu addierende Betrag muss positiv sein
+	 * @param zeit Die Zeit, die hinzugekommen ist.
+	 * @pre Die zu addierende Zeit muss positiv sein
 	 */
 	public static void addArbeitszeit(double zeit) {
 		// Vorbedingung pruefen
