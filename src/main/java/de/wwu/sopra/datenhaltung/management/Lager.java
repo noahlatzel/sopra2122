@@ -172,9 +172,9 @@ public class Lager implements Serializable {
 	 * @return Liste mit allen Produkten aus dem Lager welche der uebergebenen Namen
 	 *         tragen
 	 */
-	public static List<Produkt> getProdukteAusLager(List<Produkt> produkte, String suche) {
+	public static List<Produkt> getProdukteAusLager(String suche) {
 		List<Produkt> liste = new ArrayList<Produkt>();
-		for (Produkt p : produkte) {
+		for (Produkt p : Lager.sortimentAnzeigen()) {
 			if (p.getName().equals(suche)) {
 				liste.add(p);
 			}

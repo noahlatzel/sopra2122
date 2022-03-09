@@ -91,10 +91,10 @@ public class Kundensteuerung {
 
 		if (gesuchtesObjekt == null)
 			throw new NullPointerException();
-		if (!(Lager.getProduktBestand(gesuchtesObjekt) > 0)) {
+		if (!(Lager.getProduktBestand(gesuchtesObjekt) >= 0)) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		}
-		return Lager.getProdukteAusLager(Lager.getLager(), gesuchtesObjekt);
+		return Lager.getProdukteAusLager(gesuchtesObjekt);
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class Kundensteuerung {
 	 * @return Gefiltertes HashSet.
 	 */
 	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
-		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
+		Set<Produkt> filteredProdukte = kategorie.getProdukte();
 
 		Set<Kategorie> unterkategorien = kategorie.getUnterkategorien();
 		if (unterkategorien != null) {
@@ -276,17 +276,6 @@ public class Kundensteuerung {
 			while (it.hasNext()) {
 				Kategorie kategorie2 = it.next();
 				filteredProdukte.addAll(filterProdukteNachKategorie(produkte, kategorie2));
-			}
-		}
-		for (Produkt produkt : produkte) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
-			}
-		}
-
-		for (Produkt produkt : getLager()) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
 			}
 		}
 		return filteredProdukte;
