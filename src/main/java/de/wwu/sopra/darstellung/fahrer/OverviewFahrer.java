@@ -28,16 +28,9 @@ public class OverviewFahrer extends Scene {
 	Stage primaryStage;
 	VBox vbox;
 	Fahrersteuerung steuerung;
-	Button btFahrzeugwahlen;
 	Button btRouteAnzeigen;
-	Button btFahrzeugpositionAnzeigen;
-	Button btKundeNichtDa;
-	Button btBestellungAbgeben1;
-	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
-	Button btPersoenlicheDatenBearbeiten;
 	Button btAlternative;
-	// Button btAbmelden;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
 
@@ -52,14 +45,14 @@ public class OverviewFahrer extends Scene {
 	public OverviewFahrer(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(new BorderPane(), width, height);
 
-		File f = new File("resources/stylesheet.css");
-		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-
 		this.primaryStage = primaryStage;
 		this.steuerung = steuerung;
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
 		this.setRoot(root);
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
 	/**
