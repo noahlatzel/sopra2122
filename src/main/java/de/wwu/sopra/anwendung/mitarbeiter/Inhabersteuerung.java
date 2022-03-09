@@ -18,6 +18,7 @@ import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.management.Transaktion;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
@@ -409,5 +410,9 @@ public class Inhabersteuerung {
 		statistikHashMap.put("arbeitszeit", (float) Statistiken.getArbeitszeit());
 
 		return statistikHashMap;
+	}
+
+	public ArrayList<Transaktion> getTransaktionshistorie() {
+		return Statistiken.getTransaktionshistorie();
 	}
 }

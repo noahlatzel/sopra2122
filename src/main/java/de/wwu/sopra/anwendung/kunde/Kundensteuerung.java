@@ -16,6 +16,8 @@ import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
+import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.management.Transaktion;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 
 /**
@@ -110,6 +112,9 @@ public class Kundensteuerung {
 		Bestellung bestellung = new Bestellung(LocalDateTime.now(), produkte, kunde);
 		kunde.bestellungHinzufuegen(bestellung);
 		kunde.getWarenkorb().warenkorbLeeren();
+
+		Statistiken.addTransaktion(
+				new Transaktion("Bestellung: " + bestellung.getBestellnummer(), bestellung.getBetrag()));
 	}
 
 	/**
@@ -125,6 +130,9 @@ public class Kundensteuerung {
 		Bestellung bestellung = new Bestellung(LocalDateTime.now(), produkte, kunde, rabatt);
 		kunde.bestellungHinzufuegen(bestellung);
 		kunde.getWarenkorb().warenkorbLeeren();
+
+		Statistiken.addTransaktion(
+				new Transaktion("Bestellung: " + bestellung.getBestellnummer(), bestellung.getBetrag()));
 	}
 
 	/**
@@ -161,6 +169,8 @@ public class Kundensteuerung {
 
 			bestellung.setStatus(BestellStatus.STORNIERT);
 			Lager.addProdukte(bestellung.getProdukte());
+			Statistiken.addTransaktion(new Transaktion("Stornierung fuer Bestellung: " + bestellung.getBestellnummer(),
+					-1 * bestellung.getBetrag()));
 
 		} else {
 

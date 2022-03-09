@@ -76,4 +76,17 @@ class StatistikenTest {
 		assertTrue(temp_1 == Statistiken.getUmsatz());
 	}
 
+	/**
+	 * Teste Transaktion
+	 */
+	@Test
+	void testTranskation() {
+		Transaktion transaktion = new Transaktion("Test", 10);
+		assertTrue(transaktion.getBeschreibung().equals("Test"));
+		assertTrue(transaktion.getBetrag() == 10);
+		assertTrue(transaktion.getDatum().equals(transaktion.getDatum()));
+		Statistiken.addTransaktion(transaktion);
+		assertTrue(Statistiken.getTransaktionshistorie().contains(transaktion));
+	}
+
 }
