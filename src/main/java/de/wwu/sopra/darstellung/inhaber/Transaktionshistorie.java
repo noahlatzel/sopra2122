@@ -44,7 +44,7 @@ public class Transaktionshistorie extends InhaberOverview {
 		if (this.contentWrapper == null) {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
-			Label title = new Label("Mitarbeiter-Registrierung");
+			Label title = new Label("Transaktionshistorie");
 			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
