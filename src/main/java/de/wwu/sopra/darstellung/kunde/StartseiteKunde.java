@@ -345,7 +345,7 @@ public class StartseiteKunde extends KundeOverview {
 		Label produktName = new Label(p.getName());
 		produktName.getStyleClass().add("kunde-startseite-produkt-panel-label");
 		produktName.getStyleClass().add("kunde-startseite-produkt-panel-label-bold");
-		Label produktPreis = new Label("Preis: " + p.getVerkaufspreis() + "€");
+		Label produktPreis = new Label("Preis: " + p.getVerkaufspreis() + " EUR");
 		produktPreis.getStyleClass().add("kunde-startseite-produkt-panel-label");
 
 		produktPanel.getChildren().add(produktBild);
