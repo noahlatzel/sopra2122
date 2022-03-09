@@ -268,8 +268,8 @@ public class SortimentBearbeiten extends InhaberOverview {
 	private static void configureFileChooser(final FileChooser fileChooser) {
 		fileChooser.setTitle("Bild auswaehlen");
 		fileChooser.setInitialDirectory(new File("src\\main\\resources\\de\\wwu\\sopra\\datenhaltung\\management"));
-		fileChooser.getExtensionFilters()
-				.add(new FileChooser.ExtensionFilter("All Images", "*.jpeg", "*.jpg", "*.png", "*.gif", "*.bmp"));
+		fileChooser.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("All Images", "*.jpeg", "*.jpg", "*.png", "*.gif", "*.bmp", "*.webmp"));
 	}
 
 }
