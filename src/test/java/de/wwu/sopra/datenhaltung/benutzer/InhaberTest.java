@@ -25,8 +25,13 @@ import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 public class InhaberTest {
 
 	Inhaber inhaber;
+	Inhaber inhaber1;
 	Fahrer fahrer;
 	Lagerist lagerist;
+	Fahrer fahrer1;
+	Lagerist lagerist1;
+	Fahrer fahrer2;
+	Lagerist lagerist2;
 
 	@AfterEach
 	void cleanAfter() {
@@ -39,10 +44,20 @@ public class InhaberTest {
 		BenutzerRegister.getBenutzerListe().clear();
 		inhaber = new Inhaber("admin", "1234", "email", "Muenster", "SuperVorname", "KlasseNachname",
 				"eineBankverbindung");
+		inhaber1 = new Inhaber("asdf", "12sdf34", "efsdf", "Mgsdfuenster", "SusgeperVorname", "KlasseNachname",
+				"eineBankverbindung");
 		fahrer = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
 				"nochEineBankverbindung", inhaber);
 		lagerist = new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
 				"nochEineBankverbindung", inhaber);
+		fahrer1 = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
+				"nochEineBankverbindung", null);
+		lagerist1 = new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
+				"nochEineBankverbindung", null);
+		fahrer2 = new Fahrer("fahrer", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
+				"nochEineBankverbindung", inhaber1);
+		lagerist2 = new Lagerist("lagerist", "4321", "email2", "Dortmund", "KrasserVorname", "CoolerNachname",
+				"nochEineBankverbindung", inhaber1);
 	}
 
 	/**
@@ -83,6 +98,7 @@ public class InhaberTest {
 		assertThrows(NullPointerException.class, () -> {
 			inhaber.fahrerHinzufuegen(null);
 		});
+
 	}
 
 	/**
@@ -94,7 +110,7 @@ public class InhaberTest {
 		// Fahrer wird entfernt, obwohl er nicht in der Liste war
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			inhaber.fahrerEntfernen(fahrer);
+			inhaber.fahrerEntfernen(fahrer1);
 		});
 		assertFalse(inhaber.getFahrer().contains(fahrer));
 
@@ -109,6 +125,9 @@ public class InhaberTest {
 		// null-Uebergabe
 		assertThrows(NullPointerException.class, () -> {
 			inhaber.fahrerEntfernen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			inhaber.fahrerEntfernen(fahrer2);
 		});
 	}
 
@@ -142,7 +161,7 @@ public class InhaberTest {
 	public void lageristEntfernenTest() {
 		// Lagerist wird entfernt, obwohl er nicht in der Liste war
 		assertThrows(IllegalArgumentException.class, () -> {
-			inhaber.lageristEntfernen(lagerist);
+			inhaber.lageristEntfernen(lagerist1);
 		});
 		assertFalse(inhaber.getLageristen().contains(lagerist));
 
@@ -158,6 +177,9 @@ public class InhaberTest {
 		// Bei null-Uebergabe soll Exception geworfen werden
 		assertThrows(NullPointerException.class, () -> {
 			inhaber.lageristEntfernen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			inhaber.lageristEntfernen(lagerist2);
 		});
 	}
 

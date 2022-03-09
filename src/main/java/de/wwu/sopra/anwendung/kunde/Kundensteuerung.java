@@ -278,7 +278,7 @@ public class Kundensteuerung {
 	 * @return Gefiltertes HashSet.
 	 */
 	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
-		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
+		Set<Produkt> filteredProdukte = kategorie.getProdukte();
 
 		Set<Kategorie> unterkategorien = kategorie.getUnterkategorien();
 		if (unterkategorien != null) {
@@ -286,17 +286,6 @@ public class Kundensteuerung {
 			while (it.hasNext()) {
 				Kategorie kategorie2 = it.next();
 				filteredProdukte.addAll(filterProdukteNachKategorie(produkte, kategorie2));
-			}
-		}
-		for (Produkt produkt : produkte) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
-			}
-		}
-
-		for (Produkt produkt : getLager()) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
 			}
 		}
 		return filteredProdukte;

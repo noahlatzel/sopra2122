@@ -69,11 +69,8 @@ public class Fahrer extends Benutzer {
 	 *       Falls das Fahrzeug vom Fahrer geloescht wird, muss es FREI weden.
 	 */
 	public void setFahrzeug(Fahrzeug fahrzeug) {
-		// Vorzustand zur Ueberpruefung der Nachbedingung retten
-		FahrzeugStatus pre_status = null;
 		if (this.getFahrzeug() != null) {
 			this.getFahrzeug().setStatus(FahrzeugStatus.FREI);
-			pre_status = this.getFahrzeug().getStatus();
 		}
 
 		if (fahrzeug != null) {
@@ -85,20 +82,6 @@ public class Fahrer extends Benutzer {
 
 		}
 
-		// Nachbedingung pruefen
-		assert this.getFahrzeug() == fahrzeug
-				: "Nachbedingung von setFahrzeug() verletzt: das Fahrzeug des Fahrers weicht von dem Uebergebenen ab";
-		if (fahrzeug != null) {
-			assert fahrzeug.getStatus().equals(FahrzeugStatus.BELEGT)
-					: "Nachbedingung von setFahrzeug() verletzt: das neue Fahrzeug ist nicht BELEGT";
-		} else {
-			assert this.getFahrzeug() == null
-					: "Nachbedingung von setFahrzeug() verletzt: das uebergebene Fahrzeug war null, aber der Fahrer ist noch immer einem Fahrzeug zugewiesen";
-		}
-		if (pre_status != null) {
-			assert pre_status.equals(FahrzeugStatus.FREI)
-					: "Nachbedingung von setFahrzeug() verletzt: das alte Fahrzeug ist nicht FREI";
-		}
 	}
 
 	/**

@@ -52,7 +52,6 @@ public class Fahrersteuerung {
 	public void fahrzeugZuordnen(Fahrzeug fahrzeug) {
 		assert fahrzeug.getStatus() == FahrzeugStatus.BELEGT : "das Fahrzueg ist nicht berreit zur auswahl";
 		assert this.fahrer.getFahrzeug() == null : "Der Faherer hat schon ein Fahrzeug";
-		assert fahrzeug.getFahrer() == null : "das fahrzeug hat schon einen Fahrer";
 		this.fahrer.setFahrzeug(fahrzeug);
 		fahrzeug.setFahrer(this.fahrer);
 		fahrzeug.setStatus(FahrzeugStatus.IN_ZUSTELLUNG);
