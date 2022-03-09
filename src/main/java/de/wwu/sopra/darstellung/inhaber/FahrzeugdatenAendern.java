@@ -44,7 +44,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	TextField tfKapazitaet = new TextField();
 	Button btnBearbeiten = new Button("Fahrzeug Bearbeiten");
 	Button btnFahrzeugHinzufuegen = new Button("Fahrzeug Hinzufuegen");
-	Label errorText = new Label("Die Fahrzeugnummer darf nicht \n schon verwendet werden.");
+	Label errorText = new Label("Die Fahrzeugnummer darf noch \n nicht verwendet werden.");
 
 	/**
 	 * Zeigt das Fenster zur Aenderung von Fahrzeugdaten
