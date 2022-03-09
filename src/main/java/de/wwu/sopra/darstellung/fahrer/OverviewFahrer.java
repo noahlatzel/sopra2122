@@ -73,12 +73,7 @@ public class OverviewFahrer extends Scene {
 
 			// buttons aufrufen
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			// vbox.getChildren().add(setBtFahrzeugwahlen());
-			// vbox.getChildren().add(setBtRouteAnzeigen());
-			// vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
-			// vbox.getChildren().add(setBestellungAbgeben1());
-			// vbox.getChildren().add(setBtKundeNichtDa());
-			// vbox.getChildren().add(setLieferungabschielsen());
+			vbox.getChildren().add(setBtRouteAnzeigen());
 			vbox.getChildren().add(setBtAlternative());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
@@ -131,22 +126,6 @@ public class OverviewFahrer extends Scene {
 	}
 
 	/**
-	 * Erzeugt Button zum Fahrzeugwaehlen
-	 * 
-	 * @return Button zum Fahrzeugwaehlen
-	 */
-	private Button setBtFahrzeugwahlen() {
-		if (btFahrzeugwahlen == null) {
-			btFahrzeugwahlen = new Button("Fahrzeug Auswaehlen");
-			btFahrzeugwahlen.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btFahrzeugwahlen.setOnAction(e -> {
-				primaryStage.setScene(new FahrzeugAuswaehlen(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btFahrzeugwahlen;
-	}
-
-	/**
 	 * Erzeugt Button zum RouteAnzeigen
 	 * 
 	 * @return Button zum RouteAnzeigen
@@ -161,61 +140,6 @@ public class OverviewFahrer extends Scene {
 			});
 		}
 		return btRouteAnzeigen;
-	}
-
-	/**
-	 * Erzeugt Button fuer FahrzeugpositionAnzeigen
-	 * 
-	 * @return Button fuer FahrzeugpositionAnzeigen
-	 */
-	private Button setBtFahrzeugpositionAnzeigen() {
-		if (btFahrzeugpositionAnzeigen == null) {
-			btFahrzeugpositionAnzeigen = new Button("Fahrzeugposition Anzeigen");
-			btFahrzeugpositionAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btFahrzeugpositionAnzeigen.setOnAction(e -> {
-				primaryStage.setScene(new FahrzeugpositionAnzeigen(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-
-		}
-		return btFahrzeugpositionAnzeigen;
-	}
-
-	/**
-	 * Erzeugt Button fuer KundeNichtDa
-	 * 
-	 * @return Button fuer KundeNichtDa
-	 */
-	private Button setBtKundeNichtDa() {
-		if (btKundeNichtDa == null) {
-			btKundeNichtDa = new Button("Kunde nicht da");
-			btKundeNichtDa.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btKundeNichtDa.setOnAction(e -> {
-				primaryStage.setScene(new KundeNichtDa(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btKundeNichtDa;
-	}
-
-	private Button setBestellungAbgeben1() {
-		if (btBestellungAbgeben1 == null) {
-			btBestellungAbgeben1 = new Button("Bestellung abgeben");
-			btBestellungAbgeben1.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btBestellungAbgeben1.setOnAction(e -> {
-				primaryStage.setScene(new BestellungAbgeben(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btBestellungAbgeben1;
-	}
-
-	private Button setLieferungabschielsen() {
-		if (btLieferungabschliesen == null) {
-			btLieferungabschliesen = new Button("Lieferung abschliesen");
-			btLieferungabschliesen.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btLieferungabschliesen.setOnAction(e -> {
-				primaryStage.setScene(new LieferungAbschlisen(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btLieferungabschliesen;
 	}
 
 	/**
