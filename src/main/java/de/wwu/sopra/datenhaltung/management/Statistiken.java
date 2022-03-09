@@ -144,6 +144,20 @@ public class Statistiken implements Serializable {
 	}
 
 	/**
+	 * Fuegt Zeit zu der Arbeitszeit hinzu.
+	 * 
+	 * @param zeit Die Zeit, die hinzugekommen ist.
+	 * @pre Die zu addierende Zeit muss positiv sein
+	 */
+	public static void addArbeitszeit(double zeit) {
+		// Vorbedingung pruefen
+		assert zeit >= 0 : "Vorbedingung von Arbeitszeit verletzt: die zu addierenden Arbeitszeit ist negativ";
+
+		Statistiken.arbeitszeit += zeit;
+
+	}
+
+	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
 	public static void load() {

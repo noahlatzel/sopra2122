@@ -11,6 +11,7 @@ import de.wwu.sopra.datenhaltung.bestellung.Rechnung;
 import de.wwu.sopra.datenhaltung.management.Fahrzeug;
 import de.wwu.sopra.datenhaltung.management.FahrzeugStatus;
 import de.wwu.sopra.datenhaltung.management.Route;
+import de.wwu.sopra.datenhaltung.management.Statistiken;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 
 /**
@@ -107,6 +108,7 @@ public class Fahrersteuerung {
 
 		this.routeAusgeben().getBestellungen().get(this.aktuelleBestellung).setStatus(BestellStatus.STORNIERT);
 		this.aktuelleBestellung++;
+		Statistiken.addArbeitszeit(0.3);
 
 	}
 
@@ -142,6 +144,7 @@ public class Fahrersteuerung {
 		this.fahrer.setVorname(vorname);
 		this.fahrer.setName(name);
 		this.fahrer.setBankverbindung(bankverbindung);
+		Statistiken.addArbeitszeit(0.2);
 	}
 
 	/**
@@ -174,6 +177,7 @@ public class Fahrersteuerung {
 		inbearbeitung.setRechnung(new Rechnung(LocalDateTime.now(), inbearbeitung));
 		inbearbeitung.setStatus(BestellStatus.ABGESCHLOSSEN);
 		aktuelleBestellung++;
+		Statistiken.addArbeitszeit(0.3);
 
 	}
 
@@ -195,6 +199,7 @@ public class Fahrersteuerung {
 		this.fahrer.getFahrzeug().entferneRoute();
 		this.fahrer.getFahrzeug().setFahrer(null);
 		this.fahrer.setFahrzeug(null);
+		Statistiken.addArbeitszeit(0.2);
 
 	}
 
