@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -402,6 +403,55 @@ public class KundensteuerungTest {
 		assertEquals(kundensteuerung.getRabattGueltig(rabattcode), kunde.getRabattGueltig(rabattcode));
 		assertEquals(kundensteuerung.getRabattProzent(rabattcode), kunde.getRabattProzent(rabattcode));
 		assertEquals(kundensteuerung.rabattEinloesen(rabattcode), rabatt);
+	}
+
+	@Test
+	void filterKategorien() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Set<Produkt> produkte = new HashSet<Produkt>();
+		produkte.addAll(liste2);
+
+		Kategorie getraenk = new Kategorie("Getraenk");
+		Kategorie wasserKat = new Kategorie("wasserKat");
+		Kategorie keinNestleKat = new Kategorie("keinNestleKat");
+		Kategorie keinNestleKat2 = new Kategorie("keinNestleKat2");
+		Produkt fanta = new Produkt("Fanta", "Fanta", 1, 2);
+		Produkt wasser = new Produkt("Wasser", "Wasser", 1, 2);
+		Produkt keinNestle = new Produkt("KeinNestle", "KeinNestle", 1, 2);
+		Produkt keinNestle2 = new Produkt("KeinNestle2", "KeinNestle2", 1, 2);
+
+		// Unterkategorien erstellen
+		getraenk.addUnterkategorie(wasserKat);
+		wasserKat.addUnterkategorie(keinNestleKat);
+		keinNestleKat.addUnterkategorie(keinNestleKat2);
+
+		// Produkte zu Kategorien hinzufuegen
+		getraenk.addProdukt(fanta);
+		wasserKat.addProdukt(wasser);
+		keinNestleKat.addProdukt(keinNestle);
+		keinNestleKat2.addProdukt(keinNestle2);
+
+		produkte.add(fanta);
+		produkte.add(wasser);
+		produkte.add(keinNestle);
+		produkte.add(keinNestle2);
+
+		Iterator<Produkt> it = produkte.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+		System.out.println();
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, getraenk);
+		assertTrue(produkte.size() == 4);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, wasserKat);
+		assertTrue(produkte.size() == 3);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, keinNestleKat);
+		assertTrue(produkte.size() == 2);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, keinNestleKat2);
+		assertTrue(produkte.size() == 1);
 	}
 
 }

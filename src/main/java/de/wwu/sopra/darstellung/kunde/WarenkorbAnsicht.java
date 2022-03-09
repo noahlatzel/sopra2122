@@ -244,7 +244,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 			btBestellen.setOnAction(e -> {
 				if (!(kundensteuerung.warenkorbAnsicht().getProdukte().isEmpty())) {
 
-					if (comboboxRabatt.getValue() != null) {
+					if (comboboxRabatt != null && comboboxRabatt.getValue() != null) {
 						kundensteuerung.bestellen(kundensteuerung.rabattEinloesen(comboboxRabatt.getValue()));
 					} else {
 						kundensteuerung.bestellen();

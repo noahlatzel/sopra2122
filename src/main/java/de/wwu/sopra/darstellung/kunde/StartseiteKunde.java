@@ -46,6 +46,7 @@ public class StartseiteKunde extends KundeOverview {
 	MenuButton menuButton;
 	HBox hbox;
 	Set<Produkt> produkte;
+	Set<Kategorie> kategorien;
 	/**
 	 * CSS fuer Produkt Panel
 	 */
@@ -61,13 +62,30 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
-			Set<Produkt> produkte) {
+			Set<Produkt> produkte, Set<Kategorie> kategorien) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.kundensteuerung = kundensteuerung;
 		this.produkte = produkte;
-		root.setCenter(setBorderPane(produkte));
+
+		// Fuegt alle Oberkategorien der Liste der auswaehlbaren Kategorien hinzu.
+		if (kategorien == null) {
+
+			this.kategorien = new HashSet<Kategorie>();
+			Iterator<Kategorie> it = kundensteuerung.getKategorien().iterator();
+
+			while (it.hasNext()) {
+				Kategorie temp = it.next();
+				if (temp.getOberkategorie() == null) {
+					this.kategorien.add(temp);
+				}
+			}
+		} else {
+			this.kategorien = kategorien;
+		}
+
+		root.setCenter(setBorderPane());
 
 	}
 
@@ -75,15 +93,14 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
-	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
-	public BorderPane setBorderPane(Set<Produkt> produkte) {
+	public BorderPane setBorderPane() {
 		if (borderpane == null) {
 			borderpane = new BorderPane();
 
 			borderpane.setTop(setSearchBarBP());
-			borderpane.setCenter(setScrollPane(produkte));
+			borderpane.setCenter(setScrollPane());
 		}
 
 		return borderpane;
@@ -121,7 +138,7 @@ public class StartseiteKunde extends KundeOverview {
 			String css = "-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868";
 			menuButton.setStyle(css);
 
-			Iterator<Kategorie> iterator = kundensteuerung.getKategorien().iterator();
+			Iterator<Kategorie> iterator = this.kategorien.iterator();
 			while (iterator.hasNext()) {
 				Kategorie kategorie = iterator.next();
 				MenuItem temp = new MenuItem(kategorie.getName());
@@ -130,7 +147,8 @@ public class StartseiteKunde extends KundeOverview {
 
 				temp.setOnAction(e -> {
 					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
-							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie)));
+							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie),
+							kategorie.getUnterkategorien()));
 				});
 				temp.setStyle(" -fx-font-weight: bold; -fx-focus-color: transparent; -fx-font-size: 15");
 
@@ -179,14 +197,13 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt Scrollpane mit Uebersicht ueber alle Produkte des uebergebenen
 	 * HashSets
 	 * 
-	 * @param produkte Alle in dem Set enthaltenen Produkte werden angezeigt.
 	 * @return Gibt fertig konfigurierte ScrollPane zurueck.
 	 */
-	public ScrollPane setScrollPane(Set<Produkt> produkte) {
+	public ScrollPane setScrollPane() {
 		if (scrollpane == null) {
 
 			scrollpane = new ScrollPane();
-			scrollpane.setContent(setGridPane(produkte));
+			scrollpane.setContent(setGridPane());
 			scrollpane.setStyle(
 					"-fx-border-color: white; -fx-border: none; -fx-focus-color: white; -fx-background-color: white");
 			scrollpane.setPadding(new Insets(50, 50, 50, 50));
@@ -201,10 +218,9 @@ public class StartseiteKunde extends KundeOverview {
 	/**
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
-	 * @param produkte Set mit Produkten die dargestellt werden sollen.
 	 * @return GridPane
 	 */
-	public GridPane setGridPane(Set<Produkt> produkte) {
+	public GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 
@@ -365,8 +381,8 @@ public class StartseiteKunde extends KundeOverview {
 							produkte.add(produkt);
 						}
 					}
-					primaryStage.setScene(
-							new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
+					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+							produkte, null));
 				}
 			});
 

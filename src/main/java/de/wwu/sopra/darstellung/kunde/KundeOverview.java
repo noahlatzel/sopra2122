@@ -155,7 +155,7 @@ public class KundeOverview extends Scene {
 
 			btLogo.setOnAction(action -> {
 				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
-						kundensteuerung.getLager()));
+						kundensteuerung.getLager(), null));
 			});
 
 			ImageView view = new ImageView(getClass().getResource("home-button.png").toExternalForm());

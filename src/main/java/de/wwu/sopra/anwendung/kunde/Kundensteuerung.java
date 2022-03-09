@@ -3,6 +3,7 @@ package de.wwu.sopra.anwendung.kunde;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -269,12 +270,26 @@ public class Kundensteuerung {
 	 */
 	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
 		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
+
+		Set<Kategorie> unterkategorien = kategorie.getUnterkategorien();
+		if (unterkategorien != null) {
+			Iterator<Kategorie> it = unterkategorien.iterator();
+			while (it.hasNext()) {
+				Kategorie kategorie2 = it.next();
+				filteredProdukte.addAll(filterProdukteNachKategorie(produkte, kategorie2));
+			}
+		}
 		for (Produkt produkt : produkte) {
 			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
 				filteredProdukte.add(produkt);
 			}
 		}
 
+		for (Produkt produkt : getLager()) {
+			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
+				filteredProdukte.add(produkt);
+			}
+		}
 		return filteredProdukte;
 	}
 

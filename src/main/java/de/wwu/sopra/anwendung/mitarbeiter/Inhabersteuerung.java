@@ -184,6 +184,7 @@ public class Inhabersteuerung {
 	 * @pre die Kategorie hat keine prdoukte
 	 */
 	public void kategorieLoeschen(Kategorie kategorie) throws IllegalArgumentException {
+		assert kategorie != null : "Kategorie ist null.";
 		if (kategorie.getProdukte().isEmpty() != true || kategorie.getUnterkategorien().isEmpty() != true) {
 			throw new IllegalArgumentException();
 		}
