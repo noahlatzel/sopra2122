@@ -112,11 +112,113 @@ public class StartseiteKunde extends KundeOverview {
 			searchBarBP = new BorderPane();
 			searchBarBP.getStyleClass().add("kunde-startseite-searchbar-wrapper");
 
-			searchBarBP.setLeft(setMenuButton());
+			searchBarBP.setLeft(setKategorienHBox());
 			searchBarBP.setRight(setSearchBar());
 		}
 
 		return searchBarBP;
+	}
+
+	/**
+	 * Erstellt eine HBox mit dem Kategorienverzeichnis.
+	 * 
+	 * @return Eine HBox mit dem Kategorienverzeichnis.
+	 */
+	public HBox setKategorienHBox() {
+		HBox hbox = new HBox();
+
+		Button btZurueck = new Button();
+
+		btZurueck.setOnAction(e -> {
+			Iterator<Kategorie> it = this.kategorien.iterator();
+			Iterator<Produkt> it2 = produkte.iterator();
+			Kategorie kategorie = null;
+
+			// Falls es Produkte auf dieser Seite gibt:
+			if (produkte.size() > 0) {
+
+				Produkt tempProd = it2.next();
+				if (kategorien.size() <= 0 && tempProd.getKategorie() != null) {
+					// Es wird aktuell eine Unterkategorie angezeigt.
+					kategorie = tempProd.getKategorie();
+					zurueckButton(kategorie);
+
+				} else if (kategorien.size() > 0 && tempProd.getKategorie() != null) {
+					// Es wird aktuell eine Oberkategorie oder die Startseite angezeigt.
+					kategorie = it.next();
+
+					if (kategorie.getOberkategorie() != null) {
+						zurueckButton(kategorie.getOberkategorie());
+					}
+
+				} // Ansonsten existieren keine Kategorien.
+
+			} else { // Ansonsten leitet der Button auf die Startseite zurueck.
+				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+						kundensteuerung.getLager(), null));
+			}
+
+		});
+
+		btZurueck.setMinHeight(30);
+		btZurueck.setMinWidth(50);
+		btZurueck.setMaxHeight(30);
+		btZurueck.setMaxWidth(50);
+
+		String css = "-fx-background-color: #FF6868; -fx-font-weight: bold; -fx-mark-color: #FF6868; -fx-font-size: 18; -fx-focus-color: #FF6868; -fx-border-color: #FF6868";
+		btZurueck.setStyle(css);
+
+		btZurueck.setOnMouseEntered(e -> {
+			btZurueck.setStyle(" -fx-cursor: hand;" + css);
+		});
+
+		btZurueck.setOnMouseExited(e -> {
+			btZurueck.setStyle(" -fx-cursor: default;" + css);
+		});
+
+		ImageView view = new ImageView(getClass().getResource("return-arrow.png").toExternalForm());
+		view.setFitHeight(25);
+		view.setFitWidth(25);
+		view.setPreserveRatio(true);
+		btZurueck.setGraphic(view);
+		HBox.setMargin(btZurueck, new Insets(3, 0, 0, 0));
+
+		hbox.getChildren().add(setMenuButton());
+		hbox.getChildren().add(btZurueck);
+
+		hbox.setSpacing(10);
+
+		return hbox;
+	}
+
+	/**
+	 * Weiterfuerung der Konfiguration des zurueck-Buttons
+	 * 
+	 * @param kategorie
+	 */
+	private void zurueckButton(Kategorie kategorie) {
+		if (kategorie.getOberkategorie() != null) {
+			// Die angezeigte Kategorie ist eine Oberkategorie.
+
+			primaryStage.setScene(new StartseiteKunde(
+					primaryStage, getWidth(), getHeight(), kundensteuerung, kundensteuerung
+							.filterProdukteNachKategorie(kundensteuerung.getLager(), kategorie.getOberkategorie()),
+					kategorie.getOberkategorie().getUnterkategorien()));
+
+		} else { // Zeige die Startseite an.
+			Set<Kategorie> kategorien = new HashSet<Kategorie>();
+			Iterator<Kategorie> it3 = kundensteuerung.getKategorien().iterator();
+
+			while (it3.hasNext()) {
+				Kategorie temp = it3.next();
+				if (temp.getOberkategorie() == null) {
+					kategorien.add(temp);
+				}
+			}
+
+			primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+					kundensteuerung.getLager(), kategorien));
+		} // Ansonsten wird die Startseite angezeigt.
 	}
 
 	/**
@@ -138,7 +240,7 @@ public class StartseiteKunde extends KundeOverview {
 
 				temp.setOnAction(e -> {
 					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
-							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie),
+							kundensteuerung.filterProdukteNachKategorie(this.produkte, kategorie),
 							kategorie.getUnterkategorien()));
 				});
 				temp.getStyleClass().add("kunde-startseite-kategorien-menuitem");

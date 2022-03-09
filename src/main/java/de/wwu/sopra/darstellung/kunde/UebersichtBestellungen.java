@@ -46,7 +46,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	}
 
 	/**
-	 * eine Boderpane wird erstellt
+	 * Eine Boderpane wird erstellt
 	 * 
 	 * @return eine BorderPane
 	 */
@@ -76,7 +76,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	}
 
 	/**
-	 * eine Scrollpane wird erstellt
+	 * Eine Scrollpane wird erstellt
 	 * 
 	 * @return eine Scrollpane
 	 */
@@ -93,7 +93,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	}
 
 	/**
-	 * eine Vbox wird erstellt
+	 * Eine Vbox wird erstellt
 	 * 
 	 * @return eine Vbox
 	 */
@@ -114,9 +114,9 @@ public class UebersichtBestellungen extends KundeOverview {
 	}
 
 	/**
-	 * Das Panell fuer die Bestellungen wird erstellt
+	 * Das Panel fuer die Bestellungen wird erstellt
 	 * 
-	 * @param bestellung bestellung
+	 * @param bestellung Bestellung
 	 * @return das Panel der Bestellung
 	 */
 	private BorderPane setBestellungPanel(Bestellung bestellung) {
@@ -225,7 +225,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	/**
 	 * Vbox fuer den Namen
 	 * 
-	 * @param bestellung Bestllung
+	 * @param bestellung Bestellung
 	 * @param index      aktuelles Proukt
 	 * @return vBoxName
 	 */
