@@ -206,8 +206,24 @@ public class FahrerInZustellung extends OverviewFahrer {
 			tilePane.setHgap(10);
 			tilePane.setVgap(10);
 			tilePane.setPrefColumns(4);
-			for (Fahrzeug fahrzeug : steuerung.getBelegteFahrzeuge()) {
-				tilePane.getChildren().add(setFahrzeug(fahrzeug));
+			
+			if (!steuerung.getBelegteFahrzeuge().isEmpty()) {
+				for (Fahrzeug fahrzeug : steuerung.getBelegteFahrzeuge()) {
+					tilePane.getChildren().add(setFahrzeug(fahrzeug));
+				}
+			} else {
+				// Wenn leer, Label und ImageView werden gezeigt
+				Label keineFahrzeuge = new Label("Keine Fahrzeuge stehen momentan zur Auswahl");
+				keineFahrzeuge.getStyleClass().add("fahrer-keine-route-label");
+				ImageView view = new ImageView(getClass().getResource("sweat-smiley-face.png").toExternalForm());
+				view.setFitWidth(60);
+				view.setFitHeight(60);
+				VBox keineFahrzeugeWrapper = new VBox();
+				keineFahrzeugeWrapper.setAlignment(Pos.CENTER);
+				keineFahrzeugeWrapper.setSpacing(16);
+				keineFahrzeugeWrapper.getChildren().add(view);
+				keineFahrzeugeWrapper.getChildren().add(keineFahrzeuge);
+				tilePane.getChildren().add(keineFahrzeugeWrapper);
 			}
 		}
 		return tilePane;
@@ -216,6 +232,7 @@ public class FahrerInZustellung extends OverviewFahrer {
 	private ScrollPane setScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new ScrollPane();
+			scrollPane.getStyleClass().add("fahrer-fahrzeug-auswaehlen-scrollpane");
 			scrollPane.setContent(setContentAlt());
 		}
 		return scrollPane;
