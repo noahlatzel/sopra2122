@@ -167,8 +167,7 @@ public class Lager implements Serializable {
 	/**
 	 * Erzeugen einer Liste mit allen Objekten mit dem selben Namen
 	 * 
-	 * @param produkte HashSet mit allen Produkten
-	 * @param suche    Name des Produkts
+	 * @param suche Name des Produkts
 	 * @return Liste mit allen Produkten aus dem Lager welche der uebergebenen Namen
 	 *         tragen
 	 */

@@ -436,10 +436,6 @@ public class KundensteuerungTest {
 		produkte.add(keinNestle);
 		produkte.add(keinNestle2);
 
-		Iterator<Produkt> it = produkte.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next());
-		}
 		System.out.println();
 		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, getraenk);
 		assertTrue(produkte.size() == 4);

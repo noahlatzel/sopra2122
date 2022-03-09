@@ -93,7 +93,7 @@ public class Kundensteuerung {
 
 		if (gesuchtesObjekt == null)
 			throw new NullPointerException();
-		if (!(Lager.getProduktBestand(gesuchtesObjekt) >= 0)) {
+		if (!(Lager.getProduktBestand(gesuchtesObjekt) > 0)) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		}
 		return Lager.getProdukteAusLager(gesuchtesObjekt);
