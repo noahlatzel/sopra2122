@@ -146,6 +146,7 @@ public class InhabersteuerungTest {
 	/**
 	 * Testet die Verwaltung von Fahrzeugdaten
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	void testFahrzeugeVerwalten() {
 		HashSet<Fahrzeug> fahrzeugee = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
@@ -226,7 +227,6 @@ public class InhabersteuerungTest {
 	void testLagerVerwalten() throws IllegalArgumentException {
 		List<Produkt> produkteLager = (List<Produkt>) Lager.getLager();
 
-		Kategorie kategorie = new Kategorie("cola");
 		Kategorie kategorie2 = new Kategorie("colaaa");
 
 		System.out.println(Lager.getLagerbestand().keySet().size());

@@ -55,6 +55,7 @@ public class FahrzeugRegisterTest {
 	/**
 	 * Testet load und save.
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	void testLoad() {
 		HashSet<Fahrzeug> temp = (HashSet<Fahrzeug>) FahrzeugRegister.getFahrzeuge().clone();
