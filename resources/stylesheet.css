@@ -866,3 +866,7 @@
     -fx-font-size: 24;
     -fx-font-weight: bold;
 }
+
+.lagerist-nachbestellen-scrollpane {
+    -fx-background-color:transparent;
+}

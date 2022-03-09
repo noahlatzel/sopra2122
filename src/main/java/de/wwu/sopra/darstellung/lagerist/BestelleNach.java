@@ -61,8 +61,8 @@ public class BestelleNach extends LageristOverview {
 		if (tilePane == null) {
 			tilePane = new TilePane();
 			tilePane.setPadding(new Insets(20));
-			tilePane.setHgap(10);
-			tilePane.setVgap(10);
+			tilePane.setHgap(20);
+			tilePane.setVgap(20);
 			tilePane.setPrefColumns(4);
 			for (Produkt produkt : lageristenSteuerung.getSortiment()) {
 				if (Lager.getLagerbestand().get(produkt) != null) {
@@ -76,6 +76,7 @@ public class BestelleNach extends LageristOverview {
 	private ScrollPane setScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new ScrollPane();
+			scrollPane.getStyleClass().add("lagerist-nachbestellen-scrollpane");
 			scrollPane.setContent(setTilePane());
 		}
 		return scrollPane;

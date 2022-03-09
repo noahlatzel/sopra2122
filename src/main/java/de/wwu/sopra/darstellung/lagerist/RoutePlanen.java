@@ -156,6 +156,7 @@ public class RoutePlanen extends LageristOverview {
 			btRouteAbschicken = new Button("Route planen");
 			btRouteAbschicken.setMinWidth(200);
 			btRouteAbschicken.getStyleClass().add("inhaber-form-button");
+			GridPane.setMargin(btRouteAbschicken, new Insets(24, 0, 0, 0));
 			btRouteAbschicken.setOnAction(a -> {
 				if (!(tableViewBestellung.getSelectionModel().getSelectedItems().isEmpty())
 						&& tableViewFahrzeug.getSelectionModel().getSelectedItem() != null) {
