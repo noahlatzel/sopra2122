@@ -113,22 +113,22 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 			tfBankverbindung.setText(aufgeteilt[6]);
 
 			// Label Style
-			lbBenutzername.getStyleClass().add("anmeldung-registrierung-label");
-			lbPasswort.getStyleClass().add("anmeldung-registrierung-label");
-			lbEmail.getStyleClass().add("anmeldung-registrierung-label");
-			lbAdresse.getStyleClass().add("anmeldung-registrierung-label");
-			lbVorname.getStyleClass().add("anmeldung-registrierung-label");
-			lbNachname.getStyleClass().add("anmeldung-registrierung-label");
-			lbBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
+			lbBenutzername.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbPasswort.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbEmail.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbAdresse.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbVorname.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbNachname.getStyleClass().add("fahrer-persoenliche-daten-label");
+			lbBankverbindung.getStyleClass().add("fahrer-persoenliche-daten-label");
 
 			// Text Style
-			tfBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfEmail.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfVorname.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfNachname.getStyleClass().add("anmeldung-registrierung-textfield");
-			tfBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfBenutzername.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfPasswort.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfEmail.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfAdresse.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfVorname.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfNachname.getStyleClass().add("fahrer-persoenliche-daten-textfield");
+			tfBankverbindung.getStyleClass().add("fahrer-persoenliche-daten-textfield");
 
 			// Textfeld nicht editierbar
 			tfBenutzername.setDisable(true);
@@ -141,7 +141,8 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 
 			// Buttons setzen
 			Button bearbeiten = new Button("Bearbeiten");
-			bearbeiten.getStyleClass().add("mitarbeiter-registrierung-button");
+			bearbeiten.getStyleClass().add("inhaber-form-button");
+			GridPane.setMargin(bearbeiten, new Insets(24, 0, 0, 0));
 			bearbeiten.setOnAction(a -> {
 				tfBenutzername.setDisable(false);
 				tfPasswort.setDisable(false);
@@ -152,7 +153,8 @@ public class PersoenlicheDatenAnzeigen extends LageristOverview {
 				tfBankverbindung.setDisable(false);
 			});
 			Button speichern = new Button("Speichern");
-			speichern.getStyleClass().add("mitarbeiter-registrierung-button");
+			speichern.getStyleClass().add("inhaber-form-button");
+			GridPane.setMargin(speichern, new Insets(24, 0, 0, 0));
 			speichern.setOnAction(a -> {
 
 				// test auf blank stellen
