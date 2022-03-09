@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -22,16 +17,6 @@ import javafx.stage.Stage;
  * @author Noah Latzel
  */
 public class PersoenlicheDatenAnzeigen extends KundeOverview {
-
-	DropShadow dropShadow = new DropShadow();
-	/**
-	 * Color constant fuer Button-Background
-	 */
-	protected static final String STANDARD_BUTTON_STYLE = "-fx-background-color: #FF6868;";
-	/**
-	 * Color constant fuer Button-Background
-	 */
-	protected static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #C14343;";
 
 	/**
 	 * Erzeugt das Fenster, um persoenliche Daten anzuzeigen und zu bearbeiten
@@ -44,14 +29,10 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 	public PersoenlicheDatenAnzeigen(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung) {
 		super(primaryStage, width, height, kundensteuerung);
 
-		GridPane gridpane = setPersoenlicheDatenAnzeigen();
-		gridpane.setAlignment(Pos.CENTER);
-		root.setCenter(gridpane);
-
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(4.0);
-		dropShadow.setOffsetY(4.0);
-		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
+		BorderPane content = new BorderPane();
+		content.getStyleClass().add("kunde-daten-inner-wrapper");
+		content.setCenter(this.setPersoenlicheDatenAnzeigen());
+		root.setCenter(content);
 	}
 
 	/**
@@ -63,8 +44,7 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 
 		// GridPane erstellen
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20));
-		root.setCenter(grid);
+		grid.getStyleClass().add("kunde-daten-inner-wrapper");
 
 		String gesamtString = kundensteuerung.persoenlicheDatenAnzeigen();
 
@@ -116,13 +96,13 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 		tfBankverbindung.setText(aufgeteilt[6]);
 
 		// Label Style
-		lbBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-		lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+		lbBenutzername.getStyleClass().add("kunde-daten-label");
+		lbPasswort.getStyleClass().add("kunde-daten-label");
+		lbEmail.getStyleClass().add("kunde-daten-label");
+		lbAdresse.getStyleClass().add("kunde-daten-label");
+		lbVorname.getStyleClass().add("kunde-daten-label");
+		lbNachname.getStyleClass().add("kunde-daten-label");
+		lbBankverbindung.getStyleClass().add("kunde-daten-label");
 
 		// Textfeld nicht editierbar
 		tfBenutzername.setDisable(true);
@@ -134,18 +114,17 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 		tfBankverbindung.setDisable(true);
 
 		// Text Style
-		tfBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-		tfBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
+		tfBenutzername.getStyleClass().add("kunde-daten-textfield");
+		tfPasswort.getStyleClass().add("kunde-daten-textfield");
+		tfEmail.getStyleClass().add("kunde-daten-textfield");
+		tfAdresse.getStyleClass().add("kunde-daten-textfield");
+		tfVorname.getStyleClass().add("kunde-daten-textfield");
+		tfNachname.getStyleClass().add("kunde-daten-textfield");
+		tfBankverbindung.getStyleClass().add("kunde-daten-textfield");
 
 		// Buttons setzen
 		Button bearbeiten = new Button("Bearbeiten");
-		bearbeiten.setEffect(dropShadow);
-		changeButtonStyleOnHover(bearbeiten);
+		bearbeiten.getStyleClass().add("kunde-daten-button");
 		bearbeiten.setOnAction(a -> {
 			tfBenutzername.setDisable(false);
 			tfPasswort.setDisable(false);
@@ -156,8 +135,7 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 			tfBankverbindung.setDisable(false);
 		});
 		Button speichern = new Button("Speichern");
-		speichern.setEffect(dropShadow);
-		changeButtonStyleOnHover(speichern);
+		speichern.getStyleClass().add("kunde-daten-button");
 		speichern.setOnAction(a -> {
 			// test auf blank stellen
 			boolean istallesvoll = true;
@@ -195,33 +173,7 @@ public class PersoenlicheDatenAnzeigen extends KundeOverview {
 		grid.add(bearbeiten, 0, 8);
 		grid.add(speichern, 1, 8);
 
-		// Abstand setzen
-		grid.setHgap(5);
-		grid.setVgap(5);
-
 		return grid;
-	}
-
-	/**
-	 * Funktion zum Aendern des Buttonsstils beim Hover
-	 * 
-	 * @param button Button, der gestylt wird
-	 */
-	public void changeButtonStyleOnHover(final Button button) {
-		String moreStyles = "; -fx-background-radius: 16px; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 18";
-		button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-		button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				button.setStyle(HOVERED_BUTTON_STYLE + moreStyles + "; -fx-cursor: hand;");
-			}
-		});
-		button.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				button.setStyle(STANDARD_BUTTON_STYLE + moreStyles);
-			}
-		});
 	}
 
 }
