@@ -37,7 +37,8 @@ public class SerialisierungPipeline<T> {
 	 * Deserialisiert ein gegebenes Objekt. Am Ende muss das Objekt noch gecastet
 	 * werden. z.B.: Produkt p1 = (Produkt) sp.deserialisieren('produkt.ser');
 	 * 
-	 * @param name Der Dateiname des serialisierten Objekts.
+	 * @param name   Der Dateiname des serialisierten Objekts.
+	 * @param newObj das neue objekt
 	 * @return Das deserialisierte Objekt. null, wenn nicht vorhanden.
 	 */
 	@SuppressWarnings("unchecked")

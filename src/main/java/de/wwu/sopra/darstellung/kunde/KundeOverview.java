@@ -4,8 +4,6 @@ import java.io.File;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
 import de.wwu.sopra.darstellung.anmeldung.Startseite;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -55,7 +53,7 @@ public class KundeOverview extends Scene {
 		this.kundensteuerung = kundensteuerung;
 		root.setTop(this.setHeaderBorderPane());
 		root.setCenter(new Label("KUNDE OVERVIEW"));
-		root.setStyle(" -fx-background-color: white");
+		root.getStyleClass().add("kunde-root");
 
 		stylesheet = new File("resources/stylesheet.css");
 		this.getStylesheets().add("file:///" + stylesheet.getAbsolutePath().replace("\\", "/"));
@@ -64,17 +62,14 @@ public class KundeOverview extends Scene {
 	/**
 	 * Erzeugt eine Borderpane fuer den Header
 	 * 
-	 * @return
+	 * @return es wird die Borderpane uebergaben
 	 */
 	public BorderPane setHeaderBorderPane() {
 		BorderPane headerBP = new BorderPane();
+		headerBP.getStyleClass().add("kunde-header-wrapper");
 
 		headerBP.setLeft(setBtLogo());
 		headerBP.setRight(setHBox());
-
-		headerBP.setPadding(new Insets(0, 10, 0, 10));
-
-		headerBP.setStyle(" -fx-background-color: #ffb6b6");
 
 		return headerBP;
 	}
@@ -88,10 +83,9 @@ public class KundeOverview extends Scene {
 
 		if (this.hbox == null) {
 			hbox = new HBox();
+			hbox.getStyleClass().add("kunde-header-right-side-wrapper");
 			hbox.getChildren().add(setBtWarenkorb());
 			hbox.getChildren().add(setMenuButton());
-			hbox.setSpacing(10);
-			hbox.setAlignment(Pos.CENTER_LEFT);
 		}
 		return this.hbox;
 	}
@@ -104,22 +98,12 @@ public class KundeOverview extends Scene {
 	private Button setBtWarenkorb() {
 		if (this.btWarenkorb == null) {
 			btWarenkorb = new Button();
-			btWarenkorb.setMinWidth(50);
+			btWarenkorb.getStyleClass().add("kunde-warenkorb-button");
 
 			ImageView view = new ImageView(getClass().getResource("warenkorb.png").toExternalForm());
 			view.setFitWidth(35);
 			view.setFitHeight(35);
 			btWarenkorb.setGraphic(view);
-
-			btWarenkorb.setStyle(" -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
-
-			btWarenkorb.setOnMouseEntered(e -> {
-				btWarenkorb.setStyle(" -fx-cursor: hand;  -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
-			});
-
-			btWarenkorb.setOnMouseExited(e -> {
-				btWarenkorb.setStyle(" -fx-cursor: default;  -fx-color: #ffb6b6; -fx-background-color: #ffb6b6");
-			});
 
 			btWarenkorb.setOnAction(action -> {
 				primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
@@ -137,22 +121,8 @@ public class KundeOverview extends Scene {
 	private Button setBtLogo() {
 		if (this.btLogo == null) {
 			btLogo = new Button();
-			btLogo.setMinWidth(50);
-
-			btLogo.setAlignment(Pos.CENTER_LEFT);
-			btLogo.setPadding(new Insets(8, 0, 5, 10));
-
-			String css = "-fx-background-color: #ffb6b6; -fx-font-weight: bold; -fx-mark-color: #ffb6b6; -fx-font-size: 15; -fx-focus-color: #ffb6b6; -fx-border-color: #ffb6b6";
-			btLogo.setStyle(css);
-
-			btLogo.setOnMouseEntered(e -> {
-				btLogo.setStyle(" -fx-cursor: hand;" + css);
-			});
-
-			btLogo.setOnMouseExited(e -> {
-				btLogo.setStyle(" -fx-cursor: default;" + css);
-			});
-
+			btLogo.getStyleClass().add("kunde-logo-button");
+			
 			btLogo.setOnAction(action -> {
 				primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
 						kundensteuerung.getLager(), null));
@@ -220,22 +190,12 @@ public class KundeOverview extends Scene {
 	private MenuButton setMenuButton() {
 		if (menubutton == null) {
 			menubutton = new MenuButton("", null, setBtProfil(), setBtBestellungen(), setBtAbmelden());
+			menubutton.getStyleClass().add("kunde-menu-button");
 
 			ImageView view = new ImageView(getClass().getResource("user-icon.png").toExternalForm());
 			view.setFitWidth(40);
 			view.setFitHeight(40);
 			menubutton.setGraphic(view);
-
-			String css = " -fx-color: #ffb6b6; -fx-background-color: #ffb6b6; -fx-mark-color: #ffb6b6; -fx-font-size: 15;";
-			menubutton.setStyle(css);
-
-			menubutton.setOnMouseEntered(e -> {
-				menubutton.setStyle(" -fx-cursor: hand;" + css);
-			});
-
-			menubutton.setOnMouseExited(e -> {
-				menubutton.setStyle(" -fx-cursor: default;" + css);
-			});
 		}
 		return this.menubutton;
 	}

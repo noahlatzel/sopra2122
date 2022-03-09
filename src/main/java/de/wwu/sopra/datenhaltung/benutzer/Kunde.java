@@ -133,6 +133,7 @@ public class Kunde extends Benutzer {
 	 * Fuegt Rabattcode zu den fuer den Kunden verfuegbaren Rabattcodes hinzu.
 	 * 
 	 * @param rabattcode Wird zu den verfuegbaren Rabattcodes hinzugefuegt.
+	 * @param prozent    wie viel prozent
 	 */
 	public void addRabatt(String rabattcode, int prozent) {
 		assert prozent > 0 && prozent <= 100 : "Die Prozentzahl liegt nicht zwischen 0 und 100 Prozent.";
