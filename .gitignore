@@ -79,3 +79,4 @@ crashlytics-build.properties
 fabric.properties
 
 # Project specific resources
+resources/*.ser
