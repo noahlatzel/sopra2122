@@ -210,11 +210,13 @@ public class InhabersteuerungTest {
 	@Test
 	void testProduktBearbeiten() {
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
-		ihs.produktBearbeiten(producto, producto.getName(), producto.getBeschreibung(), 10.99);
+		Lager.produktZumSortimentHinzufuegen(new Produkt("Chicha", "Lecker", 0.49, 0.99));
+		ihs.produktBearbeiten(producto, producto.getName(), producto.getBeschreibung(), 10.99, "");
 		assertEquals(producto.getVerkaufspreis(), 10.99);
 		assertThrows(IllegalArgumentException.class, () -> {
-			ihs.produktBearbeiten(producto, "", producto.getBeschreibung(), 10.99);
+			ihs.produktBearbeiten(producto, "", producto.getBeschreibung(), 10.99, "");
 		});
+		Lager.produktAusDemSortimentEntfernen(new Produkt("Chicha", "Lecker", 0.49, 0.99));
 	}
 
 	/**

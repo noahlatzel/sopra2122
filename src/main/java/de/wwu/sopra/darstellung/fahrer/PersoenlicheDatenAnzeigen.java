@@ -116,13 +116,22 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			tfBankverbindung.setText(aufgeteilt[6]);
 
 			// Label Style
-			lbBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
-			lbBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 18;");
+			lbBenutzername.getStyleClass().add("anmeldung-registrierung-label");
+			lbPasswort.getStyleClass().add("anmeldung-registrierung-label");
+			lbEmail.getStyleClass().add("anmeldung-registrierung-label");
+			lbAdresse.getStyleClass().add("anmeldung-registrierung-label");
+			lbVorname.getStyleClass().add("anmeldung-registrierung-label");
+			lbNachname.getStyleClass().add("anmeldung-registrierung-label");
+			lbBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
+
+			// Text Style
+			tfBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfEmail.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfVorname.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfNachname.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
 
 			// Textfeld nicht editierbar
 			tfBenutzername.setDisable(true);
@@ -133,17 +142,9 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			tfNachname.setDisable(true);
 			tfBankverbindung.setDisable(true);
 
-			// Text Style
-			tfBenutzername.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfPasswort.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfEmail.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfAdresse.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfVorname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfNachname.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-			tfBankverbindung.setStyle("-fx-background-radius: 16px; -fx-font-weight: bold; -fx-font-size: 14;");
-
 			// Buttons setzen
 			Button bearbeiten = new Button("Bearbeiten");
+			bearbeiten.getStyleClass().add("mitarbeiter-registrierung-button");
 			bearbeiten.setOnAction(a -> {
 				tfBenutzername.setDisable(false);
 				tfPasswort.setDisable(false);
@@ -154,37 +155,41 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 				tfBankverbindung.setDisable(false);
 			});
 			Button speichern = new Button("Speichern");
+			speichern.getStyleClass().add("mitarbeiter-registrierung-button");
 			speichern.setOnAction(a -> {
+
 				// test auf blank stellen
-				boolean istallesvoll = true;
-				List<TextField> felder = new ArrayList<TextField>();
-				felder.add(tfBankverbindung);
-				felder.add(tfNachname);
-				felder.add(tfVorname);
-				felder.add(tfAdresse);
-				felder.add(tfEmail);
-				felder.add(tfPasswort);
-				felder.add(tfBenutzername);
-				for (TextField i : felder) {
+				boolean korrekteEingabe = true;
+
+				List<TextField> inputs = new ArrayList<TextField>();
+				inputs.add(tfBankverbindung);
+				inputs.add(tfNachname);
+				inputs.add(tfVorname);
+				inputs.add(tfAdresse);
+				inputs.add(tfEmail);
+				inputs.add(tfPasswort);
+				inputs.add(tfBenutzername);
+				for (TextField i : inputs) {
 					if (i.getText().isBlank())
-						istallesvoll = false;
+						korrekteEingabe = false;
 				}
 
-				// wen nicht blanc
-				if (istallesvoll == true) {
+				// Wenn nicht leer
+				if (korrekteEingabe == true) {
 					steuerung.persoenlicheDatenBearbeiten(tfBenutzername.getText(), tfPasswort.getText(),
 							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
 							tfBankverbindung.getText());
+					tfBenutzername.setDisable(true);
+					tfPasswort.setDisable(true);
+					tfEmail.setDisable(true);
+					tfAdresse.setDisable(true);
+					tfVorname.setDisable(true);
+					tfNachname.setDisable(true);
+					tfBankverbindung.setDisable(true);
 				} else {
-					grid.add(new Label("es gibt Leere Angaben"), 2, 7);
+					grid.add(new Label("Ueberpruefe deine Eingaben!"), 2, 7);
 				}
-				tfBenutzername.setDisable(true);
-				tfPasswort.setDisable(true);
-				tfEmail.setDisable(true);
-				tfAdresse.setDisable(true);
-				tfVorname.setDisable(true);
-				tfNachname.setDisable(true);
-				tfBankverbindung.setDisable(true);
+
 			});
 
 			// Grid setzen

@@ -35,11 +35,11 @@ public class InhaberOverview extends Scene {
 	Button btFahrzeugdatenAendern;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
-	Button btProduktKategorieHinzu;
+	Button btProduktHinzufuegen;
+	Button btKategorienVerwaltung;
 	Inhabersteuerung inhaberSteuerung;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
-
 
 	/**
 	 * Zeigt die Overview fuer den Inhaber
@@ -73,14 +73,14 @@ public class InhaberOverview extends Scene {
 		// Erstellung von SideBar mit allen Buttons
 		if (this.vbox == null) {
 			vbox = new VBox();
-			vbox.getChildren().add(this.setBtStatistiken());
+			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(this.setBtSortimentBearbeiten());
 			vbox.getChildren().add(this.setBtMitarbeiterRegistrieren());
 			vbox.getChildren().add(this.setBtMitarbeiterVerwalten());
-			vbox.getChildren().add(this.setBtSortimentBearbeiten());
-			vbox.getChildren().add(this.setBtProduktKategorieHinzu());
+			vbox.getChildren().add(this.setBtProduktHinzufuegen());
+			vbox.getChildren().add(this.setBtKategorienVerwaltung());
 			vbox.getChildren().add(this.setBtFahrzeugdatenAendern());
-			vbox.getChildren().add(this.setBtPersoenlicheDatenBearbeiten());
-			vbox.getChildren().add(this.setBtPersoenlicheDatenAnzeigen());
+			vbox.getChildren().add(this.setBtStatistiken());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 
@@ -108,10 +108,11 @@ public class InhaberOverview extends Scene {
 
 		return this.header;
 	}
-	
+
 	/**
 	 * Erstellung eines MenuButton fuer den Benutzer
-	 * @return userMenu		Button, der die Option zum Abmelden anzeigt
+	 * 
+	 * @return userMenu Button, der die Option zum Abmelden anzeigt
 	 */
 	private MenuButton setMenuButton() {
 		if (userMenu == null) {
@@ -130,7 +131,6 @@ public class InhaberOverview extends Scene {
 		}
 		return this.userMenu;
 	}
-
 
 	// Erstellungen von Buttons, die auf andere Websites weiterleiten
 	/**
@@ -222,31 +222,13 @@ public class InhaberOverview extends Scene {
 	}
 
 	/**
-	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
-	 * 
-	 * @return Button fuer PersoenlicheDatenBearbeiten
-	 */
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (this.btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btPersoenlicheDatenBearbeiten.setOnAction(action -> {
-				primaryStage.setScene(
-						new PersoenlicheDatenBearbeiten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
-			});
-		}
-
-		return this.btPersoenlicheDatenBearbeiten;
-	}
-
-	/**
 	 * Erzeugt Button fuer PersoenlicheDatenAnzeigen
 	 * 
 	 * @return Button fuer PersoenlicheDatenAnzeigen
 	 */
 	private Button setBtPersoenlicheDatenAnzeigen() {
 		if (this.btPersoenlicheDatenAnzeigen == null) {
-			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten Anzeigen");
+			btPersoenlicheDatenAnzeigen = new Button("Persoenliche Daten");
 			btPersoenlicheDatenAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersoenlicheDatenAnzeigen.setOnAction(action -> {
 				primaryStage.setScene(
@@ -259,19 +241,36 @@ public class InhaberOverview extends Scene {
 
 	/**
 	 * 
-	 * Erzeugt Button fuer ProduktKategorieHinzu
+	 * Erzeugt Button fuer KategorienVerwaltung
 	 * 
-	 * @return Button fuer ProduktKategorieHinzu
+	 * @return Button fuer KategorienVerwaltung
 	 */
-	private Button setBtProduktKategorieHinzu() {
-		if (this.btProduktKategorieHinzu == null) {
-			btProduktKategorieHinzu = new Button("Produkt/Kategorie Hinzu");
-			btProduktKategorieHinzu.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btProduktKategorieHinzu.setOnAction(e -> {
+	private Button setBtKategorienVerwaltung() {
+		if (this.btKategorienVerwaltung == null) {
+			btKategorienVerwaltung = new Button("Kategorien Verwaltung");
+			btKategorienVerwaltung.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btKategorienVerwaltung.setOnAction(e -> {
 				primaryStage
-						.setScene(new ProduktKategorieHinzu(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+						.setScene(new KategorienVerwaltung(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
-		return this.btProduktKategorieHinzu;
+		return this.btKategorienVerwaltung;
+	}
+
+	/**
+	 * 
+	 * Erzeugt Button fuer ProduktHinzufuegen
+	 * 
+	 * @return Button fuer ProduktHinzufuegen
+	 */
+	private Button setBtProduktHinzufuegen() {
+		if (this.btProduktHinzufuegen == null) {
+			btProduktHinzufuegen = new Button("Produkt Hinzufuegen");
+			btProduktHinzufuegen.getStyleClass().add("mitarbeiter-sidemenu-button");
+			btProduktHinzufuegen.setOnAction(e -> {
+				primaryStage.setScene(new ProduktHinzufuegen(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+			});
+		}
+		return this.btProduktHinzufuegen;
 	}
 }

@@ -14,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -58,8 +57,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Routen anzeigen");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
 			contentWrapper.setCenter(this.setContent());
 		}
@@ -70,6 +68,7 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 	private TilePane setContent() {
 		if (tilePane == null) {
 			tilePane = new TilePane();
+			tilePane.setPadding(new Insets(20));
 			tilePane.getChildren().add(this.setScrollPaneFahrzeug());
 			tilePane.getChildren().add(this.setScrollPaneRoute());
 		}
@@ -102,6 +101,8 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 					this.setScrollPaneRouteDaten();
 				}
 			});
+			tableViewFahrzeug.getStyleClass().add("inhaber-mitarbeitern-tableview");
+			tableViewFahrzeug.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		}
 		return scrollPaneFahrzeug;
 	}
@@ -121,6 +122,8 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 			tableViewBestellung = new TableView<Bestellung>();
 			tableViewBestellung.getColumns().add(bestellnrSpalte);
 			tableViewBestellung.getColumns().add(adressSpalte);
+			tableViewBestellung.getStyleClass().add("inhaber-mitarbeitern-tableview");
+			tableViewBestellung.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			scrollPaneBestellung.setContent(tableViewBestellung);
 		}
 		return scrollPaneBestellung;

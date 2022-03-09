@@ -275,6 +275,10 @@ public class WarenkorbAnsicht extends KundeOverview {
 		rect.setHeight(65);
 		rect.setWidth(90);
 
+		ImageView produktImg = new ImageView(produkte.get(0).loadBild());
+		produktImg.setFitHeight(65);
+		produktImg.setPreserveRatio(true);
+
 		VBox vbox = setProduktnameVBox(produkte);
 		BorderPane.setMargin(vbox, new Insets(5, 0, 0, 0));
 
@@ -282,11 +286,12 @@ public class WarenkorbAnsicht extends KundeOverview {
 		BorderPane.setMargin(button, new Insets(8, 5, 22, 5));
 
 		HBox hbox = new HBox();
+
 		hbox.getChildren().add(setPreisLabelVBox(produkte));
 		hbox.getChildren().add(button);
 		hbox.setAlignment(Pos.CENTER);
 
-		borderpane.setLeft(rect);
+		borderpane.setLeft(produktImg);
 		borderpane.setCenter(vbox);
 		borderpane.setRight(hbox);
 
@@ -340,6 +345,15 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Erstellt einen Button der das betreffende Produkt vollstaendig aus dem
+	 * Warenkorb entfernt, also zum Beispiel werden alle Cola-Produkte entfernt, die
+	 * im Warenkorb sind.
+	 * 
+	 * @param produkte Liste mit Proudkten einer Art.
+	 * @return Gibt einen Button zurueck, der alle Produkte des uebergebenen
+	 *         Produkts aus dem Warenkorb entfernt.
+	 */
 	public Button setLoeschenButton(List<Produkt> produkte) {
 		Button loeschenBt = new Button();
 

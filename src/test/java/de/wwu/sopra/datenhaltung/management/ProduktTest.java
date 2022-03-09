@@ -128,7 +128,7 @@ public class ProduktTest {
 		assertTrue(produkt_clone.getBeschreibung().equals(produkt_1.getBeschreibung()));
 		assertTrue(produkt_clone.getName().equals(produkt_1.getName()));
 		assertTrue(produkt_clone.getKategorie().equals(produkt_1.getKategorie()));
-		assertTrue(produkt_clone.getEinkaufspreis() == 1.5);
-		assertTrue(produkt_clone.getVerkaufspreis() == 1.7);
+		assertTrue(produkt_clone.getEinkaufspreis() == 0.99);
+		assertTrue(produkt_clone.getVerkaufspreis() == 1.5);
 	}
 }

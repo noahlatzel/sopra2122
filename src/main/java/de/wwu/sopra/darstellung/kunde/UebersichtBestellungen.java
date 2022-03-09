@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -188,13 +189,17 @@ public class UebersichtBestellungen extends KundeOverview {
 		rect.setHeight(65);
 		rect.setWidth(90);
 
+		ImageView produktBild = new ImageView(bestellung.getProdukte().get(0).loadBild());
+		produktBild.setPreserveRatio(true);
+		produktBild.setFitHeight(65);
+
 		VBox vbox1 = setProduktnameVBox(bestellung, index);
 		HBox.setMargin(vbox1, new Insets(5, 0, 0, 0));
 
 		VBox vbox2 = setPreisLabelVBox(bestellung.getProdukte(), index);
 		vbox2.setAlignment(Pos.CENTER_RIGHT);
 
-		hbox.getChildren().add(rect);
+		hbox.getChildren().add(produktBild);
 		hbox.getChildren().add(vbox1);
 		hbox.getChildren().add(vbox2);
 

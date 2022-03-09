@@ -3,6 +3,7 @@
  */
 package de.wwu.sopra.darstellung.inhaber;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,23 +14,19 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +37,10 @@ public class SortimentBearbeiten extends InhaberOverview {
 	// Erstellung von Variable
 	BorderPane contentWrapper;
 	TilePane content;
+	ImageView produktImg;
+	Image image;
+	String bildPfad = "";
+	final FileChooser fileChooser = new FileChooser();
 
 	/**
 	 * Zeigt das Sortiment
@@ -69,6 +70,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 			contentWrapper.setTop(title);
 			ScrollPane scrollPane = new ScrollPane();
 			scrollPane.setContent(this.setContent());
+			scrollPane.getStyleClass().add("inhaber-sortiment-scrollpane");
 			contentWrapper.setCenter(scrollPane);
 		}
 
@@ -84,14 +86,16 @@ public class SortimentBearbeiten extends InhaberOverview {
 		// TilePane als Main Component
 		if (this.content == null) {
 			content = new TilePane();
+			content.getStyleClass().add("inhaber-sortiment-wrapper");
 			// Get Produkte Im Lager
 			Set<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
+
+			content.setPrefColumns(4);
 
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
 				Text keineProdukte = new Text("Keine Produkte Im Lager");
-				keineProdukte.setStyle("-fx-font-weight: bold");
-				keineProdukte.setFont(new Font("Arial", 32));
+				keineProdukte.getStyleClass().add("inhaber-sortiment-leer-text");
 				content.getChildren().add(keineProdukte);
 			}
 
@@ -99,9 +103,6 @@ public class SortimentBearbeiten extends InhaberOverview {
 			for (Produkt p : produkteImLager) {
 				content.getChildren().add(this.setProduktKomponente(p));
 			}
-
-			content.setHgap(40);
-			content.setVgap(40);
 		}
 
 		return this.content;
@@ -117,10 +118,11 @@ public class SortimentBearbeiten extends InhaberOverview {
 		GridPane produktGP = new GridPane();
 
 		// Temporary product image
-		Rectangle produktImg = new Rectangle(140, 140, 140, 140);
-		produktImg.setArcHeight(4);
-		produktImg.setArcWidth(4);
-		produktImg.setFill(Color.web("#ed4b00"));
+		Image image = produkt.loadBild();
+		produktImg = new ImageView();
+		produktImg.setImage(image);
+		produktImg.setPreserveRatio(true);
+		produktImg.setFitHeight(147);
 
 		// Erstellung von TextFields und Buttons
 		TextField tfName = new TextField();
@@ -131,6 +133,18 @@ public class SortimentBearbeiten extends InhaberOverview {
 		Button btnAktualisieren = new Button("Speichern");
 		Button btnLoeschen = new Button("Loeschen");
 
+		Button btnProduktBildAendern = new Button("Bild aendern");
+
+		// Styling
+		produktGP.getStyleClass().add("inhaber-sortiment-produkt-wrapper");
+		tfName.getStyleClass().add("inhaber-sortiment-produkt-textfield");
+		tfBeschreibung.getStyleClass().add("inhaber-sortiment-produkt-textfield");
+		tfPreis.getStyleClass().add("inhaber-sortiment-produkt-textfield");
+		cbKategorie.getStyleClass().add("inhaber-sortiment-produkt-combobox");
+		btnAktualisieren.getStyleClass().add("inhaber-sortiment-produkt-button");
+		btnLoeschen.getStyleClass().add("inhaber-sortiment-produkt-button");
+
+		// Textfeldern fuellen
 		tfName.setText(produkt.getName());
 		tfBeschreibung.setText(produkt.getBeschreibung());
 		tfPreis.setText(String.valueOf(produkt.getVerkaufspreis()));
@@ -164,22 +178,15 @@ public class SortimentBearbeiten extends InhaberOverview {
 		produktGP.add(tfName, 0, 1, 2, 1);
 		produktGP.add(tfBeschreibung, 0, 2, 2, 1);
 		produktGP.add(tfPreis, 0, 3, 2, 1);
-		produktGP.add(cbKategorie, 0, 4, 2, 1);
+		produktGP.add(cbKategorie, 0, 4);
+		produktGP.add(btnProduktBildAendern, 1, 4);
 		produktGP.add(btnAktualisieren, 0, 5);
 		produktGP.add(btnLoeschen, 1, 5);
 
 		// Center Elemente
-		produktGP.setAlignment(Pos.CENTER);
-		produktGP.setHgap(10);
-		produktGP.setVgap(10);
 		ColumnConstraints col = new ColumnConstraints();
 		col.setHalignment(HPos.CENTER);
 		produktGP.getColumnConstraints().add(col);
-
-		// es wie eine Komponente aussehen lassen
-		produktGP.setPadding(new Insets(16, 16, 16, 16));
-		produktGP.setBackground(
-				new Background(new BackgroundFill(Color.web("#c4c4c4"), CornerRadii.EMPTY, Insets.EMPTY)));
 
 		// Funktionalitaet von Buttons
 		btnAktualisieren.setOnAction(e -> {
@@ -198,11 +205,12 @@ public class SortimentBearbeiten extends InhaberOverview {
 
 			// Erstellung von neuem roten Error-Label
 			Label errorLabel = new Label();
-			errorLabel.setTextFill(Color.web("#ff0000"));
+			errorLabel.getStyleClass().add("registrierung-error-label");
 
 			if (gueltigeEinngaben == true) {
 				Double preisDbl = Double.parseDouble(tfPreis.getText());
-				inhaberSteuerung.produktBearbeiten(produkt, tfName.getText(), tfBeschreibung.getText(), preisDbl);
+				inhaberSteuerung.produktBearbeiten(produkt, tfName.getText(), tfBeschreibung.getText(), preisDbl,
+						bildPfad);
 				List<Produkt> produkteZurKategorie = new ArrayList<Produkt>();
 				produkteZurKategorie.add(produkt);
 				Kategorie kat = produkt.getKategorie();
@@ -244,7 +252,25 @@ public class SortimentBearbeiten extends InhaberOverview {
 			primaryStage.setScene(new SortimentBearbeiten(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 		});
 
+		btnProduktBildAendern.setOnAction(e -> {
+			configureFileChooser(fileChooser);
+			File bild = fileChooser.showOpenDialog(primaryStage);
+			if (bild != null) {
+				bildPfad = bild.getName();
+				produktImg.setImage(new Image(bild.getAbsolutePath()));
+				produktGP.getChildren().remove(0);
+				produktGP.getChildren().add(0, produktImg);
+			}
+		});
+
 		return produktGP;
+	}
+
+	private static void configureFileChooser(final FileChooser fileChooser) {
+		fileChooser.setTitle("Bild auswaehlen");
+		fileChooser.setInitialDirectory(new File("src\\main\\resources\\de\\wwu\\sopra\\datenhaltung\\management"));
+		fileChooser.getExtensionFilters()
+				.add(new FileChooser.ExtensionFilter("All Images", "*.jpeg", "*.jpg", "*.png", "*.gif", "*.bmp"));
 	}
 
 }

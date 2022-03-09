@@ -74,14 +74,17 @@ public class Inhabersteuerung {
 	 * @param verkaufspreis Verkaufspreis des Produkts, kann nicht negativ sein
 	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
-	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis)
-			throws IllegalArgumentException {
+	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis,
+			String bildPfad) throws IllegalArgumentException {
 		if (!gueltigeEingaben(Arrays.asList(name, beschreibung, verkaufspreis)))
 			throw new IllegalArgumentException();
 
 		produkt.setName(name);
 		produkt.setBeschreibung(beschreibung);
 		produkt.setVerkaufspreis(verkaufspreis);
+		produkt.setProduktBild(bildPfad);
+
+		Lager.getLagerbestand().put(produkt, Lager.getProduktBestand(produkt));
 	}
 
 	/**
