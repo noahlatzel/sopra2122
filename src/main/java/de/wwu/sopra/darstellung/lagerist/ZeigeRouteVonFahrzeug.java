@@ -119,9 +119,12 @@ public class ZeigeRouteVonFahrzeug extends LageristOverview {
 			bestellnrSpalte.setCellValueFactory(new PropertyValueFactory<>("bestellnummer"));
 			TableColumn<Bestellung, String> adressSpalte = new TableColumn<>("Adresse");
 			adressSpalte.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+			TableColumn<Bestellung, String> statusSpalte = new TableColumn<>("Status");
+			statusSpalte.setCellValueFactory(new PropertyValueFactory<>("status"));
 			tableViewBestellung = new TableView<Bestellung>();
 			tableViewBestellung.getColumns().add(bestellnrSpalte);
 			tableViewBestellung.getColumns().add(adressSpalte);
+			tableViewBestellung.getColumns().add(statusSpalte);
 			tableViewBestellung.getStyleClass().add("inhaber-mitarbeitern-tableview");
 			tableViewBestellung.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			scrollPaneBestellung.setContent(tableViewBestellung);
