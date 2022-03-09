@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Rabatt;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 
@@ -31,6 +32,10 @@ public class Kunde extends Benutzer {
 	 * Warenkorb des Kunden
 	 */
 	private Warenkorb warenkorb = new Warenkorb(new ArrayList<Produkt>(), this);
+	/**
+	 * Liste mit Rabattcodes des Kunden
+	 */
+	private List<Rabatt> rabatte = new ArrayList<Rabatt>();
 
 	/**
 	 * Erstellt einen neuen Kunden mit den uebergebenen Eigenschaften.
@@ -122,5 +127,89 @@ public class Kunde extends Benutzer {
 	 */
 	public void kundeEntfernen() {
 		this.bestellungen = null;
+	}
+
+	/**
+	 * Fuegt Rabattcode zu den fuer den Kunden verfuegbaren Rabattcodes hinzu.
+	 * 
+	 * @param rabattcode Wird zu den verfuegbaren Rabattcodes hinzugefuegt.
+	 */
+	public void addRabatt(String rabattcode, int prozent) {
+		assert prozent > 0 && prozent <= 100 : "Die Prozentzahl liegt nicht zwischen 0 und 100 Prozent.";
+		rabatte.add(new Rabatt(rabattcode, prozent));
+	}
+
+	/**
+	 * Entfernt Rabatt aus den fuer den Kunden verfuegbaren Rabatten.
+	 * 
+	 * @param rabattcode Wird aus den verfuegbaren Rabatten entfernt.
+	 */
+	private void removeRabatt(Rabatt rabatt) {
+		rabatte.remove(rabatt);
+	}
+
+	/**
+	 * Ermittelt, ob der uebergebene Rabattcode ein gueltiger, einloesbarer
+	 * Rabattcode ist.
+	 * 
+	 * @param rabattcode Wird auf Gueltigkeit ueberprueft.
+	 * @return Gibt Wahrheitswert zurueck, ob der Rabattcode gueltig ist, true, wenn
+	 *         er gueltig ist.
+	 */
+	public boolean getRabattGueltig(String rabattcode) {
+		Rabatt rabatt = getRabattZuRabattCode(rabattcode);
+		return rabatt != null;
+	}
+
+	/**
+	 * Entfernt den Rabatt aus den einloesbaren Rabatten.
+	 * 
+	 * @param rabattcode Einzuloesender Rabattcode.
+	 * @return Gibt Rabatt zurueck.
+	 */
+	public Rabatt rabattEinloesen(String rabattcode) {
+		Rabatt rabatt = getRabattZuRabattCode(rabattcode);
+		removeRabatt(rabatt);
+		return rabatt;
+	}
+
+	/**
+	 * Gibt den zum Rabattcode gehoerenden Rabatt zurueck.
+	 * 
+	 * @param rabattcode Rabattcode zu dem der Rabatt ermittelt wird.
+	 * @return Rabatt zum zugehoerigen Rabattcode.
+	 */
+	private Rabatt getRabattZuRabattCode(String rabattcode) {
+		assert rabattcode != null : "Uebergebener Rabattcode ist leer!";
+
+		Rabatt getRabatt = null;
+
+		for (Rabatt rabatt : rabatte) {
+			if (rabatt.getRabattcode().equals(rabattcode)) {
+				return rabatt;
+			}
+		}
+		return getRabatt;
+	}
+
+	/**
+	 * Gibt die Prozentzahl des Rabatts zum uebergebenen Rabattcodes zurueck.
+	 * 
+	 * @param rabattcode Prozentzahl des Rabatts wird zu diesem Rabattcode
+	 *                   ermittelt.
+	 * @return Prozentzahl des Rabatts zum uebergebenen Rabattcodes zurueck
+	 */
+	public int getRabattProzent(String rabattcode) {
+		Rabatt rabatt = getRabattZuRabattCode(rabattcode);
+		return rabatt.getProzent();
+	}
+
+	/**
+	 * Gibt Liste mit Rabatten des Kunden zurueck.
+	 * 
+	 * @return Liste mit Rabatten des Kunden.
+	 */
+	public List<Rabatt> getRabatte() {
+		return rabatte;
 	}
 }

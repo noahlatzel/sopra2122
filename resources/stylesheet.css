@@ -261,7 +261,25 @@
     -fx-vgap: 20;
 }
 
-.add-button-kunde {
+.inhaber-mitarbeiter-verwaltung-button {
+    -fx-background-color: #a0c5ac;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+    -fx-padding: 12px;
+    -fx-alignment: center;
+    -fx-min-width: 176px;
+}
+
+.inhaber-mitarbeiter-verwaltung-button:hover {
+    -fx-background-color: #799c84;
+    -fx-text-fill: #ffffff;
+    -fx-background: #C4C4C4;
+}
+
+.kunde-add-button{
     -fx-background-color: #FF6868;
     -fx-background-radius: 16px;
     -fx-text-fill: #ffffff;
@@ -271,7 +289,22 @@
     -fx-alignment: center;
 }
 
-.add-button-kunde:hover {
+.kunde-add-button:hover {
+    -fx-background-color: #C14343;
+    -fx-cursor: hand;
+}
+
+.kunde-combobox{
+    -fx-background-color: #FF6868;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 2px 0px 2px 0px;
+    -fx-alignment: center;
+}
+
+.kunde-combobox:hover {
     -fx-background-color: #C14343;
     -fx-cursor: hand;
 }

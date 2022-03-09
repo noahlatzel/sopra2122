@@ -153,7 +153,7 @@ public class Anmeldung extends Scene {
 		switch (benutzer.getRolle()) {
 		case KUNDE:
 			Kundensteuerung ks = new Kundensteuerung((Kunde) benutzer);
-			StartseiteKunde sk = new StartseiteKunde(primaryStage, getWidth(), getHeight(), ks, ks.getLager());
+			StartseiteKunde sk = new StartseiteKunde(primaryStage, getWidth(), getHeight(), ks, ks.getLager(), null);
 			primaryStage.setScene(sk);
 			System.out.println("Kunde angemeldet!");
 			break;

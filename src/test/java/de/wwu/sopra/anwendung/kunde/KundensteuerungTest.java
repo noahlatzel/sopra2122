@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import de.wwu.sopra.datenhaltung.benutzer.Kunde;
 import de.wwu.sopra.datenhaltung.bestellung.BestellStatus;
 import de.wwu.sopra.datenhaltung.bestellung.Bestellung;
+import de.wwu.sopra.datenhaltung.bestellung.Rabatt;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Kategorie;
 import de.wwu.sopra.datenhaltung.management.Lager;
@@ -151,6 +153,39 @@ public class KundensteuerungTest {
 						.equals(kunde.getBestellungen().get(i).getProdukte().get(j)));
 			}
 		}
+	}
+
+	/**
+	 * Testet, ob die Methode bestellen funktioniert
+	 */
+	@Test
+	void testeBestellen2() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Produkt fanta = new Produkt("Cola", "Toller Geschmack", 0.99, 1.29);
+		liste.add(fanta);
+		Rabatt rabatt = new Rabatt("ABC", 50);
+
+		Bestellung bestellung1 = new Bestellung(LocalDateTime.now(), liste, kunde, rabatt);
+
+		List<Bestellung> bestellungen = new ArrayList<Bestellung>();
+		bestellungen.add(bestellung1);
+
+		warenkorb.warenkorbLeeren();
+		for (int i = 0; i < liste.size(); i++) {
+			warenkorb.produktHinzufuegen(liste.get(i));
+		}
+
+		kundensteuerung.bestellen();
+
+		for (int i = 0; i < kunde.getBestellungen().size() - 1; i++) {
+			for (int j = 0; j < kunde.getBestellungen().get(i).getProdukte().size(); j++) {
+
+				assertTrue(bestellungen.get(i).getProdukte().get(j)
+						.equals(kunde.getBestellungen().get(i).getProdukte().get(j)));
+			}
+		}
+
+		assertTrue(bestellung1.getRabatt().equals(rabatt));
 	}
 
 	/**
@@ -346,4 +381,77 @@ public class KundensteuerungTest {
 
 		assertEquals(kundensteuerung.getProduktBestand(produkt), Lager.getProduktBestand(produkt));
 	}
+
+	@Test
+	void testAddRabatt() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		String rabattcode = kundensteuerung.addRabatt();
+
+		assertFalse(kunde.getRabatte().isEmpty());
+		assertTrue(kunde.getRabattGueltig(rabattcode));
+		assertTrue(kunde.getRabattProzent(rabattcode) <= 20);
+		assertTrue(kunde.getRabattProzent(rabattcode) >= 5);
+	}
+
+	@Test
+	void rabattFunktionenTest() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		String rabattcode = kundensteuerung.addRabatt();
+
+		Rabatt rabatt = kunde.getRabatte().get(0);
+
+		assertEquals(kundensteuerung.getRabattGueltig(rabattcode), kunde.getRabattGueltig(rabattcode));
+		assertEquals(kundensteuerung.getRabattProzent(rabattcode), kunde.getRabattProzent(rabattcode));
+		assertEquals(kundensteuerung.rabattEinloesen(rabattcode), rabatt);
+	}
+
+	@Test
+	void filterKategorien() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		Set<Produkt> produkte = new HashSet<Produkt>();
+		produkte.addAll(liste2);
+
+		Kategorie getraenk = new Kategorie("Getraenk");
+		Kategorie wasserKat = new Kategorie("wasserKat");
+		Kategorie keinNestleKat = new Kategorie("keinNestleKat");
+		Kategorie keinNestleKat2 = new Kategorie("keinNestleKat2");
+		Produkt fanta = new Produkt("Fanta", "Fanta", 1, 2);
+		Produkt wasser = new Produkt("Wasser", "Wasser", 1, 2);
+		Produkt keinNestle = new Produkt("KeinNestle", "KeinNestle", 1, 2);
+		Produkt keinNestle2 = new Produkt("KeinNestle2", "KeinNestle2", 1, 2);
+
+		// Unterkategorien erstellen
+		getraenk.addUnterkategorie(wasserKat);
+		wasserKat.addUnterkategorie(keinNestleKat);
+		keinNestleKat.addUnterkategorie(keinNestleKat2);
+
+		// Produkte zu Kategorien hinzufuegen
+		getraenk.addProdukt(fanta);
+		wasserKat.addProdukt(wasser);
+		keinNestleKat.addProdukt(keinNestle);
+		keinNestleKat2.addProdukt(keinNestle2);
+
+		produkte.add(fanta);
+		produkte.add(wasser);
+		produkte.add(keinNestle);
+		produkte.add(keinNestle2);
+
+		Iterator<Produkt> it = produkte.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+		System.out.println();
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, getraenk);
+		assertTrue(produkte.size() == 4);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, wasserKat);
+		assertTrue(produkte.size() == 3);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, keinNestleKat);
+		assertTrue(produkte.size() == 2);
+
+		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, keinNestleKat2);
+		assertTrue(produkte.size() == 1);
+	}
+
 }
