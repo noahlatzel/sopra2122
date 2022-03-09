@@ -94,7 +94,7 @@ public class FahrerInZustellung extends OverviewFahrer {
 			zweiteBestellung = null;
 			aktuelleBestellung = setBestellungPanel(ersteBestellung, true);
 			naechsteBestellung = null;
-			if (1 > steuerung.routeAusgeben().getBestellungen().size()) {
+			if (1 < steuerung.routeAusgeben().getBestellungen().size()) {
 				zweiteBestellung = steuerung.routeAusgeben().getBestellungen().get(1);
 				naechsteBestellung = setBestellungPanel(zweiteBestellung, false);
 				gridPane.add(naechsteBestellung, 1, 0);
