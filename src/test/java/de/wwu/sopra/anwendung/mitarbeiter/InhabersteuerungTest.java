@@ -381,4 +381,29 @@ public class InhabersteuerungTest {
 
 		assertEquals(mitarbeitern, ihs.mitarbeiternAnzeigen());
 	}
+
+	@Test
+	void testFahrzeugHinzufuegen() {
+		Inhabersteuerung steuerung = new Inhabersteuerung(inhaber);
+		steuerung.fahrzeugHinzufuegen(10123);
+		boolean temp = false;
+		for (Fahrzeug fahrzeug : FahrzeugRegister.getFahrzeuge()) {
+			if (fahrzeug.getKapazitaet() == 10123) {
+				temp = true;
+			}
+		}
+		assertTrue(temp);
+	}
+
+	@Test
+	void testGetTransaktionshistorie() {
+		Inhabersteuerung steuerung = new Inhabersteuerung(inhaber);
+		assertTrue(steuerung.getTransaktionshistorie().equals(Statistiken.getTransaktionshistorie()));
+	}
+
+	@Test
+	void testSortiment() {
+		Inhabersteuerung steuerung = new Inhabersteuerung(inhaber);
+		assertTrue(steuerung.sortimentAnzeigen().equals(Lager.sortimentAnzeigen()));
+	}
 }
