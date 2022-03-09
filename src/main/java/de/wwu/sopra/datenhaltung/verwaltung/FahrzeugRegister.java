@@ -34,6 +34,10 @@ public class FahrzeugRegister implements Serializable {
 	 */
 	private static HashSet<Integer> fahrzeugNummerListe = new HashSet<Integer>();
 	/**
+	 * Liste fuer Fahrzeugnummer
+	 */
+	private static HashSet<Integer> routenNummerListe = new HashSet<Integer>();
+	/**
 	 * Zaehler fuer Routennummer
 	 */
 	private static int zaehlerRoute = 1;
@@ -144,7 +148,16 @@ public class FahrzeugRegister implements Serializable {
 	 * @return Den Zaehler fuer Route
 	 */
 	public static int getZaehlerRoute() {
-		zaehlerRoute = zaehlerRoute + 1;
-		return zaehlerRoute;
+		for (Fahrzeug fahrzeug : fahrzeuge) {
+			if (fahrzeug.getRoute() != null) {
+				routenNummerListe.add(fahrzeug.getFahrzeugNummer());
+			}
+		}
+		while (routenNummerListe.contains(zaehlerRoute)) {
+			zaehlerRoute++;
+			System.out.println(zaehlerRoute);
+		}
+		routenNummerListe.add(zaehlerRoute);
+		return FahrzeugRegister.zaehlerRoute;
 	}
 }
