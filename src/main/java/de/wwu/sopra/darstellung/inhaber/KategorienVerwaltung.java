@@ -71,19 +71,19 @@ public class KategorienVerwaltung extends InhaberOverview {
 		// grundstrucktur
 		content = new HBox(2);
 		content.getStyleClass().add("inhaber-kategorie-verwaltung-content");
-		
+
 		content.getChildren().add(this.setKategorieHinzufuegen());
 		content.getChildren().add(this.setKategorieLoeschen());
 
 		return this.content;
 	}
-	
+
 	private VBox setKategorieHinzufuegen() {
 		if (this.kategorieHinzufuegen == null) {
 			kategorieHinzufuegen = new VBox();
-			
+
 			Label lbKategorieHinzufuegenTitel = new Label("Kategorie Hinzufuegen");
-			
+
 			// label button tf fuer Kategorie
 			Label lbNamekat = new Label("Name:");
 			TextField tfNamekat = new TextField();
@@ -94,7 +94,7 @@ public class KategorienVerwaltung extends InhaberOverview {
 
 			Button btKategorie = new Button("Kategorie Hinzufuegen");
 			Label fehler1 = new Label("");
-			
+
 			// Styling
 			kategorieHinzufuegen.getStyleClass().add("inhaber-kategorie-verwaltung-inner-hinzufuegen");
 			lbKategorieHinzufuegenTitel.getStyleClass().add("inhaber-kategorie-verwaltung-inner-title");
@@ -107,7 +107,7 @@ public class KategorienVerwaltung extends InhaberOverview {
 			btKategorie.getStyleClass().add("inhaber-form-button");
 			fehler1.getStyleClass().add("registrierung-error-label");
 			VBox.setMargin(btKategorie, new Insets(8, 0, 0, 0));
-			
+
 			// In VBox setzen
 			kategorieHinzufuegen.getChildren().add(lbKategorieHinzufuegenTitel);
 			kategorieHinzufuegen.getChildren().add(lbNamekat);
@@ -118,7 +118,7 @@ public class KategorienVerwaltung extends InhaberOverview {
 			kategorieHinzufuegen.getChildren().add(chOberUNterwahl);
 			kategorieHinzufuegen.getChildren().add(btKategorie);
 			kategorieHinzufuegen.getChildren().add(fehler1);
-			
+
 			// Comboboxen fuellen
 			try {
 				kategorien = new ArrayList<Kategorie>();
@@ -158,32 +158,34 @@ public class KategorienVerwaltung extends InhaberOverview {
 								if (chOberUNter.getValue().equals(kategorie2.getName()))
 									kategorie = kategorie2;
 							}
-							inhaberSteuerung.kategorieBearbeiten(new Kategorie(name), kategorie, chOberUNterwahl.getValue(),
-									name);
+							inhaberSteuerung.kategorieBearbeiten(new Kategorie(name), kategorie,
+									chOberUNterwahl.getValue(), name);
 						}
 					}
 
 				}
-				
+
 				// Clear textfield
 				tfNamekat.clear();
+				primaryStage
+						.setScene(new KategorienVerwaltung(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 			});
 		}
-		
+
 		return this.kategorieHinzufuegen;
 	}
-	
+
 	private VBox setKategorieLoeschen() {
 		if (this.kategorieLoeschen == null) {
 			kategorieLoeschen = new VBox();
-			
+
 			Label lbKategorieLoeschenTitel = new Label("Kategorie Loeschen");
-			
+
 			// combobox und button zum Loeschen
 			Button btkategorieLoeschen = new Button("Loeschen");
 			ComboBox<String> cbLoeschen = new ComboBox<String>();
 			Label fehler2 = new Label();
-			
+
 			// Styling
 			kategorieLoeschen.getStyleClass().add("inhaber-kategorie-verwaltung-inner-loeschen");
 			lbKategorieLoeschenTitel.getStyleClass().add("inhaber-kategorie-verwaltung-inner-title");
@@ -191,45 +193,49 @@ public class KategorienVerwaltung extends InhaberOverview {
 			btkategorieLoeschen.getStyleClass().add("inhaber-form-button");
 			fehler2.getStyleClass().add("registrierung-error-label");
 			VBox.setMargin(btkategorieLoeschen, new Insets(8, 0, 0, 0));
-			
+
 			// setzen von Loeschen
 			kategorieLoeschen.getChildren().add(lbKategorieLoeschenTitel);
 			kategorieLoeschen.getChildren().add(cbLoeschen);
 			kategorieLoeschen.getChildren().add(btkategorieLoeschen);
 			kategorieLoeschen.getChildren().add(fehler2);
-			
+
 			// Comboboxen fuellen
 			try {
 				kategorien = new ArrayList<Kategorie>();
-	
+
 				for (Kategorie kategorie : Lager.getKategorien()) {
-	
+
 					kategorien.add(kategorie);
-	
+
 				}
-	
+
 				for (Kategorie kategorie : kategorien) {
 					cbLoeschen.getItems().add(kategorie.getName());
 				}
-	
+
 			} catch (NullPointerException excpt) {
 				fehler2.setText("Es existieren keine Kategorien");
 			}
-			
+
 			btkategorieLoeschen.setOnAction(e -> {
 				Kategorie kategorie = null;
 				for (Kategorie kategorie2 : kategorien) {
-					if (cbLoeschen.getValue().equals(kategorie2.getName()))
+					if (cbLoeschen.getValue() != null && cbLoeschen.getValue().equals(kategorie2.getName()))
 						kategorie = kategorie2;
 				}
 				try {
 					inhaberSteuerung.kategorieLoeschen(kategorie);
+					primaryStage.setScene(
+							new KategorienVerwaltung(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 				} catch (IllegalArgumentException k) {
-					fehler2.setText("Es existieren noch unterkategorien \n oder Produkte aus dieser kategorie");
+					fehler2.setText("Es existieren noch Unterkategorien \noder Produkte aus dieser Kategorie");
+				} catch (AssertionError a) {
+					fehler2.setText("Bitte Kategorie waehlen.");
 				}
 			});
 		}
-		
+
 		return this.kategorieLoeschen;
 	}
 }

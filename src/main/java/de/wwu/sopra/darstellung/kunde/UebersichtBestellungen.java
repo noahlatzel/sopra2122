@@ -70,7 +70,7 @@ public class UebersichtBestellungen extends KundeOverview {
 		Label meineBestellungenLabel = new Label("Meine Bestellungen");
 		hbox.getChildren().add(meineBestellungenLabel);
 
-		hbox.setStyle(BACKGROUND + " -fx-font-size: 20; -fx-font-weight: bold");
+		hbox.setStyle(BACKGROUND + " -fx-font-size: 24; -fx-font-weight: bold");
 		hbox.setPadding(new Insets(10));
 
 		return hbox;

@@ -81,8 +81,6 @@ public class Lageristensteuerung {
 				}
 			}
 		}
-		assert ausgaben + gesamtpreis == Statistiken.getAusgaben()
-				: "Nachbedingung bei Terminierung von bestelleNach verletzt: Ausgaben nicht erhoeht";
 	}
 
 	/**

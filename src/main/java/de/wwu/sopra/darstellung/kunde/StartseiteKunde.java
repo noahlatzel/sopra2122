@@ -45,6 +45,7 @@ public class StartseiteKunde extends KundeOverview {
 	MenuButton menuButton;
 	HBox hbox;
 	Set<Produkt> produkte;
+	Set<Kategorie> kategorien;
 
 	/**
 	 * Konstruktor fuer die Startseite des Kunden
@@ -56,28 +57,45 @@ public class StartseiteKunde extends KundeOverview {
 	 * @param produkte        Produkte
 	 */
 	public StartseiteKunde(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
-			Set<Produkt> produkte) {
+			Set<Produkt> produkte, Set<Kategorie> kategorien) {
 		super(primaryStage, width, height, kundensteuerung);
 		this.primaryStage = primaryStage;
 		this.setRoot(root);
 		this.kundensteuerung = kundensteuerung;
 		this.produkte = produkte;
-		root.setCenter(setBorderPane(produkte));
+
+		// Fuegt alle Oberkategorien der Liste der auswaehlbaren Kategorien hinzu.
+		if (kategorien == null) {
+
+			this.kategorien = new HashSet<Kategorie>();
+			Iterator<Kategorie> it = kundensteuerung.getKategorien().iterator();
+
+			while (it.hasNext()) {
+				Kategorie temp = it.next();
+				if (temp.getOberkategorie() == null) {
+					this.kategorien.add(temp);
+				}
+			}
+		} else {
+			this.kategorien = kategorien;
+		}
+
+		root.setCenter(setBorderPane());
+
 	}
 
 	/**
 	 * Erzeugt aeussere BorderPane, in deren Center die Produkte angezeigt werden
 	 * und deren Top die Searchbar ist
 	 * 
-	 * @param produkte Produkte
 	 * @return Borderpane fuer den Inhalt der Szene
 	 */
-	public BorderPane setBorderPane(Set<Produkt> produkte) {
+	public BorderPane setBorderPane() {
 		if (borderpane == null) {
 			borderpane = new BorderPane();
 
 			borderpane.setTop(setSearchBarBP());
-			borderpane.setCenter(setScrollPane(produkte));
+			borderpane.setCenter(setScrollPane());
 		}
 
 		return borderpane;
@@ -110,7 +128,7 @@ public class StartseiteKunde extends KundeOverview {
 			menuButton = new MenuButton("Kategorien");
 			menuButton.getStyleClass().add("kunde-startseite-kategorien-menubutton");
 
-			Iterator<Kategorie> iterator = kundensteuerung.getKategorien().iterator();
+			Iterator<Kategorie> iterator = this.kategorien.iterator();
 			while (iterator.hasNext()) {
 				Kategorie kategorie = iterator.next();
 				MenuItem temp = new MenuItem(kategorie.getName());
@@ -119,7 +137,8 @@ public class StartseiteKunde extends KundeOverview {
 
 				temp.setOnAction(e -> {
 					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
-							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie)));
+							kundensteuerung.filterProdukteNachKategorie(produkte, kategorie),
+							kategorie.getUnterkategorien()));
 				});
 				temp.getStyleClass().add("kunde-startseite-kategorien-menuitem");
 
@@ -155,15 +174,14 @@ public class StartseiteKunde extends KundeOverview {
 	 * Erzeugt Scrollpane mit Uebersicht ueber alle Produkte des uebergebenen
 	 * HashSets
 	 * 
-	 * @param produkte Alle in dem Set enthaltenen Produkte werden angezeigt.
 	 * @return Gibt fertig konfigurierte ScrollPane zurueck.
 	 */
-	public ScrollPane setScrollPane(Set<Produkt> produkte) {
+	public ScrollPane setScrollPane() {
 		if (scrollpane == null) {
 
 			scrollpane = new ScrollPane();
-			scrollpane.setContent(setGridPane(produkte));
 			scrollpane.getStyleClass().add("kunde-startseite-produkte-scrollpane");
+			scrollpane.setContent(setGridPane());
 		}
 
 		scrollpane.setFitToWidth(true);
@@ -175,10 +193,9 @@ public class StartseiteKunde extends KundeOverview {
 	/**
 	 * Erzeugt ein GridPane mit Panels fuer alle Produkte.
 	 * 
-	 * @param produkte Set mit Produkten die dargestellt werden sollen.
 	 * @return GridPane
 	 */
-	public GridPane setGridPane(Set<Produkt> produkte) {
+	public GridPane setGridPane() {
 		if (gridpane == null) {
 			gridpane = new GridPane();
 			gridpane.getStyleClass().add("kunde-startseite-produkte-gridpane");
@@ -267,7 +284,8 @@ public class StartseiteKunde extends KundeOverview {
 			i++;
 		}
 
-		addProdukt.getStyleClass().add("add-button-kunde");
+		addProdukt.getStyleClass().add("kunde-add-button");
+		combobox.getStyleClass().add("kunde-combobox");
 
 		combobox.setValue(0);
 
@@ -277,14 +295,6 @@ public class StartseiteKunde extends KundeOverview {
 				combobox.setPromptText("0");
 			}
 			// TODO Else-Fall: Fehlermeldung an Kunden ausgeben!
-		});
-
-		combobox.setOnMouseEntered(e -> {
-			combobox.setStyle(" -fx-cursor: hand;");
-		});
-
-		combobox.setOnMouseExited(e -> {
-			combobox.setStyle(" -fx-cursor: default;");
 		});
 
 		hbox.getChildren().add(combobox);
@@ -322,8 +332,8 @@ public class StartseiteKunde extends KundeOverview {
 							produkte.add(produkt);
 						}
 					}
-					primaryStage.setScene(
-							new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung, produkte));
+					primaryStage.setScene(new StartseiteKunde(primaryStage, getWidth(), getHeight(), kundensteuerung,
+							produkte, null));
 				}
 			});
 		}
