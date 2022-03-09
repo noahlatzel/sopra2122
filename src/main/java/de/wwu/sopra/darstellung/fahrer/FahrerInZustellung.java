@@ -36,6 +36,14 @@ public class FahrerInZustellung extends OverviewFahrer {
 	Bestellung zweiteBestellung;
 	VBox uebernaechsteBestellung;
 
+	/**
+	 * konstrultor
+	 * 
+	 * @param steuerung    Fahrersteuerung
+	 * @param primaryStage primaryStage
+	 * @param width        width
+	 * @param height       height
+	 */
 	public FahrerInZustellung(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
 		index = 2;
@@ -206,7 +214,7 @@ public class FahrerInZustellung extends OverviewFahrer {
 			tilePane.setHgap(10);
 			tilePane.setVgap(10);
 			tilePane.setPrefColumns(4);
-			
+
 			if (!steuerung.getBelegteFahrzeuge().isEmpty()) {
 				for (Fahrzeug fahrzeug : steuerung.getBelegteFahrzeuge()) {
 					tilePane.getChildren().add(setFahrzeug(fahrzeug));
@@ -229,6 +237,11 @@ public class FahrerInZustellung extends OverviewFahrer {
 		return tilePane;
 	}
 
+	/**
+	 * srollpaen
+	 * 
+	 * @return scrollpane
+	 */
 	private ScrollPane setScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new ScrollPane();
@@ -238,6 +251,13 @@ public class FahrerInZustellung extends OverviewFahrer {
 		return scrollPane;
 	}
 
+	/**
+	 * set CBox bestellungen
+	 * 
+	 * @param aktuell aktuelle bestellung
+	 * @param first   first
+	 * @return eine Vbox
+	 */
 	private VBox setBestellungPanel(Bestellung aktuell, boolean first) {
 		VBox bestellungPanel = new VBox();
 
@@ -282,6 +302,13 @@ public class FahrerInZustellung extends OverviewFahrer {
 		return bestellungPanel;
 	}
 
+	/**
+	 * Vbox bestellung remove
+	 * 
+	 * @param aktuell aktuelle bestellung
+	 * @param kundeDa ist der kunde da
+	 * @return vbox
+	 */
 	private VBox removeBestellungPanel(Bestellung aktuell, boolean kundeDa) {
 		VBox bestellungPanel = new VBox();
 
@@ -326,6 +353,12 @@ public class FahrerInZustellung extends OverviewFahrer {
 		return bestellungPanel;
 	}
 
+	/**
+	 * Vbox zum setzen vom Fahrzeug
+	 * 
+	 * @param fahrzeug fahrzeug zu setzen
+	 * @return vbix
+	 */
 	private VBox setFahrzeug(Fahrzeug fahrzeug) {
 		VBox bestellungPanel = new VBox();
 

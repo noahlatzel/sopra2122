@@ -73,6 +73,7 @@ public class Inhabersteuerung {
 	 * @param beschreibung  Beschreibung des Produkts, kann nicht null oder leer
 	 *                      sein
 	 * @param verkaufspreis Verkaufspreis des Produkts, kann nicht negativ sein
+	 * @param bildPfad      Ordner Pfad fuer das bild
 	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis,
