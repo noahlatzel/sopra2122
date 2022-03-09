@@ -36,7 +36,6 @@ public class OverviewFahrer extends Scene {
 	Button btLieferungabschliesen;
 	Button btPersoenlicheDatenAnzeigen;
 	Button btPersoenlicheDatenBearbeiten;
-	// Button btAbmelden;
 	MenuButton userMenu;
 	MenuItem btAbmelden;
 
@@ -51,13 +50,14 @@ public class OverviewFahrer extends Scene {
 	public OverviewFahrer(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(new BorderPane(), width, height);
 
-		File f = new File("resources/stylesheet.css");
-		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-
 		this.primaryStage = primaryStage;
 		this.steuerung = steuerung;
 		root.setTop(this.setHeader());
 		root.setLeft(this.setVBox());
+		this.setRoot(root);
+		
+		File f = new File("resources/stylesheet.css");
+		this.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 	}
 
 	/**
@@ -77,7 +77,6 @@ public class OverviewFahrer extends Scene {
 			vbox.getChildren().add(setBestellungAbgeben1());
 			vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(setBtPersoenlicheDatenBearbeiten());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
 		return vbox;
@@ -230,22 +229,5 @@ public class OverviewFahrer extends Scene {
 			});
 		}
 		return btPersoenlicheDatenAnzeigen;
-	}
-
-	/**
-	 * Erzeugt Button fuer PersoenlicheDatenBearbeiten
-	 * 
-	 * @return Button fuer PersoenlicheDatenBearbeiten
-	 */
-	private Button setBtPersoenlicheDatenBearbeiten() {
-		if (btPersoenlicheDatenBearbeiten == null) {
-			btPersoenlicheDatenBearbeiten = new Button("Persoenliche Daten Bearbeiten");
-			btPersoenlicheDatenBearbeiten.getStyleClass().add("mitarbeiter-sidemenu-button");
-			btPersoenlicheDatenBearbeiten.setOnAction(e -> {
-				primaryStage
-						.setScene(new PersoenlicheDatenBearbeiten(steuerung, primaryStage, getWidth(), getHeight()));
-			});
-		}
-		return btPersoenlicheDatenBearbeiten;
 	}
 }

@@ -468,3 +468,24 @@
     -fx-hgap: 8;
     -fx-padding: 24px;
 }
+
+.fahrer-route-anzeigen-content-wrapper {
+    -fx-padding: 24px;
+    -fx-spacing: 16px;
+}
+
+.fahrer-keine-route-label {
+    -fx-text-fill: #a0c5ac;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.fahrer-route-anzeigen-scrollpane {
+    -fx-background-color:transparent;
+}
+
+.fahrer-route-anzeigen-info-text {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+}
