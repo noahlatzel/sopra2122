@@ -139,7 +139,7 @@ public class Produkt implements Serializable {
 	 * @return der Verkaufspreis
 	 */
 	public double getVerkaufspreis() {
-		return verkaufspreis;
+		return this.verkaufspreis;
 	}
 
 	/**

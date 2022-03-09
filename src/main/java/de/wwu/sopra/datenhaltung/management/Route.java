@@ -115,7 +115,7 @@ public class Route implements Serializable {
 			assert bestellung.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
 					: "Nachbedingung von setRoute() verletzt: die Bestellungen der Route sind nicht zu IN_BEARBEITUNG geaendert";
 		}
-		assert this.getFahrzeug().getKapazitaet() - routeBelegung > 0
+		assert this.getFahrzeug().getKapazitaet() - routeBelegung >= 0
 				: "Nachbedingung von setRoute() verletzt: die freie Kapazitaet ist nicht positiv, da die Bestellungen auf der Route zu viel Platz belegen";
 
 	}
