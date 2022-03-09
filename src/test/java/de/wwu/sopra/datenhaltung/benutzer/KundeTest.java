@@ -78,12 +78,13 @@ public class KundeTest {
 		assertTrue(kunde.getBestellungen().size() == i);
 
 		// Uebergeben von null erzeugt Exception
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(AssertionError.class, () -> {
 			kunde.bestellungHinzufuegen(null);
 		});
 		assertThrows(AssertionError.class, () -> {
 			kunde.bestellungHinzufuegen(new Bestellung(datum, new ArrayList<Produkt>(), kunde));
 		});
+
 	}
 
 	/**
@@ -173,6 +174,9 @@ public class KundeTest {
 		assertTrue(kunde.getRabattGueltig("ABC"));
 		kunde.rabattEinloesen("ABC");
 		assertFalse(kunde.getRabattGueltig("ABC"));
+		assertThrows(AssertionError.class, () -> {
+			kunde.addRabatt("ACSD", -1);
+		});
 	}
 
 	/**
@@ -185,5 +189,13 @@ public class KundeTest {
 		assertEquals(kunde.getRabattProzent("ABC"), 50);
 		kunde.rabattEinloesen("ABC");
 		kunde.rabattEinloesen("ABCD");
+		assertTrue(kunde.rabattEinloesen("ABCDE") == null);
+	}
+
+	@Test
+	void testAssertions() {
+		assertThrows(AssertionError.class, () -> {
+			kunde.rabattEinloesen(null);
+		});
 	}
 }

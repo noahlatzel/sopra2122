@@ -54,18 +54,6 @@ public class Inhaber extends Benutzer {
 				lageristen.add((Lagerist) i);
 			}
 		}
-
-		// Nachbedingung pruefen
-		for (Benutzer benutzerDaten : BenutzerRegister.getBenutzerListe()) {
-			if (benutzerDaten.getRolle() == Rolle.FAHRER) {
-				assert fahrer.contains(benutzerDaten)
-						: "Nachbedingung des Konstruktors von Inhaber verletzt: nicht alle Fahrer sind auch in der Fahrerliste des Inhabers gespeichert";
-			} else if (benutzerDaten.getRolle() == Rolle.LAGERIST) {
-				assert lageristen.contains(benutzerDaten)
-						: "Nachbedingung des Konstruktors von Inhaber verletzt: nicht alle Lageristen sind auch in der Fahrerliste des Inhabers gespeichert";
-
-			}
-		}
 	}
 
 	/**
@@ -84,12 +72,6 @@ public class Inhaber extends Benutzer {
 			fahrer.setChef(this);
 		}
 
-		// Nachbedingung pruefen
-		assert fahrer.getChef().equals(this)
-				: "Nachbedingung von fahrerHinzufuegen() verletzt: der Chef des Fahrers ist nicht dieser Inhaber";
-		assert this.fahrer.contains(fahrer)
-				: "Nachbedingung von fahrerHinzufuegen() verletzt: der Fahrer ist nicht in der Fahrerliste des Inhabers gefuehrt";
-		// assert BenutzerRegister
 	}
 
 	/**
@@ -109,9 +91,6 @@ public class Inhaber extends Benutzer {
 			throw new IllegalArgumentException("Dieser Fahrer hat keinen Chef.");
 		}
 
-		if (!this.fahrer.contains(fahrer)) {
-			throw new IllegalArgumentException("Dieser Fahrer ist nicht beim Inhaber beschaeftigt.");
-		}
 		// Vorbedingung pruefen
 		assert fahrer.getChef().equals(this)
 				: "Vorbedingung von fahrerEntfernen() verletzt: der Fahrer hat diesen Inhaber nicht als Chef";
@@ -121,9 +100,6 @@ public class Inhaber extends Benutzer {
 			fahrer.setChef(null);
 		}
 
-		// Nachbedingung pruefen
-		assert !this.fahrer.contains(fahrer)
-				: "Nachbedingung von fahrerEntfernen() verletzt: Der uebergebene Fahrer ist noch in der Fahrerliste des Inhabers gefuehrt";
 	}
 
 	/**
@@ -142,12 +118,6 @@ public class Inhaber extends Benutzer {
 			lagerist.setChef(this);
 		}
 
-		// Nachbedingung pruefen
-		assert lagerist.getChef().equals(this)
-				: "Nachbedingung von lageristHinzufuegen() verletzt: der Chef des Lageristen ist nicht dieser Inhaber";
-		assert this.lageristen.contains(lagerist)
-				: "Nachbedingung von lageristHinzufuegen() verletzt: der Lagerist ist nicht in der Lageristenliste des Inhabers gefuehrt";
-		// assert BenutzerRegister
 	}
 
 	/**
@@ -164,9 +134,6 @@ public class Inhaber extends Benutzer {
 			throw new IllegalArgumentException("Dieser Lagerist hat keinen Chef.");
 		}
 
-		if (!this.lageristen.contains(lagerist)) {
-			throw new IllegalArgumentException("Dieser Lagerist ist nicht beim Inhaber beschaeftigt.");
-		}
 		// Vorbedingung pruefen
 		assert lagerist.getChef().equals(this)
 				: "Vorbedingung von lageristEntfernen() verletzt: der Lagerist hat diesen Inhaber nicht als Chef";
@@ -175,10 +142,6 @@ public class Inhaber extends Benutzer {
 			this.lageristen.remove(lagerist);
 			lagerist.setChef(null);
 		}
-
-		assert !this.lageristen.contains(lagerist)
-				: "Nachbedingung von lageristEntfernen() verletzt: Der uebergebene Lagerist ist noch in der Lageristenliste des Inhabers gefuehrt";
-
 	}
 
 	/**

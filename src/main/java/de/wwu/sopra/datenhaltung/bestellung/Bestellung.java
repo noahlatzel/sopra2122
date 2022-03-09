@@ -70,8 +70,6 @@ public class Bestellung implements Serializable {
 	 * @param kunde    Kunde
 	 * @inv Eine Bestellung muss immer Produkte enthalten und einem Kunden
 	 *      zugeordnet sein
-	 * @post Die Bestellung muss in der Liste der Bestellungen des Kunden gefuehrt
-	 *       werden. Die Produkte der Bestellung sind nicht mehr im Lager.
 	 */
 	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde) {
 		// Klasseninvariante pruefen
@@ -94,11 +92,6 @@ public class Bestellung implements Serializable {
 			Lager.removeProdukt(produkt);
 		}
 
-		// Nachbedingung pruefen
-		assert this.getKunde().getBestellungen().contains(this)
-				: "Nachbedingung des Konstruktors der Bestellung verletzt: die Bestellung ist nicht im Kunden festgehalten";
-		assert this.getKunde() == kunde
-				: "Nachbedingung des Konstruktors der Bestellung verletzt: der Bestellung wurde ein falscher Kunde zugewiesen";
 	}
 
 	/**
@@ -110,8 +103,6 @@ public class Bestellung implements Serializable {
 	 * @param rabatt   Rabatt
 	 * @inv Eine Bestellung muss immer Produkte enthalten und einem Kunden
 	 *      zugeordnet sein
-	 * @post Die Bestellung muss in der Liste der Bestellungen des Kunden gefuehrt
-	 *       werden. Die Produkte der Bestellung sind nicht mehr im Lager.
 	 */
 	public Bestellung(LocalDateTime datum, List<Produkt> produkte, Kunde kunde, Rabatt rabatt) {
 		// Klasseninvariante pruefen
@@ -134,11 +125,6 @@ public class Bestellung implements Serializable {
 			Lager.removeProdukt(produkt);
 		}
 
-		// Nachbedingung pruefen
-		assert this.getKunde().getBestellungen().contains(this)
-				: "Nachbedingung des Konstruktors der Bestellung verletzt: die Bestellung ist nicht im Kunden festgehalten";
-		assert this.getKunde() == kunde
-				: "Nachbedingung des Konstruktors der Bestellung verletzt: der Bestellung wurde ein falscher Kunde zugewiesen";
 	}
 
 	/**
@@ -196,21 +182,12 @@ public class Bestellung implements Serializable {
 	 * Setter Methode fuer den Status
 	 * 
 	 * @param status Status
-	 * @post Ist der Status STORNIERT, sind die Produkte der Bestellung wieder im
-	 *       Lager
 	 */
 	public void setStatus(BestellStatus status) {
 		this.status = status;
 		if (status.equals(BestellStatus.STORNIERT)) {
 			for (Produkt produkt : this.getProdukte()) {
 				Lager.addProdukt(produkt);
-			}
-		}
-		// Nachbedingung pruefen
-		if (this.getStatus().equals(BestellStatus.STORNIERT)) {
-			for (Produkt produkt : this.getProdukte()) {
-				assert Lager.getLager().contains(produkt)
-						: "Nachbedingung von setStatus() verletzt: der Status ist STORNIERT und die Produkte der Bestellung sind nicht ins Lager zurueckgekehrt";
 			}
 		}
 	}

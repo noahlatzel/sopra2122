@@ -119,4 +119,25 @@ class BestellungTest {
 		assertTrue(after == before * 0.5);
 	}
 
+	/**
+	 * Testet die Assertions im Konstruktor
+	 */
+	@Test
+	void testAssertions() {
+		assertThrows(AssertionError.class, () -> {
+			new Bestellung(null, produkte, null);
+		});
+		produkte.clear();
+		assertThrows(AssertionError.class, () -> {
+			new Bestellung(null, produkte, kunde);
+		});
+		assertThrows(AssertionError.class, () -> {
+			new Bestellung(null, produkte, null, null);
+		});
+		produkte.clear();
+		assertThrows(AssertionError.class, () -> {
+			new Bestellung(null, produkte, kunde, null);
+		});
+	}
+
 }
