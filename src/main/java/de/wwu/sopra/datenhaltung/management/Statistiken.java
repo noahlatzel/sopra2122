@@ -37,6 +37,14 @@ public class Statistiken implements Serializable {
 	 * Pfad zur Serialisierung
 	 */
 	private static String path = "statistiken.ser";
+	/**
+	 * Pfad zur Serialisierung der Transaktionen
+	 */
+	private static String path_transaktion = "transaktionen.ser";
+	/**
+	 * Transaktionshistorie
+	 */
+	private static ArrayList<Transaktion> transaktionshistorie = new ArrayList<Transaktion>();
 
 	/**
 	 * Singleton Konstruktor
@@ -158,10 +166,30 @@ public class Statistiken implements Serializable {
 	}
 
 	/**
+	 * Gibt die Transaktionshistorie zurueck.
+	 * 
+	 * @return Transaktionshistorie
+	 */
+	public static ArrayList<Transaktion> getTransaktionshistorie() {
+		return transaktionshistorie;
+	}
+
+	/**
+	 * Fuegt eine Transaktion hinzu.
+	 * 
+	 * @param transaktion Transaktion
+	 */
+	public static void addTransaktion(Transaktion transaktion) {
+		transaktionshistorie.add(transaktion);
+	}
+
+	/**
 	 * Deserialisiert das FahrzeugRegister.
 	 */
 	public static void load() {
 		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
+		SerialisierungPipeline<ArrayList<Transaktion>> sp1 = new SerialisierungPipeline<ArrayList<Transaktion>>();
+		transaktionshistorie = sp1.deserialisieren(path_transaktion, new ArrayList<Transaktion>());
 		ArrayList<Double> raw_statistiken = sp.deserialisieren(path, null);
 		if (raw_statistiken != null) {
 			Statistiken.setUmsatz(raw_statistiken.get(0));
@@ -181,12 +209,14 @@ public class Statistiken implements Serializable {
 	 */
 	public static void save() {
 		SerialisierungPipeline<ArrayList<Double>> sp = new SerialisierungPipeline<ArrayList<Double>>();
+		SerialisierungPipeline<ArrayList<Transaktion>> sp1 = new SerialisierungPipeline<ArrayList<Transaktion>>();
 		ArrayList<Double> raw_statistiken = new ArrayList<Double>();
 		raw_statistiken.add(umsatz);
 		raw_statistiken.add(ausgaben);
 		raw_statistiken.add(einnahmen);
 		raw_statistiken.add(arbeitszeit);
 		sp.serialisieren(raw_statistiken, path);
+		sp1.serialisieren(transaktionshistorie, path_transaktion);
 	}
 
 }

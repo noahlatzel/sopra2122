@@ -16,6 +16,7 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import de.wwu.sopra.datenhaltung.management.Route;
 import de.wwu.sopra.datenhaltung.management.Statistiken;
+import de.wwu.sopra.datenhaltung.management.Transaktion;
 import de.wwu.sopra.datenhaltung.verwaltung.BenutzerRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.FahrzeugRegister;
 import de.wwu.sopra.datenhaltung.verwaltung.GrosshaendlerRegister;
@@ -69,6 +70,8 @@ public class Lageristensteuerung {
 
 				}
 			}
+			Statistiken.addTransaktion(new Transaktion("Nachbestellung: " + n.getProdukt().getName(),
+					-1 * n.getProdukt().getEinkaufspreis() * n.getMenge()));
 		}
 		Statistiken.addArbeitszeit(0.5);
 

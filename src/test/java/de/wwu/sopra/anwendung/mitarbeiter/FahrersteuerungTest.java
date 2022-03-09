@@ -255,4 +255,20 @@ public class FahrersteuerungTest {
 		assertTrue(fahrzeug.getRoute() == null);
 		assertTrue(fahrer.getFahrzeug() == null);
 	}
+
+	@Test
+	public void testBelegteFahrzeuge() {
+		Fahrersteuerung steuerung = new Fahrersteuerung(fahrer);
+
+		Fahrzeug fahrzeug = new Fahrzeug(100);
+		Fahrzeug fahrzeug1 = new Fahrzeug(100);
+		Route route = new Route(fahrzeug);
+		route.setBestellungen(bestellungen);
+		FahrzeugRegister.addFahrzeug(fahrzeug);
+		FahrzeugRegister.addFahrzeug(fahrzeug1);
+
+		ArrayList<Fahrzeug> temp = (ArrayList<Fahrzeug>) steuerung.getBelegteFahrzeuge();
+
+		assertTrue(temp.contains(fahrzeug));
+	}
 }
