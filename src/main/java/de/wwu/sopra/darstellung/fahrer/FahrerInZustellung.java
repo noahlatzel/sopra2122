@@ -9,14 +9,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -37,11 +35,6 @@ public class FahrerInZustellung extends OverviewFahrer {
 	VBox naechsteBestellung;
 	Bestellung zweiteBestellung;
 	VBox uebernaechsteBestellung;
-
-	/**
-	 * CSS fuer Produkt Panel
-	 */
-	private static final String STANDARD_BESTELLUNG_PANEL = "-fx-border-color: grey; -fx-background-color: white; -fx-background-insets: 0, 2;";
 
 	public FahrerInZustellung(Fahrersteuerung steuerung, Stage primaryStage, double width, double height) {
 		super(steuerung, primaryStage, width, height);
@@ -256,16 +249,7 @@ public class FahrerInZustellung extends OverviewFahrer {
 		bestellungPanel.setMinWidth(100);
 		VBox.setMargin(kunde, new Insets(2, 0, 0, 0));
 
-		bestellungPanel.setStyle(STANDARD_BESTELLUNG_PANEL);
-
-		// Erstellung von DropShadows fuer Komponenten
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(3.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-
-		bestellungPanel.setEffect(dropShadow);
+		bestellungPanel.getStyleClass().add("fahrer-fahrzeug-background");
 
 		// Animation fuer Komponenten
 		TranslateTransition translate = new TranslateTransition();
@@ -309,16 +293,7 @@ public class FahrerInZustellung extends OverviewFahrer {
 		bestellungPanel.setMinWidth(100);
 		VBox.setMargin(kunde, new Insets(2, 0, 0, 0));
 
-		bestellungPanel.setStyle(STANDARD_BESTELLUNG_PANEL);
-
-		// Erstellung von DropShadows fuer Komponenten
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(3.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-
-		bestellungPanel.setEffect(dropShadow);
+		bestellungPanel.getStyleClass().add("fahrer-fahrzeug-background");
 
 		// Animation fuer Komponenten
 		TranslateTransition translate = new TranslateTransition();
@@ -365,20 +340,11 @@ public class FahrerInZustellung extends OverviewFahrer {
 		bestellungPanel.getChildren().add(auswaehlen);
 		bestellungPanel.setSpacing(40);
 
+		bestellungPanel.getStyleClass().add("fahrer-fahrzeug-background");
+
 		bestellungPanel.setPadding(new Insets(10));
 		bestellungPanel.setMinHeight(180);
 		bestellungPanel.setMinWidth(100);
-
-		bestellungPanel.setStyle(STANDARD_BESTELLUNG_PANEL);
-
-		// Erstellung von DropShadows fuer Komponenten
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(3.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-
-		bestellungPanel.setEffect(dropShadow);
 
 		return bestellungPanel;
 	}

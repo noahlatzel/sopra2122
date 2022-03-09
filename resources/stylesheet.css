@@ -428,3 +428,10 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
+
+.fahrer-fahrzeug-background {
+    -fx-border-color: grey; 
+    -fx-background-color: white; 
+    -fx-background-insets: 0, 2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+}
