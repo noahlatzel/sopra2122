@@ -27,7 +27,7 @@ public class Fahrzeug implements Serializable {
 	/**
 	 * Kapazitaet des Fahrzeugs
 	 */
-	private float kapazitaet;
+	private int kapazitaet;
 	/**
 	 * Status des Fahrzeugs
 	 */
@@ -49,7 +49,7 @@ public class Fahrzeug implements Serializable {
 	 * @throws IllegalArgumentException IllegalArgumentException
 	 * @inv Die freie Kapazitaet des Fahrzeugs muss positiv sein
 	 */
-	public Fahrzeug(float kapazitaet) throws IllegalArgumentException {
+	public Fahrzeug(int kapazitaet) throws IllegalArgumentException {
 		this.setFahrzeugNummer(FahrzeugRegister.getZaehler());
 		this.kapazitaet = kapazitaet;
 		this.status = FahrzeugStatus.FREI;
@@ -87,7 +87,7 @@ public class Fahrzeug implements Serializable {
 	 * 
 	 * @return kapazitaet
 	 */
-	public float getKapazitaet() {
+	public int getKapazitaet() {
 		return kapazitaet;
 	}
 
@@ -96,7 +96,7 @@ public class Fahrzeug implements Serializable {
 	 * 
 	 * @param kapazitaet zu setzen
 	 */
-	public void setKapazitaet(float kapazitaet) {
+	public void setKapazitaet(int kapazitaet) {
 		this.kapazitaet = kapazitaet;
 
 		// Klasseninvariante pruefen

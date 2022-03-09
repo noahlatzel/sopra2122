@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.wwu.sopra.anwendung.kunde.Kundensteuerung;
+import de.wwu.sopra.datenhaltung.bestellung.Rabatt;
 import de.wwu.sopra.datenhaltung.bestellung.Warenkorb;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 public class WarenkorbAnsicht extends KundeOverview {
 
 	Button btBestellen;
+	ComboBox<String> comboboxRabatt;
 
 	/**
 	 * Konstruktor fuer die Warenkorbansicht
@@ -43,6 +46,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 		super(primaryStage, width, height, kundensteuerung);
 		root.setCenter(setOuterBorderPane());
+
+		double chance = Math.random() * 100;
+		if (chance < 3) {
+			kundensteuerung.addRabatt();
+		}
 	}
 
 	/**
@@ -69,7 +77,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 		HBox hbox = new HBox();
 
 		Label warenkorb = new Label("Warenkorb");
-		warenkorb.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
+		warenkorb.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
 		hbox.getChildren().add(warenkorb);
 
 		hbox.setPadding(new Insets(10));
@@ -114,6 +122,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return scrollpane;
 	}
 
+	/**
+	 * Erzeugt eine VBox mit einer Auflistung von Produkten
+	 * 
+	 * @return VBox mit Auflistung von Produkten
+	 */
 	public VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
 
@@ -159,6 +172,12 @@ public class WarenkorbAnsicht extends KundeOverview {
 	public VBox setVBoxBestellen() {
 		VBox vbox = new VBox();
 
+		if (kundensteuerung.getRabatte().size() > 0) {
+			VBox rabattVBox = setRabattcodeVBox();
+			vbox.getChildren().add(rabattVBox);
+			VBox.setMargin(rabattVBox, new Insets(0, 40, 0, 40));
+		}
+
 		VBox summeVbox = setSummeVBox();
 		vbox.getChildren().add(summeVbox);
 		vbox.getChildren().add(setBtBestellen());
@@ -166,7 +185,25 @@ public class WarenkorbAnsicht extends KundeOverview {
 		vbox.setPadding(new Insets(10));
 		vbox.setMinWidth(getWidth() / 4);
 		VBox.setMargin(btBestellen, new Insets(0, 40, 40, 40));
-		VBox.setMargin(summeVbox, new Insets(40, 40, 0, 40));
+		VBox.setMargin(summeVbox, new Insets(0, 40, 0, 40));
+
+		return vbox;
+	}
+
+	public VBox setRabattcodeVBox() {
+		VBox vbox = new VBox();
+
+		Label rabattLabel = new Label("Rabattcode:");
+		rabattLabel.setStyle(" -fx-font-size: 19; -fx-font-weight: bold");
+
+		comboboxRabatt = new ComboBox<String>();
+		for (Rabatt rabatt : kundensteuerung.getRabatte()) {
+			comboboxRabatt.getItems().add(rabatt.getRabattcode());
+		}
+		vbox.getChildren().add(rabattLabel);
+		vbox.getChildren().add(comboboxRabatt);
+
+		comboboxRabatt.getStyleClass().add("kunde-combobox");
 
 		return vbox;
 	}
@@ -190,7 +227,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 		subtotal.setStyle(" -fx-font-size: 19; -fx-font-weight: bold");
 		preis.setStyle(" -fx-font-size: 16");
 
-		vbox.setPadding(new Insets(100, 40, 100, 5));
+		vbox.setPadding(new Insets(20, 40, 60, 5));
 
 		return vbox;
 	}
@@ -206,7 +243,13 @@ public class WarenkorbAnsicht extends KundeOverview {
 
 			btBestellen.setOnAction(e -> {
 				if (!(kundensteuerung.warenkorbAnsicht().getProdukte().isEmpty())) {
-					kundensteuerung.bestellen();
+
+					if (comboboxRabatt != null && comboboxRabatt.getValue() != null) {
+						kundensteuerung.bestellen(kundensteuerung.rabattEinloesen(comboboxRabatt.getValue()));
+					} else {
+						kundensteuerung.bestellen();
+					}
+
 					primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
 				}
 			});
@@ -224,8 +267,8 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 * @param produkte Methode erstellt Produktpanel fuer dieses Produkt.
 	 * @return Gibt konfiguriertes Produktpanel zurueck.
 	 */
-	public HBox setProduktPanel(List<Produkt> produkte) {
-		HBox hbox = new HBox();
+	public BorderPane setProduktPanel(List<Produkt> produkte) {
+		BorderPane borderpane = new BorderPane();
 
 		Rectangle rect = new Rectangle();
 		rect.setFill(Color.LIGHTGRAY);
@@ -237,19 +280,24 @@ public class WarenkorbAnsicht extends KundeOverview {
 		produktImg.setPreserveRatio(true);
 
 		VBox vbox = setProduktnameVBox(produkte);
-		HBox.setMargin(vbox, new Insets(5, 0, 0, 0));
+		BorderPane.setMargin(vbox, new Insets(5, 0, 0, 0));
 
 		Button button = setLoeschenButton(produkte);
-		HBox.setMargin(button, new Insets(8, 5, 22, 5));
+		BorderPane.setMargin(button, new Insets(8, 5, 22, 5));
 
-		hbox.getChildren().add(produktImg);
-		hbox.getChildren().add(vbox);
+		HBox hbox = new HBox();
+
 		hbox.getChildren().add(setPreisLabelVBox(produkte));
 		hbox.getChildren().add(button);
+		hbox.setAlignment(Pos.CENTER);
 
-		hbox.setPadding(new Insets(0, 15, 0, 30));
+		borderpane.setLeft(produktImg);
+		borderpane.setCenter(vbox);
+		borderpane.setRight(hbox);
 
-		return hbox;
+		borderpane.setPadding(new Insets(0, 15, 0, 30));
+
+		return borderpane;
 	}
 
 	public VBox setProduktnameVBox(List<Produkt> produkte) {
@@ -289,12 +337,23 @@ public class WarenkorbAnsicht extends KundeOverview {
 		vbox.getChildren().add(preisLabel);
 		vbox.getChildren().add(preis);
 
+		vbox.setAlignment(Pos.CENTER_LEFT);
+
 		vbox.setPadding(new Insets(10));
 		vbox.setSpacing(2);
 
 		return vbox;
 	}
 
+	/**
+	 * Erstellt einen Button der das betreffende Produkt vollstaendig aus dem
+	 * Warenkorb entfernt, also zum Beispiel werden alle Cola-Produkte entfernt, die
+	 * im Warenkorb sind.
+	 * 
+	 * @param produkte Liste mit Proudkten einer Art.
+	 * @return Gibt einen Button zurueck, der alle Produkte des uebergebenen
+	 *         Produkts aus dem Warenkorb entfernt.
+	 */
 	public Button setLoeschenButton(List<Produkt> produkte) {
 		Button loeschenBt = new Button();
 

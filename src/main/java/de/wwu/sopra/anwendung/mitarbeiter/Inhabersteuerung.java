@@ -187,6 +187,7 @@ public class Inhabersteuerung {
 	 * @pre die Kategorie hat keine prdoukte
 	 */
 	public void kategorieLoeschen(Kategorie kategorie) throws IllegalArgumentException {
+		assert kategorie != null : "Kategorie ist null.";
 		if (kategorie.getProdukte().isEmpty() != true || kategorie.getUnterkategorien().isEmpty() != true) {
 			throw new IllegalArgumentException();
 		}
@@ -306,7 +307,7 @@ public class Inhabersteuerung {
 	 * @param fahrzeugNummer fahrzeugNummer
 	 * @param kapazitaet     kapazitaet
 	 */
-	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
+	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, int kapazitaet) {
 		if (fahrzeug != null) {
 			if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
 				fahrzeug.setFahrzeugNummer(fahrzeugNummer);

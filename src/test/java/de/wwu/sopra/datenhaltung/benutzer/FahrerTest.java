@@ -73,7 +73,7 @@ public class FahrerTest {
 	@Test
 	public void testSetGetFahrzeug() {
 		// beispiel Fahrzeug
-		float kapazitaet = 100;
+		int kapazitaet = 100;
 		Fahrzeug fahrzeug = new Fahrzeug(kapazitaet);
 
 		fahrer.setFahrzeug(fahrzeug);
