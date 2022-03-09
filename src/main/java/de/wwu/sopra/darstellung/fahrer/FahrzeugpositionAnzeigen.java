@@ -31,7 +31,7 @@ public class FahrzeugpositionAnzeigen extends OverviewFahrer {
 		try {
 			root.setCenter(new Label(steuerung.positionDesFahrzeugs()));
 		} catch (NullPointerException i) {
-			System.out.println("Der Farhre hat kein Fahrzeug oder keine Route");
+			System.out.println("Der Fahrer hat kein Fahrzeug oder keine Route");
 		}
 	}
 

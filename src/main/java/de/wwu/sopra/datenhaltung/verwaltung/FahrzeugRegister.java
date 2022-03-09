@@ -94,7 +94,6 @@ public class FahrzeugRegister implements Serializable {
 		}
 		while (fahrzeugNummerListe.contains(zaehler)) {
 			zaehler++;
-			System.out.println(zaehler);
 		}
 		fahrzeugNummerListe.add(zaehler);
 		return FahrzeugRegister.zaehler;
@@ -155,7 +154,6 @@ public class FahrzeugRegister implements Serializable {
 		}
 		while (routenNummerListe.contains(zaehlerRoute)) {
 			zaehlerRoute++;
-			System.out.println(zaehlerRoute);
 		}
 		routenNummerListe.add(zaehlerRoute);
 		return FahrzeugRegister.zaehlerRoute;

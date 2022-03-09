@@ -73,12 +73,12 @@ public class OverviewFahrer extends Scene {
 
 			// buttons aufrufen
 			vbox.getChildren().add(setBtPersoenlicheDatenAnzeigen());
-			vbox.getChildren().add(setBtFahrzeugwahlen());
-			vbox.getChildren().add(setBtRouteAnzeigen());
-			vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
-			vbox.getChildren().add(setBestellungAbgeben1());
-			vbox.getChildren().add(setBtKundeNichtDa());
-			vbox.getChildren().add(setLieferungabschielsen());
+			// vbox.getChildren().add(setBtFahrzeugwahlen());
+			// vbox.getChildren().add(setBtRouteAnzeigen());
+			// vbox.getChildren().add(setBtFahrzeugpositionAnzeigen());
+			// vbox.getChildren().add(setBestellungAbgeben1());
+			// vbox.getChildren().add(setBtKundeNichtDa());
+			// vbox.getChildren().add(setLieferungabschielsen());
 			vbox.getChildren().add(setBtAlternative());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
@@ -241,7 +241,7 @@ public class OverviewFahrer extends Scene {
 	 */
 	private Button setBtAlternative() {
 		if (btAlternative == null) {
-			btAlternative = new Button("ALTERNATIVE WIP");
+			btAlternative = new Button("Route abarbeiten");
 			btAlternative.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btAlternative.setOnAction(e -> {
 				primaryStage.setScene(new FahrerInZustellung(steuerung, primaryStage, getWidth(), getHeight()));
