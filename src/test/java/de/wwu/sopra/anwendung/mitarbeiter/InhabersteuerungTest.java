@@ -226,6 +226,9 @@ public class InhabersteuerungTest {
 	void testLagerVerwalten() throws IllegalArgumentException {
 		List<Produkt> produkteLager = (List<Produkt>) Lager.getLager();
 
+		Kategorie kategorie = new Kategorie("cola");
+		Kategorie kategorie2 = new Kategorie("colaaa");
+
 		System.out.println(Lager.getLagerbestand().keySet().size());
 
 		for (Produkt p : produkteLager) {
@@ -235,7 +238,7 @@ public class InhabersteuerungTest {
 		// Erstellung von Lager und Produkte
 		Produkt producto = new Produkt("Chicha", "Peruanisch", 9.8, 9.99);
 		Produkt product = new Produkt("Cola", "American", 5.99, 7.99);
-
+		product.setKategorie(kategorie2);
 		// Erstellung von Produkte-um-hinzufuegen Liste
 		List<Produkt> productsToAdd = new ArrayList<Produkt>();
 		productsToAdd.add(producto);
@@ -286,6 +289,10 @@ public class InhabersteuerungTest {
 			ihs.kategorieBearbeiten(null, null, "aaaaaa", "Soft Drinks");
 		});
 
+		assertThrows(IllegalArgumentException.class, () -> {
+			ihs.kategorieBearbeiten(softDrinks, sauer, null, "Soft Drinks");
+		});
+
 		// Erstellung von Produkten
 		Produkt product = new Produkt("Stang", "The World's Most Sour Soda", 2.99, 3.99);
 		Produkt product2 = new Produkt("Fanta", "Yummy", 1.99, 2.99);
@@ -319,6 +326,7 @@ public class InhabersteuerungTest {
 	@Test
 	void testKategorieLoeschen() {
 		Kategorie kategorie = new Kategorie("cola");
+		Kategorie kategorie2 = new Kategorie("colaaa");
 		Lager.kategorieHinzufuegen(kategorie);
 		kategorie.addUnterkategorie(new Kategorie("sprite"));
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -329,6 +337,10 @@ public class InhabersteuerungTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			ihs.kategorieLoeschen(kategorie);
 		});
+		Kategorie kategorie1 = new Kategorie("colaa");
+		kategorie1.setOberkategorie(kategorie2);
+		ihs.kategorieLoeschen(kategorie1);
+		assertTrue(kategorie2.getUnterkategorien().isEmpty());
 		kategorie.removeProdukte(kategorie.getProdukte());
 		ihs.kategorieLoeschen(kategorie);
 		assertTrue(Lager.getKategorien().contains(kategorie) == false);

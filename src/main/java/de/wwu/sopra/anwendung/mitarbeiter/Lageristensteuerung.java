@@ -99,10 +99,6 @@ public class Lageristensteuerung {
 	 * @param fahrzeug     Das Fahrzeug, dem Bestellungen zugeordnet werden.
 	 * @pre die Liste der Bestellungen bestellungen ist nicht leer, das Fahrzeug hat
 	 *      noch keine Route
-	 * @post die Liste der Bestellungen wurde in einer Route gespeichert und die
-	 *       Route dem Fahrzeug uebergeben, der Status der Bestellungen in der Route
-	 *       muss jetzt IN_BEARBEITUNG sein und der Status des Fahrzeugs muss BELEGT
-	 *       sein
 	 */
 	public void planeRoute(List<Bestellung> bestellungen, Fahrzeug fahrzeug) {
 		// Vorbedingung pruefen
@@ -122,15 +118,6 @@ public class Lageristensteuerung {
 		route.setBestellungen(bestellungen);
 		Statistiken.addArbeitszeit(0.5);
 
-		// Nachbedingung pruefen
-		assert fahrzeug.getRoute().getBestellungen() == bestellungen
-				: "Nachbedingung von planeRoute verletzt: Die Route hat nicht die richtigen Bestellungen gespeichert";
-		for (Bestellung bestellung : bestellungen) {
-			assert bestellung.getStatus().equals(BestellStatus.IN_BEARBEITUNG)
-					: "Nachbedingung von planeRoute verletzt: Die Bestellungen der Route sind nicht IN_BEARBEITUNG";
-		}
-		assert fahrzeug.getStatus().equals(FahrzeugStatus.BELEGT)
-				: "Nachbedingung von planeRoute verletzt: Das Fahrzeug ist nicht BELEGT";
 	}
 
 	/**
@@ -241,8 +228,6 @@ public class Lageristensteuerung {
 	 * @param name           Name des Lageristen
 	 * @param bankverbindung Bankverbindung des Lageristen
 	 * @pre die uebermittelten Eingaben muessen gueltig sein
-	 * @post die neuen Daten des Lageristen muessen mit den uebermittelten Eingaben
-	 *       uebereinstimmen
 	 */
 	public void persoenlicheDatenBearbeiten(String benutzername, String passwort, String email, String adresse,
 			String vorname, String name, String bankverbindung) {
@@ -266,15 +251,6 @@ public class Lageristensteuerung {
 		this.lagerist.setBankverbindung(bankverbindung);
 
 		Statistiken.addArbeitszeit(0.2);
-
-		// Nachbedingung pruefen
-		assert lagerist.getBenutzername().equals(benutzername) : "Nachbedingung verletzt: benutzername weicht ab";
-		assert lagerist.getPasswort().equals(passwort) : "Nachbedingung verletzt: passwort weicht ab";
-		assert lagerist.getEmail().equals(email) : "Nachbedingung verletzt: email weicht ab";
-		assert lagerist.getAdresse().equals(adresse) : "Nachbedingung verletzt: adresse weicht ab";
-		assert lagerist.getVorname().equals(vorname) : "Nachbedingung verletzt: vorname weicht ab";
-		assert lagerist.getName().equals(name) : "Nachbedingung verletzt: name weicht ab";
-		assert lagerist.getBankverbindung().equals(bankverbindung) : "Nachbedingung verletzt: bankverbindung weicht ab";
 	}
 
 	/**
