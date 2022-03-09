@@ -71,6 +71,7 @@ public class Lageristensteuerung {
 				}
 			}
 		}
+		Statistiken.addArbeitszeit(0.5);
 
 		// Nachbedingung pruefen
 		double gesamtpreis = 0;
@@ -119,6 +120,7 @@ public class Lageristensteuerung {
 		Route route = new Route(fahrzeug);
 
 		route.setBestellungen(bestellungen);
+		Statistiken.addArbeitszeit(0.5);
 
 		// Nachbedingung pruefen
 		assert fahrzeug.getRoute().getBestellungen() == bestellungen
@@ -262,6 +264,8 @@ public class Lageristensteuerung {
 		this.lagerist.setVorname(vorname);
 		this.lagerist.setName(name);
 		this.lagerist.setBankverbindung(bankverbindung);
+
+		Statistiken.addArbeitszeit(0.2);
 
 		// Nachbedingung pruefen
 		assert lagerist.getBenutzername().equals(benutzername) : "Nachbedingung verletzt: benutzername weicht ab";
