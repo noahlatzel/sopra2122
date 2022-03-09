@@ -29,9 +29,6 @@ import javafx.stage.Stage;
  */
 public class UebersichtBestellungen extends KundeOverview {
 
-	private static final String BACKGROUND = " -fx-background-color: white;";
-	private static final String STANDARD_BESTELLUNG_PANEL = " -fx-border-color: grey;";
-
 	/**
 	 * Konstruktor fuer die Uebersicht der Bestellungen
 	 * 
@@ -50,11 +47,10 @@ public class UebersichtBestellungen extends KundeOverview {
 
 	public BorderPane setBorderPane() {
 		BorderPane borderpane = new BorderPane();
+		borderpane.getStyleClass().add("kunde-content-wrapper");
 
 		borderpane.setTop(setTitle());
 		borderpane.setCenter(setScrollPane());
-
-		borderpane.setStyle(BACKGROUND);
 
 		return borderpane;
 	}
@@ -66,32 +62,29 @@ public class UebersichtBestellungen extends KundeOverview {
 	 */
 	private HBox setTitle() {
 		HBox hbox = new HBox();
+		hbox.getStyleClass().add("kunde-bestellungen-title");
 
 		Label meineBestellungenLabel = new Label("Meine Bestellungen");
 		hbox.getChildren().add(meineBestellungenLabel);
-
-		hbox.setStyle(BACKGROUND + " -fx-font-size: 24; -fx-font-weight: bold");
-		hbox.setPadding(new Insets(10));
 
 		return hbox;
 	}
 
 	private ScrollPane setScrollPane() {
 		ScrollPane scrollpane = new ScrollPane(setBestellungenVBox());
+		scrollpane.getStyleClass().add("kunde-bestellungen-scrollpane");
 
 		scrollpane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
-		scrollpane.setStyle(BACKGROUND);
 		scrollpane.setFitToHeight(true);
 		scrollpane.setFitToWidth(true);
-
-		scrollpane.setPadding(new Insets(20));
 
 		return scrollpane;
 	}
 
 	private VBox setBestellungenVBox() {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellungen-vbox");
 
 		int n = kundensteuerung.bestellungenAnzeigen().size();
 
@@ -101,16 +94,13 @@ public class UebersichtBestellungen extends KundeOverview {
 			}
 		}
 
-		vbox.setStyle(BACKGROUND);
-		vbox.setSpacing(30);
-		vbox.setAlignment(Pos.TOP_CENTER);
-
 		return vbox;
 
 	}
 
 	private BorderPane setBestellungPanel(Bestellung bestellung) {
 		BorderPane borderpane = new BorderPane();
+		borderpane.getStyleClass().add("kunde-bestellungen-panel");
 
 		borderpane.setTop(setBestellungTitelHBox(bestellung));
 		borderpane.setCenter(setProdukteFeldVBox(bestellung));
@@ -118,20 +108,9 @@ public class UebersichtBestellungen extends KundeOverview {
 		borderpane.setMinWidth(getWidth() / 1.5);
 		borderpane.setMaxWidth(getWidth() / 1.5);
 
-		String css = BACKGROUND + " -fx-border-style: solid; -fx-border-color: gray;";
-		borderpane.setStyle(css);
-
 		borderpane.setOnMouseClicked(e -> {
 			primaryStage.setScene(
 					new BestellungAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung, bestellung));
-		});
-
-		borderpane.setOnMouseEntered(e -> {
-			borderpane.setStyle(" -fx-cursor: hand;" + css);
-		});
-
-		borderpane.setOnMouseExited(e -> {
-			borderpane.setStyle(" -fx-cursor: default;" + css);
 		});
 
 		return borderpane;
@@ -145,6 +124,7 @@ public class UebersichtBestellungen extends KundeOverview {
 	 */
 	private HBox setBestellungTitelHBox(Bestellung bestellung) {
 		HBox hbox = new HBox();
+		hbox.getStyleClass().add("kunde-bestellungen-titel-hbox");
 
 		String status = convertEnumToString(bestellung.getStatus());
 		double preis = bestellung.getBetrag();
@@ -152,10 +132,6 @@ public class UebersichtBestellungen extends KundeOverview {
 		Label ueberschriftLabel = new Label(bestellung.getDatum().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)) + " - " + preis + " EUR - " + status);
 
 		hbox.getChildren().add(ueberschriftLabel);
-
-		hbox.setPadding(new Insets(10));
-		hbox.setStyle(
-				" -fx-background-color: #FF6868; -fx-font-weight: bold; -fx-font-size: 15; -fx-border-bottom-style: solid; -fx-border-bottom-color: gray");
 
 		return hbox;
 	}
@@ -212,25 +188,25 @@ public class UebersichtBestellungen extends KundeOverview {
 
 	public VBox setProduktnameVBox(Bestellung bestellung, int index) {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellungen-produkt-name-vbox");
 
 		Label nameLabel = new Label(bestellung.getProdukte().get(index).getName());
 		Label anzahlLabel = new Label("Anzahl: " + bestellung.getProduktAnzahl(bestellung.getProdukte().get(index)));
 
-		nameLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 14;");
-		anzahlLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 12;");
+		nameLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name");
+		anzahlLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-quantity");
 
 		vbox.getChildren().add(nameLabel);
 		vbox.getChildren().add(anzahlLabel);
 
 		vbox.setPadding(new Insets(5, getWidth() / 3, 5, 15));
-		vbox.setSpacing(13);
-		vbox.setStyle(" -fx-background-color: white");
 
 		return vbox;
 	}
 
 	public VBox setPreisLabelVBox(List<Produkt> produkte, int index) {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-warenkorb-price-label-box");
 		Label preisLabel = new Label("Preis");
 
 		// Summieren der Preise der Produkte
@@ -244,14 +220,11 @@ public class UebersichtBestellungen extends KundeOverview {
 		verkaufspreis = (Math.floor(verkaufspreis * 100)) / 100;
 		Label preis = new Label(verkaufspreis + " EUR");
 
-		preisLabel.setStyle(" -fx-font-weight: bold;");
-		preis.setStyle("-fx-font-size: 14;");
+		preisLabel.getStyleClass().add("kunde-bestellung-warenkorb-price-label");
+		preis.getStyleClass().add("kunde-bestellung-warenkorb-price");
 
 		vbox.getChildren().add(preisLabel);
 		vbox.getChildren().add(preis);
-
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(2);
 
 		return vbox;
 	}
