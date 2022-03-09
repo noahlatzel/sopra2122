@@ -90,7 +90,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			gridPane.add(this.setFahrzeugListeScrollPane(), 0, 0);
 			gridPane.add(this.setLoeschenButton(), 0, 1);
 			gridPane.add(this.setForm(), 1, 0);
-			
+
 			gridPane.getStyleClass().add("inhaber-fahrzeugdaten-content-wrapper");
 		}
 
@@ -117,7 +117,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		} catch (NullPointerException k) {
 			errorText.setText("es sind noch keine Fahrzeuge vorhanden");
 		}
-		
+
 		// Styling
 		lblFahrzeugnummer.getStyleClass().add("inhaber-hinzufuegen-form-label");
 		lblKapazitaet.getStyleClass().add("inhaber-hinzufuegen-form-label");
@@ -188,7 +188,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			form.getChildren().add(btnBearbeiten);
 			form.getChildren().add(btnFahrzeugHinzufuegen);
 			form.getChildren().add(errorText);
-			
+
 			form.getStyleClass().add("inhaber-fahrzeugdaten-form");
 
 			// speichern eines neuen Fahrzeugs
