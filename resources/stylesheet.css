@@ -192,7 +192,7 @@
 }
 
 .mitarbeiter-registrierung-combobox {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #ffffff;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 3px, 3px, 2px, 1px;
     -fx-padding: 12px;
@@ -493,7 +493,145 @@
 
 .fahrer-fahrzeug-background {
     -fx-border-color: grey; 
-    -fx-background-color: white; 
+    -fx-background-color: #ffffff; 
     -fx-background-insets: 0, 2;
     -fx-effect: dropshadow(gaussian, rgba(0, 1, 1, 0.5), 7, 0.0, 4.0, 4.0);
+}
+
+.kunde-root {
+    -fx-background-color: #ffffff;
+}
+
+.kunde-header-wrapper {
+    -fx-background-color: #ffb6b6;
+    -fx-padding: 0px 10px;
+}
+
+.kunde-warenkorb-button {
+    -fx-min-width: 50px;
+    -fx-color: #ffb6b6;
+    -fx-background-color: #ffb6b6;
+}
+
+.kunde-warenkorb-button:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-logo-button {
+    -fx-alignment: center;
+    -fx-padding: 8px 0px 5px 10px;
+    -fx-background-color: #ffb6b6;
+    -fx-font-weight: bold;
+    -fx-mark-color: #ffb6b6;
+    -fx-font-size: 15;
+    -fx-focus-color: #ffb6b6;
+    -fx-border-color: #ffb6b6;
+}
+
+.kunde-logo-button:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-menu-button {
+    -fx-color: #ffb6b6;
+    -fx-background-color: #ffb6b6;
+    -fx-mark-color: #ffb6b6;
+    -fx-font-size: 15px;
+}
+
+.kunde-menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.kunde-menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.kunde-menu-button:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-header-right-side-wrapper {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+.kunde-startseite-kategorien-menubutton {
+    -fx-min-height: 30;
+    -fx-background-color: #FF6868;
+    -fx-font-weight: bold;
+    -fx-mark-color: #FF6868;
+    -fx-font-size: 18;
+    -fx-focus-color: #FF6868;
+    -fx-border-color: #FF6868;
+}
+
+.kunde-startseite-kategorien-menubutton:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-startseite-kategorien-menuitem {
+    -fx-font-weight: bold;
+    -fx-focus-color: transparent;
+    -fx-font-size: 15;
+}
+
+.kunde-startseite-searchbar-wrapper {
+    -fx-background-color: #FF6868;
+    -fx-padding: 10;
+}
+
+.kunde-startseite-searchbar-textfield {
+    -fx-min-width: 250;
+    -fx-min-height: 40;
+    -fx-border-color: #C14343;
+    -fx-border: gone;
+    -fx-focus-color: #ffffff;
+    -fx-alignment: center-left;
+}
+
+.kunde-startseite-produkte-scrollpane {
+    -fx-padding: 50px;
+    -fx-border-color: #ffffff;
+    -fx-border: none;
+    -fx-focus-color: #ffffff;
+    -fx-background-color: #ffffff;
+}
+
+.kunde-startseite-produkte-gridpane {
+    -fx-hgap: 50;
+    -fx-vgap: 50;
+    -fx-background-color: #ffffff;
+}
+
+.kunde-startseite-produkt-panel {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-min-height: 180;
+    -fx-min-width: 100;
+    -fx-border-color: #808080;
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0, 2;
+    -fx-effect: dropshadow(gaussian, #668080, 3, 0.0, 3.0, 3.0);
+}
+
+.kunde-startseite-produkt-panel-label {
+    -fx-min-width: 110;
+}
+
+.kunde-startseite-produkt-panel-label-bold {
+    -fx-font-weigth: bold;
+}
+
+.kunde-startseite-search-button {
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-background-color: #bcbcbc;
+    -fx-font-weight: bold;
+    -fx-border: none;
+    -fx-alignment: center;
+}
+
+.kunde-startseite-search-button:hover {
+    -fx-cursor: hand;
 }
