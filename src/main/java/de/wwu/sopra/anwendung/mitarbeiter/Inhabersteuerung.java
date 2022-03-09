@@ -83,7 +83,7 @@ public class Inhabersteuerung {
 		produkt.setBeschreibung(beschreibung);
 		produkt.setVerkaufspreis(verkaufspreis);
 		produkt.setProduktBild(bildPfad);
-
+		Statistiken.addArbeitszeit(0.1);
 		Lager.getLagerbestand().put(produkt, Lager.getProduktBestand(produkt));
 	}
 
@@ -112,6 +112,7 @@ public class Inhabersteuerung {
 		} else {
 			throw new IllegalArgumentException();
 		}
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -145,6 +146,7 @@ public class Inhabersteuerung {
 		} else {
 			throw new IllegalArgumentException();
 		}
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -174,6 +176,7 @@ public class Inhabersteuerung {
 		} else if ((aenderung != null && kategorie2 == null) || (aenderung == null && kategorie2 != null)) {
 			throw new IllegalArgumentException();
 		}
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -192,6 +195,7 @@ public class Inhabersteuerung {
 			kategorie.getOberkategorie().removeUnterkategorie(kategorie);
 		}
 		Lager.kategorieEntfernen(kategorie);
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -225,6 +229,7 @@ public class Inhabersteuerung {
 		} else {
 			throw new IllegalArgumentException();
 		}
+		Statistiken.addArbeitszeit(0.2);
 	}
 
 	/**
@@ -242,6 +247,7 @@ public class Inhabersteuerung {
 			this.inhaber.lageristEntfernen((Lagerist) mitarbeiter);
 		}
 		BenutzerRegister.benutzerEntfernen(mitarbeiter);
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -279,6 +285,7 @@ public class Inhabersteuerung {
 			mitarbeiter.setName(nachname);
 		if (!mitarbeiter.getBankverbindung().equals(bankverbindung))
 			mitarbeiter.setBankverbindung(bankverbindung);
+		Statistiken.addArbeitszeit(0.2);
 	}
 
 	/**
@@ -300,13 +307,14 @@ public class Inhabersteuerung {
 	 * @param fahrzeugNummer fahrzeugNummer
 	 * @param kapazitaet     kapazitaet
 	 */
-	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, float kapazitaet) {
+	public void fahrzeugDatenAendern(Fahrzeug fahrzeug, int fahrzeugNummer, int kapazitaet) {
 		if (fahrzeug != null) {
 			if (fahrzeug.getFahrzeugNummer() != fahrzeugNummer)
 				fahrzeug.setFahrzeugNummer(fahrzeugNummer);
 			if (fahrzeug.getKapazitaet() != kapazitaet)
 				fahrzeug.setKapazitaet(kapazitaet);
 		}
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -316,6 +324,7 @@ public class Inhabersteuerung {
 	 */
 	public void fahrzeugHinzufuegen(int kapazitaet) {
 		FahrzeugRegister.addFahrzeug(new Fahrzeug(kapazitaet));
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -325,6 +334,7 @@ public class Inhabersteuerung {
 	 */
 	public void fahrzeugLoeschen(Fahrzeug fahrzeug) {
 		FahrzeugRegister.removeFahrzeug(fahrzeug);
+		Statistiken.addArbeitszeit(0.1);
 	}
 
 	/**
@@ -381,6 +391,7 @@ public class Inhabersteuerung {
 			this.inhaber.setName(nachname);
 		if (!this.inhaber.getBankverbindung().equals(bankverbindung))
 			this.inhaber.setBankverbindung(bankverbindung);
+		Statistiken.addArbeitszeit(0.2);
 	}
 
 	/**

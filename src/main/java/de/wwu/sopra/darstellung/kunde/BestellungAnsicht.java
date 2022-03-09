@@ -1,5 +1,7 @@
 package de.wwu.sopra.darstellung.kunde;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class BestellungAnsicht extends KundeOverview {
 		Label bestellung = new Label("Bestellung Nr." + this.bestellung.getBestellnummer());
 		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
 
-		Label datum = new Label("Bestellt am " + this.bestellung.getDatum());
+		Label datum = new Label("Bestellt am " + this.bestellung.getDatum().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
 
 		vbox.getChildren().add(bestellung);
 		vbox.getChildren().add(datum);

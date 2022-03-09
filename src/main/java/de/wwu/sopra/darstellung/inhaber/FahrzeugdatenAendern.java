@@ -44,7 +44,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 	TextField tfKapazitaet = new TextField();
 	Button btnBearbeiten = new Button("Fahrzeug Bearbeiten");
 	Button btnFahrzeugHinzufuegen = new Button("Fahrzeug Hinzufuegen");
-	Label errorText = new Label("");
+	Label errorText = new Label("Die Fahrzeugnummer darf nicht \n schon verwendet werden.");
 
 	/**
 	 * Zeigt das Fenster zur Aenderung von Fahrzeugdaten
@@ -90,7 +90,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			gridPane.add(this.setFahrzeugListeScrollPane(), 0, 0);
 			gridPane.add(this.setLoeschenButton(), 0, 1);
 			gridPane.add(this.setForm(), 1, 0);
-			
+
 			gridPane.getStyleClass().add("inhaber-fahrzeugdaten-content-wrapper");
 		}
 
@@ -117,11 +117,12 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 		} catch (NullPointerException k) {
 			errorText.setText("es sind noch keine Fahrzeuge vorhanden");
 		}
-		
+
 		// Styling
 		lblFahrzeugnummer.getStyleClass().add("inhaber-hinzufuegen-form-label");
 		lblKapazitaet.getStyleClass().add("inhaber-hinzufuegen-form-label");
 		tfFahrzeugNummer.getStyleClass().add("inhaber-hinzufuegen-form-textfield");
+		tfFahrzeugNummer.setDisable(true);
 		tfKapazitaet.getStyleClass().add("inhaber-hinzufuegen-form-textfield");
 		btnBearbeiten.getStyleClass().add("inhaber-form-button");
 		btnFahrzeugHinzufuegen.getStyleClass().add("inhaber-form-button");
@@ -140,7 +141,7 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 
 				tfFahrzeugNummer.setText(String.valueOf(fahrzeugeListe.get(index).getFahrzeugNummer()));
 				tfKapazitaet.setText(String.valueOf(fahrzeugeListe.get(index).getKapazitaet()));
-
+				tfFahrzeugNummer.setDisable(false);
 				// Button, um Fahrzeug zu bearbeiten
 				btnBearbeiten.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
@@ -157,10 +158,12 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 						if (tfKapazitaet.getText() != String.valueOf(fahrzeugeListe.get(index).getKapazitaet())) {
 							if (tfKapazitaet.getText().isBlank())
 								errorText.setText("Angabe kann nicht leer sein");
-							float neueKapazitaet = Float.parseFloat(tfKapazitaet.getText());
+							int neueKapazitaet = Integer.parseInt(tfKapazitaet.getText());
 							inhaberSteuerung.fahrzeugDatenAendern(fahrzeugeListe.get(index),
 									fahrzeugeListe.get(index).getFahrzeugNummer(), neueKapazitaet);
 						}
+						primaryStage.setScene(
+								new FahrzeugdatenAendern(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
 					}
 				});
 
@@ -188,24 +191,26 @@ public class FahrzeugdatenAendern extends InhaberOverview {
 			form.getChildren().add(btnBearbeiten);
 			form.getChildren().add(btnFahrzeugHinzufuegen);
 			form.getChildren().add(errorText);
-			
+
 			form.getStyleClass().add("inhaber-fahrzeugdaten-form");
 
 			// speichern eines neuen Fahrzeugs
 			this.btnFahrzeugHinzufuegen.setOnAction(e -> {
 				if (!tfKapazitaet.getText().isBlank()) {
-					if (tfFahrzeugNummer.getText().isBlank()) {
-						try {
-							this.inhaberSteuerung.fahrzeugHinzufuegen(Integer.parseInt(tfKapazitaet.getText()));
-							this.primaryStage.setScene(
-									new FahrzeugdatenAendern(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
-						} catch (NumberFormatException i) {
-							errorText.setText("Die kapazitaet muss ine Ganzzahl sein");
+					try {
+						this.inhaberSteuerung.fahrzeugHinzufuegen(Integer.parseInt(tfKapazitaet.getText()));
+						if (!tfFahrzeugNummer.getText().isBlank()) {
+							errorText.setText(
+									"Die angegebene Fahrzeugnummer wird nicht uebernummen, da diese automatisch generiert wird.");
 						}
-					} else
-						errorText.setText("Die Nummer wird automatishc generiert \n und muss deshalb frei bleiben");
+						this.primaryStage.setScene(
+								new FahrzeugdatenAendern(primaryStage, getWidth(), getHeight(), inhaberSteuerung));
+					} catch (NumberFormatException i) {
+						errorText.setText("Die kapazitaet muss ine Ganzzahl sein");
+					}
+
 				} else
-					errorText.setText("Das neue fahrzeug braucht eine Kapazitaet");
+					errorText.setText("Das neue Fahrzeug braucht eine Kapazitaet");
 			});
 		}
 

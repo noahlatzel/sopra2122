@@ -64,13 +64,13 @@ public class Lageristensteuerung {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
 				if (n.getProdukt() != null) {
-					double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
-					Lager.addProdukt(n.getProdukt().clone(preis));
+					Lager.addProdukt(n.getProdukt().clone(n.getProdukt().getVerkaufspreis()));
 					Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 
 				}
 			}
 		}
+		Statistiken.addArbeitszeit(0.5);
 
 		// Nachbedingung pruefen
 		double gesamtpreis = 0;
@@ -117,6 +117,7 @@ public class Lageristensteuerung {
 		Route route = new Route(fahrzeug);
 
 		route.setBestellungen(bestellungen);
+		Statistiken.addArbeitszeit(0.5);
 
 		// Nachbedingung pruefen
 		assert fahrzeug.getRoute().getBestellungen() == bestellungen
@@ -260,6 +261,8 @@ public class Lageristensteuerung {
 		this.lagerist.setVorname(vorname);
 		this.lagerist.setName(name);
 		this.lagerist.setBankverbindung(bankverbindung);
+
+		Statistiken.addArbeitszeit(0.2);
 
 		// Nachbedingung pruefen
 		assert lagerist.getBenutzername().equals(benutzername) : "Nachbedingung verletzt: benutzername weicht ab";

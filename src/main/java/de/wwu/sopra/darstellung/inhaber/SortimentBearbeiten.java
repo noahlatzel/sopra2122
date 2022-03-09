@@ -37,8 +37,6 @@ public class SortimentBearbeiten extends InhaberOverview {
 	// Erstellung von Variable
 	BorderPane contentWrapper;
 	TilePane content;
-	ImageView produktImg;
-	Image image;
 	String bildPfad = "";
 	final FileChooser fileChooser = new FileChooser();
 
@@ -90,7 +88,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 			// Get Produkte Im Lager
 			Set<Produkt> produkteImLager = inhaberSteuerung.sortimentAnzeigen();
 
-			content.setPrefColumns(4);
+			content.setPrefColumns(2);
 
 			// Text, wenn keine Produkte
 			if (produkteImLager.isEmpty()) {
@@ -119,6 +117,7 @@ public class SortimentBearbeiten extends InhaberOverview {
 
 		// Temporary product image
 		Image image = produkt.loadBild();
+		ImageView produktImg;
 		produktImg = new ImageView();
 		produktImg.setImage(image);
 		produktImg.setPreserveRatio(true);
@@ -269,8 +268,8 @@ public class SortimentBearbeiten extends InhaberOverview {
 	private static void configureFileChooser(final FileChooser fileChooser) {
 		fileChooser.setTitle("Bild auswaehlen");
 		fileChooser.setInitialDirectory(new File("src\\main\\resources\\de\\wwu\\sopra\\datenhaltung\\management"));
-		fileChooser.getExtensionFilters()
-				.add(new FileChooser.ExtensionFilter("All Images", "*.jpeg", "*.jpg", "*.png", "*.gif", "*.bmp"));
+		fileChooser.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("All Images", "*.jpeg", "*.jpg", "*.png", "*.gif", "*.bmp", "*.webmp"));
 	}
 
 }

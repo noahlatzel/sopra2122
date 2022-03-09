@@ -133,7 +133,6 @@ public class Kundensteuerung {
 	 * @return Gibt den Warenkorb des Kunden zurueck
 	 */
 	public Warenkorb warenkorbAnsicht() {
-
 		return kunde.getWarenkorb();
 	}
 

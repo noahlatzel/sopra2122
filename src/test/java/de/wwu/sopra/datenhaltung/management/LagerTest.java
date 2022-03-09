@@ -32,10 +32,10 @@ public class LagerTest {
 		Lager.reset();
 		FahrzeugRegister.reset();
 		produkte = new ArrayList<Produkt>();
-		temp = new Produkt("Coca Cola", "Toll", 0.49, 0.99);
-		temp2 = new Produkt("Coca Cola", "Toll", 0.49, 0.99);
-		temp1 = new Produkt("Coca Cola", "Toll", 0.49, 0.99);
-		temp3 = new Produkt("Cola", "Toller G", 0.49, 0.99);
+		temp = new Produkt("asdasdasdasd", "Toll", 0.49, 0.99);
+		temp2 = new Produkt("asdasdasdasd", "Toll", 0.49, 0.99);
+		temp1 = new Produkt("asdasdasdasd", "Toll", 0.49, 0.99);
+		temp3 = new Produkt("bbbbb", "Toller G", 0.49, 0.99);
 		Lager.produktZumSortimentHinzufuegen(temp);
 		Lager.produktZumSortimentHinzufuegen(temp3);
 		produkte.add(temp);
@@ -129,8 +129,8 @@ public class LagerTest {
 	@Test
 	void testLoad() {
 		List<Produkt> temp_1 = Lager.getLager();
-		Lager.produktAusDemSortimentEntfernen(new Produkt("Coca Cola", "Toll", 0.49, 0.99));
-		Lager.produktAusDemSortimentEntfernen(new Produkt("Cola", "Toller G", 0.49, 0.99));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("asdasdasdasd", "Toll", 0.49, 0.99));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("bbbbb", "Toller G", 0.49, 0.99));
 		Lager.save();
 		Lager.load();
 		assertTrue(temp_1.equals(Lager.getLager()));
@@ -158,7 +158,7 @@ public class LagerTest {
 	@Test
 	void testProduktAusdemSortimentEntfernen() {
 		Lager.addProdukt(temp);
-		Lager.produktAusDemSortimentEntfernen(new Produkt("Coca Cola", "Toller Geschmack", 0.99, 1.29));
+		Lager.produktAusDemSortimentEntfernen(new Produkt("asdasdasdasd", "Toller Geschmack", 0.99, 1.29));
 		assertTrue(!Lager.sortimentAnzeigen().contains(temp));
 	}
 
@@ -167,11 +167,11 @@ public class LagerTest {
 	 */
 	@Test
 	void testGetProduktNamenListe() {
-		assertTrue(Lager.getProduktNamenListe().contains("Coca Cola"));
-		assertTrue(Lager.getProduktNamenListe().contains("Cola"));
+		assertTrue(Lager.getProduktNamenListe().contains("asdasdasdasd"));
+		assertTrue(Lager.getProduktNamenListe().contains("bbbbb"));
 
-		temp2.setName("Cola");
-		temp2.setName("Coca Cola");
+		temp2.setName("bbbbb");
+		temp2.setName("asdasdasdasd");
 	}
 
 }

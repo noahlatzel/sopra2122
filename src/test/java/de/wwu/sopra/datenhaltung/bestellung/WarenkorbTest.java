@@ -68,6 +68,7 @@ class WarenkorbTest {
 		warenkorb.produktHinzufuegen(produkt_1);
 		assertTrue(warenkorb.getProdukte().contains(produkt_1));
 		assertTrue(warenkorb.getProdukte().size() == 1);
+		assertTrue(warenkorb.getBetrag() == 1.29);
 	}
 
 	/**

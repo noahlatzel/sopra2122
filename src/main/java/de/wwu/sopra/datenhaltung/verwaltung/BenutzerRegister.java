@@ -241,7 +241,8 @@ public class BenutzerRegister implements Serializable {
 	 * @return Den Zaehler fuer Bestellung
 	 */
 	public static int getZaehlerBestellung() {
-		return ++zaehlerBestellung;
+		zaehlerBestellung++;
+		return zaehlerBestellung;
 	}
 
 	/**
