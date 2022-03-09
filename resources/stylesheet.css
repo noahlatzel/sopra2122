@@ -428,3 +428,24 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
+
+.fahrer-fahrzeug-auswaehlen-wrapper {
+    -fx-padding: 24px;
+    -fx-spacing: 24px;
+}
+
+.fahrer-keine-fahrzeuge-info-text {
+    -fx-text-fill: #a0c5ac;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.fahrer-fahrzeug-ausgewaehlt-info-text {
+    -fx-text-fill: #a0c5ac;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.fahrer-fahrzeug-auswaehlen-scrollpane {
+    -fx-background-color:transparent;
+}
