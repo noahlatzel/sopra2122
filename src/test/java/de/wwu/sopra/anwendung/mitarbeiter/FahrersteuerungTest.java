@@ -131,6 +131,7 @@ public class FahrersteuerungTest {
 		Route route = new Route(fahrzeug);
 		ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
 		bestellungen.add(bestellung);
+		steuerung.fahrzeugZuordnen(fahrzeug);
 
 		// kein Fahrzeug
 		fahrzeug.entferneRoute();
@@ -141,8 +142,8 @@ public class FahrersteuerungTest {
 		route.setBestellungen(bestellungen);
 
 		// test der korrektheit der ausggebenen Route
-		steuerung.fahrzeugZuordnen(fahrzeug);
 		assertTrue(steuerung.routeAusgeben().equals(route));
+
 	}
 
 	// Test von Kunde ist nicht da
@@ -271,4 +272,5 @@ public class FahrersteuerungTest {
 
 		assertTrue(temp.contains(fahrzeug));
 	}
+
 }

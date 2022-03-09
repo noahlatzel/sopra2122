@@ -45,6 +45,7 @@ public class BestellungAnsicht extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param bestellung      die aktuelle bestellung
 	 */
 	public BestellungAnsicht(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
 			Bestellung bestellung) {
@@ -64,6 +65,7 @@ public class BestellungAnsicht extends KundeOverview {
 	 */
 	public BorderPane setOuterBorderPane() {
 		BorderPane borderpane = new BorderPane();
+		borderpane.getStyleClass().add("kunde-content-wrapper");
 
 		borderpane.setTop(setTitle());
 		borderpane.setCenter(setInnerBorderPane());
@@ -80,14 +82,15 @@ public class BestellungAnsicht extends KundeOverview {
 		VBox vbox = new VBox();
 
 		Label bestellung = new Label("Bestellung Nr." + this.bestellung.getBestellnummer());
-		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
+		bestellung.getStyleClass().add("kunde-bestellung-ansicht-title");
 
-		Label datum = new Label("Bestellt am " + this.bestellung.getDatum().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
+		Label datum = new Label("Bestellt am " + this.bestellung.getDatum()
+				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
 
 		vbox.getChildren().add(bestellung);
 		vbox.getChildren().add(datum);
 
-		vbox.setPadding(new Insets(10));
+		vbox.getStyleClass().add("kunde-bestellung-ansicht-title-wrapper");
 
 		return vbox;
 	}
@@ -108,10 +111,16 @@ public class BestellungAnsicht extends KundeOverview {
 		borderpane.setCenter(line);
 		borderpane.setLeft(setScrollPane());
 
-		borderpane.setStyle("-fx-background-color: white");
+		borderpane.getStyleClass().add("kunde-bestellung-warenkorb-inner-wrapper");
 
 		return borderpane;
 	}
+
+	/**
+	 * Die Scroollpane mit der duch die Produkte gegangen wird
+	 * 
+	 * @return dcrollpane der Produkte
+	 */
 
 	public ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
@@ -121,16 +130,22 @@ public class BestellungAnsicht extends KundeOverview {
 		scrollpane.setMinWidth(getWidth() / 1.4);
 		scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
-		scrollpane.setStyle(
-				" -fx-focus-color: white; -fx-border-style: none; -fx-border-color: white; -fx-background-insets: 0, 0, 0, 0; -fx-color: white; -fx-background-color: transparent; -fx-control-inner-background: white");
+		scrollpane.getStyleClass().add("kunde-bestellung-warenkorb-scrollpane");
 		scrollpane.setFitToWidth(true);
 		scrollpane.setFitToHeight(true);
 
 		return scrollpane;
 	}
 
+	/**
+	 * erstellt die Vbox fuer die Produkte
+	 * 
+	 * @return Vbox der Produkte
+	 */
+
 	public VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-vbox-produkte");
 
 		List<Produkt> produkteBest = bestellung.getProdukte();
 
@@ -163,14 +178,18 @@ public class BestellungAnsicht extends KundeOverview {
 			warenkorbLeerLabel.setAlignment(Pos.CENTER);
 		}
 
-		vbox.setPadding(new Insets(10));
-		vbox.setStyle(" -fx-background-color: white");
-
 		return vbox;
 	}
 
+	/**
+	 * Erstllt die VBox auf der Rechten Seite
+	 * 
+	 * @return Gibt die rechte VBox zurueck
+	 */
+
 	public VBox setVBoxRechts() {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-ansicht-right-side");
 
 		VBox summeVbox = setSummeVBox();
 		VBox statusVBox = setStatusVBox();
@@ -195,7 +214,6 @@ public class BestellungAnsicht extends KundeOverview {
 		}
 		vbox.getChildren().add(fehlerLabel);
 
-		vbox.setPadding(new Insets(10));
 		vbox.setMinWidth(getWidth() / 4);
 
 		VBox.setMargin(fehlerLabel, new Insets(20, 40, 10, 40));
@@ -206,16 +224,19 @@ public class BestellungAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Die Vbox fuer denRabatt code wird erstellt
+	 * 
+	 * @return die VBox fuer den Rabattcode
+	 */
 	public VBox setRabattcodeVBox() {
 		VBox vbox = new VBox();
 
 		Label rabattLabel = new Label(" Rabattcode:");
 		Label rabatt = new Label(" " + bestellung.getRabatt().getRabattcode() + " - "
 				+ bestellung.getRabatt().getProzent() + "% Rabatt");
-		rabattLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		rabatt.setStyle(" -fx-font-size: 16;");
-
-		rabatt.setAlignment(Pos.CENTER_RIGHT);
+		rabattLabel.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis-label");
+		rabatt.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis");
 
 		vbox.getChildren().add(rabattLabel);
 		vbox.getChildren().add(rabatt);
@@ -244,6 +265,12 @@ public class BestellungAnsicht extends KundeOverview {
 		return btRechnung;
 	}
 
+	/**
+	 * Erstellt die Box fuer den Status der Bestsllung
+	 * 
+	 * @return die VBox mit dem status
+	 */
+
 	public VBox setStatusVBox() {
 		VBox vbox = new VBox();
 
@@ -255,13 +282,19 @@ public class BestellungAnsicht extends KundeOverview {
 		vbox.getChildren().add(statusLabel);
 		vbox.getChildren().add(status);
 
-		statusLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		status.setStyle(" -fx-font-size: 16");
+		statusLabel.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis-label");
+		status.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis");
 
 		vbox.setPadding(new Insets(0, 40, 20, 5));
 
 		return vbox;
 	}
+
+	/**
+	 * Die summe der bestellung wird berrechent und gescreiben
+	 * 
+	 * @return gibt die VBox der SUmme zurueck
+	 */
 
 	public VBox setSummeVBox() {
 		VBox vbox = new VBox();
@@ -278,8 +311,8 @@ public class BestellungAnsicht extends KundeOverview {
 		vbox.getChildren().add(subtotal);
 		vbox.getChildren().add(preis);
 
-		subtotal.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		preis.setStyle(" -fx-font-size: 16");
+		subtotal.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis-label");
+		preis.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis");
 
 		vbox.setPadding(new Insets(20, 40, 20, 5));
 
@@ -366,27 +399,41 @@ public class BestellungAnsicht extends KundeOverview {
 		return hbox;
 	}
 
+	/**
+	 * erstellt die namen label der produkte
+	 * 
+	 * @param produkte das zu stellende Produkt
+	 * @return sie vBox die es anzeigt
+	 */
+
 	public VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
 		Label nameLabel = new Label(produkte.get(0).getName());
 		Label anzahlLabel = new Label("Anzahl: " + produkte.size());
 
-		nameLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 14;");
-		anzahlLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 12;");
+		nameLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name");
+		anzahlLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-quantity");
 
 		vbox.getChildren().add(nameLabel);
 		vbox.getChildren().add(anzahlLabel);
 
 		vbox.setPadding(new Insets(5, getWidth() / 3, 5, 15));
-		vbox.setSpacing(13);
-		vbox.setStyle(" -fx-background-color: white");
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name-vbox");
 
 		return vbox;
 	}
 
+	/**
+	 * erstellt die preis label der produkte
+	 * 
+	 * @param produkte das zu stellende Produkt
+	 * @return sie vBox die es anzeigt
+	 */
+
 	public VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-ansicht-price-label-box");
 		Label preisLabel = new Label("Preis");
 
 		// Summieren der Preise der Produkte
@@ -397,14 +444,11 @@ public class BestellungAnsicht extends KundeOverview {
 		verkaufspreis = (Math.floor(verkaufspreis * 100)) / 100;
 		Label preis = new Label(verkaufspreis + " EUR");
 
-		preisLabel.setStyle(" -fx-font-weight: bold;");
-		preis.setStyle("-fx-font-size: 14;");
+		preisLabel.getStyleClass().add("kunde-bestellung-warenkorb-price-label");
+		preis.getStyleClass().add("kunde-bestellung-warenkorb-price");
 
 		vbox.getChildren().add(preisLabel);
 		vbox.getChildren().add(preis);
-
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(2);
 
 		return vbox;
 	}

@@ -21,6 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+/**
+ * Erzeugt ein Fenster mit der uebergebenen Rechnung
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class RechnungAnsicht {
 
 	private static Rechnung rechnung;
@@ -75,7 +81,7 @@ public class RechnungAnsicht {
 		VBox vbox = new VBox();
 
 		Label bestellung = new Label("Rechnung-Nr." + RechnungAnsicht.rechnung.getRechnungsnummer());
-		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
+		bestellung.getStyleClass().add("kunde-rechnung-title");
 
 		Label datum = new Label("Bestellt am " + RechnungAnsicht.rechnung.getDatum()
 				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
@@ -104,7 +110,7 @@ public class RechnungAnsicht {
 		borderpane.setCenter(line);
 		borderpane.setLeft(setScrollPane());
 
-		borderpane.setStyle("-fx-background-color: white");
+		borderpane.getStyleClass().add("kunde-bestellung-warenkorb-inner-wrapper");
 
 		return borderpane;
 	}
@@ -122,8 +128,7 @@ public class RechnungAnsicht {
 		scrollpane.setMinWidth(WIDTH / 1.4);
 		scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
-		scrollpane.setStyle(
-				" -fx-focus-color: white; -fx-border-style: none; -fx-border-color: white; -fx-background-insets: 0, 0, 0, 0; -fx-color: white; -fx-background-color: transparent; -fx-control-inner-background: white");
+		scrollpane.getStyleClass().add("kunde-bestellung-warenkorb-scrollpane");
 		scrollpane.setFitToWidth(true);
 		scrollpane.setFitToHeight(true);
 
@@ -137,6 +142,7 @@ public class RechnungAnsicht {
 	 */
 	public static VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-vbox-produkte");
 
 		List<Produkt> produkteBest = RechnungAnsicht.rechnung.getBestellung().getProdukte();
 
@@ -168,9 +174,6 @@ public class RechnungAnsicht {
 			vbox.getChildren().add(warenkorbLeerLabel);
 			warenkorbLeerLabel.setAlignment(Pos.CENTER);
 		}
-
-		vbox.setPadding(new Insets(10));
-		vbox.setStyle(" -fx-background-color: white");
 
 		return vbox;
 	}
@@ -212,10 +215,8 @@ public class RechnungAnsicht {
 		Label rabattLabel = new Label(" Rabattcode:");
 		Label rabatt = new Label(" " + rechnung.getBestellung().getRabatt().getRabattcode() + " - "
 				+ rechnung.getBestellung().getRabatt().getProzent() + "% Rabatt");
-		rabattLabel.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		rabatt.setStyle(" -fx-font-size: 16;");
-
-		rabatt.setAlignment(Pos.CENTER_RIGHT);
+		rabattLabel.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis-label");
+		rabatt.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis");
 
 		vbox.getChildren().add(rabattLabel);
 		vbox.getChildren().add(rabatt);
@@ -243,8 +244,8 @@ public class RechnungAnsicht {
 		vbox.getChildren().add(subtotal);
 		vbox.getChildren().add(preis);
 
-		subtotal.setStyle(" -fx-font-size: 20; -fx-font-weight: bold");
-		preis.setStyle(" -fx-font-size: 16");
+		subtotal.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis-label");
+		preis.getStyleClass().add("kunde-bestellung-ansicht-rabattcode-status-preis");
 
 		vbox.setPadding(new Insets(30, 40, 20, 5));
 
@@ -297,15 +298,14 @@ public class RechnungAnsicht {
 		Label nameLabel = new Label(produkte.get(0).getName());
 		Label anzahlLabel = new Label("Anzahl: " + produkte.size());
 
-		nameLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 14;");
-		anzahlLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 12;");
+		nameLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name");
+		anzahlLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-quantity");
 
 		vbox.getChildren().add(nameLabel);
 		vbox.getChildren().add(anzahlLabel);
 
 		vbox.setPadding(new Insets(5, WIDTH / 3, 5, 15));
-		vbox.setSpacing(13);
-		vbox.setStyle(" -fx-background-color: white");
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name-vbox");
 
 		return vbox;
 	}
@@ -319,6 +319,7 @@ public class RechnungAnsicht {
 	 */
 	public static VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-ansicht-price-label-box");
 		Label preisLabel = new Label("Preis");
 
 		// Summieren der Preise der Produkte
@@ -329,14 +330,11 @@ public class RechnungAnsicht {
 		verkaufspreis = (Math.floor(verkaufspreis * 100)) / 100;
 		Label preis = new Label(verkaufspreis + " EUR");
 
-		preisLabel.setStyle(" -fx-font-weight: bold;");
-		preis.setStyle("-fx-font-size: 14;");
+		preisLabel.getStyleClass().add("kunde-bestellung-warenkorb-price-label");
+		preis.getStyleClass().add("kunde-bestellung-warenkorb-price");
 
 		vbox.getChildren().add(preisLabel);
 		vbox.getChildren().add(preis);
-
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(2);
 
 		return vbox;
 	}

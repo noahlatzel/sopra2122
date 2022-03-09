@@ -175,7 +175,7 @@ public class KundensteuerungTest {
 			warenkorb.produktHinzufuegen(liste.get(i));
 		}
 
-		kundensteuerung.bestellen();
+		kundensteuerung.bestellen(rabatt);
 
 		for (int i = 0; i < kunde.getBestellungen().size() - 1; i++) {
 			for (int j = 0; j < kunde.getBestellungen().get(i).getProdukte().size(); j++) {
@@ -436,10 +436,6 @@ public class KundensteuerungTest {
 		produkte.add(keinNestle);
 		produkte.add(keinNestle2);
 
-		Iterator<Produkt> it = produkte.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next());
-		}
 		System.out.println();
 		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, getraenk);
 		assertTrue(produkte.size() == 4);
@@ -452,6 +448,12 @@ public class KundensteuerungTest {
 
 		produkte = kundensteuerung.filterProdukteNachKategorie(produkte, keinNestleKat2);
 		assertTrue(produkte.size() == 1);
+	}
+
+	@Test
+	void testGetRabatte() {
+		Kundensteuerung kundensteuerung = new Kundensteuerung(this.kunde);
+		assertTrue(kundensteuerung.getRabatte().isEmpty());
 	}
 
 }

@@ -96,7 +96,7 @@ public class Kundensteuerung {
 		if (!(Lager.getProduktBestand(gesuchtesObjekt) > 0)) {
 			throw new IllegalArgumentException("Das Produkt ist nicht im Sortiment.");
 		}
-		return Lager.getProdukteAusLager(Lager.getLager(), gesuchtesObjekt);
+		return Lager.getProdukteAusLager(gesuchtesObjekt);
 	}
 
 	/**
@@ -119,6 +119,8 @@ public class Kundensteuerung {
 
 	/**
 	 * Methode zum Abgeben einer Bestellung mit Rabatt
+	 * 
+	 * @param rabatt der Rabttcode
 	 */
 	public void bestellen(Rabatt rabatt) {
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -278,7 +280,7 @@ public class Kundensteuerung {
 	 * @return Gefiltertes HashSet.
 	 */
 	public Set<Produkt> filterProdukteNachKategorie(Set<Produkt> produkte, Kategorie kategorie) {
-		Set<Produkt> filteredProdukte = new HashSet<Produkt>();
+		Set<Produkt> filteredProdukte = kategorie.getProdukte();
 
 		Set<Kategorie> unterkategorien = kategorie.getUnterkategorien();
 		if (unterkategorien != null) {
@@ -288,22 +290,14 @@ public class Kundensteuerung {
 				filteredProdukte.addAll(filterProdukteNachKategorie(produkte, kategorie2));
 			}
 		}
-		for (Produkt produkt : produkte) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
-			}
-		}
-
-		for (Produkt produkt : getLager()) {
-			if (produkt.getKategorie() != null && produkt.getKategorie().equals(kategorie)) {
-				filteredProdukte.add(produkt);
-			}
-		}
 		return filteredProdukte;
 	}
 
 	/**
-	 * Erzeugt einen neuen Rabattcode zwischen 5 und 20 Prozent.
+	 * Erzeugt einen neuen Rabattcode zwischen 5 und 20 Prozent. return der Code
+	 * wird ausgegeben
+	 * 
+	 * @return der code
 	 */
 	public String addRabatt() {
 		// Erzeugen eines neuen Codes aus dem Alphabet

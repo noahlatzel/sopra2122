@@ -15,6 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Ueerbick ueber die Transaktionen
+ * 
+ * @author Noah Latzel
+ *
+ */
 public class Transaktionshistorie extends InhaberOverview {
 	BorderPane contentWrapper;
 	ScrollPane scrollPane;

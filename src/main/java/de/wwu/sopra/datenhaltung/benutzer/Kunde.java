@@ -61,22 +61,14 @@ public class Kunde extends Benutzer {
 	 * @pre Die Bestellung ist nicht leer
 	 * @post Die Bestellung wurde dem Kunden hinzugefuegt und ist so vermerkt
 	 */
-	public void bestellungHinzufuegen(Bestellung bestellung) throws NullPointerException {
+	public void bestellungHinzufuegen(Bestellung bestellung) {
 		// Vorbedingung pruefen
-		assert !bestellung.getProdukte().isEmpty()
-				: "Vorbedingung von bestellungHinzufuegen verletzt: die uebergebene Bestellung ist leer";
-
-		if (bestellung == null)
-			throw new NullPointerException();
+		assert bestellung != null && !bestellung.getProdukte().isEmpty()
+				: "Vorbedingung von bestellungHinzufuegen verletzt: die uebergebene Bestellung ist null";
 		if (!this.bestellungen.contains(bestellung)) {
 			this.bestellungen.add(bestellung);
 		}
 
-		// Nachbedingung pruefen
-		assert bestellung.getKunde().equals(this)
-				: "Nachbedingung von bestellungHinzufuegen verletzt: die Bestellung enthaelt nicht den Kunden als Referenz";
-		assert this.bestellungen.contains(bestellung)
-				: "Nachbedingung von bestellungHinzufuegen verletzt: die Bestellung ist nicht in der Liste der Bestellungen des Kunden";
 	}
 
 	/**
@@ -106,11 +98,6 @@ public class Kunde extends Benutzer {
 	public void setWarenkorb(Warenkorb warenkorb) {
 		this.warenkorb = warenkorb;
 
-		// Nachbedingung pruefen
-		assert warenkorb.getKunde().equals(this)
-				: "Nachbedingung von setWarenkorb() verletzt: der Kunde ist nicht dem Warenkorb zugeordnet";
-		assert this.getWarenkorb().equals(warenkorb)
-				: "Nachbedingung von setWarenkorb() verletzt: der Warenkorb ist nicht dem Kunden zugeordnet";
 	}
 
 	/**
@@ -133,6 +120,7 @@ public class Kunde extends Benutzer {
 	 * Fuegt Rabattcode zu den fuer den Kunden verfuegbaren Rabattcodes hinzu.
 	 * 
 	 * @param rabattcode Wird zu den verfuegbaren Rabattcodes hinzugefuegt.
+	 * @param prozent    wie viel prozent
 	 */
 	public void addRabatt(String rabattcode, int prozent) {
 		assert prozent > 0 && prozent <= 100 : "Die Prozentzahl liegt nicht zwischen 0 und 100 Prozent.";
@@ -186,7 +174,7 @@ public class Kunde extends Benutzer {
 
 		for (Rabatt rabatt : rabatte) {
 			if (rabatt.getRabattcode().equals(rabattcode)) {
-				return rabatt;
+				getRabatt = rabatt;
 			}
 		}
 		return getRabatt;

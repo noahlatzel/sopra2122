@@ -61,6 +61,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 */
 	public BorderPane setOuterBorderPane() {
 		BorderPane borderpane = new BorderPane();
+		borderpane.getStyleClass().add("kunde-content-wrapper");
 
 		borderpane.setTop(setTitle());
 		borderpane.setCenter(setInnerBorderPane());
@@ -77,7 +78,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 		HBox hbox = new HBox();
 
 		Label warenkorb = new Label("Warenkorb");
-		warenkorb.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
+		warenkorb.getStyleClass().add("kunde-warenkorb-label");
 		hbox.getChildren().add(warenkorb);
 
 		hbox.setPadding(new Insets(10));
@@ -101,11 +102,16 @@ public class WarenkorbAnsicht extends KundeOverview {
 		borderpane.setCenter(line);
 		borderpane.setLeft(setScrollPane());
 
-		borderpane.setStyle("-fx-background-color: white");
+		borderpane.getStyleClass().add("kunde-bestellung-ansicht-inner-wrapper");
 
 		return borderpane;
 	}
 
+	/**
+	 * scrollpane
+	 * 
+	 * @return ScrollPane
+	 */
 	public ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
 		ScrollPane scrollpane = new ScrollPane(vbox);
@@ -114,8 +120,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 		scrollpane.setMinWidth(getWidth() / 1.4);
 		scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
-		scrollpane.setStyle(
-				" -fx-focus-color: white; -fx-border-style: none; -fx-border-color: white; -fx-background-insets: 0, 0, 0, 0; -fx-color: white; -fx-background-color: transparent; -fx-control-inner-background: white");
+		scrollpane.getStyleClass().add("kunde-bestellung-warenkorb-scrollpane");
 		scrollpane.setFitToWidth(true);
 		scrollpane.setFitToHeight(true);
 
@@ -129,6 +134,7 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 */
 	public VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-vbox-produkte");
 
 		Warenkorb warenkorb = kundensteuerung.warenkorbAnsicht();
 
@@ -163,12 +169,14 @@ public class WarenkorbAnsicht extends KundeOverview {
 			warenkorbLeerLabel.setAlignment(Pos.CENTER);
 		}
 
-		vbox.setPadding(new Insets(10));
-		vbox.setStyle(" -fx-background-color: white");
-
 		return vbox;
 	}
 
+	/**
+	 * VBox zum bestellen
+	 * 
+	 * @return vBox bstellen
+	 */
 	public VBox setVBoxBestellen() {
 		VBox vbox = new VBox();
 
@@ -190,11 +198,16 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Vbox zum setzen des Rabattcodes
+	 * 
+	 * @return Vbox rabattcode
+	 */
 	public VBox setRabattcodeVBox() {
 		VBox vbox = new VBox();
 
 		Label rabattLabel = new Label("Rabattcode:");
-		rabattLabel.setStyle(" -fx-font-size: 19; -fx-font-weight: bold");
+		rabattLabel.getStyleClass().add("kunde-warenkorb-rabatt-label");
 
 		comboboxRabatt = new ComboBox<String>();
 		for (Rabatt rabatt : kundensteuerung.getRabatte()) {
@@ -208,6 +221,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Vbox der summe
+	 * 
+	 * @return Vboc der summe
+	 */
 	public VBox setSummeVBox() {
 		VBox vbox = new VBox();
 
@@ -224,10 +242,10 @@ public class WarenkorbAnsicht extends KundeOverview {
 		vbox.getChildren().add(subtotal);
 		vbox.getChildren().add(preis);
 
-		subtotal.setStyle(" -fx-font-size: 19; -fx-font-weight: bold");
-		preis.setStyle(" -fx-font-size: 16");
+		subtotal.getStyleClass().add("kunde-warenkorb-summe-box-subtotal");
+		preis.getStyleClass().add("kunde-warenkorb-summe-box-preis");
 
-		vbox.setPadding(new Insets(20, 40, 60, 5));
+		vbox.getStyleClass().add("kunde-warenkorb-summe-box");
 
 		return vbox;
 	}
@@ -300,27 +318,39 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return borderpane;
 	}
 
+	/**
+	 * Vbox fuer den namen
+	 * 
+	 * @param produkte aktuelles Produkt
+	 * @return Vbox mit namen
+	 */
 	public VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
 		Label nameLabel = new Label(produkte.get(0).getName());
 		Label anzahlLabel = new Label("Anzahl: " + produkte.size());
 
-		nameLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 14;");
-		anzahlLabel.setStyle(" -fx-font-weight: bold; -fx-font-size: 12;");
+		nameLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name");
+		anzahlLabel.getStyleClass().add("kunde-bestellung-warenkorb-produkt-quantity");
 
 		vbox.getChildren().add(nameLabel);
 		vbox.getChildren().add(anzahlLabel);
 
 		vbox.setPadding(new Insets(5, getWidth() / 3, 5, 15));
-		vbox.setSpacing(13);
-		vbox.setStyle(" -fx-background-color: white");
+		vbox.getStyleClass().add("kunde-bestellung-warenkorb-produkt-name-vbox");
 
 		return vbox;
 	}
 
+	/**
+	 * Vbox fuer das Preislabel
+	 * 
+	 * @param produkte Aktuelles Produkt
+	 * @return Vbox preislabel
+	 */
 	public VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("kunde-warenkorb-price-label-box");
 		Label preisLabel = new Label("Preis");
 
 		// Summieren der Preise der Produkte
@@ -331,16 +361,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		verkaufspreis = (Math.floor(verkaufspreis * 100)) / 100;
 		Label preis = new Label(verkaufspreis + " EUR");
 
-		preisLabel.setStyle(" -fx-font-weight: bold;");
-		preis.setStyle("-fx-font-size: 14;");
+		preisLabel.getStyleClass().add("kunde-bestellung-warenkorb-price-label");
+		preis.getStyleClass().add("kunde-bestellung-warenkorb-price");
 
 		vbox.getChildren().add(preisLabel);
 		vbox.getChildren().add(preis);
-
-		vbox.setAlignment(Pos.CENTER_LEFT);
-
-		vbox.setPadding(new Insets(10));
-		vbox.setSpacing(2);
 
 		return vbox;
 	}
@@ -356,27 +381,16 @@ public class WarenkorbAnsicht extends KundeOverview {
 	 */
 	public Button setLoeschenButton(List<Produkt> produkte) {
 		Button loeschenBt = new Button();
+		loeschenBt.getStyleClass().add("kunde-warenkorb-loeschen-botton");
 
 		ImageView view = new ImageView(getClass().getResource("cross.png").toExternalForm());
 		view.setFitWidth(10);
 		view.setFitHeight(10);
 		loeschenBt.setGraphic(view);
 
-		loeschenBt.setAlignment(Pos.CENTER);
-
-		loeschenBt.setStyle(" -fx-border: none; -fx-background-color: transparent");
-
 		loeschenBt.setOnMouseClicked(e -> {
 			kundensteuerung.warenkorbAnsicht().getProdukte().removeAll(produkte);
 			primaryStage.setScene(new WarenkorbAnsicht(primaryStage, getWidth(), getHeight(), kundensteuerung));
-		});
-
-		loeschenBt.setOnMouseEntered(e -> {
-			loeschenBt.setStyle(" -fx-cursor: hand; -fx-border: none; -fx-background-color: transparent");
-		});
-
-		loeschenBt.setOnMouseExited(e -> {
-			loeschenBt.setStyle(" -fx-cursor: default; -fx-border: none; -fx-background-color: transparent");
 		});
 
 		return loeschenBt;

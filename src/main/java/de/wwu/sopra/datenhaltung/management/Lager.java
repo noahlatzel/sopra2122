@@ -167,14 +167,13 @@ public class Lager implements Serializable {
 	/**
 	 * Erzeugen einer Liste mit allen Objekten mit dem selben Namen
 	 * 
-	 * @param produkte HashSet mit allen Produkten
-	 * @param suche    Name des Produkts
+	 * @param suche Name des Produkts
 	 * @return Liste mit allen Produkten aus dem Lager welche der uebergebenen Namen
 	 *         tragen
 	 */
-	public static List<Produkt> getProdukteAusLager(List<Produkt> produkte, String suche) {
+	public static List<Produkt> getProdukteAusLager(String suche) {
 		List<Produkt> liste = new ArrayList<Produkt>();
-		for (Produkt p : produkte) {
+		for (Produkt p : Lager.sortimentAnzeigen()) {
 			if (p.getName().equals(suche)) {
 				liste.add(p);
 			}

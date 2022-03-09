@@ -178,4 +178,32 @@ public class BenutzerRegisterTest {
 		assertTrue(temp.toString().equals(temp_1));
 	}
 
+	@Test
+	void testAssertionError() {
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.bestellungZuBestellungslisteHinzufuegen(null, null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.produktZuWarenkorbHinzufuegen(null, null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.produktAusWarenkorbEntfernen(null, null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.benutzerHinzufuegen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.benutzerEntfernen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.getBestellungen(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.getWarenkorb(null);
+		});
+		assertThrows(AssertionError.class, () -> {
+			BenutzerRegister.getBenutzerZuBenutzername(null);
+		});
+	}
+
 }

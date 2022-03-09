@@ -39,7 +39,6 @@ public class Rechnung implements Serializable {
 	 * 
 	 * @param datum      Datum der Bestellung
 	 * @param bestellung Bestellung fuer die Rechnung ist
-	 * @post Die Einnahmen steigen um den Endbetrag der Rechnung
 	 */
 	public Rechnung(LocalDateTime datum, Bestellung bestellung) {
 
@@ -50,9 +49,6 @@ public class Rechnung implements Serializable {
 		double umsatz_neu = Statistiken.getUmsatz() + this.endbetrag;
 		Statistiken.setUmsatz(umsatz_neu);
 
-		// Nachbedingung pruefen
-		assert Statistiken.getUmsatz() == umsatz_neu
-				: "Nachbedingung des Konstruktors der Rechnung verletzt: der Betrag der Rechnung wurde nicht den Einnahmen hinzugefuegt";
 	}
 
 	/**
