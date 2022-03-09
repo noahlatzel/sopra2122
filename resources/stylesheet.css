@@ -712,7 +712,7 @@
 
 .kunde-bestellung-warenkorb-produkt-name-vbox {
     -fx-spacing: 13;
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
 }
 
 .kunde-bestellung-warenkorb-price-label {
@@ -729,13 +729,13 @@
 }
 
 .kunde-bestellung-warenkorb-scrollpane {
-    -fx-focus-color: white;
+    -fx-focus-color: #ffffff;
     -fx-border-style: none;
-    -fx-border-color: white;
+    -fx-border-color: #ffffff;
     -fx-background-insets: 0, 0, 0, 0;
-    -fx-color: white;
+    -fx-color: #ffffff;
     -fx-background-color: transparent;
-    -fx-control-inner-background: white;
+    -fx-control-inner-background: #ffffff;
 }
 
 .kunde-warenkorb-label {
@@ -821,7 +821,7 @@
 
 .kunde-bestellungen-produkt-name-vbox {
     -fx-spacing: 13;
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
 }
 
 .kunde-daten-wrapper {
