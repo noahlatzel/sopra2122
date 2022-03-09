@@ -69,7 +69,6 @@ public class LagerTest {
 		assertTrue(Lager.getLagerbestand().get(temp3) == temp_int - 1);
 		Lager.produktAusDemSortimentEntfernen(temp3);
 		Lager.produktAusDemSortimentEntfernen(temp);
-		System.out.println("testRemoveProdukt: " + Lager.sortimentAnzeigen());
 	}
 
 	/**
@@ -77,11 +76,9 @@ public class LagerTest {
 	 */
 	@Test
 	void testAddProdukte() {
-		System.out.println(Lager.sortimentAnzeigen());
 		for (Produkt p : produkte) {
 			assertTrue(Lager.getLager().contains(p));
 		}
-		System.out.println(Lager.getProduktBestand(temp3));
 		assertTrue(Lager.getLagerbestand().get(temp3) == 1);
 		assertTrue(Lager.getLagerbestand().get(temp) == 3);
 	}
@@ -111,7 +108,6 @@ public class LagerTest {
 		assertTrue(Lager.getProduktBestand(temp) == anzahl);
 		Lager.produktAusDemSortimentEntfernen(temp3);
 		Lager.produktAusDemSortimentEntfernen(temp);
-		System.out.println("getProduktBestand: " + Lager.sortimentAnzeigen());
 	}
 
 	/**
@@ -173,6 +169,9 @@ public class LagerTest {
 	void testGetProduktNamenListe() {
 		assertTrue(Lager.getProduktNamenListe().contains("Coca Cola"));
 		assertTrue(Lager.getProduktNamenListe().contains("Cola"));
+
+		temp2.setName("Cola");
+		temp2.setName("Coca Cola");
 	}
 
 }

@@ -37,6 +37,10 @@ public class Lager implements Serializable {
 	 */
 	private static final String path_kat = "lager_kat.ser";
 	/**
+	 * Pfad zum Speichern der Kategorien
+	 */
+	private static final String path_namen = "lager_namen.ser";
+	/**
 	 * Liste der Produkte im Lager
 	 */
 	private static List<Produkt> lager = new ArrayList<Produkt>();
@@ -226,6 +230,8 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
 		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
+		SerialisierungPipeline<ArrayList<String>> sp3 = new SerialisierungPipeline<ArrayList<String>>();
+		produktNamenListe = sp3.deserialisieren(path_namen, new ArrayList<String>());
 		lagerBestand = sp.deserialisieren(path_map, new HashMap<Produkt, Integer>());
 		kategorieListe = sp2.deserialisieren(path_kat, new HashSet<Kategorie>());
 		lager = sp1.deserialisieren(path_set, new ArrayList<Produkt>());
@@ -253,7 +259,7 @@ public class Lager implements Serializable {
 	public static void produktZumSortimentHinzufuegen(Produkt produkt) {
 		if (lagerBestand.get(produkt) == null) {
 			lagerBestand.put(produkt, 0);
-			GrosshaendlerRegister.getPreislisteIn().put(produkt.getName(), produkt.getEinkaufspreis());
+			GrosshaendlerRegister.setEinkaufspreis(produkt, produkt.getEinkaufspreis());
 		}
 	}
 
@@ -283,9 +289,11 @@ public class Lager implements Serializable {
 		SerialisierungPipeline<HashMap<Produkt, Integer>> sp = new SerialisierungPipeline<HashMap<Produkt, Integer>>();
 		SerialisierungPipeline<HashSet<Kategorie>> sp2 = new SerialisierungPipeline<HashSet<Kategorie>>();
 		SerialisierungPipeline<List<Produkt>> sp1 = new SerialisierungPipeline<List<Produkt>>();
+		SerialisierungPipeline<List<String>> sp3 = new SerialisierungPipeline<List<String>>();
 		sp.serialisieren(Lager.getLagerbestand(), path_map);
 		sp1.serialisieren(Lager.getLager(), path_set);
 		sp2.serialisieren(Lager.getKategorien(), path_kat);
+		sp3.serialisieren(Lager.getProduktNamenListe(), path_namen);
 	}
 
 	/**

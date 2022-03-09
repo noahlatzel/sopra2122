@@ -124,6 +124,7 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			lbVorname.getStyleClass().add("fahrer-persoenliche-daten-label");
 			lbNachname.getStyleClass().add("fahrer-persoenliche-daten-label");
 			lbBankverbindung.getStyleClass().add("fahrer-persoenliche-daten-label");
+
 			// Textfeld nicht editierbar
 			tfBenutzername.setDisable(true);
 			tfPasswort.setDisable(true);
@@ -159,36 +160,39 @@ public class PersoenlicheDatenAnzeigen extends OverviewFahrer {
 			speichern.getStyleClass().add("inhaber-form-button");
 			GridPane.setMargin(speichern, new Insets(24, 0, 0, 0));
 			speichern.setOnAction(a -> {
+
 				// test auf blank stellen
-				boolean istallesvoll = true;
-				List<TextField> felder = new ArrayList<TextField>();
-				felder.add(tfBankverbindung);
-				felder.add(tfNachname);
-				felder.add(tfVorname);
-				felder.add(tfAdresse);
-				felder.add(tfEmail);
-				felder.add(tfPasswort);
-				felder.add(tfBenutzername);
-				for (TextField i : felder) {
+				boolean korrekteEingabe = true;
+
+				List<TextField> inputs = new ArrayList<TextField>();
+				inputs.add(tfBankverbindung);
+				inputs.add(tfNachname);
+				inputs.add(tfVorname);
+				inputs.add(tfAdresse);
+				inputs.add(tfEmail);
+				inputs.add(tfPasswort);
+				inputs.add(tfBenutzername);
+				for (TextField i : inputs) {
 					if (i.getText().isBlank())
-						istallesvoll = false;
+						korrekteEingabe = false;
 				}
 
-				// wenn nicht blank
-				if (istallesvoll == true) {
+				// Wenn nicht leer
+				if (korrekteEingabe == true) {
 					steuerung.persoenlicheDatenBearbeiten(tfBenutzername.getText(), tfPasswort.getText(),
 							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
 							tfBankverbindung.getText());
+					tfBenutzername.setDisable(true);
+					tfPasswort.setDisable(true);
+					tfEmail.setDisable(true);
+					tfAdresse.setDisable(true);
+					tfVorname.setDisable(true);
+					tfNachname.setDisable(true);
+					tfBankverbindung.setDisable(true);
 				} else {
-					grid.add(new Label("Es gibt Leere Angaben"), 2, 7);
+					grid.add(new Label("Ueberpruefe deine Eingaben!"), 2, 7);
 				}
-				tfBenutzername.setDisable(true);
-				tfPasswort.setDisable(true);
-				tfEmail.setDisable(true);
-				tfAdresse.setDisable(true);
-				tfVorname.setDisable(true);
-				tfNachname.setDisable(true);
-				tfBankverbindung.setDisable(true);
+
 			});
 
 			// Grid setzen

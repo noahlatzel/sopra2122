@@ -80,9 +80,9 @@ public class LageristOverview extends Scene {
 	private VBox setVBox() {
 		if (this.vbox == null) {
 			vbox = new VBox();
-			vbox.getChildren().add(this.setBtRoutePlanen());
-			vbox.getChildren().add(this.setBtBestelleNach());
 			vbox.getChildren().add(this.setBtPersDatenAnzeigen());
+			vbox.getChildren().add(this.setBtBestelleNach());
+			vbox.getChildren().add(this.setBtRoutePlanen());
 			vbox.getChildren().add(this.setBtZeigeRouteVonFahrzeug());
 			vbox.getStyleClass().add("mitarbeiter-sidemenu-wrapper");
 		}
@@ -174,7 +174,7 @@ public class LageristOverview extends Scene {
 	 */
 	private Button setBtPersDatenAnzeigen() {
 		if (this.btPersDatenAnzeigen == null) {
-			btPersDatenAnzeigen = new Button("Persoenliche Daten anzeigen");
+			btPersDatenAnzeigen = new Button("Persoenliche Daten");
 			btPersDatenAnzeigen.getStyleClass().add("mitarbeiter-sidemenu-button");
 			btPersDatenAnzeigen.setOnAction(a -> {
 				primaryStage.setScene(

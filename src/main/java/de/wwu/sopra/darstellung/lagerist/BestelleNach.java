@@ -5,9 +5,9 @@ import de.wwu.sopra.datenhaltung.management.Lager;
 import de.wwu.sopra.datenhaltung.management.Produkt;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -19,10 +19,10 @@ public class BestelleNach extends LageristOverview {
 	TilePane tilePane;
 	BorderPane contentWrapper;
 	NachbestellungProduktGUI produktGUI;
+	ScrollPane scrollPane;
 
 	/**
-	 * Diese Methode zeigt alle Produkte, die nachbestellbar sind, da der
-	 * Grosshaendler sie auf Lager hat, und im Sortiment sind.
+	 * Diese Methode zeigt alle Produkte, die im Sortiment sind.
 	 * 
 	 * @param primaryStage        primaryStage uebergeben aus LageristOverview
 	 * @param width               Breite des Fensters
@@ -49,10 +49,9 @@ public class BestelleNach extends LageristOverview {
 			contentWrapper = new BorderPane();
 			contentWrapper.setPadding(new Insets(10, 30, 10, 30));
 			Label title = new Label("Nachbestellungen");
-			title.setStyle("-fx-font-weight: bold");
-			title.setFont(new Font("Arial", 32));
+			title.getStyleClass().add("mitarbeiter-content-title");
 			contentWrapper.setTop(title);
-			contentWrapper.setCenter(this.setTilePane());
+			contentWrapper.setCenter(this.setScrollPane());
 		}
 
 		return this.contentWrapper;
@@ -64,7 +63,7 @@ public class BestelleNach extends LageristOverview {
 			tilePane.setPadding(new Insets(20));
 			tilePane.setHgap(10);
 			tilePane.setVgap(10);
-
+			tilePane.setPrefColumns(4);
 			for (Produkt produkt : lageristenSteuerung.getSortiment()) {
 				if (Lager.getLagerbestand().get(produkt) != null) {
 					tilePane.getChildren().add(produktGUI.setProduktAnsicht(produkt, Lager.getProduktBestand(produkt)));
@@ -72,5 +71,13 @@ public class BestelleNach extends LageristOverview {
 			}
 		}
 		return tilePane;
+	}
+
+	private ScrollPane setScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new ScrollPane();
+			scrollPane.setContent(setTilePane());
+		}
+		return scrollPane;
 	}
 }

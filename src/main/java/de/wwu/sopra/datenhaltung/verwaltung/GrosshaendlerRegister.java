@@ -19,7 +19,7 @@ public class GrosshaendlerRegister implements Serializable {
 	/**
 	 * Liste der Einkaufspreise
 	 */
-	private static HashMap<String, Double> preisListeIn = new HashMap<String, Double>();
+	private static HashMap<Integer, Double> preisListeIn = new HashMap<Integer, Double>();
 	// private static HashMap<String, Produkt> produktListe = new HashMap<String,
 	// Produkt>();
 	/**
@@ -40,20 +40,8 @@ public class GrosshaendlerRegister implements Serializable {
 	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
 	 */
 	public static double getEinkaufspreis(Produkt produkt) {
-		return preisListeIn.get(produkt.getName());
+		return preisListeIn.get(produkt.getProduktID());
 		// return produktListe.get(produkt.getName()).getEinkaufspreis();
-	}
-
-	/**
-	 * Gibt den Preis des Produkts zurueck.
-	 * 
-	 * @param produktname Name des Produkts, fuer welches der Preis abgefragt werden
-	 *                    soll.
-	 * @return Der Preis des Produkts, falls dieser gefuehrt wird.
-	 */
-	public static double getEinkaufspreis(String produktname) {
-		return preisListeIn.get(produktname);
-		// return produktListe.get(produktname).getEinkaufspreis();
 	}
 
 	/**
@@ -63,18 +51,7 @@ public class GrosshaendlerRegister implements Serializable {
 	 * @param preis   Der neue Preis.
 	 */
 	public static void setEinkaufspreis(Produkt produkt, double preis) {
-		preisListeIn.put(produkt.getName(), preis);
-	}
-
-	/**
-	 * Setzt den Preis fuer ein Produkt.
-	 * 
-	 * @param produktname Name des Produkts, fuer welches der Preis gesetzt werden
-	 *                    soll.
-	 * @param preis       Der neue Preis.
-	 */
-	public static void setEinkaufspreis(String produktname, double preis) {
-		preisListeIn.put(produktname, preis);
+		preisListeIn.put(produkt.getProduktID(), preis);
 	}
 
 	/**
@@ -82,7 +59,7 @@ public class GrosshaendlerRegister implements Serializable {
 	 * 
 	 * @return Die Einkaufspreisliste.
 	 */
-	public static HashMap<String, Double> getPreislisteIn() {
+	public static HashMap<Integer, Double> getPreislisteIn() {
 		return preisListeIn;
 	}
 
@@ -90,15 +67,15 @@ public class GrosshaendlerRegister implements Serializable {
 	 * Deserialisiert das FahrzeugRegister.
 	 */
 	public static void load() {
-		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
-		preisListeIn = sp.deserialisieren(path, new HashMap<String, Double>());
+		SerialisierungPipeline<HashMap<Integer, Double>> sp = new SerialisierungPipeline<HashMap<Integer, Double>>();
+		preisListeIn = sp.deserialisieren(path, new HashMap<Integer, Double>());
 	}
 
 	/**
 	 * Serialisiert das FahrzeugRegister.
 	 */
 	public static void save() {
-		SerialisierungPipeline<HashMap<String, Double>> sp = new SerialisierungPipeline<HashMap<String, Double>>();
+		SerialisierungPipeline<HashMap<Integer, Double>> sp = new SerialisierungPipeline<HashMap<Integer, Double>>();
 		sp.serialisieren(GrosshaendlerRegister.preisListeIn, path);
 	}
 

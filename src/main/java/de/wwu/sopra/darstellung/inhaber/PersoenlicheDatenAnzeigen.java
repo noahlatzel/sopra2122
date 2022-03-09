@@ -3,8 +3,12 @@
  */
 package de.wwu.sopra.darstellung.inhaber;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.wwu.sopra.anwendung.mitarbeiter.Inhabersteuerung;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -19,7 +23,7 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 	// Erstellung von Variablen
 	BorderPane contentWrapper;
 	GridPane gridPane;
-	
+
 	TextField textFeldBenutzername = new TextField();
 	TextField textFeldPasswort = new TextField();
 	TextField textFeldEmail = new TextField();
@@ -69,69 +73,147 @@ public class PersoenlicheDatenAnzeigen extends InhaberOverview {
 	}
 
 	/**
-	 * Setzt Inhalt
+	 * Setzt den Inhalt
 	 * 
 	 * @return GridPane mit Inhalt
 	 */
 	private GridPane setContent() {
-		if (this.gridPane == null) {
+		if (gridPane == null) {
 			gridPane = new GridPane();
-			// Get alle Daten vom Inhaber als String
-			String alleDatenAlsString = inhaberSteuerung.persoenlicheDatenAnzeigen();
+			String gesamtString = inhaberSteuerung.persoenlicheDatenAnzeigen();
 
-			// Styling TextFelder, Labeln, GridPane
-			textFeldBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldEmail.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldVorname.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldName.getStyleClass().add("anmeldung-registrierung-textfield");
-			textFeldBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
-			labelBenutzername.getStyleClass().add("anmeldung-registrierung-label");
-			labelPasswort.getStyleClass().add("anmeldung-registrierung-label");
-			labelEmail.getStyleClass().add("anmeldung-registrierung-label");
-			labelAdresse.getStyleClass().add("anmeldung-registrierung-label");
-			labelVorname.getStyleClass().add("anmeldung-registrierung-label");
-			labelName.getStyleClass().add("anmeldung-registrierung-label");
-			labelBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
-			gridPane.getStyleClass().add("mitarbeiter-registrierung-wrapper");
+			// Label
+			Label lbBenutzername = new Label("Benutzername:");
+			Label lbPasswort = new Label("Passwort:");
+			Label lbEmail = new Label("Email:");
+			Label lbAdresse = new Label("Adresse:");
+			Label lbVorname = new Label("Vorname:");
+			Label lbNachname = new Label("Nachname:");
+			Label lbBankverbindung = new Label("Bankverbindung:");
 
-			// Alles auf Grid
-			gridPane.add(labelVorname, 1, 1);
-			gridPane.add(textFeldVorname, 1, 2);
-			gridPane.add(labelName, 2, 1);
-			gridPane.add(textFeldName, 2, 2);
-			gridPane.add(labelBenutzername, 1, 4);
-			gridPane.add(textFeldBenutzername, 1, 5);
-			gridPane.add(labelPasswort, 2, 4);
-			gridPane.add(textFeldPasswort, 2, 5);
-			gridPane.add(labelEmail, 1, 7);
-			gridPane.add(textFeldEmail, 1, 8);
-			gridPane.add(labelAdresse, 2, 7);
-			gridPane.add(textFeldAdresse, 2, 8);
-			gridPane.add(labelBankverbindung, 1, 10);
-			gridPane.add(textFeldBankverbindung, 1, 11);
+			// Setzen in GridPane
 
-			// Lange String durch ";" teilen und Daten einsetzen
-			String[] getrennteDatenString = alleDatenAlsString.split(";");
-			textFeldBenutzername.setText(getrennteDatenString[0]);
-			textFeldPasswort.setText(getrennteDatenString[1]);
-			textFeldEmail.setText(getrennteDatenString[2]);
-			textFeldAdresse.setText(getrennteDatenString[3]);
-			textFeldVorname.setText(getrennteDatenString[4]);
-			textFeldName.setText(getrennteDatenString[5]);
-			textFeldBankverbindung.setText(getrennteDatenString[6]);
+			gridPane.add(lbBankverbindung, 0, 7);
+			gridPane.add(lbNachname, 0, 6);
+			gridPane.add(lbVorname, 0, 5);
+			gridPane.add(lbAdresse, 0, 4);
+			gridPane.add(lbEmail, 0, 3);
+			gridPane.add(lbPasswort, 0, 2);
+			gridPane.add(lbBenutzername, 0, 1);
 
-			// TextFields nicht bearbeitbar zu machen
-			textFeldBenutzername.setEditable(false);
-			textFeldPasswort.setEditable(false);
-			textFeldEmail.setEditable(false);
-			textFeldAdresse.setEditable(false);
-			textFeldVorname.setEditable(false);
-			textFeldName.setEditable(false);
-			textFeldBankverbindung.setEditable(false);
+			// TextFelder
+			TextField tfBenutzername = new TextField();
+			TextField tfPasswort = new TextField();
+			TextField tfEmail = new TextField();
+			TextField tfAdresse = new TextField();
+			TextField tfVorname = new TextField();
+			TextField tfNachname = new TextField();
+			TextField tfBankverbindung = new TextField();
+
+			// Grid setzen
+			gridPane.add(tfBankverbindung, 1, 7);
+			gridPane.add(tfNachname, 1, 6);
+			gridPane.add(tfVorname, 1, 5);
+			gridPane.add(tfAdresse, 1, 4);
+			gridPane.add(tfEmail, 1, 3);
+			gridPane.add(tfPasswort, 1, 2);
+			gridPane.add(tfBenutzername, 1, 1);
+
+			// Text setzen
+			String[] aufgeteilt = gesamtString.split(";");
+			tfBenutzername.setText(aufgeteilt[0]);
+			tfPasswort.setText(aufgeteilt[1]);
+			tfEmail.setText(aufgeteilt[2]);
+			tfAdresse.setText(aufgeteilt[3]);
+			tfVorname.setText(aufgeteilt[4]);
+			tfNachname.setText(aufgeteilt[5]);
+			tfBankverbindung.setText(aufgeteilt[6]);
+
+			// Label Style
+			lbBenutzername.getStyleClass().add("anmeldung-registrierung-label");
+			lbPasswort.getStyleClass().add("anmeldung-registrierung-label");
+			lbEmail.getStyleClass().add("anmeldung-registrierung-label");
+			lbAdresse.getStyleClass().add("anmeldung-registrierung-label");
+			lbVorname.getStyleClass().add("anmeldung-registrierung-label");
+			lbNachname.getStyleClass().add("anmeldung-registrierung-label");
+			lbBankverbindung.getStyleClass().add("anmeldung-registrierung-label");
+
+			// Text Style
+			tfBenutzername.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfPasswort.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfEmail.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfAdresse.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfVorname.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfNachname.getStyleClass().add("anmeldung-registrierung-textfield");
+			tfBankverbindung.getStyleClass().add("anmeldung-registrierung-textfield");
+
+			// Textfeld nicht editierbar
+			tfBenutzername.setDisable(true);
+			tfPasswort.setDisable(true);
+			tfEmail.setDisable(true);
+			tfAdresse.setDisable(true);
+			tfVorname.setDisable(true);
+			tfNachname.setDisable(true);
+			tfBankverbindung.setDisable(true);
+
+			// Buttons setzen
+			Button bearbeiten = new Button("Bearbeiten");
+			bearbeiten.getStyleClass().add("mitarbeiter-registrierung-button");
+			bearbeiten.setOnAction(a -> {
+				tfBenutzername.setDisable(false);
+				tfPasswort.setDisable(false);
+				tfEmail.setDisable(false);
+				tfAdresse.setDisable(false);
+				tfVorname.setDisable(false);
+				tfNachname.setDisable(false);
+				tfBankverbindung.setDisable(false);
+			});
+			Button speichern = new Button("Speichern");
+			speichern.getStyleClass().add("mitarbeiter-registrierung-button");
+			speichern.setOnAction(a -> {
+
+				// test auf blank stellen
+				boolean korrekteEingabe = true;
+
+				List<TextField> inputs = new ArrayList<TextField>();
+				inputs.add(tfBankverbindung);
+				inputs.add(tfNachname);
+				inputs.add(tfVorname);
+				inputs.add(tfAdresse);
+				inputs.add(tfEmail);
+				inputs.add(tfPasswort);
+				inputs.add(tfBenutzername);
+				for (TextField i : inputs) {
+					if (i.getText().isBlank())
+						korrekteEingabe = false;
+				}
+
+				// Wenn nicht leer
+				if (korrekteEingabe == true) {
+					inhaberSteuerung.persoenlicheDatenAendern(tfBenutzername.getText(), tfPasswort.getText(),
+							tfEmail.getText(), tfAdresse.getText(), tfVorname.getText(), tfNachname.getText(),
+							tfBankverbindung.getText());
+					tfBenutzername.setDisable(true);
+					tfPasswort.setDisable(true);
+					tfEmail.setDisable(true);
+					tfAdresse.setDisable(true);
+					tfVorname.setDisable(true);
+					tfNachname.setDisable(true);
+					tfBankverbindung.setDisable(true);
+				} else {
+					gridPane.add(new Label("Ueberpruefe deine Eingaben!"), 2, 7);
+				}
+
+			});
+
+			// Grid setzen
+			gridPane.add(bearbeiten, 0, 8);
+			gridPane.add(speichern, 1, 8);
+
+			// Abstand setzen
+			gridPane.setHgap(5);
+			gridPane.setVgap(5);
 		}
-
-		return this.gridPane;
+		return gridPane;
 	}
 }
