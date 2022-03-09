@@ -73,6 +73,7 @@ public class Inhabersteuerung {
 	 * @param beschreibung  Beschreibung des Produkts, kann nicht null oder leer
 	 *                      sein
 	 * @param verkaufspreis Verkaufspreis des Produkts, kann nicht negativ sein
+	 * @param bildPfad      Ordner Pfad fuer das bild
 	 * @throws IllegalArgumentException Die Eingaben sind ungueltig.
 	 */
 	public void produktBearbeiten(Produkt produkt, String name, String beschreibung, double verkaufspreis,
@@ -183,7 +184,7 @@ public class Inhabersteuerung {
 	/**
 	 * loesen eine Kategorie
 	 * 
-	 * @param kategorie
+	 * @param kategorie Die zu loeschedne Kategorie
 	 * @pre die Kategorie hat keine Unterkategorien
 	 * @pre die Kategorie hat keine prdoukte
 	 */
@@ -412,6 +413,11 @@ public class Inhabersteuerung {
 		return statistikHashMap;
 	}
 
+	/**
+	 * gibt die Transaktionshistorie aus
+	 * 
+	 * @return die Transaktions historie
+	 */
 	public ArrayList<Transaktion> getTransaktionshistorie() {
 		return Statistiken.getTransaktionshistorie();
 	}

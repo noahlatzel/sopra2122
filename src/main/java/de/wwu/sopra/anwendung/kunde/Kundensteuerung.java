@@ -119,6 +119,8 @@ public class Kundensteuerung {
 
 	/**
 	 * Methode zum Abgeben einer Bestellung mit Rabatt
+	 * 
+	 * @param rabatt der Rabttcode
 	 */
 	public void bestellen(Rabatt rabatt) {
 		List<Produkt> produkte = new ArrayList<Produkt>();
@@ -292,7 +294,10 @@ public class Kundensteuerung {
 	}
 
 	/**
-	 * Erzeugt einen neuen Rabattcode zwischen 5 und 20 Prozent.
+	 * Erzeugt einen neuen Rabattcode zwischen 5 und 20 Prozent. return der Code
+	 * wird ausgegeben
+	 * 
+	 * @return der code
 	 */
 	public String addRabatt() {
 		// Erzeugen eines neuen Codes aus dem Alphabet

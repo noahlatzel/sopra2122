@@ -277,7 +277,7 @@ public class Bestellung implements Serializable {
 	/**
 	 * Fuegt der Bestellung einen Rabatt hinzu.
 	 * 
-	 * @param rabatt
+	 * @param rabatt Der zu setzende Rabattcode
 	 */
 	public void setRabatt(Rabatt rabatt) {
 		this.rabatt = rabatt;

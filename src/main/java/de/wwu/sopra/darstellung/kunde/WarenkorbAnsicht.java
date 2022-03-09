@@ -107,6 +107,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return borderpane;
 	}
 
+	/**
+	 * scrollpane
+	 * 
+	 * @return ScrollPane
+	 */
 	public ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
 		ScrollPane scrollpane = new ScrollPane(vbox);
@@ -167,6 +172,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * VBox zum bestellen
+	 * 
+	 * @return vBox bstellen
+	 */
 	public VBox setVBoxBestellen() {
 		VBox vbox = new VBox();
 
@@ -188,6 +198,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Vbox zum setzen des Rabattcodes
+	 * 
+	 * @return Vbox rabattcode
+	 */
 	public VBox setRabattcodeVBox() {
 		VBox vbox = new VBox();
 
@@ -206,6 +221,11 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Vbox der summe
+	 * 
+	 * @return Vboc der summe
+	 */
 	public VBox setSummeVBox() {
 		VBox vbox = new VBox();
 
@@ -298,6 +318,12 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return borderpane;
 	}
 
+	/**
+	 * Vbox fuer den namen
+	 * 
+	 * @param produkte aktuelles Produkt
+	 * @return Vbox mit namen
+	 */
 	public VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
@@ -316,6 +342,12 @@ public class WarenkorbAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Vbox fuer das Preislabel
+	 * 
+	 * @param produkte Aktuelles Produkt
+	 * @return Vbox preislabel
+	 */
 	public VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 		vbox.getStyleClass().add("kunde-warenkorb-price-label-box");
