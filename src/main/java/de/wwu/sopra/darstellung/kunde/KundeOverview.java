@@ -64,7 +64,7 @@ public class KundeOverview extends Scene {
 	/**
 	 * Erzeugt eine Borderpane fuer den Header
 	 * 
-	 * @return
+	 * @return es wird die Borderpane uebergaben
 	 */
 	public BorderPane setHeaderBorderPane() {
 		BorderPane headerBP = new BorderPane();

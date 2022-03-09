@@ -45,6 +45,7 @@ public class BestellungAnsicht extends KundeOverview {
 	 * @param width           Breite des Fensters
 	 * @param height          Hoehe des Fensters
 	 * @param kundensteuerung KundenSteuerung
+	 * @param bestellung      die aktuelle bestellung
 	 */
 	public BestellungAnsicht(Stage primaryStage, double width, double height, Kundensteuerung kundensteuerung,
 			Bestellung bestellung) {
@@ -82,7 +83,8 @@ public class BestellungAnsicht extends KundeOverview {
 		Label bestellung = new Label("Bestellung Nr." + this.bestellung.getBestellnummer());
 		bestellung.setStyle(" -fx-font-size: 24; -fx-font-weight: bold");
 
-		Label datum = new Label("Bestellt am " + this.bestellung.getDatum().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
+		Label datum = new Label("Bestellt am " + this.bestellung.getDatum()
+				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)));
 
 		vbox.getChildren().add(bestellung);
 		vbox.getChildren().add(datum);
@@ -113,6 +115,12 @@ public class BestellungAnsicht extends KundeOverview {
 		return borderpane;
 	}
 
+	/**
+	 * Die Scroollpane mit der duch die Produkte gegangen wird
+	 * 
+	 * @return dcrollpane der Produkte
+	 */
+
 	public ScrollPane setScrollPane() {
 		VBox vbox = setVBoxProdukte();
 		ScrollPane scrollpane = new ScrollPane(vbox);
@@ -128,6 +136,12 @@ public class BestellungAnsicht extends KundeOverview {
 
 		return scrollpane;
 	}
+
+	/**
+	 * erstellt die Vbox fuer die Produkte
+	 * 
+	 * @return Vbox der Produkte
+	 */
 
 	public VBox setVBoxProdukte() {
 		VBox vbox = new VBox();
@@ -169,6 +183,12 @@ public class BestellungAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Erstllt die VBox auf der Rechten Seite
+	 * 
+	 * @return Gibt die rechte VBox zurueck
+	 */
+
 	public VBox setVBoxRechts() {
 		VBox vbox = new VBox();
 
@@ -206,6 +226,11 @@ public class BestellungAnsicht extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Die Vbox fuer denRabatt code wird erstellt
+	 * 
+	 * @return die VBox fuer den Rabattcode
+	 */
 	public VBox setRabattcodeVBox() {
 		VBox vbox = new VBox();
 
@@ -244,6 +269,12 @@ public class BestellungAnsicht extends KundeOverview {
 		return btRechnung;
 	}
 
+	/**
+	 * Erstellt die Box fuer den Status der Bestsllung
+	 * 
+	 * @return die VBox mit dem status
+	 */
+
 	public VBox setStatusVBox() {
 		VBox vbox = new VBox();
 
@@ -262,6 +293,12 @@ public class BestellungAnsicht extends KundeOverview {
 
 		return vbox;
 	}
+
+	/**
+	 * Die summe der bestellung wird berrechent und gescreiben
+	 * 
+	 * @return gibt die VBox der SUmme zurueck
+	 */
 
 	public VBox setSummeVBox() {
 		VBox vbox = new VBox();
@@ -366,6 +403,13 @@ public class BestellungAnsicht extends KundeOverview {
 		return hbox;
 	}
 
+	/**
+	 * erstellt die namen label der produkte
+	 * 
+	 * @param produkte das zu stellende Produkt
+	 * @return sie vBox die es anzeigt
+	 */
+
 	public VBox setProduktnameVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();
 
@@ -384,6 +428,13 @@ public class BestellungAnsicht extends KundeOverview {
 
 		return vbox;
 	}
+
+	/**
+	 * erstellt die preis label der produkte
+	 * 
+	 * @param produkte das zu stellende Produkt
+	 * @return sie vBox die es anzeigt
+	 */
 
 	public VBox setPreisLabelVBox(List<Produkt> produkte) {
 		VBox vbox = new VBox();

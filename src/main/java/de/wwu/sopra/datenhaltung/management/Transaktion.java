@@ -14,10 +14,25 @@ public class Transaktion implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private final LocalDateTime datum;
+	/**
+	 * 
+	 */
 	private final double betrag;
+	/**
+	 * 
+	 */
 	private final String beschreibung;
 
+	/**
+	 * konstruktor
+	 * 
+	 * @param beschreibung beschreibung
+	 * @param betrag       betrag
+	 */
 	public Transaktion(String beschreibung, double betrag) {
 		this.datum = LocalDateTime.now();
 		this.beschreibung = beschreibung;

@@ -48,6 +48,11 @@ public class UebersichtBestellungen extends KundeOverview {
 		root.setCenter(setBorderPane());
 	}
 
+	/**
+	 * eine Boderpane wird erstellt
+	 * 
+	 * @return eine BorderPane
+	 */
 	public BorderPane setBorderPane() {
 		BorderPane borderpane = new BorderPane();
 
@@ -76,6 +81,11 @@ public class UebersichtBestellungen extends KundeOverview {
 		return hbox;
 	}
 
+	/**
+	 * eine Scrollpane wird erstellt
+	 * 
+	 * @return eine Scrollpane
+	 */
 	private ScrollPane setScrollPane() {
 		ScrollPane scrollpane = new ScrollPane(setBestellungenVBox());
 
@@ -90,6 +100,11 @@ public class UebersichtBestellungen extends KundeOverview {
 		return scrollpane;
 	}
 
+	/**
+	 * eine Vbox wird erstellt
+	 * 
+	 * @return eine Vbox
+	 */
 	private VBox setBestellungenVBox() {
 		VBox vbox = new VBox();
 
@@ -109,6 +124,12 @@ public class UebersichtBestellungen extends KundeOverview {
 
 	}
 
+	/**
+	 * Das Panell fuer die Bestellungen wird erstellt
+	 * 
+	 * @param bestellung bestellung
+	 * @return das Panel der Bestellung
+	 */
 	private BorderPane setBestellungPanel(Bestellung bestellung) {
 		BorderPane borderpane = new BorderPane();
 
@@ -149,7 +170,9 @@ public class UebersichtBestellungen extends KundeOverview {
 		String status = convertEnumToString(bestellung.getStatus());
 		double preis = bestellung.getBetrag();
 		preis = (Math.floor(preis * 100)) / 100;
-		Label ueberschriftLabel = new Label(bestellung.getDatum().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)) + " - " + preis + " EUR - " + status);
+		Label ueberschriftLabel = new Label(bestellung.getDatum()
+				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT)) + " - " + preis
+				+ " EUR - " + status);
 
 		hbox.getChildren().add(ueberschriftLabel);
 
@@ -160,6 +183,12 @@ public class UebersichtBestellungen extends KundeOverview {
 		return hbox;
 	}
 
+	/**
+	 * Die VBox der Produktefelder
+	 * 
+	 * @param bestellung bestellung
+	 * @return vbox der produkte
+	 */
 	private VBox setProdukteFeldVBox(Bestellung bestellung) {
 		VBox vbox = new VBox();
 
@@ -183,6 +212,13 @@ public class UebersichtBestellungen extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * erstellt die Produktanele
+	 * 
+	 * @param bestellung bestellung
+	 * @param index      aktuelles Produkt
+	 * @return die Produkt vBox
+	 */
 	private HBox setProduktHBox(Bestellung bestellung, int index) {
 		HBox hbox = new HBox();
 
@@ -210,6 +246,13 @@ public class UebersichtBestellungen extends KundeOverview {
 		return hbox;
 	}
 
+	/**
+	 * Vbox fuer den Namen
+	 * 
+	 * @param bestellung Bestllung
+	 * @param index      aktuelles Proukt
+	 * @return vBoxName
+	 */
 	public VBox setProduktnameVBox(Bestellung bestellung, int index) {
 		VBox vbox = new VBox();
 
@@ -229,6 +272,13 @@ public class UebersichtBestellungen extends KundeOverview {
 		return vbox;
 	}
 
+	/**
+	 * Label fuer den Preis
+	 * 
+	 * @param produkte Produkte
+	 * @param index    aktuelles Produkt
+	 * @return das Preis Label
+	 */
 	public VBox setPreisLabelVBox(List<Produkt> produkte, int index) {
 		VBox vbox = new VBox();
 		Label preisLabel = new Label("Preis");

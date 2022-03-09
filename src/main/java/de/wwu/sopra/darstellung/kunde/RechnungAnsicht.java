@@ -21,6 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+/**
+ * Erzeugt ein Fenster mit der uebergebenen Rechnung
+ * 
+ * @author Paul Dirksen
+ *
+ */
 public class RechnungAnsicht {
 
 	private static Rechnung rechnung;
