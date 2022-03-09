@@ -659,7 +659,7 @@
 .kunde-startseite-search-button {
     -fx-min-width: 40;
     -fx-min-height: 40;
-    -fx-background-color: #bcbcbc;
+    -fx-background-color: transparent;
     -fx-font-weight: bold;
     -fx-border: none;
     -fx-alignment: center;
@@ -667,4 +667,202 @@
 
 .kunde-startseite-search-button:hover {
     -fx-cursor: hand;
+}
+
+.kunde-content-wrapper {
+    -fx-padding: 16px;
+}
+
+.kunde-bestellung-ansicht-title-wrapper {
+    -fx-padding: 10;
+}
+
+.kunde-bestellung-ansicht-title {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.kunde-bestellung-warenkorb-inner-wrapper {
+    -fx-background-color: #ffffff;
+}
+
+.kunde-bestellung-ansicht-right-side {
+    -fx-padding: 10;
+}
+
+.kunde-bestellung-ansicht-rabattcode-status-preis-label {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.kunde-bestellung-ansicht-rabattcode-status-preis {
+    -fx-font-size: 16;
+    -fx-alignment: center-right;
+}
+
+.kunde-bestellung-warenkorb-produkt-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.kunde-bestellung-warenkorb-produkt-quantity {
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+.kunde-bestellung-warenkorb-produkt-name-vbox {
+    -fx-spacing: 13;
+    -fx-background-color: white;
+}
+
+.kunde-bestellung-warenkorb-price-label {
+    -fx-font-weight: bold;
+}
+
+.kunde-bestellung-warenkorb-price {
+    -fx-font-size: 14;
+}
+
+.kunde-bestellung-ansicht-price-label-box {
+    -fx-padding: 10;
+    -fx-spacing: 2;
+}
+
+.kunde-bestellung-warenkorb-scrollpane {
+    -fx-focus-color: white;
+    -fx-border-style: none;
+    -fx-border-color: white;
+    -fx-background-insets: 0, 0, 0, 0;
+    -fx-color: white;
+    -fx-background-color: transparent;
+    -fx-control-inner-background: white;
+}
+
+.kunde-warenkorb-label {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.kunde-warenkorb-rabatt-label {
+    -fx-font-size: 19;
+    -fx-font-weight: bold;
+}
+
+.kunde-warenkorb-summe-box {
+    -fx-padding: 20 40 60 5;
+}
+
+.kunde-warenkorb-summe-box-preis {
+    -fx-font-size: 16;
+}
+
+.kunde-warenkorb-summe-box-subtotal {
+    -fx-font-size: 19;
+    -fx-font-weight: bold;
+}
+
+.kunde-warenkorb-price-label-box {
+    -fx-padding: 10;
+    -fx-spacing: 2;
+    -fx-alignment: center;
+}
+
+.kunde-warenkorb-loeschen-botton {
+    -fx-border: none;
+    -fx-background-color: transparent;
+    -fx-alignment: center
+}
+
+.kunde-warenkorb-loeschen-botton:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-bestellung-warenkorb-vbox-produkte {
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+}
+
+.kunde-bestellungen-title {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.kunde-bestellungen-scrollpane {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20;
+}
+
+.kunde-bestellungen-vbox {
+    -fx-background-color: #ffffff;
+    -fx-spacing: 30;
+    -fx-alignment: top-center;
+}
+
+.kunde-bestellungen-panel {
+    -fx-background-color: #ffffff;
+    -fx-border-style: solid;
+    -fx-border-color: gray;
+}
+
+.kunde-bestellungen-panel:hover {
+    -fx-cursor: hand;
+}
+
+.kunde-bestellungen-titel-hbox {
+    -fx-padding: 10;
+    -fx-background-color: #FF6868;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-border-bottom-style: solid;
+    -fx-border-bottom-color: #808080;
+}
+
+.kunde-bestellungen-produkt-name-vbox {
+    -fx-spacing: 13;
+    -fx-background-color: white;
+}
+
+.kunde-daten-wrapper {
+    -fx-alignment: center;
+}
+
+.kunde-daten-inner-wrapper {
+    -fx-padding: 20;
+    -fx-hgap: 24;
+    -fx-vgap: 24;
+    -fx-alignment: center;
+}
+
+.kunde-daten-label {
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+}
+
+.kunde-daten-textfield {
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.kunde-daten-button {
+    -fx-background-color: #FF6868;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-effect: dropshadow(gaussian, #668080, 5, 0.0, 4.0, 4.0);
+    -fx-padding: 12px 16px;
+}
+
+.kunde-daten-button:hover {
+    -fx-background-color: #C14343;
+    -fx-cursor: hand;
+}
+
+.kunde-rechnung-title {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
 }
