@@ -64,8 +64,7 @@ public class Lageristensteuerung {
 		for (NachbestellungTupel n : nachbestellungen) {
 			for (int i = 0; i < n.getMenge(); i++) {
 				if (n.getProdukt() != null) {
-					double preis = GrosshaendlerRegister.getEinkaufspreis(n.getProdukt());
-					Lager.addProdukt(n.getProdukt().clone(preis));
+					Lager.addProdukt(n.getProdukt().clone(n.getProdukt().getVerkaufspreis()));
 					Statistiken.addAusgaben((double) n.getProdukt().getEinkaufspreis());
 
 				}
