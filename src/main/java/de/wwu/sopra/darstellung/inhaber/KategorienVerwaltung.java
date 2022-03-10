@@ -138,7 +138,7 @@ public class KategorienVerwaltung extends InhaberOverview {
 			}
 
 			chOberUNterwahl.getItems().add("ober");
-			chOberUNterwahl.getItems().add("unter");
+			// chOberUNterwahl.getItems().add("unter");
 
 			// action von buttons
 			btKategorie.setOnAction(e -> {
